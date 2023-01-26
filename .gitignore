@@ -26,6 +26,9 @@
 # Visual Studio cache directory
 .vs/
 
+#For textmesh pro
+/[Aa]ssets/TextMesh Pro*
+
 # Gradle cache directory
 .gradle/
 

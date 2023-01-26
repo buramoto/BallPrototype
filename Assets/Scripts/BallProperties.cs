@@ -8,12 +8,15 @@ public class BallProperties : MonoBehaviour
     public enum temperature
     {
         neutral,
-        hot
+        hot,
+        cold
     }
 
     //Outputs
     public GameObject ball;
     public temperature tempState;
+
+    private SpriteRenderer ballDisplay;
     
 
     // Start is called before the first frame update
@@ -22,6 +25,8 @@ public class BallProperties : MonoBehaviour
         ball.transform.position = new Vector3(0, 0, 0);
         tempState = temperature.neutral;
         ball.SetActive(true);
+        ballDisplay = GetComponent<SpriteRenderer>();
+        ballDisplay.material.color = Color.gray;
     }
 
     // Update is called once per frame
@@ -47,6 +52,7 @@ public class BallProperties : MonoBehaviour
         {
             Debug.Log("Collided with heater");
             tempState = temperature.hot;
+            ballDisplay.material.color = Color.red;
         }
     }
 
@@ -56,10 +62,19 @@ public class BallProperties : MonoBehaviour
         //TODO some property check here
         if(tempState == temperature.hot)
         {
-            tempState = temperature.neutral;
             Plank plankProperties = plank.gameObject.GetComponent<Plank>();
-            //plankProperties.plankState = Plank.plankTemp.normal;
-            plank.SetActive(false);
+            switch(plankProperties.plankState)
+            {
+                case Plank.plankTemp.ice:
+                    tempState = temperature.neutral;
+                    ballDisplay.material.color = Color.gray;
+                    plank.SetActive(false);
+                    break;
+                case Plank.plankTemp.fire:
+                    break;
+                case Plank.plankTemp.normal:
+                    break;
+            }
         }
         return;
     }
