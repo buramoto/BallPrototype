@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BallProperties : MonoBehaviour
 {
+    /*
+     * This script handles the behavior of the player's ball. It should handle collusions and interactions
+     * such as destroying ice planks while hot
+    */
     //State variables
     public enum temperature
     {
@@ -16,13 +20,16 @@ public class BallProperties : MonoBehaviour
     public GameObject ball;
     public temperature tempState;
 
+    //Private variables
     private SpriteRenderer ballDisplay;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        //Set the ball to its starting position (This should be changed to be configurable based on level
         ball.transform.position = new Vector3(0, 0, 0);
+        //Set inital temperature
         tempState = temperature.neutral;
         ball.SetActive(true);
         ballDisplay = GetComponent<SpriteRenderer>();
@@ -35,6 +42,7 @@ public class BallProperties : MonoBehaviour
         
     }
 
+    //When colliding with an object, invoke appropriate function
     private void OnCollisionEnter2D(Collision2D collision)
     {
         switch (collision.gameObject.tag)
@@ -45,6 +53,7 @@ public class BallProperties : MonoBehaviour
         }
     }
 
+    //Change temperature based on heating/cooling element
     private void OnTriggerEnter2D(Collider2D other)
     {
         ChangeTemperature elementProperties = other.gameObject.GetComponent<ChangeTemperature>();
@@ -56,6 +65,7 @@ public class BallProperties : MonoBehaviour
         }
     }
 
+    //Check the plank's state and the ball's state, then destroy/interact with plank
     private void plankCollision(GameObject plank)
     {
         Debug.Log("Collided with plank");

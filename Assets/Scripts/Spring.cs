@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Spring : MonoBehaviour
 {
+    /*
+     * This script handles the beahvior of the spring. The force can be specified externally
+     * This script will need to be changed to check for collusion in a specific area instead of the entire object
+    */
     //Outlets
     public float springForce;
     // Start is called before the first frame update

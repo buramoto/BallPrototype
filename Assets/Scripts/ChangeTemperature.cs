@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class ChangeTemperature : MonoBehaviour
 {
-
+    /*
+     * This script handles the properties of the heating/cooling element.
+     * Its type can be specified in the Unity UI or dynamically with a script
+    */
     //Settings
     public enum tempType
     {

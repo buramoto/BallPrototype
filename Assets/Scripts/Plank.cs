@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Plank : MonoBehaviour
 { 
+    /*
+     * This script handles the behvaior of the plank. Its temperature can be adjusted both in the editor
+     * or via script. Eventually, we should change the colors to be configurable rather than hardcoded
+     * i.e. The normal temp should reference some global variable for that color
+    */
     public enum plankTemp
     {
         normal,
@@ -17,6 +22,7 @@ public class Plank : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Based on its current temperatue, set the color
         plankDisplay = GetComponent<SpriteRenderer>();
         switch (plankState)
         {
@@ -35,6 +41,7 @@ public class Plank : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //Eventually, we may need to change the temperature of the plank while the level is active.
+        //This update should go here
     }
 }
