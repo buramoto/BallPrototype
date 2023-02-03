@@ -19,6 +19,8 @@ public class Plank : MonoBehaviour
     //Outlets
     public plankTemp plankState;
     private SpriteRenderer plankDisplay;
+    public bool editable;
+
     // Start is called before the first frame update
     void Start()
     {
