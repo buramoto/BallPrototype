@@ -8,15 +8,8 @@ public class ChangeTemperature : MonoBehaviour
      * This script handles the properties of the heating/cooling element.
      * Its type can be specified in the Unity UI or dynamically with a script
     */
-    //Settings
-    public enum tempType
-    {
-        normal,
-        heater,
-        cooler
-    }
 
-    public tempType setting;
+    public StateReference.temperature setting;
     private SpriteRenderer elementDisplay;
     // Start is called before the first frame update
     // Start is called before the first frame update
@@ -25,21 +18,15 @@ public class ChangeTemperature : MonoBehaviour
         elementDisplay = GetComponent<SpriteRenderer>();
         switch (setting)
         {
-            case tempType.normal:
+            case StateReference.temperature.neutral:
                 elementDisplay.material.color = Color.green;
                 break;
-            case tempType.heater:
+            case StateReference.temperature.hot:
                 elementDisplay.material.color = Color.red;
                 break;
-            case tempType.cooler:
+            case StateReference.temperature.cold:
                 elementDisplay.material.color = Color.cyan;
                 break;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

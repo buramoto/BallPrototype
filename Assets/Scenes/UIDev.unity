@@ -603,6 +603,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7237235675206451524, guid: a3c9b3e4ae3aecc4695e30f4ab6adffd, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7237235675206451526, guid: a3c9b3e4ae3aecc4695e30f4ab6adffd, type: 3}
       propertyPath: m_Name
       value: Ball
@@ -650,6 +654,10 @@ PrefabInstance:
     - target: {fileID: 7237235675206454969, guid: a3c9b3e4ae3aecc4695e30f4ab6adffd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7237235675206454971, guid: a3c9b3e4ae3aecc4695e30f4ab6adffd, type: 3}
+      propertyPath: startPosition.y
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3c9b3e4ae3aecc4695e30f4ab6adffd, type: 3}
