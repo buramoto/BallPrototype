@@ -1,61 +1,65 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ChangeTemperature : MonoBehaviour
-{
-    /*
-     * This script handles the properties of the heating/cooling element.
-     * Its type can be specified in the Unity UI or dynamically with a script
-    */
-    //Settings
-    public enum tempType
-    {
-        normal,
-        heater,
-        cooler
-    }
+public class Plank : MonoBehaviour
+{ 
+    //Outlets
+    public StateReference.temperature plankState;
+    private SpriteRenderer plankDisplay;
+    public bool editable = true;
 
-    public GameObject referenceToOriginalHeaterObject;
-    private GameObject currentInstance;
-
+    // variables needed to drag and drop toolkit items
     bool canMove;
     bool dragging;
     Collider2D collider;
 
-    public tempType setting;
-    private SpriteRenderer elementDisplay;
-    // Start is called before the first frame update
-    // Start is called before the first frame update
+    // to rotate toolkit items
+    public float rotationSpeed = 20f;
+
+    //variable to create new gameObject
+    public GameObject originalObject;
+    public GameObject currentInstance;
+
+
+
     void Start()
     {
-        elementDisplay = GetComponent<SpriteRenderer>();
-        switch (setting)
-        {
-            case tempType.normal:
-                elementDisplay.material.color = Color.green;
-                break;
-            case tempType.heater:
-                elementDisplay.material.color = Color.red;
-                break;
-            case tempType.cooler:
-                elementDisplay.material.color = Color.cyan;
-                break;
-        }
 
+        
+        // variables needed to move PLANK 
         collider = GetComponent<Collider2D>();
         canMove = false;
         dragging = false;
 
+        //Based on its current temperatue, set the color
+        plankDisplay = GetComponent<SpriteRenderer>();
+        switch (plankState)
+        {
+            case StateReference.temperature.neutral:
+                plankDisplay.material.color = Color.green;
+                break;
+            case StateReference.temperature.cold:
+                plankDisplay.material.color = Color.cyan;
+                break;
+            case StateReference.temperature.hot:
+                plankDisplay.material.color = Color.red;
+                break;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        /*----- Below Code Segment for DRAG & DROP functionality -----*/
+        // find mouse position in case of dragging
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // mouse down event check
-
+        
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePositionOnClickedObject = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -96,32 +100,39 @@ public class ChangeTemperature : MonoBehaviour
 
 
 
-        /*------- Below Code Segment to DELETE a SPRING  -----------*/
+
+        /*------- Below Code Segment to Rotate a toolkit item -----*/
+
+        if ( Input.GetKey(KeyCode.RightArrow) )
+        {
+            currentInstance.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            currentInstance.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
+        }
+
         if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))
         {
             destroyToolObject(currentInstance);
         }
-        /*---------------------------------------------------------*/
 
+        /*--------------------------------------------------------*/
 
-        
     }
 
     /*------- Below Code Segment to create a new toolkit item -----*/
     public void createInstance()
     {
-        Debug.Log("New Heater Object Created");
-        Instantiate(referenceToOriginalHeaterObject, new Vector3(0, 0, 0), Quaternion.identity);
+        Debug.Log("clicked Plank Button");
+        Instantiate(originalObject, new Vector3(0,0, 0), Quaternion.identity);
     }
     /*------------------------------------------------------------*/
 
 
-
-
-    /*------- Below FUNCTION IS TO DELETE SPRING -----------------*/
     private void destroyToolObject(GameObject gameObject)
     {
         Destroy(gameObject);
     }
-    /*------------------------------------------------------------*/
+
 }

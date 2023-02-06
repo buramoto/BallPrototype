@@ -12,7 +12,7 @@ public class DungeonMaster : MonoBehaviour
     public bool simulatonMode;
 
     //Objects for controlling start/stop
-    private BallProperties ball;
+    private BallScript ball;
 
     /// <summary>
     /// Creates the dm for the first time, or if there is already on (e.g. loading in from a different
@@ -24,8 +24,7 @@ public class DungeonMaster : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             dm = this;
-            SceneManager.sceneLoaded += sceneLoaded;
-            ball = FindObjectOfType<BallProperties>();
+            SceneManager.sceneLoaded += initalizeLevel;
         }
         else
         {
@@ -33,9 +32,28 @@ public class DungeonMaster : MonoBehaviour
         }
     }
 
-    void sceneLoaded(Scene level, LoadSceneMode mode)
+    private void Start()
     {
+        //initalizeLevel();
+    }
 
+    /// <summary>
+    /// This method initalizes the level for play after loading a scene
+    /// These are its responsibilities: 
+    ///     1) Updating the UI wih appropriate toolkit items (eventually we should make this a json file)
+    ///     2) Initalizing the ball variable with this level's ball
+    ///     3) Setting the level's timer
+    /// </summary>
+    private void initalizeLevel(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log("Initalizing level "+scene.name);
+        ball = FindFirstObjectByType<BallScript>();
+        simulatonMode = false;
+        //ball.stopSim();
+        if(ball != null)
+        {
+            Debug.Log("Found ball object");
+        }
     }
 
     //This method changes the state of the game from edit to simulaton and vice versa
@@ -43,10 +61,14 @@ public class DungeonMaster : MonoBehaviour
     {
         if (simulatonMode)
         {
+            Debug.Log("Simulaton stopped");
             //BroadcastMessage("endSim");
+            ball.stopSim();
         }
         else {
+            Debug.Log("Simulation Started");
             //BroadcastMessage("startSim");
+            ball.startSim();
         }
         simulatonMode = !simulatonMode;
     }
