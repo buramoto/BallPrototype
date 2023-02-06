@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a0429dcdc0b664c838af43fccfe7dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  referenceToOriginalHeaterObject: {fileID: 3316150428761557205}
+  currentInstance: {fileID: 0}
   setting: 1
 --- !u!70 &3316150428761557204
 CapsuleCollider2D:
