@@ -125,3 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plankState: 1
+  editable: 1
+  rotationSpeed: 20
+  originalObject: {fileID: 951476148478341739}
+  currentInstance: {fileID: 0}
