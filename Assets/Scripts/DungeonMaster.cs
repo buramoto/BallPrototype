@@ -14,6 +14,10 @@ public class DungeonMaster : MonoBehaviour
     //Objects for controlling start/stop
     private BallScript ball;
 
+    //Sequence of checkpoints
+    private char[] sequence = {'p', 'y', 'w'};
+    private byte counter;
+
     /// <summary>
     /// Creates the dm for the first time, or if there is already on (e.g. loading in from a different
     /// level, destroys the object)
@@ -49,11 +53,6 @@ public class DungeonMaster : MonoBehaviour
         Debug.Log("Initalizing level "+scene.name);
         ball = FindFirstObjectByType<BallScript>();
         simulatonMode = false;
-        //ball.stopSim();
-        if(ball != null)
-        {
-            Debug.Log("Found ball object");
-        }
     }
 
     //This method changes the state of the game from edit to simulaton and vice versa
@@ -62,14 +61,32 @@ public class DungeonMaster : MonoBehaviour
         if (simulatonMode)
         {
             Debug.Log("Simulaton stopped");
-            //BroadcastMessage("endSim");
+            counter = 0;
             ball.stopSim();
         }
         else {
             Debug.Log("Simulation Started");
-            //BroadcastMessage("startSim");
             ball.startSim();
         }
         simulatonMode = !simulatonMode;
+    }
+
+    /// <summary>
+    /// Scorekeeping- this method should be called when the ball hits a checkpoint.
+    /// It will determine if that checkpoint has been hit in the correct sequence then update
+    /// the UI as necessary.
+    /// </summary>
+    public void checkpointHit(char checkpointColor)
+    {
+        if(checkpointColor == sequence[counter])
+        {
+            //Correct, play sound
+            counter++;
+        }
+        else
+        {
+            //Wrong
+            changeMode();
+        }
     }
 }

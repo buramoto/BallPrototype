@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Plank
   - TempChange
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

@@ -15,7 +15,7 @@ public class ChangeTemperature : MonoBehaviour
 
     bool canMove;
     bool dragging;
-    Collider2D collider;
+    private Collider2D _collider;
 
     private SpriteRenderer elementDisplay;
     // Start is called before the first frame update
@@ -36,7 +36,7 @@ public class ChangeTemperature : MonoBehaviour
                 break;
         }
 
-        collider = GetComponent<Collider2D>();
+        _collider = GetComponent<Collider2D>();
         canMove = false;
         dragging = false;
 
@@ -61,7 +61,7 @@ public class ChangeTemperature : MonoBehaviour
             }
 
 
-            if (collider == Physics2D.OverlapPoint(mousePos))
+            if (_collider == Physics2D.OverlapPoint(mousePos))
             {
                 canMove = true;
                 //Debug.Log("clicked on item");

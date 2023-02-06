@@ -14,7 +14,7 @@ public class Plank : MonoBehaviour
     // variables needed to drag and drop toolkit items
     bool canMove;
     bool dragging;
-    Collider2D collider;
+    Collider2D _collider;
 
     // to rotate toolkit items
     public float rotationSpeed = 20f;
@@ -30,7 +30,7 @@ public class Plank : MonoBehaviour
 
         
         // variables needed to move PLANK 
-        collider = GetComponent<Collider2D>();
+        _collider = GetComponent<Collider2D>();
         canMove = false;
         dragging = false;
 
@@ -72,7 +72,7 @@ public class Plank : MonoBehaviour
             }
 
 
-            if (collider == Physics2D.OverlapPoint(mousePos))
+            if (_collider == Physics2D.OverlapPoint(mousePos))
             {
                 canMove = true;
                 //Debug.Log("clicked on item");

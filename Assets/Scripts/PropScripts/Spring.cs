@@ -19,7 +19,7 @@ public class Spring : MonoBehaviour
     // Below variables are TO MOVE SPRING USING DRAG & DROP 
     bool canMove;
     bool dragging;
-    Collider2D collider;
+    Collider2D _collider;
 
     // variable TO ROTATE SPRING
     private float rotationSpeed = 20f;
@@ -28,7 +28,7 @@ public class Spring : MonoBehaviour
     void Start()
     {
         // variables needed to move spring items
-        collider = GetComponent<Collider2D>();
+        _collider = GetComponent<Collider2D>();
         canMove = false;
         dragging = false;
     }
@@ -52,7 +52,7 @@ public class Spring : MonoBehaviour
             }
 
 
-            if (collider == Physics2D.OverlapPoint(mousePos))
+            if (_collider == Physics2D.OverlapPoint(mousePos))
             {
                 canMove = true;
                 //Debug.Log("clicked on item");
