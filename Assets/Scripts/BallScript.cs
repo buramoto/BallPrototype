@@ -48,15 +48,16 @@ public class BallScript : MonoBehaviour
     //Change temperature based on heating/cooling element
     private void OnTriggerEnter2D(Collider2D other)
     {
-        ChangeTemperature elementProperties = other.gameObject.GetComponent<ChangeTemperature>();
-        switch (elementProperties.setting)
+        switch (other.gameObject.tag)
         {
-            case StateReference.temperature.hot:
-                Debug.Log("Collided with heater");
-                tempState = StateReference.temperature.hot;
-                ballDisplay.material.color = Color.red;
+            case "Checkpoint":
+                checkpointCollision(other.gameObject);
+                break;
+            case "TempChange":
+                elementCollision(other.gameObject);
                 break;
         }
+        
     }
 
     //Check the plank's state and the ball's state, then destroy/interact with plank
@@ -80,6 +81,43 @@ public class BallScript : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void elementCollision(GameObject element)
+    {
+        ChangeTemperature elementProperties = element.GetComponent<ChangeTemperature>();
+        switch (elementProperties.setting)
+        {
+            case StateReference.temperature.hot:
+                Debug.Log("Collided with heater");
+                tempState = StateReference.temperature.hot;
+                ballDisplay.material.color = Color.red;
+                break;
+            //Add more cases here
+        }
+    }
+
+    private void checkpointCollision(GameObject checkpoint)
+    {
+        GoalBlock goal = checkpoint.GetComponent<GoalBlock>();
+        char color;
+        switch (goal.goalColor)
+        {
+            case StateReference.goalColor.purple:
+                color = 'p';
+                break;
+            case StateReference.goalColor.yellow:
+                color = 'y';
+                break;
+            case StateReference.goalColor.white:
+                color = 'w';
+                break;
+            default:
+                color = 'z';
+                break;
+        }
+        Debug.Log("Collided with checkpoint. It has color " + color);
+        DungeonMaster.dm.checkpointHit(color);
     }
 
     //Enable physics when the user presses the start button
