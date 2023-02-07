@@ -10,11 +10,17 @@ public class DungeonMaster : MonoBehaviour
 
     //Game variables
     public bool simulatonMode;
-    public GameObject WinScreen;
-    private GameObject canvas;
+    public GameObject winScreen;
+    
 
     //Objects for controlling start/stop
     private BallScript ball;
+    private Static_Plank[] planks;
+    private GoalBlock[] goals;
+    private StartStopButton button;
+
+    //UI Elements
+    private GameObject canvas;
 
     //Sequence of checkpoints
     private char[] sequence = {'p', 'y', 'w'};
@@ -56,6 +62,9 @@ public class DungeonMaster : MonoBehaviour
         ball = FindFirstObjectByType<BallScript>();
         simulatonMode = false;
         canvas = FindObjectOfType<Canvas>().gameObject;
+        planks = FindObjectsOfType<Static_Plank>();
+        goals = FindObjectsOfType<GoalBlock>();
+        button = FindObjectOfType<StartStopButton>();
         counter = 0;
     }
 
@@ -67,6 +76,15 @@ public class DungeonMaster : MonoBehaviour
             Debug.Log("Simulaton stopped");
             counter = 0;
             ball.stopSim();
+            for(int i=0; i < planks.Length; i++)
+            {
+                planks[i].gameObject.SetActive(true);
+            }
+            for (int i=0; i < goals.Length; i++)
+            {
+                goals[i].gameObject.SetActive(true);
+            }
+            button.text.text = "Start";
         }
         else {
             Debug.Log("Simulation Started");
@@ -88,7 +106,7 @@ public class DungeonMaster : MonoBehaviour
         {
             //Display a Win screen
             Debug.Log("Inside the if statement");
-            var WinSc = Instantiate(WinScreen,canvas.transform.position,Quaternion.identity);
+            var WinSc = Instantiate(winScreen,canvas.transform.position,Quaternion.identity);
             //WinSc.transform.parent = canvas.transform;
             WinSc.transform.SetParent(canvas.transform);
         }
@@ -100,8 +118,8 @@ public class DungeonMaster : MonoBehaviour
         else
         {
             //Wrong
-            //changeMode();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            changeMode();
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

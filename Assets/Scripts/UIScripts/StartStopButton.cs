@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StartStopButton : MonoBehaviour
 {
-    private TMPro.TextMeshProUGUI text;
+    public TMPro.TextMeshProUGUI text;
     private void Start()
     {
         text = GetComponentInChildren<TMPro.TextMeshProUGUI>();

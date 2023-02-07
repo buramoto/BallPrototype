@@ -143,8 +143,8 @@ public class BallScript : MonoBehaviour
                 break;
         }
         Debug.Log("Collided with checkpoint. It has color " + color);
-        DungeonMaster.dm.checkpointHit(color);
         checkpoint.SetActive(false);
+        DungeonMaster.dm.checkpointHit(color);
     }
 
     //Enable physics when the user presses the start button
@@ -162,5 +162,7 @@ public class BallScript : MonoBehaviour
         ballPhysics.constraints = RigidbodyConstraints2D.FreezePosition;
         ballPhysics.isKinematic = true;
         transform.position = startPosition;
+        tempState = StateReference.temperature.neutral;
+        ballDisplay.material.color = Color.gray;
     }
 }
