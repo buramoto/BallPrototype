@@ -10,6 +10,8 @@ public class DungeonMaster : MonoBehaviour
 
     //Game variables
     public bool simulatonMode;
+    public GameObject WinScreen;
+    private GameObject canvas;
 
     //Objects for controlling start/stop
     private BallScript ball;
@@ -53,6 +55,8 @@ public class DungeonMaster : MonoBehaviour
         Debug.Log("Initalizing level "+scene.name);
         ball = FindFirstObjectByType<BallScript>();
         simulatonMode = false;
+        canvas = FindObjectOfType<Canvas>().gameObject;
+        counter = 0;
     }
 
     //This method changes the state of the game from edit to simulaton and vice versa
@@ -78,7 +82,17 @@ public class DungeonMaster : MonoBehaviour
     /// </summary>
     public void checkpointHit(char checkpointColor)
     {
-        if(checkpointColor == sequence[counter])
+        Debug.Log("Counter value" + counter);
+
+        if(checkpointColor=='g' && counter==3)
+        {
+            //Display a Win screen
+            Debug.Log("Inside the if statement");
+            var WinSc = Instantiate(WinScreen,canvas.transform.position,Quaternion.identity);
+            //WinSc.transform.parent = canvas.transform;
+            WinSc.transform.SetParent(canvas.transform);
+        }
+        else if(checkpointColor == sequence[counter])
         {
             //Correct, play sound
             counter++;
@@ -86,7 +100,8 @@ public class DungeonMaster : MonoBehaviour
         else
         {
             //Wrong
-            changeMode();
+            //changeMode();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

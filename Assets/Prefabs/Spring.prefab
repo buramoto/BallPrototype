@@ -124,5 +124,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb44ebf123930f34d899828efbfb517b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  springForce: 400
+  springForce: 500
   springObject: {fileID: 3725497670154412353}
+  currentInstance: {fileID: 0}

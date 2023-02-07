@@ -42,6 +42,9 @@ public class BallScript : MonoBehaviour
             case "Plank":
                 plankCollision(collision.gameObject);
                 break;
+            case "Static_Plank":
+                staticplankCollision(collision.gameObject);
+                break;
         }
     }
 
@@ -82,7 +85,27 @@ public class BallScript : MonoBehaviour
             }
         }
     }
-
+    private void staticplankCollision(GameObject plank)
+    {
+        Debug.Log("Ball Collided with plank");
+        //TODO some property check here
+        if (tempState == StateReference.temperature.hot)
+        {
+            Static_Plank plankProperties = plank.gameObject.GetComponent<Static_Plank>();
+            switch (plankProperties.plankState)
+            {
+                case StateReference.temperature.cold:
+                    tempState = StateReference.temperature.neutral;
+                    ballDisplay.material.color = Color.gray;
+                    plank.SetActive(false);
+                    break;
+                case StateReference.temperature.hot:
+                    break;
+                case StateReference.temperature.neutral:
+                    break;
+            }
+        }
+    }
     private void elementCollision(GameObject element)
     {
         ChangeTemperature elementProperties = element.GetComponent<ChangeTemperature>();
@@ -112,12 +135,16 @@ public class BallScript : MonoBehaviour
             case StateReference.goalColor.white:
                 color = 'w';
                 break;
+            case StateReference.goalColor.green:
+                color = 'g';
+                break;
             default:
                 color = 'z';
                 break;
         }
         Debug.Log("Collided with checkpoint. It has color " + color);
         DungeonMaster.dm.checkpointHit(color);
+        checkpoint.SetActive(false);
     }
 
     //Enable physics when the user presses the start button

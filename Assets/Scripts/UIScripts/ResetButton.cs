@@ -9,19 +9,21 @@ using UnityEngine.SceneManagement;
 public class ResetButton : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    /*private void Start()
     {
         
-    }
+    }*/
 
     // Update is called once per frame
-    void Update()
+    public void execute()
     {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void resetLevel()
+    public void winScreenExecute()
     {
+        GameObject winScreen = GameObject.Find("WinScreen");
+        winScreen.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
