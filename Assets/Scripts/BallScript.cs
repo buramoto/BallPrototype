@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BallScript : MonoBehaviour
 {
@@ -18,20 +19,47 @@ public class BallScript : MonoBehaviour
     //Private variables
     private SpriteRenderer ballDisplay;
     private Rigidbody2D ballPhysics;
-    
+    private Camera cam; // Reference to the main camera in the scene
+
+    // Variables to store the height and width of the screen
+    private float screenHeight;
+    private float screenWidth;
 
     // Start is called before the first frame update
     void Start()
     {
         //Set the ball to its starting position (This should be changed to be configurable based on level
         ball.transform.position = startPosition;
+
         //Set inital temperature
         tempState = StateReference.temperature.neutral;
         ball.SetActive(true);
         ballDisplay = GetComponent<SpriteRenderer>();
         ballDisplay.material.color = Color.gray;
         ballPhysics = GetComponent<Rigidbody2D>();
+
+        // Get the reference to the main camera
+        cam = Camera.main;
+
+        // Calculate the height and width of the screen
+        screenHeight = 2f * cam.orthographicSize;
+        screenWidth = screenHeight * cam.aspect;
+
         stopSim();
+    }
+
+    private void Update()
+    {
+        // Get the x and y positions of the ball
+        float ballX = transform.position.x;
+        float ballY = transform.position.y;
+
+        // Check if the ball is outside the bounds of the screen
+        if (ballX < -screenWidth / 2 || ballX > screenWidth / 2 || ballY < -screenHeight / 2 || ballY > screenHeight / 2)
+        {
+            // If the ball is outside the bounds, call the ResetBall() function
+            ResetBall();
+        }
     }
 
     //When colliding with an object, invoke appropriate function
@@ -164,5 +192,12 @@ public class BallScript : MonoBehaviour
         transform.position = startPosition;
         tempState = StateReference.temperature.neutral;
         ballDisplay.material.color = Color.gray;
+    }
+
+    // Function to reset the ball's position
+    public void ResetBall()
+    {
+        // Reset the scene 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
