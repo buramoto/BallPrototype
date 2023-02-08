@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BallScript : MonoBehaviour
 {
@@ -18,29 +19,59 @@ public class BallScript : MonoBehaviour
     //Private variables
     private SpriteRenderer ballDisplay;
     private Rigidbody2D ballPhysics;
-    
+    private Camera cam; // Reference to the main camera in the scene
+
+    // Variables to store the height and width of the screen
+    private float screenHeight;
+    private float screenWidth;
 
     // Start is called before the first frame update
     void Start()
     {
         //Set the ball to its starting position (This should be changed to be configurable based on level
         ball.transform.position = startPosition;
+
         //Set inital temperature
         tempState = StateReference.temperature.neutral;
         ball.SetActive(true);
         ballDisplay = GetComponent<SpriteRenderer>();
         ballDisplay.material.color = Color.gray;
         ballPhysics = GetComponent<Rigidbody2D>();
+
+        // Get the reference to the main camera
+        cam = Camera.main;
+
+        // Calculate the height and width of the screen
+        screenHeight = 2f * cam.orthographicSize;
+        screenWidth = screenHeight * cam.aspect;
+
         stopSim();
     }
 
+    private void Update()
+    {
+        // Get the x and y positions of the ball
+        float ballX = transform.position.x;
+        float ballY = transform.position.y;
+
+        // Check if the ball is outside the bounds of the screen
+        if (ballX < -screenWidth / 2 || ballX > screenWidth / 2 || ballY < -screenHeight / 2 || ballY > screenHeight / 2)
+        {
+            // If the ball is outside the bounds, call the ResetBall() function
+            ResetBall();
+        }
+    }
+
     //When colliding with an object, invoke appropriate function
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         switch (collision.gameObject.tag)
         {
             case "Plank":
                 plankCollision(collision.gameObject);
+                break;
+            case "Static_Plank":
+                staticplankCollision(collision.gameObject);
                 break;
         }
     }
@@ -82,7 +113,27 @@ public class BallScript : MonoBehaviour
             }
         }
     }
-
+    private void staticplankCollision(GameObject plank)
+    {
+        Debug.Log("Ball Collided with plank");
+        //TODO some property check here
+        if (tempState == StateReference.temperature.hot)
+        {
+            Static_Plank plankProperties = plank.gameObject.GetComponent<Static_Plank>();
+            switch (plankProperties.plankState)
+            {
+                case StateReference.temperature.cold:
+                    tempState = StateReference.temperature.neutral;
+                    ballDisplay.material.color = Color.gray;
+                    plank.SetActive(false);
+                    break;
+                case StateReference.temperature.hot:
+                    break;
+                case StateReference.temperature.neutral:
+                    break;
+            }
+        }
+    }
     private void elementCollision(GameObject element)
     {
         ChangeTemperature elementProperties = element.GetComponent<ChangeTemperature>();
@@ -112,11 +163,15 @@ public class BallScript : MonoBehaviour
             case StateReference.goalColor.white:
                 color = 'w';
                 break;
+            case StateReference.goalColor.green:
+                color = 'g';
+                break;
             default:
                 color = 'z';
                 break;
         }
         Debug.Log("Collided with checkpoint. It has color " + color);
+        checkpoint.SetActive(false);
         DungeonMaster.dm.checkpointHit(color);
     }
 
@@ -135,5 +190,14 @@ public class BallScript : MonoBehaviour
         ballPhysics.constraints = RigidbodyConstraints2D.FreezePosition;
         ballPhysics.isKinematic = true;
         transform.position = startPosition;
+        tempState = StateReference.temperature.neutral;
+        ballDisplay.material.color = Color.gray;
+    }
+
+    // Function to reset the ball's position
+    public void ResetBall()
+    {
+        // Reset the scene 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

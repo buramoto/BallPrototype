@@ -36,6 +36,7 @@ public class Plank : MonoBehaviour
 
         //Based on its current temperatue, set the color
         plankDisplay = GetComponent<SpriteRenderer>();
+        /*
         switch (plankState)
         {
             case StateReference.temperature.neutral:
@@ -47,7 +48,8 @@ public class Plank : MonoBehaviour
             case StateReference.temperature.hot:
                 plankDisplay.material.color = Color.red;
                 break;
-        }
+        }*/
+        plankDisplay.material.color = new Color(243,145,1);
     }
 
     // Update is called once per frame
