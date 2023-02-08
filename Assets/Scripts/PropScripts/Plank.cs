@@ -11,6 +11,10 @@ public class Plank : MonoBehaviour
     private SpriteRenderer plankDisplay;
     public bool editable = true;
 
+    // variable to track simulation mode
+    bool simulationMode;
+
+
     // variables needed to drag and drop toolkit items
     bool canMove;
     bool dragging;
@@ -59,9 +63,14 @@ public class Plank : MonoBehaviour
         /*----- Below Code Segment for DRAG & DROP functionality -----*/
         // find mouse position in case of dragging
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        // 
+        simulationMode = DungeonMaster.dm.GetStatusOfSimulationMode();
+
         // mouse down event check
-        
-        if (Input.GetMouseButtonDown(0))
+
+        // accessing the simulationMode variable from Dungeon Master
+
+        if (Input.GetMouseButtonDown(0) && !simulationMode)
         {
             Vector3 mousePositionOnClickedObject = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePositionOnClickedObject2D = new Vector2(mousePos.x, mousePos.y);
@@ -72,7 +81,7 @@ public class Plank : MonoBehaviour
                 currentInstance = hit.collider.gameObject;
                 Debug.Log(currentInstance.tag);
             }
-            if(currentInstance!= null && currentInstance.tag == "Plank")
+            if(currentInstance!= null && currentInstance.tag == "Plank" )
             {
                 if (_collider == Physics2D.OverlapPoint(mousePos))
                 {
@@ -89,12 +98,12 @@ public class Plank : MonoBehaviour
                 }   
             }
         }
-        if (dragging)
+        if (dragging && !simulationMode)
         {
             // updating the position of the toolkit item to mouse's current position
             currentInstance.transform.position = mousePos;
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !simulationMode)
         {
             canMove = false;
             dragging = false;
@@ -105,7 +114,7 @@ public class Plank : MonoBehaviour
 
 
         /*------- Below Code Segment to Rotate a toolkit item -----*/
-        if(currentInstance!= null && currentInstance.tag == "Plank")
+        if(currentInstance!= null && currentInstance.tag == "Plank" && !simulationMode)
         {
             if ( Input.GetKey(KeyCode.RightArrow) )
             {
@@ -129,9 +138,16 @@ public class Plank : MonoBehaviour
     /*------- Below Code Segment to create a new toolkit item -----*/
     public void createInstance()
     {
-        Debug.Log("clicked Plank Button");
-        GameObject newPlank = Instantiate(originalObject, new Vector3(0,0, 0), Quaternion.identity);
-        newPlank.GetComponent<Plank>().plankState = StateReference.temperature.neutral;
+        if (!simulationMode)
+        {
+            Debug.Log("clicked Plank Button");
+            GameObject newPlank = Instantiate(originalObject, new Vector3(0,0, 0), Quaternion.identity);
+            newPlank.GetComponent<Plank>().plankState = StateReference.temperature.neutral;
+        }
+        else
+        {
+            Debug.Log("In Editing Mode hence NO PLANK created!");
+        }
     }
     /*------------------------------------------------------------*/
 

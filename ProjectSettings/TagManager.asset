@@ -9,6 +9,9 @@ TagManager:
   - Checkpoint
   - Static_Plank
   - Spring
+  - PlankButton
+  - SpringButton
+  - HeaterButton
   layers:
   - Default
   - TransparentFX

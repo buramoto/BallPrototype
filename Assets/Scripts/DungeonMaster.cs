@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class DungeonMaster : MonoBehaviour
@@ -11,7 +12,11 @@ public class DungeonMaster : MonoBehaviour
     //Game variables
     public bool simulatonMode;
     public GameObject winScreen;
-    
+
+    [SerializeField] private GameObject heaterButtonReference;
+    [SerializeField] private GameObject plankButtonReference;
+    [SerializeField] private GameObject springButtonReference;
+
 
     //Objects for controlling start/stop
     private BallScript ball;
@@ -65,6 +70,10 @@ public class DungeonMaster : MonoBehaviour
         planks = FindObjectsOfType<Static_Plank>();
         goals = FindObjectsOfType<GoalBlock>();
         button = FindObjectOfType<StartStopButton>();
+
+        plankButtonReference = GameObject.FindWithTag("PlankButton");
+        springButtonReference = GameObject.FindWithTag("SpringButton");
+        heaterButtonReference = GameObject.FindWithTag("HeaterButton");
         counter = 0;
     }
 
@@ -73,6 +82,11 @@ public class DungeonMaster : MonoBehaviour
     {
         if (simulatonMode)
         {
+            // if simulat
+            heaterButtonReference.GetComponent<Button>().interactable = true;
+            plankButtonReference.GetComponent<Button>().interactable = true;
+            springButtonReference.GetComponent<Button>().interactable = true;
+
             Debug.Log("Simulaton stopped");
             counter = 0;
             ball.stopSim();
@@ -88,7 +102,12 @@ public class DungeonMaster : MonoBehaviour
         }
         else {
             Debug.Log("Simulation Started");
+            //GameObject heaterBtn = Canvas.
+            heaterButtonReference.GetComponent<Button>().interactable = false;
+            plankButtonReference.GetComponent<Button>().interactable = false;
+            springButtonReference.GetComponent<Button>().interactable = false;
             ball.startSim();
+
         }
         simulatonMode = !simulatonMode;
     }
@@ -121,5 +140,10 @@ public class DungeonMaster : MonoBehaviour
             changeMode();
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    public bool GetStatusOfSimulationMode()
+    {
+        return simulatonMode;
     }
 }

@@ -13,6 +13,9 @@ public class ChangeTemperature : MonoBehaviour
     public GameObject referenceToOriginalHeaterObject;
     private GameObject currentInstance;
 
+    // variable to track simulation mode
+    bool simulationMode;
+
     bool canMove;
     bool dragging;
     private Collider2D _collider;
@@ -46,10 +49,10 @@ public class ChangeTemperature : MonoBehaviour
     void Update()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+        simulationMode = DungeonMaster.dm.GetStatusOfSimulationMode();
         // mouse down event check
-
-        if (Input.GetMouseButtonDown(0))
+        Debug.Log("Heater Status of Simulation Mode: "+simulationMode);
+        if (Input.GetMouseButtonDown(0) && !simulationMode)
         {
             Vector3 mousePositionOnClickedObject = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePositionOnClickedObject2D = new Vector2(mousePos.x, mousePos.y);
@@ -77,12 +80,12 @@ public class ChangeTemperature : MonoBehaviour
                 }
             }
         }
-        if (dragging)
+        if (dragging && !simulationMode)
         {
             // updating the position of the toolkit item to mouse's current position
             currentInstance.transform.position = mousePos;
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !simulationMode)
         {
             canMove = false;
             dragging = false;
@@ -90,7 +93,7 @@ public class ChangeTemperature : MonoBehaviour
         /*---------------------------------------------------------*/
 
 
-        if(currentInstance != null && currentInstance.tag == "TempChange")
+        if(currentInstance != null && currentInstance.tag == "TempChange" && !simulationMode)
         {
             /*------- Below Code Segment to DELETE a SPRING  -----------*/
             if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))
@@ -107,8 +110,16 @@ public class ChangeTemperature : MonoBehaviour
     /*------- Below Code Segment to create a new toolkit item -----*/
     public void createInstance()
     {
-        Debug.Log("New Heater Object Created");
-        Instantiate(referenceToOriginalHeaterObject, new Vector3(0, 0, 0), Quaternion.identity);
+        simulationMode = DungeonMaster.dm.GetStatusOfSimulationMode();
+        if (!simulationMode)
+        {
+            Debug.Log("New Heater Object Created");
+            Instantiate(referenceToOriginalHeaterObject, new Vector3(0, 0, 0), Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("In Editing Mode hence no heater created!");
+        }
     }
     /*------------------------------------------------------------*/
 

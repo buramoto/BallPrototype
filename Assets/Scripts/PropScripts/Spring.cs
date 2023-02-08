@@ -16,6 +16,10 @@ public class Spring : MonoBehaviour
     public GameObject springObject;
     public GameObject currentInstance;
 
+    // variable to track simulation mode
+    bool simulationMode;
+
+
     // Below variables are TO MOVE SPRING USING DRAG & DROP 
     bool canMove;
     bool dragging;
@@ -39,8 +43,9 @@ public class Spring : MonoBehaviour
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // mouse down event check
+        simulationMode = DungeonMaster.dm.GetStatusOfSimulationMode();
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !simulationMode)
         {
             Vector3 mousePositionOnClickedObject = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePositionOnClickedObject2D = new Vector2(mousePos.x, mousePos.y);
@@ -67,12 +72,12 @@ public class Spring : MonoBehaviour
                 }
             }
         }
-        if (dragging)
+        if (dragging && !simulationMode)
         {
             // updating the position of the toolkit item to mouse's current position
             currentInstance.transform.position = mousePos;
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && !simulationMode)
         {
             canMove = false;
             dragging = false;
@@ -80,7 +85,7 @@ public class Spring : MonoBehaviour
         /*---------------------------------------------------------*/
 
 
-        if(currentInstance != null && currentInstance.tag == "Spring")
+        if(currentInstance != null && currentInstance.tag == "Spring" && !simulationMode)
         {
             /*------- Below Code Segment to Rotate a SPRING -----*/
             if (Input.GetKey(KeyCode.RightArrow))
@@ -96,7 +101,7 @@ public class Spring : MonoBehaviour
 
 
             /*------- Below Code Segment to DELETE a SPRING  -----------*/
-            if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))
+            if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace) && !simulationMode)
             {
                 destroyToolObject(currentInstance);
             }
@@ -114,8 +119,15 @@ public class Spring : MonoBehaviour
     /*------- Below Code Segment to create a new toolkit item -----*/
     public void createInstance()
     {
-        Debug.Log("clicked Plank Button");
-        Instantiate(springObject, new Vector3(0, 0, 0), Quaternion.identity);
+        if (!simulationMode)
+        {
+            Debug.Log("clicked Plank Button");
+            Instantiate(springObject, new Vector3(0, 0, 0), Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("In Editing Mode hence NO Spring created!");
+        }
     }
     /*------------------------------------------------------------*/
 
