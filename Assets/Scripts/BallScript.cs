@@ -63,7 +63,7 @@ public class BallScript : MonoBehaviour
     }
 
     //When colliding with an object, invoke appropriate function
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         switch (collision.gameObject.tag)
         {
