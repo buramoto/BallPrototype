@@ -60,19 +60,21 @@ public class ChangeTemperature : MonoBehaviour
                 currentInstance = hit.collider.gameObject;
             }
 
-
-            if (_collider == Physics2D.OverlapPoint(mousePos))
+            if(currentInstance!= null && currentInstance.tag == "TempChange")
             {
-                canMove = true;
-                //Debug.Log("clicked on item");
-            }
-            else
-            {
-                canMove = false;
-            }
-            if (canMove)
-            {
-                dragging = true;
+                if (_collider == Physics2D.OverlapPoint(mousePos))
+                {
+                    canMove = true;
+                    //Debug.Log("clicked on item");
+                }
+                else
+                {
+                    canMove = false;
+                }
+                if (canMove)
+                {
+                    dragging = true;
+                }
             }
         }
         if (dragging)
@@ -88,13 +90,15 @@ public class ChangeTemperature : MonoBehaviour
         /*---------------------------------------------------------*/
 
 
-
-        /*------- Below Code Segment to DELETE a SPRING  -----------*/
-        if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))
+        if(currentInstance != null && currentInstance.tag == "TempChange")
         {
-            destroyToolObject(currentInstance);
+            /*------- Below Code Segment to DELETE a SPRING  -----------*/
+            if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))
+            {
+                destroyToolObject(currentInstance);
+            }
+            /*---------------------------------------------------------*/
         }
-        /*---------------------------------------------------------*/
 
 
         

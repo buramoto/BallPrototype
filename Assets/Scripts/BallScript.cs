@@ -58,7 +58,7 @@ public class BallScript : MonoBehaviour
         if (ballX < -screenWidth / 2 || ballX > screenWidth / 2 || ballY < -screenHeight / 2 || ballY > screenHeight / 2)
         {
             // If the ball is outside the bounds, call the ResetBall() function
-            ResetBall();
+            DungeonMaster.dm.changeMode();
         }
     }
 
@@ -115,7 +115,7 @@ public class BallScript : MonoBehaviour
     }
     private void staticplankCollision(GameObject plank)
     {
-        Debug.Log("Ball Collided with plank");
+        Debug.Log("Ball Collided with static plank");
         //TODO some property check here
         if (tempState == StateReference.temperature.hot)
         {
