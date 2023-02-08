@@ -50,20 +50,21 @@ public class Spring : MonoBehaviour
             {
                 currentInstance = hit.collider.gameObject;
             }
-
-
-            if (_collider == Physics2D.OverlapPoint(mousePos))
+            if(currentInstance!= null && currentInstance.tag == "Spring")
             {
-                canMove = true;
-                //Debug.Log("clicked on item");
-            }
-            else
-            {
-                canMove = false;
-            }
-            if (canMove)
-            {
-                dragging = true;
+                if (_collider == Physics2D.OverlapPoint(mousePos))
+                {
+                    canMove = true;
+                    //Debug.Log("clicked on item");
+                }
+                else
+                {
+                    canMove = false;
+                }
+                if (canMove)
+                {
+                    dragging = true;
+                }
             }
         }
         if (dragging)
@@ -79,27 +80,28 @@ public class Spring : MonoBehaviour
         /*---------------------------------------------------------*/
 
 
-
-
-        /*------- Below Code Segment to Rotate a SPRING -----*/
-        if (Input.GetKey(KeyCode.RightArrow))
+        if(currentInstance != null && currentInstance.tag == "Spring")
         {
-            currentInstance.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            currentInstance.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
-        }
-        /*---------------------------------------------------------*/
+            /*------- Below Code Segment to Rotate a SPRING -----*/
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                currentInstance.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                currentInstance.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
+            }
+            /*---------------------------------------------------------*/
 
 
 
-        /*------- Below Code Segment to DELETE a SPRING  -----------*/
-        if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))
-        {
-            destroyToolObject(currentInstance);
+            /*------- Below Code Segment to DELETE a SPRING  -----------*/
+            if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))
+            {
+                destroyToolObject(currentInstance);
+            }
+            /*---------------------------------------------------------*/
         }
-        /*---------------------------------------------------------*/
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

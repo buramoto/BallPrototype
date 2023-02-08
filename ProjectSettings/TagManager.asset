@@ -8,6 +8,7 @@ TagManager:
   - TempChange
   - Checkpoint
   - Static_Plank
+  - Spring
   layers:
   - Default
   - TransparentFX

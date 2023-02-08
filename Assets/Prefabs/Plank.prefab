@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d57033be876c0742b69331f10bf4013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plankState: 0
+  plankState: 2
   editable: 1
   rotationSpeed: 20
   originalObject: {fileID: 951476148478341739}

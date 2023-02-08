@@ -59,7 +59,6 @@ public class Plank : MonoBehaviour
         /*----- Below Code Segment for DRAG & DROP functionality -----*/
         // find mouse position in case of dragging
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         // mouse down event check
         
         if (Input.GetMouseButtonDown(0))
@@ -71,21 +70,23 @@ public class Plank : MonoBehaviour
             if (hit.collider != null)
             {
                 currentInstance = hit.collider.gameObject;
+                Debug.Log(currentInstance.tag);
             }
-
-
-            if (_collider == Physics2D.OverlapPoint(mousePos))
+            if(currentInstance!= null && currentInstance.tag == "Plank")
             {
-                canMove = true;
-                //Debug.Log("clicked on item");
-            }
-            else
-            {
-                canMove = false;
-            }
-            if (canMove)
-            {
-                dragging = true;
+                if (_collider == Physics2D.OverlapPoint(mousePos))
+                {
+                    canMove = true;
+                    //Debug.Log("clicked on item");
+                }
+                else
+                {
+                    canMove = false;
+                }
+                if (canMove)
+                {
+                    dragging = true;
+                }   
             }
         }
         if (dragging)
@@ -104,19 +105,21 @@ public class Plank : MonoBehaviour
 
 
         /*------- Below Code Segment to Rotate a toolkit item -----*/
+        if(currentInstance!= null && currentInstance.tag == "Plank")
+        {
+            if ( Input.GetKey(KeyCode.RightArrow) )
+            {
+                currentInstance.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                currentInstance.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
+            }
 
-        if ( Input.GetKey(KeyCode.RightArrow) )
-        {
-            currentInstance.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
-        }
-        else if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            currentInstance.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))
-        {
-            destroyToolObject(currentInstance);
+            if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))
+            {
+                destroyToolObject(currentInstance);
+            }
         }
 
         /*--------------------------------------------------------*/
@@ -127,7 +130,8 @@ public class Plank : MonoBehaviour
     public void createInstance()
     {
         Debug.Log("clicked Plank Button");
-        Instantiate(originalObject, new Vector3(0,0, 0), Quaternion.identity);
+        GameObject newPlank = Instantiate(originalObject, new Vector3(0,0, 0), Quaternion.identity);
+        newPlank.GetComponent<Plank>().plankState = StateReference.temperature.neutral;
     }
     /*------------------------------------------------------------*/
 

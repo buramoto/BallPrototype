@@ -33,6 +33,5 @@ public class Static_Plank : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
