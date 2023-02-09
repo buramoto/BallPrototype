@@ -126,6 +126,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plankState: 2
   editable: 1
+  defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  normPlankSprite: {fileID: 21300000, guid: bc35a87eff14bcc46b597cfb9b62e261, type: 3}
+  coldPlankSprite: {fileID: 0}
+  hotPlankSprite: {fileID: 0}
   rotationSpeed: 20
   originalObject: {fileID: 951476148478341739}
   currentInstance: {fileID: 0}

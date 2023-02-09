@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,11 @@ public class Plank : MonoBehaviour
     public StateReference.temperature plankState;
     private SpriteRenderer plankDisplay;
     public bool editable = true;
+    public Material defaultMaterial;
+    //public IDictionary<string,Sprite>sprites = new Dictionary<string, Sprite>();
+    public Sprite normPlankSprite;
+    public Sprite coldPlankSprite;
+    public Sprite hotPlankSprite;
 
     // variable to track simulation mode
     bool simulationMode;
@@ -53,7 +59,8 @@ public class Plank : MonoBehaviour
                 plankDisplay.material.color = Color.red;
                 break;
         }*/
-        plankDisplay.material.color = new Color(243,145,1);
+        //plankDisplay.material.color = new Color(243,145,1);
+        
     }
 
     // Update is called once per frame
@@ -143,6 +150,11 @@ public class Plank : MonoBehaviour
             Debug.Log("clicked Plank Button");
             GameObject newPlank = Instantiate(originalObject, new Vector3(0,0, 0), Quaternion.identity);
             newPlank.GetComponent<Plank>().plankState = StateReference.temperature.neutral;
+            //We may need to switch out the plank sprite with different sprites depending on the temperature set
+            SpriteRenderer newPlankRenderer = newPlank.GetComponent<SpriteRenderer>();
+            newPlankRenderer.sprite = normPlankSprite;
+            //EditorUtility.SetDirty(newPlank);
+            //newPlankRenderer.sharedMaterial = defaultMaterial;
         }
         else
         {

@@ -360,7 +360,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
+  m_fontSize: 7.85
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -531,6 +531,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 951476148478341733, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
     - target: {fileID: 951476148478341735, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: editable
       value: 0
@@ -635,7 +639,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.45
+  m_fontSize: 23.85
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -974,7 +978,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.45
+  m_fontSize: 18
   m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1361,23 +1365,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plankState: 2
---- !u!114 &468622504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468622498}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d57033be876c0742b69331f10bf4013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plankState: 2
-  editable: 1
-  rotationSpeed: 20
-  originalObject: {fileID: 951476148478341739, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
-  currentInstance: {fileID: 0}
 --- !u!1 &521667618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,7 +1452,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.45
+  m_fontSize: 23.85
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1926,7 +1913,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
+  m_fontSize: 7.85
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2206,11 +2193,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1398476507067783388, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 635
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1398476507067783388, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26.24797
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1398476507067783388, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4139,7 +4126,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
+  m_fontSize: 7.85
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
