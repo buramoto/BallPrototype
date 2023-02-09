@@ -12,13 +12,14 @@ public class StartStopButton : MonoBehaviour
 
     public void execute()
     {
-        DungeonMaster.dm.changeMode();
-        if (DungeonMaster.dm.simulatonMode)
+        if (!DungeonMaster.dm.simulationMode)
         {
+            DungeonMaster.dm.simMode(true, StateReference.resetType.start);
             text.text = "Stop";
         }
         else
         {
+            DungeonMaster.dm.simMode(false, StateReference.resetType.ssb);
             text.text = "Start";
         }
     }

@@ -58,7 +58,8 @@ public class BallScript : MonoBehaviour
         if (ballX < -screenWidth / 2 || ballX > screenWidth / 2 || ballY < -screenHeight / 2 || ballY > screenHeight / 2)
         {
             // If the ball is outside the bounds, call the changeMode() function
-            DungeonMaster.dm.changeMode();
+            DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
+            UIBehavior.gameUI.oobCoords = transform.position;
         }
     }
 
@@ -94,7 +95,7 @@ public class BallScript : MonoBehaviour
     //Check the plank's state and the ball's state, then destroy/interact with plank
     private void plankCollision(GameObject plank)
     {
-        Debug.Log("Ball Collided with plank");
+        //Debug.Log("Ball Collided with plank");
         //TODO some property check here
         if(tempState == StateReference.temperature.hot)
         {
@@ -115,7 +116,7 @@ public class BallScript : MonoBehaviour
     }
     private void staticplankCollision(GameObject plank)
     {
-        Debug.Log("Ball Collided with static plank");
+        //Debug.Log("Ball Collided with static plank");
         //TODO some property check here
         if (tempState == StateReference.temperature.hot)
         {
@@ -192,12 +193,5 @@ public class BallScript : MonoBehaviour
         transform.position = startPosition;
         tempState = StateReference.temperature.neutral;
         ballDisplay.material.color = Color.gray;
-    }
-
-    // Function to reset the ball's position
-    public void ResetBall()
-    {
-        // Reset the scene 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -13,9 +13,6 @@ public class ChangeTemperature : MonoBehaviour
     public GameObject referenceToOriginalHeaterObject;
     private GameObject currentInstance;
 
-    // variable to track simulation mode
-    bool simulationMode;
-
     bool canMove;
     bool dragging;
     private Collider2D _collider;
@@ -49,10 +46,8 @@ public class ChangeTemperature : MonoBehaviour
     void Update()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        simulationMode = DungeonMaster.dm.GetStatusOfSimulationMode();
         // mouse down event check
-        Debug.Log("Heater Status of Simulation Mode: "+simulationMode);
-        if (Input.GetMouseButtonDown(0) && !simulationMode)
+        if (Input.GetMouseButtonDown(0) && !DungeonMaster.dm.simulationMode)
         {
             Vector3 mousePositionOnClickedObject = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePositionOnClickedObject2D = new Vector2(mousePos.x, mousePos.y);
@@ -80,12 +75,12 @@ public class ChangeTemperature : MonoBehaviour
                 }
             }
         }
-        if (dragging && !simulationMode)
+        if (dragging && !DungeonMaster.dm.simulationMode)
         {
             // updating the position of the toolkit item to mouse's current position
             currentInstance.transform.position = mousePos;
         }
-        if (Input.GetMouseButtonUp(0) && !simulationMode)
+        if (Input.GetMouseButtonUp(0) && !DungeonMaster.dm.simulationMode)
         {
             canMove = false;
             dragging = false;
@@ -93,7 +88,7 @@ public class ChangeTemperature : MonoBehaviour
         /*---------------------------------------------------------*/
 
 
-        if(currentInstance != null && currentInstance.tag == "TempChange" && !simulationMode)
+        if(currentInstance != null && currentInstance.tag == "TempChange" && !DungeonMaster.dm.simulationMode)
         {
             /*------- Below Code Segment to DELETE a SPRING  -----------*/
             if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))
@@ -110,8 +105,7 @@ public class ChangeTemperature : MonoBehaviour
     /*------- Below Code Segment to create a new toolkit item -----*/
     public void createInstance()
     {
-        simulationMode = DungeonMaster.dm.GetStatusOfSimulationMode();
-        if (!simulationMode)
+        if (!DungeonMaster.dm.simulationMode)
         {
             Debug.Log("New Heater Object Created");
             Instantiate(referenceToOriginalHeaterObject, new Vector3(0, 0, 0), Quaternion.identity);

@@ -10,26 +10,23 @@ public class DungeonMaster : MonoBehaviour
     public static DungeonMaster dm;
 
     //Game variables
-    public bool simulatonMode;
-    public GameObject winScreen;
-
-    [SerializeField] private GameObject heaterButtonReference;
-    [SerializeField] private GameObject plankButtonReference;
-    [SerializeField] private GameObject springButtonReference;
-
+    public bool simulationMode;
+    private byte counter;
 
     //Objects for controlling start/stop
-    private BallScript ball;
-    private Static_Plank[] planks;
+    private BallScript[] balls;
+    private Static_Plank[] levelPlanks;
     private GoalBlock[] goals;
-    private StartStopButton button;
+    private Spring[] levelSprings;
 
-    //UI Elements
-    private GameObject canvas;
-
-    //Sequence of checkpoints
+    //Sequence of checkpoints, should be configurable by level
     private char[] sequence = {'p', 'y', 'w'};
-    private byte counter;
+
+    //Events
+    public delegate void StartSimulation();
+    public event StartSimulation StartSim;
+    public delegate void StopSimulation(StateReference.resetType type);
+    public event StopSimulation StopSim;
 
     /// <summary>
     /// Creates the dm for the first time, or if there is already on (e.g. loading in from a different
@@ -64,52 +61,48 @@ public class DungeonMaster : MonoBehaviour
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Initalizing level "+scene.name);
-        ball = FindFirstObjectByType<BallScript>();
-        simulatonMode = false;
-        canvas = FindObjectOfType<Canvas>().gameObject;
-        planks = FindObjectsOfType<Static_Plank>();
+        balls = FindObjectsOfType<BallScript>();
+        levelPlanks = FindObjectsOfType<Static_Plank>(); //Change this to regular plank
         goals = FindObjectsOfType<GoalBlock>();
-        button = FindObjectOfType<StartStopButton>();
-
-        plankButtonReference = GameObject.FindWithTag("PlankButton");
-        springButtonReference = GameObject.FindWithTag("SpringButton");
-        heaterButtonReference = GameObject.FindWithTag("HeaterButton");
+        simulationMode = false;
         counter = 0;
     }
 
     //This method changes the state of the game from edit to simulaton and vice versa
-    public void changeMode()
+    public void simMode(bool mode, StateReference.resetType type)
     {
-        if (simulatonMode)
+        if (mode == simulationMode)
         {
-            // if simulat
-            heaterButtonReference.GetComponent<Button>().interactable = true;
-            plankButtonReference.GetComponent<Button>().interactable = true;
-            springButtonReference.GetComponent<Button>().interactable = true;
-
-            Debug.Log("Simulaton stopped");
+            return;
+        }
+        if (mode) { 
+            Debug.LogWarning("Simulaton started!");
             counter = 0;
-            ball.stopSim();
-            for(int i=0; i < planks.Length; i++)
+            for(int i = 0; i < balls.Length; i++)//The ball's start and stop statements should be moved to events
             {
-                planks[i].gameObject.SetActive(true);
+                balls[i].startSim();
             }
-            for (int i=0; i < goals.Length; i++)
+            //Trigger start sim event
+            StartSim?.Invoke();
+        }
+        else {
+            Debug.LogWarning("Simulation stopped!");
+            for (int i = 0; i < levelPlanks.Length; i++)
+            {
+                levelPlanks[i].gameObject.SetActive(true);
+            }
+            for (int i = 0; i < goals.Length; i++)
             {
                 goals[i].gameObject.SetActive(true);
             }
-            button.text.text = "Start";
+            for(int i = 0; i < balls.Length; i++)
+            {
+                balls[i].stopSim();
+            }
+            //Trigger stop sim event
+            StopSim?.Invoke(type);
         }
-        else {
-            Debug.Log("Simulation Started");
-            //GameObject heaterBtn = Canvas.
-            heaterButtonReference.GetComponent<Button>().interactable = false;
-            plankButtonReference.GetComponent<Button>().interactable = false;
-            springButtonReference.GetComponent<Button>().interactable = false;
-            ball.startSim();
-
-        }
-        simulatonMode = !simulatonMode;
+        simulationMode = !simulationMode;
     }
 
     /// <summary>
@@ -124,10 +117,7 @@ public class DungeonMaster : MonoBehaviour
         if(checkpointColor=='g' && counter==3)
         {
             //Display a Win screen
-            Debug.Log("Inside the if statement");
-            var WinSc = Instantiate(winScreen,canvas.transform.position,Quaternion.identity);
-            //WinSc.transform.parent = canvas.transform;
-            WinSc.transform.SetParent(canvas.transform);
+            UIBehavior.gameUI.displayWinScreen();
         }
         else if(checkpointColor == sequence[counter])
         {
@@ -136,14 +126,8 @@ public class DungeonMaster : MonoBehaviour
         }
         else
         {
-            //Wrong
-            changeMode();
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //Player got the ball to the wrong goal block
+            simMode(false, StateReference.resetType.wgo);
         }
-    }
-
-    public bool GetStatusOfSimulationMode()
-    {
-        return simulatonMode;
     }
 }

@@ -17,10 +17,6 @@ public class Plank : MonoBehaviour
     public Sprite coldPlankSprite;
     public Sprite hotPlankSprite;
 
-    // variable to track simulation mode
-    bool simulationMode;
-
-
     // variables needed to drag and drop toolkit items
     bool canMove;
     bool dragging;
@@ -71,13 +67,8 @@ public class Plank : MonoBehaviour
         // find mouse position in case of dragging
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         // 
-        simulationMode = DungeonMaster.dm.GetStatusOfSimulationMode();
 
-        // mouse down event check
-
-        // accessing the simulationMode variable from Dungeon Master
-
-        if (Input.GetMouseButtonDown(0) && !simulationMode)
+        if (Input.GetMouseButtonDown(0) && !DungeonMaster.dm.simulationMode)
         {
             Vector3 mousePositionOnClickedObject = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 mousePositionOnClickedObject2D = new Vector2(mousePos.x, mousePos.y);
@@ -105,12 +96,12 @@ public class Plank : MonoBehaviour
                 }   
             }
         }
-        if (dragging && !simulationMode)
+        if (dragging && !DungeonMaster.dm.simulationMode)
         {
             // updating the position of the toolkit item to mouse's current position
             currentInstance.transform.position = mousePos;
         }
-        if (Input.GetMouseButtonUp(0) && !simulationMode)
+        if (Input.GetMouseButtonUp(0) && !DungeonMaster.dm.simulationMode)
         {
             canMove = false;
             dragging = false;
@@ -121,7 +112,7 @@ public class Plank : MonoBehaviour
 
 
         /*------- Below Code Segment to Rotate a toolkit item -----*/
-        if(currentInstance!= null && currentInstance.tag == "Plank" && !simulationMode)
+        if(currentInstance!= null && currentInstance.tag == "Plank" && !DungeonMaster.dm.simulationMode)
         {
             if ( Input.GetKey(KeyCode.RightArrow) )
             {
@@ -145,7 +136,7 @@ public class Plank : MonoBehaviour
     /*------- Below Code Segment to create a new toolkit item -----*/
     public void createInstance()
     {
-        if (!simulationMode)
+        if (!DungeonMaster.dm.simulationMode)
         {
             Debug.Log("clicked Plank Button");
             GameObject newPlank = Instantiate(originalObject, new Vector3(0,0, 0), Quaternion.identity);
