@@ -12,6 +12,7 @@ TagManager:
   - PlankButton
   - SpringButton
   - HeaterButton
+  - Static
   layers:
   - Default
   - TransparentFX

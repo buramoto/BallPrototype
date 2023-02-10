@@ -51,9 +51,10 @@ public class UIBehavior : MonoBehaviour
     /// <summary>
     /// Event handlers for stop and start sim
     /// </summary>
+    /// This should be changed to an event
     private void startSim()
     {
-        Debug.Log("UI starting sim");
+        //Debug.Log("UI starting sim");
         for(int i=0; i < toolKitButtons.Length; i++)
         {
             toolKitButtons[i].interactable = false;
@@ -61,7 +62,7 @@ public class UIBehavior : MonoBehaviour
     }
     private void stopSim(StateReference.resetType type)
     {
-        Debug.Log("UI stopping sim");
+        //Debug.Log("UI stopping sim");
         for (int i = 0; i < toolKitButtons.Length; i++)
         {
             toolKitButtons[i].interactable = true;

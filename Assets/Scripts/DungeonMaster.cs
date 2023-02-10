@@ -13,11 +13,12 @@ public class DungeonMaster : MonoBehaviour
     public bool simulationMode;
     private byte counter;
 
-    //Objects for controlling start/stop
+    //References to all static objects in scene
     private BallScript[] balls;
-    private Static_Plank[] levelPlanks;
+    private Plank[] levelPlanks;
     private GoalBlock[] goals;
     private Spring[] levelSprings;
+    private ChangeTemperature[] tempElements;
 
     //Sequence of checkpoints, should be configurable by level
     private char[] sequence = {'p', 'y', 'w'};
@@ -27,6 +28,9 @@ public class DungeonMaster : MonoBehaviour
     public event StartSimulation StartSim;
     public delegate void StopSimulation(StateReference.resetType type);
     public event StopSimulation StopSim;
+
+    //Settings
+    public float rotationSpeed;
 
     /// <summary>
     /// Creates the dm for the first time, or if there is already on (e.g. loading in from a different
@@ -54,21 +58,22 @@ public class DungeonMaster : MonoBehaviour
     /// <summary>
     /// This method initalizes the level for play after loading a scene
     /// These are its responsibilities: 
-    ///     1) Updating the UI wih appropriate toolkit items (eventually we should make this a json file)
-    ///     2) Initalizing the ball variable with this level's ball
+    ///     1) Resetting the level
+    ///     2) Initalizing the DM variable with this level's objects
     ///     3) Setting the level's timer
     /// </summary>
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Initalizing level "+scene.name);
         balls = FindObjectsOfType<BallScript>();
-        levelPlanks = FindObjectsOfType<Static_Plank>(); //Change this to regular plank
+        levelPlanks = FindObjectsOfType<Plank>();
         goals = FindObjectsOfType<GoalBlock>();
         simulationMode = false;
         counter = 0;
+        simMode(false, StateReference.resetType.ssb);
     }
 
-    //This method changes the state of the game from edit to simulaton and vice versa
+    //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
     public void simMode(bool mode, StateReference.resetType type)
     {
         if (mode == simulationMode)
@@ -86,7 +91,7 @@ public class DungeonMaster : MonoBehaviour
             StartSim?.Invoke();
         }
         else {
-            Debug.LogWarning("Simulation stopped!");
+            Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");
             for (int i = 0; i < levelPlanks.Length; i++)
             {
                 levelPlanks[i].gameObject.SetActive(true);

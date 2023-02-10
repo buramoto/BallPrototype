@@ -9,61 +9,43 @@ public class Plank : MonoBehaviour
 { 
     //Outlets
     public StateReference.temperature plankState;
-    private SpriteRenderer plankDisplay;
     public bool editable = true;
-    public Material defaultMaterial;
-    //public IDictionary<string,Sprite>sprites = new Dictionary<string, Sprite>();
+
+    //Private variables
+    private SpriteRenderer plankDisplay;
+
+    //Sprites for the different temperatures
     public Sprite normPlankSprite;
     public Sprite coldPlankSprite;
     public Sprite hotPlankSprite;
 
-    // variables needed to drag and drop toolkit items
-    bool canMove;
-    bool dragging;
-    Collider2D _collider;
-
-    // to rotate toolkit items
-    public float rotationSpeed = 20f;
-
-    //variable to create new gameObject
-    public GameObject originalObject;
-    public GameObject currentInstance;
-
-
 
     void Start()
     {
-
-        
-        // variables needed to move PLANK 
-        _collider = GetComponent<Collider2D>();
-        canMove = false;
-        dragging = false;
-
         //Based on its current temperatue, set the color
         plankDisplay = GetComponent<SpriteRenderer>();
-        /*
-        switch (plankState)
+        if (!editable)
         {
-            case StateReference.temperature.neutral:
-                plankDisplay.material.color = Color.green;
-                break;
-            case StateReference.temperature.cold:
-                plankDisplay.material.color = Color.cyan;
-                break;
-            case StateReference.temperature.hot:
-                plankDisplay.material.color = Color.red;
-                break;
-        }*/
-        //plankDisplay.material.color = new Color(243,145,1);
-        
+            switch (plankState)
+            {
+                case StateReference.temperature.neutral:
+                    plankDisplay.sprite = normPlankSprite;
+                    break;
+                case StateReference.temperature.cold:
+                    plankDisplay.material.color = Color.cyan;
+                    break;
+                case StateReference.temperature.hot:
+                    plankDisplay.material.color = Color.red;
+                    break;
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        /*----- Below Code Segment for DRAG & DROP functionality -----*/
+        /*----- Below Code Segment for DRAG & DROP functionality -----
         // find mouse position in case of dragging
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         // 
@@ -106,12 +88,12 @@ public class Plank : MonoBehaviour
             canMove = false;
             dragging = false;
         }
-        /*---------------------------------------------------------*/
+        ---------------------------------------------------------
 
 
 
 
-        /*------- Below Code Segment to Rotate a toolkit item -----*/
+        /*------- Below Code Segment to Rotate a toolkit item -----
         if(currentInstance!= null && currentInstance.tag == "Plank" && !DungeonMaster.dm.simulationMode)
         {
             if ( Input.GetKey(KeyCode.RightArrow) )
@@ -129,12 +111,12 @@ public class Plank : MonoBehaviour
             }
         }
 
-        /*--------------------------------------------------------*/
+        --------------------------------------------------------*/
 
     }
 
-    /*------- Below Code Segment to create a new toolkit item -----*/
-    public void createInstance()
+    /*------- Below Code Segment to create a new toolkit item -----
+    public void CreateInstance()
     {
         if (!DungeonMaster.dm.simulationMode)
         {
@@ -144,8 +126,6 @@ public class Plank : MonoBehaviour
             //We may need to switch out the plank sprite with different sprites depending on the temperature set
             SpriteRenderer newPlankRenderer = newPlank.GetComponent<SpriteRenderer>();
             newPlankRenderer.sprite = normPlankSprite;
-            //EditorUtility.SetDirty(newPlank);
-            //newPlankRenderer.sharedMaterial = defaultMaterial;
         }
         else
         {
@@ -154,10 +134,19 @@ public class Plank : MonoBehaviour
     }
     /*------------------------------------------------------------*/
 
-
-    private void destroyToolObject(GameObject gameObject)
+    public void ChangeTemp(StateReference.temperature temp)
     {
-        Destroy(gameObject);
+        plankDisplay = GetComponent<SpriteRenderer>();
+        plankState = temp;
+        switch (temp)
+        {
+            case StateReference.temperature.neutral:
+                plankDisplay.sprite = normPlankSprite;
+                break;
+            default:
+                plankDisplay.sprite = normPlankSprite;
+                break;
+        }
     }
 
 }
