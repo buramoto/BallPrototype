@@ -16,7 +16,15 @@ public class ResetButton : MonoBehaviour
 
     // Update is called once per frame
     public void execute()
-    {
+    {   
+        // Reset the global variables
+        GlobalVariables.plankCounter = 0;
+        GlobalVariables.springCounter = 0;
+        GlobalVariables.heaterCounter = 0;
+        GlobalVariables.attemptCounter++;
+        Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
+
+        // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

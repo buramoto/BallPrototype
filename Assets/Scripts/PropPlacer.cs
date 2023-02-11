@@ -89,6 +89,7 @@ public class PropPlacer : MonoBehaviour
         //So the UI can call the method
         if(selectedObject != null)
         {
+            // Debug.Log(selectedObject.tag);
             if (Input.GetKey(KeyCode.RightArrow))//Rotate right
             {
                 selectedObject.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
@@ -97,8 +98,23 @@ public class PropPlacer : MonoBehaviour
             {
                 selectedObject.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
             }
-            if (Input.GetKey(KeyCode.Delete))//Delete
+            if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))//Delete
             {
+                if(selectedObject.tag == "Plank")
+                {
+                    GlobalVariables.plankCounter--;
+                    Debug.Log("Plank Counter after deletion: " + GlobalVariables.plankCounter);
+                }
+                if(selectedObject.tag == "Spring")
+                {
+                    GlobalVariables.springCounter--;
+                    Debug.Log("Spring Counter after deletion: " + GlobalVariables.springCounter);
+                }
+                if(selectedObject.tag == "TempChange")
+                {
+                    GlobalVariables.heaterCounter--;
+                    Debug.Log("Heater Counter after deletion: " + GlobalVariables.heaterCounter);
+                }
                 Destroy(selectedObject);
                 selectedObject = null;
             }
@@ -110,6 +126,11 @@ public class PropPlacer : MonoBehaviour
         if (!DungeonMaster.dm.simulationMode)
         {
             Debug.Log("Creating Plank");
+
+            // Increment the plank counter
+            GlobalVariables.plankCounter++;
+            Debug.Log("Plank Counter: " + GlobalVariables.plankCounter);
+
             GameObject newPlank = Instantiate(plankPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             Plank plankScript = newPlank.GetComponent<Plank>();
             plankScript.ChangeTemp(StateReference.temperature.neutral);
@@ -126,6 +147,11 @@ public class PropPlacer : MonoBehaviour
         if (!DungeonMaster.dm.simulationMode)
         {
             Debug.Log("Creating Spring");
+
+            // Increment the spring counter
+            GlobalVariables.springCounter++;
+            Debug.Log("Spring Counter: " + GlobalVariables.springCounter);
+
             GameObject newSpring = Instantiate(springPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             Spring springScript = newSpring.GetComponent<Spring>();
             springScript.editable = true;
@@ -141,6 +167,11 @@ public class PropPlacer : MonoBehaviour
         if (!DungeonMaster.dm.simulationMode)
         {
             Debug.Log("Creating Temperature Element");
+
+            // Increment the heater counter
+            GlobalVariables.heaterCounter++;
+            Debug.Log("Heater Counter: " + GlobalVariables.heaterCounter);
+            
             GameObject newTempElement = Instantiate(tempElementPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             ChangeTemperature newTempElementScript = newTempElement.GetComponent<ChangeTemperature>();
             newTempElementScript.ChangeTemp(StateReference.temperature.hot);

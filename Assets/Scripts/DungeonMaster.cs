@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class DungeonMaster : MonoBehaviour
 {
@@ -106,6 +107,16 @@ public class DungeonMaster : MonoBehaviour
             }
             //Trigger stop sim event
             StopSim?.Invoke(type);
+
+            // Increment attempt counter
+            GlobalVariables.attemptCounter++;
+            Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
+
+            // Change the button text
+            GameObject button = GameObject.Find("StartButton");
+            TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+            buttonText.text = "Start";
+
         }
         simulationMode = !simulationMode;
     }
@@ -130,7 +141,7 @@ public class DungeonMaster : MonoBehaviour
             counter++;
         }
         else
-        {
+        {  
             //Player got the ball to the wrong goal block
             simMode(false, StateReference.resetType.wgo);
         }
