@@ -25,12 +25,14 @@ public class ResetButton : MonoBehaviour
         Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
 
         // Reload the current scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        winScreenExecute();
     }
 
     public void winScreenExecute()
     {
-        GameObject winScreen = GameObject.Find("WinScreen");
+        GameObject winScreen = GameObject.Find("WinScreen(Clone)");
+        Debug.Log("winSreen reference in ResetButton-->" +winScreen);
         winScreen.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

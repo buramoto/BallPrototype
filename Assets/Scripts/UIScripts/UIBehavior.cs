@@ -13,7 +13,7 @@ public class UIBehavior : MonoBehaviour
     public static UIBehavior gameUI;
 
     //Menus
-    public GameObject winScreen;
+    public GameObject winScreen ;
 
     //Buttons
     private Button[] toolKitButtons;

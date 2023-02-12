@@ -25,6 +25,10 @@ public class BallScript : MonoBehaviour
     private float screenHeight;
     private float screenWidth;
 
+    // Ball is not editable neither during Simulation nor during Editing Phase
+    public bool editable = false;
+
+
     // Start is called before the first frame update
     void Start()
     {

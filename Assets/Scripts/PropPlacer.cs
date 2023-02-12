@@ -69,6 +69,13 @@ public class PropPlacer : MonoBehaviour
                     break;
                 case "Checkpoint":
                     return;
+                default :
+                    if (!clickedObject.GetComponent<BallScript>().editable)
+                    {
+                        // Debug.Log("Ball was clicked but it should not be editable hence added it here");
+                        return;
+                    }
+                    break;
             }
             dragging = true;
             selectedObject = clickedObject;

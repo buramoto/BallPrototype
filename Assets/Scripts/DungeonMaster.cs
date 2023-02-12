@@ -72,6 +72,7 @@ public class DungeonMaster : MonoBehaviour
         simulationMode = false;
         counter = 0;
         simMode(false, StateReference.resetType.ssb);
+        Debug.Log("Initalizing level of Dungeon Master has been Executed");
     }
 
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
