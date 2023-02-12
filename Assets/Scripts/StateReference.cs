@@ -16,7 +16,6 @@ public class StateReference
         hot,
         cold
     }
-
     /// <summary>
     /// This enum is the different colored goal blocks in the scene
     /// </summary>
@@ -27,5 +26,16 @@ public class StateReference
         blue,
         white,
         green
+    }
+    /// <summary>
+    /// This enum is used to tell the different types of resets, such as out of bounds
+    /// </summary>
+    public enum resetType
+    {
+        oob, //Out of bounds
+        ssb, //Start/stop button
+        wgo, //wrong goal order
+        win, //Completed level
+        start //For scripts starting simulation. No message is needed, so this is the "none" type
     }
 }

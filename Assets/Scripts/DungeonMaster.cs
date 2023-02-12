@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class DungeonMaster : MonoBehaviour
 {
@@ -9,22 +11,27 @@ public class DungeonMaster : MonoBehaviour
     public static DungeonMaster dm;
 
     //Game variables
-    public bool simulatonMode;
-    public GameObject winScreen;
-    
-
-    //Objects for controlling start/stop
-    private BallScript ball;
-    private Static_Plank[] planks;
-    private GoalBlock[] goals;
-    private StartStopButton button;
-
-    //UI Elements
-    private GameObject canvas;
-
-    //Sequence of checkpoints
-    private char[] sequence = {'p', 'y', 'w'};
+    public bool simulationMode;
     private byte counter;
+
+    //References to all static objects in scene
+    private BallScript[] balls;
+    private Plank[] levelPlanks;
+    private GoalBlock[] goals;
+    private Spring[] levelSprings;
+    private ChangeTemperature[] tempElements;
+
+    //Sequence of checkpoints, should be configurable by level
+    private char[] sequence = {'p', 'y', 'w'};
+
+    //Events
+    public delegate void StartSimulation();
+    public event StartSimulation StartSim;
+    public delegate void StopSimulation(StateReference.resetType type);
+    public event StopSimulation StopSim;
+
+    //Settings
+    public float rotationSpeed;
 
     /// <summary>
     /// Creates the dm for the first time, or if there is already on (e.g. loading in from a different
@@ -52,45 +59,67 @@ public class DungeonMaster : MonoBehaviour
     /// <summary>
     /// This method initalizes the level for play after loading a scene
     /// These are its responsibilities: 
-    ///     1) Updating the UI wih appropriate toolkit items (eventually we should make this a json file)
-    ///     2) Initalizing the ball variable with this level's ball
+    ///     1) Resetting the level
+    ///     2) Initalizing the DM variable with this level's objects
     ///     3) Setting the level's timer
     /// </summary>
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Initalizing level "+scene.name);
-        ball = FindFirstObjectByType<BallScript>();
-        simulatonMode = false;
-        canvas = FindObjectOfType<Canvas>().gameObject;
-        planks = FindObjectsOfType<Static_Plank>();
+        balls = FindObjectsOfType<BallScript>();
+        levelPlanks = FindObjectsOfType<Plank>();
         goals = FindObjectsOfType<GoalBlock>();
-        button = FindObjectOfType<StartStopButton>();
+        simulationMode = false;
         counter = 0;
+        simMode(false, StateReference.resetType.ssb);
+        Debug.Log("Initalizing level of Dungeon Master has been Executed");
     }
 
-    //This method changes the state of the game from edit to simulaton and vice versa
-    public void changeMode()
+    //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
+    public void simMode(bool mode, StateReference.resetType type)
     {
-        if (simulatonMode)
+        if (mode == simulationMode)
         {
-            Debug.Log("Simulaton stopped");
+            return;
+        }
+        if (mode) { 
+            Debug.LogWarning("Simulaton started!");
             counter = 0;
-            ball.stopSim();
-            for(int i=0; i < planks.Length; i++)
+            for(int i = 0; i < balls.Length; i++)//The ball's start and stop statements should be moved to events
             {
-                planks[i].gameObject.SetActive(true);
+                balls[i].startSim();
             }
-            for (int i=0; i < goals.Length; i++)
+            //Trigger start sim event
+            StartSim?.Invoke();
+        }
+        else {
+            Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");
+            for (int i = 0; i < levelPlanks.Length; i++)
+            {
+                levelPlanks[i].gameObject.SetActive(true);
+            }
+            for (int i = 0; i < goals.Length; i++)
             {
                 goals[i].gameObject.SetActive(true);
             }
-            button.text.text = "Start";
+            for(int i = 0; i < balls.Length; i++)
+            {
+                balls[i].stopSim();
+            }
+            //Trigger stop sim event
+            StopSim?.Invoke(type);
+
+            // Increment attempt counter
+            GlobalVariables.attemptCounter++;
+            Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
+
+            // Change the button text
+            GameObject button = GameObject.Find("StartButton");
+            TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+            buttonText.text = "Start";
+
         }
-        else {
-            Debug.Log("Simulation Started");
-            ball.startSim();
-        }
-        simulatonMode = !simulatonMode;
+        simulationMode = !simulationMode;
     }
 
     /// <summary>
@@ -105,10 +134,7 @@ public class DungeonMaster : MonoBehaviour
         if(checkpointColor=='g' && counter==3)
         {
             //Display a Win screen
-            Debug.Log("Inside the if statement");
-            var WinSc = Instantiate(winScreen,canvas.transform.position,Quaternion.identity);
-            //WinSc.transform.parent = canvas.transform;
-            WinSc.transform.SetParent(canvas.transform);
+            UIBehavior.gameUI.displayWinScreen();
         }
         else if(checkpointColor == sequence[counter])
         {
@@ -116,10 +142,9 @@ public class DungeonMaster : MonoBehaviour
             counter++;
         }
         else
-        {
-            //Wrong
-            changeMode();
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        {  
+            //Player got the ball to the wrong goal block
+            simMode(false, StateReference.resetType.wgo);
         }
     }
 }

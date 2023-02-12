@@ -25,6 +25,10 @@ public class BallScript : MonoBehaviour
     private float screenHeight;
     private float screenWidth;
 
+    // Ball is not editable neither during Simulation nor during Editing Phase
+    public bool editable = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +62,8 @@ public class BallScript : MonoBehaviour
         if (ballX < -screenWidth / 2 || ballX > screenWidth / 2 || ballY < -screenHeight / 2 || ballY > screenHeight / 2)
         {
             // If the ball is outside the bounds, call the changeMode() function
-            DungeonMaster.dm.changeMode();
+            DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
+            UIBehavior.gameUI.oobCoords = transform.position;
         }
     }
 
@@ -71,7 +76,7 @@ public class BallScript : MonoBehaviour
                 plankCollision(collision.gameObject);
                 break;
             case "Static_Plank":
-                staticplankCollision(collision.gameObject);
+                Debug.LogError("Static Plank Reference!");
                 break;
         }
     }
@@ -92,48 +97,33 @@ public class BallScript : MonoBehaviour
     }
 
     //Check the plank's state and the ball's state, then destroy/interact with plank
+    //It is a matrix of interactions: hh, hn, hc, nh, nn, nc, ch, cn, cc
     private void plankCollision(GameObject plank)
     {
-        Debug.Log("Ball Collided with plank");
-        //TODO some property check here
-        if(tempState == StateReference.temperature.hot)
+        Plank plankProperties = plank.gameObject.GetComponent<Plank>();
+        switch (tempState)
         {
-            Plank plankProperties = plank.gameObject.GetComponent<Plank>();
-            switch(plankProperties.plankState)
-            {
-                case StateReference.temperature.cold:
-                    tempState = StateReference.temperature.neutral;
-                    ballDisplay.material.color = Color.gray;
-                    plank.SetActive(false);
-                    break;
-                case StateReference.temperature.hot:
-                    break;
-                case StateReference.temperature.neutral:
-                    break;
-            }
+            case StateReference.temperature.hot:
+                switch (plankProperties.plankState)
+                {
+                    case StateReference.temperature.cold://Hot -> cold
+                        tempState = StateReference.temperature.neutral;
+                        ballDisplay.material.color = Color.gray;
+                        plank.SetActive(false);
+                        break;
+                    case StateReference.temperature.neutral://Hot -> neutral
+                        break;
+                    case StateReference.temperature.hot://Hot -> hot
+                        break;
+                }
+                break;
+            case StateReference.temperature.neutral:
+                break;
+            default:
+                break;
         }
     }
-    private void staticplankCollision(GameObject plank)
-    {
-        Debug.Log("Ball Collided with static plank");
-        //TODO some property check here
-        if (tempState == StateReference.temperature.hot)
-        {
-            Static_Plank plankProperties = plank.gameObject.GetComponent<Static_Plank>();
-            switch (plankProperties.plankState)
-            {
-                case StateReference.temperature.cold:
-                    tempState = StateReference.temperature.neutral;
-                    ballDisplay.material.color = Color.gray;
-                    plank.SetActive(false);
-                    break;
-                case StateReference.temperature.hot:
-                    break;
-                case StateReference.temperature.neutral:
-                    break;
-            }
-        }
-    }
+
     private void elementCollision(GameObject element)
     {
         ChangeTemperature elementProperties = element.GetComponent<ChangeTemperature>();
@@ -176,9 +166,10 @@ public class BallScript : MonoBehaviour
     }
 
     //Enable physics when the user presses the start button
+    //We should change this to an event
     public void startSim()
     {
-        Debug.Log("Ball: simulation Started");
+        //Debug.Log("Ball: simulation Started");
         ballPhysics.constraints = RigidbodyConstraints2D.None;
         ballPhysics.isKinematic = false;
         //ballPhysics.transform.position = startPosition;
@@ -186,18 +177,11 @@ public class BallScript : MonoBehaviour
 
     public void stopSim()
     {
-        Debug.Log("Ball: simulaton stopped");
+        //Debug.Log("Ball: simulaton stopped");
         ballPhysics.constraints = RigidbodyConstraints2D.FreezePosition;
         ballPhysics.isKinematic = true;
         transform.position = startPosition;
         tempState = StateReference.temperature.neutral;
         ballDisplay.material.color = Color.gray;
-    }
-
-    // Function to reset the ball's position
-    public void ResetBall()
-    {
-        // Reset the scene 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
