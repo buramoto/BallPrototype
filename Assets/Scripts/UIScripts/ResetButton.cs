@@ -16,23 +16,13 @@ public class ResetButton : MonoBehaviour
 
     // Update is called once per frame
     public void execute()
-    {   
-        // Reset the global variables
-        GlobalVariables.plankCounter = 0;
-        GlobalVariables.springCounter = 0;
-        GlobalVariables.heaterCounter = 0;
-        GlobalVariables.attemptCounter++;
-        Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
-
-        // Reload the current scene
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        winScreenExecute();
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void winScreenExecute()
     {
-        GameObject winScreen = GameObject.Find("WinScreen(Clone)");
-        Debug.Log("winSreen reference in ResetButton-->" +winScreen);
+        GameObject winScreen = GameObject.Find("WinScreen");
         winScreen.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
