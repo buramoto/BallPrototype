@@ -25,8 +25,8 @@ public class ResetButton : MonoBehaviour
         Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
 
         // Reload the current scene
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        winScreenExecute();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // winScreenExecute();
     }
 
     public void winScreenExecute()
