@@ -133,7 +133,7 @@ public class DungeonMaster : MonoBehaviour
 
             // Increment attempt counter
             GlobalVariables.attemptCounter++;
-            Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
+            Debug.Log("Attempt after reset FROM DM: " + GlobalVariables.attemptCounter);
 
             // Change the button text
             GameObject button = GameObject.Find("StartButton");
