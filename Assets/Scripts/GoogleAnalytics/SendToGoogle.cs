@@ -17,15 +17,7 @@ public class SendToGoogle : MonoBehaviour
     // Create a static reference to this object so that it can be accessed from other scripts
     private void Awake()
     {
-        if(sendToGoogle == null)
-        {
-            DontDestroyOnLoad(gameObject);
             sendToGoogle = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     public void Send()

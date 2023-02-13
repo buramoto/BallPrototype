@@ -146,13 +146,13 @@ public class BallScript : MonoBehaviour
 
     private void checkpointCollision(GameObject checkpoint)
     {
+        char color;
+        GoalBlock goal = checkpoint.GetComponent<GoalBlock>();
         if(!DungeonMaster.dm.simulationMode) {
             Debug.Log("Collision in simulation");
             return;         
         }
         else{
-            GoalBlock goal = checkpoint.GetComponent<GoalBlock>();
-            char color;
             switch (goal.goalColor)
             {
                 case StateReference.goalColor.purple:
@@ -171,16 +171,11 @@ public class BallScript : MonoBehaviour
                     color = 'z';
                     break;
             }
-            Debug.Log("Collided with checkpoint. It has color " + color);
-            checkpoint.SetActive(false);
-            DungeonMaster.dm.checkpointHit(color);
+            if(goal.goalColor != StateReference.goalColor.green) {
+                checkpoint.SetActive(false);
+            }
+            DungeonMaster.dm.checkpointHit(checkpoint, color);
         }
-        Debug.Log("Collided with checkpoint. It has color " + color);
-        if(StateReference.goalColor.green == goal.goalColor){
-            SendToGoogle.sendToGoogle.Send();   
-        }
-        checkpoint.SetActive(false);
-        DungeonMaster.dm.checkpointHit(color);
     }
 
     //Enable physics when the user presses the start button

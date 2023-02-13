@@ -26,14 +26,18 @@ public class ResetButton : MonoBehaviour
 
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // GameObject goalblock = GameObject.GetComponent<GoalBlock>("GoalBlock")[3];
+        // goalblock.SetActive(true);
         // winScreenExecute();
     }
 
-    public void winScreenExecute()
-    {
-        GameObject winScreen = GameObject.Find("WinScreen(Clone)");
-        Debug.Log("winSreen reference in ResetButton-->" +winScreen);
-        winScreen.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    // public void winScreenExecute()
+    // {
+    //     GameObject winScreen = GameObject.Find("WinScreen(Clone)");
+    //     Debug.Log("winSreen reference in ResetButton-->" +winScreen);
+    //     winScreen.SetActive(false);
+    //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //     // GameObject goalblock = GameObject.Find("GoalBlock (3)");
+    //     // goalblock.SetActive(true);
+    // }
 }

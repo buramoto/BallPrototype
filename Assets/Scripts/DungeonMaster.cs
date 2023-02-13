@@ -12,7 +12,7 @@ public class DungeonMaster : MonoBehaviour
 
     //Game variables
     public bool simulationMode;
-    private byte counter;
+    public byte counter;
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -70,6 +70,7 @@ public class DungeonMaster : MonoBehaviour
         GameObject winScreen = GameObject.Find("WinScreen(Clone)");
         if(winScreen != null){
             winScreen.SetActive(false);
+            Destroy(winScreen);
         }
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
@@ -78,6 +79,11 @@ public class DungeonMaster : MonoBehaviour
         counter = 0;
         simMode(false, StateReference.resetType.ssb);
         Debug.Log("Initalizing level of Dungeon Master has been Executed");
+        Debug.Log(goals.Length);
+        for(int i=0;i<goals.Length;i++) {
+            Debug.Log(goals[i].gameObject);
+            goals[i].gameObject.SetActive(true);
+        }
     }
 
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
@@ -140,13 +146,15 @@ public class DungeonMaster : MonoBehaviour
     /// It will determine if that checkpoint has been hit in the correct sequence then update
     /// the UI as necessary.
     /// </summary>
-    public void checkpointHit(char checkpointColor)
+    public void checkpointHit(GameObject checkpoint, char checkpointColor)
     {
         Debug.Log("Counter value" + counter);
-
         if(checkpointColor=='g' && counter==3)
         {
             //Display a Win screen
+            SendToGoogle.sendToGoogle.Send();
+            checkpoint.SetActive(false);
+            GlobalVariables.attemptCounter = 0;
             UIBehavior.gameUI.displayWinScreen();
         }
         else if(checkpointColor == sequence[counter])
