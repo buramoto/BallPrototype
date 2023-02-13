@@ -10,6 +10,10 @@ public class DungeonMaster : MonoBehaviour
     //Static reference so all objects can access the DM
     public static DungeonMaster dm;
 
+
+    // variable to store reference to highlighted object
+    public GameObject highlightedObject;
+
     //Game variables
     public bool simulationMode;
     private byte counter;
@@ -83,6 +87,9 @@ public class DungeonMaster : MonoBehaviour
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
     public void simMode(bool mode, StateReference.resetType type)
     {
+        if(highlightedObject!=null){
+            RemoveHighlightFromObject();
+        }
         
         if (mode == simulationMode)
         {
@@ -160,4 +167,38 @@ public class DungeonMaster : MonoBehaviour
             simMode(false, StateReference.resetType.wgo);
         }
     }
+
+    public void RemoveHighlightFromObject(){
+        if(highlightedObject!=null){
+            highlightedObject.GetComponentInChildren<Outline>().enabled =false;
+        }
+    }
+
+    public void HighlightObject(GameObject currentInstance){
+        Debug.Log("---- DM:" +currentInstance);
+        if(currentInstance.CompareTag("Plank") || currentInstance.CompareTag("Spring") || currentInstance.CompareTag("TempChange")){
+
+                    if( highlightedObject!=null && currentInstance != highlightedObject){
+                        highlightedObject.GetComponentInChildren<Outline>().enabled = false;
+                        currentInstance.GetComponentInChildren<Outline>().enabled = true;
+                        highlightedObject = currentInstance;
+                    }
+                    else if(currentInstance == highlightedObject){
+                        // do nothing as previously highlighted object is same as the currently clicked object
+                    }
+                    else if(highlightedObject ==null){
+                        Debug.Log("DM ---> "+currentInstance.GetComponentInChildren<Outline>());
+                        currentInstance.GetComponentInChildren<Outline>().enabled =true;
+                        highlightedObject = currentInstance;
+                    }
+                    
+        }
+        else{
+            if(highlightedObject!=null){
+
+                highlightedObject.GetComponentInChildren<Outline>().enabled =false;
+            }
+        }
+    }
+
 }
