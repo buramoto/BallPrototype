@@ -66,6 +66,11 @@ public class DungeonMaster : MonoBehaviour
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Initalizing level "+scene.name);
+
+        GameObject winScreen = GameObject.Find("WinScreen(Clone)");
+        if(winScreen != null){
+            winScreen.SetActive(false);
+        }
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
         goals = FindObjectsOfType<GoalBlock>();
