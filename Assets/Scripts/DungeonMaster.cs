@@ -94,10 +94,6 @@ public class DungeonMaster : MonoBehaviour
         if (mode == simulationMode)
         {
             
-            GameObject button = GameObject.Find("StartButton");
-            TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
-            buttonText.text = "Start";
-
             StopSim?.Invoke(type);
 
             return;
@@ -171,6 +167,7 @@ public class DungeonMaster : MonoBehaviour
     public void RemoveHighlightFromObject(){
         if(highlightedObject!=null){
             highlightedObject.GetComponentInChildren<Outline>().enabled =false;
+            highlightedObject = null;
         }
     }
 
@@ -184,10 +181,11 @@ public class DungeonMaster : MonoBehaviour
                         highlightedObject = currentInstance;
                     }
                     else if(currentInstance == highlightedObject){
+                        // Debug.Log("In currentInstance == highlightedObject");
                         // do nothing as previously highlighted object is same as the currently clicked object
                     }
                     else if(highlightedObject ==null){
-                        Debug.Log("DM ---> "+currentInstance.GetComponentInChildren<Outline>());
+                        // Debug.Log("DM ---> "+currentInstance.GetComponentInChildren<Outline>());
                         currentInstance.GetComponentInChildren<Outline>().enabled =true;
                         highlightedObject = currentInstance;
                     }

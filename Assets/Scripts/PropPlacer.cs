@@ -7,8 +7,6 @@ public class PropPlacer : MonoBehaviour
     //Static reference
     public static PropPlacer propPlacer;
 
-    // reference to the Element that is hit by RayCast
-    public GameObject currentInstance;
 
 
     //References to objects
@@ -47,15 +45,18 @@ public class PropPlacer : MonoBehaviour
             dragging = false;
             if(hit.collider == null)
             {
-
+                if(DungeonMaster.dm.highlightedObject!=null){
+                    DungeonMaster.dm.RemoveHighlightFromObject();
+                }
                 //Clicked on nothing; return
                 return;
             }
             
-            currentInstance = hit.collider.gameObject;
-            Debug.Log("current Instance in PropPlacer: -----> "+currentInstance);
-            DungeonMaster.dm.HighlightObject(currentInstance);
             GameObject clickedObject = hit.collider.gameObject;
+            Debug.Log("current Instance in PropPlacer: -----> "+clickedObject);
+            if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
+                DungeonMaster.dm.HighlightObject(clickedObject);
+            }
             switch (clickedObject.tag) //Check to make sure what we clicked is editable. If it is not, return
             {
                 case "Plank":
@@ -78,13 +79,16 @@ public class PropPlacer : MonoBehaviour
                     break;
                 case "Checkpoint":
                     return;
-                default :
-                    if (!clickedObject.GetComponent<BallScript>().editable)
-                    {
-                        // Debug.Log("Ball was clicked but it should not be editable hence added it here");
-                        return;
-                    }
                     break;
+                case "Player":
+                    return ;
+                // default :
+                //     if (!clickedObject.GetComponent<BallScript>().editable)
+                //     {
+                //         // Debug.Log("Ball was clicked but it should not be editable hence added it here");
+                //         return;
+                //     }
+                //     break;
             }
             dragging = true;
             selectedObject = clickedObject;

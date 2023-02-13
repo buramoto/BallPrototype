@@ -7,7 +7,6 @@ TagManager:
   - Plank
   - TempChange
   - Checkpoint
-  - Static_Plank
   - Spring
   - PlankButton
   - SpringButton

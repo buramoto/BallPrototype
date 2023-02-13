@@ -23,7 +23,7 @@ public class ResetButton : MonoBehaviour
         GlobalVariables.heaterCounter = 0;
         GlobalVariables.attemptCounter++;
         Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
-
+        DungeonMaster.dm.simMode(false, StateReference.resetType.win);
         // Reload the current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         // winScreenExecute();
