@@ -2,18 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Security.Cryptography;
 
 public class SendToGoogle : MonoBehaviour
 {   
+    // Create a static reference to this object so that it can be accessed from other scripts
     public static SendToGoogle sendToGoogle;
+
+    // URL of the Google Form
     [SerializeField] public string URL;
-    private long _sessionID;
+
+    // Data to be sent to Google Form
+    private string _sessionID;
     private string _userID;
     private int _numberOfAttempts;
     private int _numberOfPlanks;
     private int _numberOfSprings;
     private int _numberOfHeaters;
 
+    // Get the user ID
+    public static string GetUserID()
+    {
+        string uniqueID = SystemInfo.deviceName + SystemInfo.deviceModel;
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(uniqueID);
+        byte[] hash = new SHA256Managed().ComputeHash(data);
+
+        return System.Convert.ToBase64String(hash);
+    }
+
+    // Generate a unique session ID
+    public static string GetSessionID()
+    {
+        string sessionID = System.Guid.NewGuid().ToString();
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(sessionID);
+        byte[] hash = new SHA256Managed().ComputeHash(data);
+
+        return System.Convert.ToBase64String(hash);
+    }
     // Create a static reference to this object so that it can be accessed from other scripts
     private void Awake()
     {
@@ -22,15 +47,13 @@ public class SendToGoogle : MonoBehaviour
 
     public void Send()
     {
-        _sessionID = System.DateTime.Now.Ticks;
-        _userID = SystemInfo.processorCount.ToString() + SystemInfo.deviceUniqueIdentifier;
-        // Debug.Log("SendToGoogle.Send() called");
-        // Debug.Log(_userID==null);
+        _sessionID = GetSessionID();
+        _userID = GetUserID();
         _numberOfAttempts = GlobalVariables.attemptCounter;
         _numberOfPlanks = GlobalVariables.plankCounter;
         _numberOfSprings = GlobalVariables.springCounter;
         _numberOfHeaters = GlobalVariables.heaterCounter;
-        // Debug.Log(_sessionID+" "+_userID+" "+_numberOfAttempts+" "+_numberOfPlanks+" "+_numberOfSprings+" "+_numberOfHeaters);
+
         StartCoroutine(Post(_sessionID.ToString(), _userID.ToString(), _numberOfAttempts.ToString(), _numberOfPlanks.ToString(), _numberOfSprings.ToString(), _numberOfHeaters.ToString()));
     }
 
@@ -38,7 +61,6 @@ public class SendToGoogle : MonoBehaviour
     private IEnumerator Post(string sessionID, string userID, string numberOfAttempts, string numberOfPlanks, string numberOfSprings, string numberOfHeaters)
     {
         // Create the form and enter responses
-        // Debug.Log("1");
         WWWForm form = new WWWForm();
         form.AddField("entry.1046962840", sessionID);
         form.AddField("entry.1306942327", userID);
@@ -46,15 +68,11 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.141035311", numberOfPlanks);
         form.AddField("entry.163654761", numberOfSprings);
         form.AddField("entry.1061744410", numberOfHeaters);
-        // Debug.Log("2");
-        // Send responses and verify result
-        // url = https://docs.google.com/forms/u/1/d/e/1FAIpQLSd-me1BBMWKkP_7_P9WYRii1JI-7gXpsiKg7F6Vu7s5JPQojg/formResponse
 
+        // Send responses and verify result
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form))
         {
-            // Debug.Log("3");
             yield return www.SendWebRequest();
-            // Debug.Log("4");
             if (www.result != UnityWebRequest.Result.Success)
             {
                 Debug.Log(www.error);
@@ -65,15 +83,4 @@ public class SendToGoogle : MonoBehaviour
             }
         }
     }
-    // Start is called before the first frame update
-    // void Start()
-    // {
-        
-    // }
-
-    // Update is called once per frame
-    // void Update()
-    // {
-        
-    // }
 }
