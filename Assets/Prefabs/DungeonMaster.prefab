@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33820affdc175644593a74fe4bc5b7e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simulatonMode: 0
-  winScreen: {fileID: 1052256959787196163, guid: 24d8ff5cb07a4f24eaeca5c385806e6a, type: 3}
+  simulationMode: 0
+  rotationSpeed: 0

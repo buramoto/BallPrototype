@@ -161,6 +161,9 @@ public class BallScript : MonoBehaviour
                 break;
         }
         Debug.Log("Collided with checkpoint. It has color " + color);
+        if(StateReference.goalColor.green == goal.goalColor){
+            SendToGoogle.sendToGoogle.Send();   
+        }
         checkpoint.SetActive(false);
         DungeonMaster.dm.checkpointHit(color);
     }
