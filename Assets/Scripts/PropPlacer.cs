@@ -7,6 +7,10 @@ public class PropPlacer : MonoBehaviour
     //Static reference
     public static PropPlacer propPlacer;
 
+    // reference to the Element that is hit by RayCast
+    public GameObject currentInstance;
+
+
     //References to objects
     public GameObject plankPrefab;
     public GameObject springPrefab;
@@ -43,9 +47,14 @@ public class PropPlacer : MonoBehaviour
             dragging = false;
             if(hit.collider == null)
             {
+
                 //Clicked on nothing; return
                 return;
             }
+            
+            currentInstance = hit.collider.gameObject;
+            Debug.Log("current Instance in PropPlacer: -----> "+currentInstance);
+            DungeonMaster.dm.HighlightObject(currentInstance);
             GameObject clickedObject = hit.collider.gameObject;
             switch (clickedObject.tag) //Check to make sure what we clicked is editable. If it is not, return
             {
@@ -130,6 +139,7 @@ public class PropPlacer : MonoBehaviour
 
     public void createPlank()
     {
+        DungeonMaster.dm.RemoveHighlightFromObject();
         if (!DungeonMaster.dm.simulationMode)
         {
             Debug.Log("Creating Plank");
@@ -151,6 +161,7 @@ public class PropPlacer : MonoBehaviour
 
     public void createSpring()
     {
+        DungeonMaster.dm.RemoveHighlightFromObject();
         if (!DungeonMaster.dm.simulationMode)
         {
             Debug.Log("Creating Spring");
@@ -171,6 +182,7 @@ public class PropPlacer : MonoBehaviour
 
     public void createTempElement()
     {
+        DungeonMaster.dm.RemoveHighlightFromObject();
         if (!DungeonMaster.dm.simulationMode)
         {
             Debug.Log("Creating Temperature Element");
