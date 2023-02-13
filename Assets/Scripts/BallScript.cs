@@ -127,7 +127,7 @@ public class BallScript : MonoBehaviour
     private void elementCollision(GameObject element)
     {
         if(!DungeonMaster.dm.simulationMode) {
-            Debug.Log("Collision in simulation");
+            // Debug.Log("Collision in simulation");
             return;         
         }
         else{
