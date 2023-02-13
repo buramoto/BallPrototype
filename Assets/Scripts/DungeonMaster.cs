@@ -83,8 +83,16 @@ public class DungeonMaster : MonoBehaviour
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
     public void simMode(bool mode, StateReference.resetType type)
     {
+        
         if (mode == simulationMode)
         {
+            
+            GameObject button = GameObject.Find("StartButton");
+            TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+            buttonText.text = "Start";
+
+            StopSim?.Invoke(type);
+
             return;
         }
         if (mode) { 
