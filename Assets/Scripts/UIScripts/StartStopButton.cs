@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class StartStopButton : MonoBehaviour
 {
+
     public TMPro.TextMeshProUGUI text;
     private void Start()
     {
         text = GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        DungeonMaster.dm.StartSim += changeText;
+
     }
 
     public void execute()
@@ -20,6 +23,17 @@ public class StartStopButton : MonoBehaviour
         else
         {
             DungeonMaster.dm.simMode(false, StateReference.resetType.ssb);
+            text.text = "Start";
+        }
+    }
+
+    public void changeText(){
+        if (!DungeonMaster.dm.simulationMode)
+        {   
+            text.text = "Stop";
+        }
+        else
+        {   
             text.text = "Start";
         }
     }

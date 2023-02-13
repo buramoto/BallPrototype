@@ -7,6 +7,8 @@ public class PropPlacer : MonoBehaviour
     //Static reference
     public static PropPlacer propPlacer;
 
+
+
     //References to objects
     public GameObject plankPrefab;
     public GameObject springPrefab;
@@ -43,10 +45,18 @@ public class PropPlacer : MonoBehaviour
             dragging = false;
             if(hit.collider == null)
             {
+                if(DungeonMaster.dm.highlightedObject!=null){
+                    DungeonMaster.dm.RemoveHighlightFromObject();
+                }
                 //Clicked on nothing; return
                 return;
             }
+            
             GameObject clickedObject = hit.collider.gameObject;
+            // Debug.Log("current Instance in PropPlacer: -----> "+clickedObject);
+            if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
+                DungeonMaster.dm.HighlightObject(clickedObject);
+            }
             switch (clickedObject.tag) //Check to make sure what we clicked is editable. If it is not, return
             {
                 case "Plank":
@@ -69,13 +79,10 @@ public class PropPlacer : MonoBehaviour
                     break;
                 case "Checkpoint":
                     return;
-                default :
-                    if (!clickedObject.GetComponent<BallScript>().editable)
-                    {
-                        // Debug.Log("Ball was clicked but it should not be editable hence added it here");
-                        return;
-                    }
-                    break;
+                    // break;
+                case "Player":
+                    return ;
+                    
             }
             dragging = true;
             selectedObject = clickedObject;
@@ -130,9 +137,10 @@ public class PropPlacer : MonoBehaviour
 
     public void createPlank()
     {
+        DungeonMaster.dm.RemoveHighlightFromObject();
         if (!DungeonMaster.dm.simulationMode)
         {
-            Debug.Log("Creating Plank");
+            // Debug.Log("Creating Plank");
 
             // Increment the plank counter
             GlobalVariables.plankCounter++;
@@ -151,6 +159,7 @@ public class PropPlacer : MonoBehaviour
 
     public void createSpring()
     {
+        DungeonMaster.dm.RemoveHighlightFromObject();
         if (!DungeonMaster.dm.simulationMode)
         {
             Debug.Log("Creating Spring");
@@ -171,6 +180,7 @@ public class PropPlacer : MonoBehaviour
 
     public void createTempElement()
     {
+        DungeonMaster.dm.RemoveHighlightFromObject();
         if (!DungeonMaster.dm.simulationMode)
         {
             Debug.Log("Creating Temperature Element");

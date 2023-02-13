@@ -10,9 +10,13 @@ public class DungeonMaster : MonoBehaviour
     //Static reference so all objects can access the DM
     public static DungeonMaster dm;
 
+
+    // variable to store reference to highlighted object
+    public GameObject highlightedObject;
+
     //Game variables
     public bool simulationMode;
-    private byte counter;
+    public byte counter;
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -70,6 +74,7 @@ public class DungeonMaster : MonoBehaviour
         GameObject winScreen = GameObject.Find("WinScreen(Clone)");
         if(winScreen != null){
             winScreen.SetActive(false);
+            Destroy(winScreen);
         }
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
@@ -78,13 +83,26 @@ public class DungeonMaster : MonoBehaviour
         counter = 0;
         simMode(false, StateReference.resetType.ssb);
         Debug.Log("Initalizing level of Dungeon Master has been Executed");
+        // Debug.Log(goals.Length);
+        for(int i=0;i<goals.Length;i++) {
+            Debug.Log(goals[i].gameObject);
+            goals[i].gameObject.SetActive(true);
+        }
     }
 
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
     public void simMode(bool mode, StateReference.resetType type)
     {
+        if(highlightedObject!=null){
+            RemoveHighlightFromObject();
+        }
+        
         if (mode == simulationMode)
         {
+            GameObject button = GameObject.Find("StartButton");
+            TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+            buttonText.text = "Start";
+            StopSim?.Invoke(type);
             return;
         }
         if (mode) { 
@@ -116,7 +134,7 @@ public class DungeonMaster : MonoBehaviour
 
             // Increment attempt counter
             GlobalVariables.attemptCounter++;
-            Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
+            Debug.Log("Attempt after reset FROM DM: " + GlobalVariables.attemptCounter);
 
             // Change the button text
             GameObject button = GameObject.Find("StartButton");
@@ -132,13 +150,15 @@ public class DungeonMaster : MonoBehaviour
     /// It will determine if that checkpoint has been hit in the correct sequence then update
     /// the UI as necessary.
     /// </summary>
-    public void checkpointHit(char checkpointColor)
+    public void checkpointHit(GameObject checkpoint, char checkpointColor)
     {
         Debug.Log("Counter value" + counter);
-
         if(checkpointColor=='g' && counter==3)
         {
             //Display a Win screen
+            SendToGoogle.sendToGoogle.Send();
+            checkpoint.SetActive(false);
+            GlobalVariables.attemptCounter = 0;
             UIBehavior.gameUI.displayWinScreen();
         }
         else if(checkpointColor == sequence[counter])
@@ -152,4 +172,40 @@ public class DungeonMaster : MonoBehaviour
             simMode(false, StateReference.resetType.wgo);
         }
     }
+
+    public void RemoveHighlightFromObject(){
+        if(highlightedObject!=null){
+            highlightedObject.GetComponentInChildren<Outline>().enabled =false;
+            highlightedObject = null;
+        }
+    }
+
+    public void HighlightObject(GameObject currentInstance){
+        // Debug.Log("---- DM:" +currentInstance);
+        if(currentInstance.CompareTag("Plank") || currentInstance.CompareTag("Spring") || currentInstance.CompareTag("TempChange")){
+
+                    if( highlightedObject!=null && currentInstance != highlightedObject){
+                        highlightedObject.GetComponentInChildren<Outline>().enabled = false;
+                        currentInstance.GetComponentInChildren<Outline>().enabled = true;
+                        highlightedObject = currentInstance;
+                    }
+                    else if(currentInstance == highlightedObject){
+                        // Debug.Log("In currentInstance == highlightedObject");
+                        // do nothing as previously highlighted object is same as the currently clicked object
+                    }
+                    else if(highlightedObject ==null){
+                        // Debug.Log("DM ---> "+currentInstance.GetComponentInChildren<Outline>());
+                        currentInstance.GetComponentInChildren<Outline>().enabled =true;
+                        highlightedObject = currentInstance;
+                    }
+                    
+        }
+        else{
+            if(highlightedObject!=null){
+
+                highlightedObject.GetComponentInChildren<Outline>().enabled =false;
+            }
+        }
+    }
+
 }

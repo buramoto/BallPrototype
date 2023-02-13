@@ -23,17 +23,33 @@ public class ResetButton : MonoBehaviour
         GlobalVariables.heaterCounter = 0;
         GlobalVariables.attemptCounter++;
         Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
+        
+        // if counter == 3 then it means that the game has finished hence dont need to increment counter
+        // if(DungeonMaster.dm.counter == 3){
+            // DungeonMaster.dm.simMode(false, StateReference.resetType.win);
+        // }
+        // else{
+            // GlobalVariables.attemptCounter++;
+            // Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
+            // DungeonMaster.dm.simMode(false, StateReference.resetType.ssb);
+        // }
+
 
         // Reload the current scene
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // GameObject goalblock = GameObject.GetComponent<GoalBlock>("GoalBlock")[3];
+        // goalblock.SetActive(true);
         // winScreenExecute();
     }
 
-    public void winScreenExecute()
-    {
-        GameObject winScreen = GameObject.Find("WinScreen(Clone)");
-        Debug.Log("winSreen reference in ResetButton-->" +winScreen);
-        winScreen.SetActive(false);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    // public void winScreenExecute()
+    // {
+    //     GameObject winScreen = GameObject.Find("WinScreen(Clone)");
+    //     Debug.Log("winSreen reference in ResetButton-->" +winScreen);
+    //     winScreen.SetActive(false);
+    //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //     // GameObject goalblock = GameObject.Find("GoalBlock (3)");
+    //     // goalblock.SetActive(true);
+    // }
 }

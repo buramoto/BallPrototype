@@ -126,43 +126,56 @@ public class BallScript : MonoBehaviour
 
     private void elementCollision(GameObject element)
     {
-        ChangeTemperature elementProperties = element.GetComponent<ChangeTemperature>();
-        switch (elementProperties.setting)
-        {
-            case StateReference.temperature.hot:
-                Debug.Log("Collided with heater");
-                tempState = StateReference.temperature.hot;
-                ballDisplay.material.color = Color.red;
-                break;
-            //Add more cases here
+        if(!DungeonMaster.dm.simulationMode) {
+            // Debug.Log("Collision in simulation");
+            return;         
+        }
+        else{
+            ChangeTemperature elementProperties = element.GetComponent<ChangeTemperature>();
+            switch (elementProperties.setting)
+            {
+                case StateReference.temperature.hot:
+                    Debug.Log("Collided with heater");
+                    tempState = StateReference.temperature.hot;
+                    ballDisplay.material.color = Color.red;
+                    break;
+                //Add more cases here
+            }
         }
     }
 
     private void checkpointCollision(GameObject checkpoint)
     {
-        GoalBlock goal = checkpoint.GetComponent<GoalBlock>();
         char color;
-        switch (goal.goalColor)
-        {
-            case StateReference.goalColor.purple:
-                color = 'p';
-                break;
-            case StateReference.goalColor.yellow:
-                color = 'y';
-                break;
-            case StateReference.goalColor.white:
-                color = 'w';
-                break;
-            case StateReference.goalColor.green:
-                color = 'g';
-                break;
-            default:
-                color = 'z';
-                break;
+        GoalBlock goal = checkpoint.GetComponent<GoalBlock>();
+        if(!DungeonMaster.dm.simulationMode) {
+            Debug.Log("Collision in simulation");
+            return;         
         }
-        Debug.Log("Collided with checkpoint. It has color " + color);
-        checkpoint.SetActive(false);
-        DungeonMaster.dm.checkpointHit(color);
+        else{
+            switch (goal.goalColor)
+            {
+                case StateReference.goalColor.purple:
+                    color = 'p';
+                    break;
+                case StateReference.goalColor.yellow:
+                    color = 'y';
+                    break;
+                case StateReference.goalColor.white:
+                    color = 'w';
+                    break;
+                case StateReference.goalColor.green:
+                    color = 'g';
+                    break;
+                default:
+                    color = 'z';
+                    break;
+            }
+            if(goal.goalColor != StateReference.goalColor.green) {
+                checkpoint.SetActive(false);
+            }
+            DungeonMaster.dm.checkpointHit(checkpoint, color);
+        }
     }
 
     //Enable physics when the user presses the start button
