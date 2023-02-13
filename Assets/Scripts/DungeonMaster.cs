@@ -83,7 +83,7 @@ public class DungeonMaster : MonoBehaviour
         counter = 0;
         simMode(false, StateReference.resetType.ssb);
         Debug.Log("Initalizing level of Dungeon Master has been Executed");
-        Debug.Log(goals.Length);
+        // Debug.Log(goals.Length);
         for(int i=0;i<goals.Length;i++) {
             Debug.Log(goals[i].gameObject);
             goals[i].gameObject.SetActive(true);
@@ -99,9 +99,10 @@ public class DungeonMaster : MonoBehaviour
         
         if (mode == simulationMode)
         {
-            
+            GameObject button = GameObject.Find("StartButton");
+            TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+            buttonText.text = "Start";
             StopSim?.Invoke(type);
-
             return;
         }
         if (mode) { 
@@ -180,7 +181,7 @@ public class DungeonMaster : MonoBehaviour
     }
 
     public void HighlightObject(GameObject currentInstance){
-        Debug.Log("---- DM:" +currentInstance);
+        // Debug.Log("---- DM:" +currentInstance);
         if(currentInstance.CompareTag("Plank") || currentInstance.CompareTag("Spring") || currentInstance.CompareTag("TempChange")){
 
                     if( highlightedObject!=null && currentInstance != highlightedObject){

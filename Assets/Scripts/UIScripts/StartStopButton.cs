@@ -10,6 +10,7 @@ public class StartStopButton : MonoBehaviour
     {
         text = GetComponentInChildren<TMPro.TextMeshProUGUI>();
         DungeonMaster.dm.StartSim += changeText;
+
     }
 
     public void execute()

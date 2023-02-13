@@ -53,7 +53,7 @@ public class PropPlacer : MonoBehaviour
             }
             
             GameObject clickedObject = hit.collider.gameObject;
-            Debug.Log("current Instance in PropPlacer: -----> "+clickedObject);
+            // Debug.Log("current Instance in PropPlacer: -----> "+clickedObject);
             if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
                 DungeonMaster.dm.HighlightObject(clickedObject);
             }
@@ -79,16 +79,10 @@ public class PropPlacer : MonoBehaviour
                     break;
                 case "Checkpoint":
                     return;
-                    break;
+                    // break;
                 case "Player":
                     return ;
-                // default :
-                //     if (!clickedObject.GetComponent<BallScript>().editable)
-                //     {
-                //         // Debug.Log("Ball was clicked but it should not be editable hence added it here");
-                //         return;
-                //     }
-                //     break;
+                    
             }
             dragging = true;
             selectedObject = clickedObject;
@@ -146,7 +140,7 @@ public class PropPlacer : MonoBehaviour
         DungeonMaster.dm.RemoveHighlightFromObject();
         if (!DungeonMaster.dm.simulationMode)
         {
-            Debug.Log("Creating Plank");
+            // Debug.Log("Creating Plank");
 
             // Increment the plank counter
             GlobalVariables.plankCounter++;
