@@ -43,12 +43,14 @@ public class UIBehavior : MonoBehaviour
         DungeonMaster.dm.StopSim += stopSim;
     }
 
+    // Winscreen Func
     public void displayWinScreen()
     {
         Instantiate(winScreen, gameObject.transform);
     }
 
     /// <summary>
+
     /// Event handlers for stop and start sim
     /// </summary>
     /// This should be changed to an event
