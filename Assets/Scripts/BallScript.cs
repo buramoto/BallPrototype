@@ -70,6 +70,7 @@ public class BallScript : MonoBehaviour
     //When colliding with an object, invoke appropriate function
     private void OnCollisionStay2D(Collision2D collision)
     {
+        //Debug.LogWarning("Ball collided with " + collision.gameObject.name);
         switch (collision.gameObject.tag)
         {
             case "Plank":

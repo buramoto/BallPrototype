@@ -42,31 +42,33 @@ public class PropPlacer : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-            selectedObject = null;
-            Debug.Log("PropPlacer just after RayCast Hit: "+hit.collider);
+            //selectedObject = null;
+            //Debug.Log("PropPlacer just after RayCast Hit: "+hit.collider);
 
             // Debug.Log("Trying to identify using event system: "+EventSystem.current.currentSelectedGameObject );
             dragging = false;
             if(hit.collider == null)
             {
                 if( EventSystem.current.currentSelectedGameObject !=null && (
-                     EventSystem.current.currentSelectedGameObject.CompareTag("LeftButton") || 
-                    EventSystem.current.currentSelectedGameObject.CompareTag("RightButton") ||
-                    EventSystem.current.currentSelectedGameObject.CompareTag("DeleteButton"))
-                )
-                {
-                    return ;    
+                    EventSystem.current.currentSelectedGameObject.layer == 5)){
+                    return;
                 }
-                // else{
-                    if(DungeonMaster.dm.highlightedObject!=null){
-                        DungeonMaster.dm.RemoveHighlightFromObject();
-                    }
-                // }
-                //Clicked on nothing; return
+                if (DungeonMaster.dm.highlightedObject != null)
+                {
+                    DungeonMaster.dm.RemoveHighlightFromObject();
+                }
+                selectedObject = null;
                 return;
             }
             
             GameObject clickedObject = hit.collider.gameObject;
+            if(clickedObject.gameObject.layer == 5)
+            {
+                selectedObject = null;
+                DungeonMaster.dm.RemoveHighlightFromObject();
+                //Debug.LogError("Don't use this");
+                return;
+            }
             // Debug.Log("current Instance in PropPlacer: -----> "+clickedObject);
             if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
                 DungeonMaster.dm.HighlightObject(clickedObject);
