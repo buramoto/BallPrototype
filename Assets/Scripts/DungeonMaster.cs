@@ -102,6 +102,9 @@ public class DungeonMaster : MonoBehaviour
             GameObject button = GameObject.Find("StartButton");
             TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
             buttonText.text = "Start";
+            // below function is called so that INITIALLY OPERATION BUTTONS are INACTIVE
+            UIBehavior.gameUI.setOperationInactive();
+
             StopSim?.Invoke(type);
             return;
         }
@@ -177,12 +180,14 @@ public class DungeonMaster : MonoBehaviour
         if(highlightedObject!=null){
             highlightedObject.GetComponentInChildren<Outline>().enabled =false;
             highlightedObject = null;
+            UIBehavior.gameUI.setOperationInactive();
         }
     }
 
     public void HighlightObject(GameObject currentInstance){
         // Debug.Log("---- DM:" +currentInstance);
         if(currentInstance.CompareTag("Plank") || currentInstance.CompareTag("Spring") || currentInstance.CompareTag("TempChange")){
+                    UIBehavior.gameUI.setOperationActive(currentInstance);
 
                     if( highlightedObject!=null && currentInstance != highlightedObject){
                         highlightedObject.GetComponentInChildren<Outline>().enabled = false;

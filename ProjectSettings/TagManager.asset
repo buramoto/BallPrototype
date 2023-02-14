@@ -12,6 +12,9 @@ TagManager:
   - SpringButton
   - HeaterButton
   - Static
+  - LeftButton
+  - RightButton
+  - DeleteButton
   layers:
   - Default
   - TransparentFX
