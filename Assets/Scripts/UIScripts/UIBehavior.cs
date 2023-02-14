@@ -45,9 +45,7 @@ public class UIBehavior : MonoBehaviour
 
     public void displayWinScreen()
     {
-        var WinSc = Instantiate(winScreen,gameUI.transform.position,Quaternion.identity);
-        WinSc.transform.parent = transform;
-        //WinSc.transform.SetParent(gameUI.transform);
+        Instantiate(winScreen, gameObject.transform);
     }
 
     /// <summary>
