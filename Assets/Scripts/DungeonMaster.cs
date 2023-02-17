@@ -25,6 +25,10 @@ public class DungeonMaster : MonoBehaviour
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
 
+    // timevalue stores the currenttime and timer is the text gameobject
+    private float timeValue = 0;
+    private GameObject timer;
+
     //Sequence of checkpoints, should be configurable by level
     private char[] sequence = {'p', 'y', 'w'};
 
@@ -43,7 +47,7 @@ public class DungeonMaster : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        if(dm == null)
+        if (dm == null)
         {
             DontDestroyOnLoad(gameObject);
             dm = this;
@@ -58,7 +62,21 @@ public class DungeonMaster : MonoBehaviour
     private void Start()
     {
         //initalizeLevel();
+        //Initializing the timer object
+        timer = GameObject.Find("Timer");
     }
+
+
+    private void Update()
+    {
+        //Calculating time for every update and updating the text in Timer gameobject
+        timeValue += Time.deltaTime;
+        float minutes = Mathf.FloorToInt(timeValue / 60);
+        float seconds = Mathf.FloorToInt(timeValue % 60);
+        TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
+        tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
 
     /// <summary>
     /// This method initalizes the level for play after loading a scene
