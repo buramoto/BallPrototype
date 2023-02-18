@@ -24,9 +24,12 @@ public class DungeonMaster : MonoBehaviour
     private GoalBlock[] goals;
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
+    // array to store checkpoint time
+    public static float[] timeArray = new float[4];
+
 
     // timevalue stores the currenttime and timer is the text gameobject
-    private float timeValue = 0;
+    public static float timeValue = 0;
     private GameObject timer;
 
     //Sequence of checkpoints, should be configurable by level
@@ -111,6 +114,7 @@ public class DungeonMaster : MonoBehaviour
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
     public void simMode(bool mode, StateReference.resetType type)
     {
+
         if(highlightedObject!=null){
             RemoveHighlightFromObject();
         }
@@ -137,6 +141,7 @@ public class DungeonMaster : MonoBehaviour
             StartSim?.Invoke();
         }
         else {
+            // initialize time array
             Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");
             for (int i = 0; i < levelPlanks.Length; i++)
             {
@@ -176,6 +181,8 @@ public class DungeonMaster : MonoBehaviour
         Debug.Log("Counter value" + counter);
         if(checkpointColor=='g' && counter==3)
         {
+            //adding goal time to timeArray
+            timeArray[counter]=timeValue;
             //Display a Win screen
             SendToGoogle.sendToGoogle.Send();
             checkpoint.SetActive(false);
@@ -185,12 +192,16 @@ public class DungeonMaster : MonoBehaviour
         else if(checkpointColor == sequence[counter])
         {
             //Correct, play sound
+             //add time value to array
+            timeArray[counter]=timeValue;
+            //Correct, play sound
             counter++;
         }
         else
         {  
             //Player got the ball to the wrong goal block
             simMode(false, StateReference.resetType.wgo);
+            // array initialize to empty
         }
     }
 

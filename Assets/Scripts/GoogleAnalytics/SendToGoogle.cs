@@ -19,6 +19,13 @@ public class SendToGoogle : MonoBehaviour
     private int _numberOfPlanks;
     private int _numberOfSprings;
     private int _numberOfHeaters;
+    private float _timeForCheckpoint1;
+    private float _timeForCheckpoint2;
+    private float _timeForCheckpoint3;
+    private float _timeForGoalCheckpoint;
+    public GameObject[] plank;
+    public GameObject[] spring;
+    public GameObject[] heater;
 
     // Get the user ID
     public static string GetUserID()
@@ -53,12 +60,40 @@ public class SendToGoogle : MonoBehaviour
         _numberOfPlanks = GlobalVariables.plankCounter;
         _numberOfSprings = GlobalVariables.springCounter;
         _numberOfHeaters = GlobalVariables.heaterCounter;
-
-        StartCoroutine(Post(_sessionID.ToString(), _userID.ToString(), _numberOfAttempts.ToString(), _numberOfPlanks.ToString(), _numberOfSprings.ToString(), _numberOfHeaters.ToString()));
+        _timeForCheckpoint1 = DungeonMaster.timeArray[0];
+        _timeForCheckpoint2 = DungeonMaster.timeArray[1];
+        _timeForCheckpoint3 = DungeonMaster.timeArray[2];
+        _timeForGoalCheckpoint = DungeonMaster.timeArray[3];
+        //coordinate for props
+        plank = GameObject.FindGameObjectsWithTag("Plank");
+        foreach (GameObject p in plank)
+        {
+            Plank script = p.GetComponent<Plank>();
+            if(script!=null && script.editable){
+                Debug.Log(p.transform.position);
+            }   
+        }
+        spring = GameObject.FindGameObjectsWithTag("Spring");
+        foreach (GameObject s in spring)
+        {
+            Spring script = s.GetComponent<Spring>();
+            if(script!=null && script.editable){
+                Debug.Log(s.transform.position);
+            }   
+        }
+        heater = GameObject.FindGameObjectsWithTag("TempChange");
+        foreach (GameObject h in heater)
+        {
+            ChangeTemperature script = h.GetComponent<ChangeTemperature>();
+            if(script!=null && script.editable){
+                Debug.Log(h.transform.position);
+            }   
+        }
+        StartCoroutine(Post(_sessionID.ToString(), _userID.ToString(), _numberOfAttempts.ToString(), _numberOfPlanks.ToString(), _numberOfSprings.ToString(), _numberOfHeaters.ToString(),_timeForCheckpoint1.ToString(),_timeForCheckpoint2.ToString(),_timeForCheckpoint3.ToString(),_timeForGoalCheckpoint.ToString()));
     }
 
     // Send data to Google Form
-    private IEnumerator Post(string sessionID, string userID, string numberOfAttempts, string numberOfPlanks, string numberOfSprings, string numberOfHeaters)
+    private IEnumerator Post(string sessionID, string userID, string numberOfAttempts, string numberOfPlanks, string numberOfSprings, string numberOfHeaters, string timeForCheckpoint1,string timeForCheckpoint2,string timeForCheckpoint3,string timeForGoalCheckpoint)
     {
         // Create the form and enter responses
         WWWForm form = new WWWForm();
@@ -68,6 +103,10 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.141035311", numberOfPlanks);
         form.AddField("entry.163654761", numberOfSprings);
         form.AddField("entry.1061744410", numberOfHeaters);
+        form.AddField("entry.547195651", timeForCheckpoint1);
+        form.AddField("entry.2126259718", timeForCheckpoint2);
+        form.AddField("entry.1981682484", timeForCheckpoint3);
+        form.AddField("entry.328997273", timeForGoalCheckpoint);
 
         // Send responses and verify result
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form))

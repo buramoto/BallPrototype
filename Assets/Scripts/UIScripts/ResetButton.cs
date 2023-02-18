@@ -18,6 +18,9 @@ public class ResetButton : MonoBehaviour
     public void execute()
     {   
         // Reset the global variables
+        if(GlobalVariables.attemptCounter==0){
+            DungeonMaster.timeValue=0;
+        }
         GlobalVariables.plankCounter = 0;
         GlobalVariables.springCounter = 0;
         GlobalVariables.heaterCounter = 0;
