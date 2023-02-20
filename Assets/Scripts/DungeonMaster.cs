@@ -25,6 +25,9 @@ public class DungeonMaster : MonoBehaviour
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
     private GameObject[] enemyElements;
+    public GameObject[] hearts;
+
+    public int lives = 2;
 
     // array to store checkpoint time
     public static float[] timeArray = new float[4];
@@ -104,6 +107,8 @@ public class DungeonMaster : MonoBehaviour
         goals = FindObjectsOfType<GoalBlock>();
         enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
 
+        hearts = GameObject.FindGameObjectsWithTag("Lives");
+
         simulationMode = false;
         counter = 0;
         simMode(false, StateReference.resetType.ssb);
@@ -163,6 +168,11 @@ public class DungeonMaster : MonoBehaviour
             for (int i = 0; i < enemyElements.Length; i++)
             {
                 enemyElements[i].SetActive(true);
+            }
+
+            for (int i = 0; i < hearts.Length; i++)
+            {
+                hearts[i].SetActive(true);
             }
             //Trigger stop sim event
             StopSim?.Invoke(type);
