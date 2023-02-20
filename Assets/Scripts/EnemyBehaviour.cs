@@ -26,6 +26,10 @@ public class EnemyBehaviour : MonoBehaviour
         else if(collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Collided with Player");
+            ResetButton r = FindAnyObjectByType<ResetButton>();
+            r.execute();
+            //Need to call the reset function currently or reduce health later
+
         }
     }
 }
