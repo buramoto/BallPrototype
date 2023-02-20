@@ -32,6 +32,7 @@ public class StateReference
     /// </summary>
     public enum resetType
     {
+        kbe, // killed by enemy
         oob, //Out of bounds
         ssb, //Start/stop button
         wgo, //wrong goal order

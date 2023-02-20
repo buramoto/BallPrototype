@@ -71,7 +71,10 @@ public class BallScript : MonoBehaviour
         if(Input.GetMouseButtonDown(1))
         {
             Debug.Log("Slice key pressed");
-            anim.SetTrigger("Slice");
+            if (DungeonMaster.dm.simulationMode)
+            {
+                anim.SetTrigger("Slice");
+            }
         }
     }
 
