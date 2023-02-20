@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Security.Cryptography;
+//using System.Math;
 
 public class SendToGoogle : MonoBehaviour
 {   
@@ -26,7 +27,11 @@ public class SendToGoogle : MonoBehaviour
     public GameObject[] plank;
     public GameObject[] spring;
     public GameObject[] heater;
-
+    public GameObject[] element;
+    private string plankPositions;
+    private string springPositions;
+    private string heaterPositions;
+    private string elementCoordinate;
     // Get the user ID
     public static string GetUserID()
     {
@@ -46,11 +51,48 @@ public class SendToGoogle : MonoBehaviour
 
         return System.Convert.ToBase64String(hash);
     }
-    // Create a static reference to this object so that it can be accessed from other scripts
+
+    /* private static string getCoordinates(string elementType)
+    {
+        //Debug.Log("122222");
+        element = GameObject.FindGameObjectsWithTag(elementType);
+        //Debug.Log("22222222898429292");
+        //private string elementCoordinate;
+        foreach (GameObject e in element)
+        {
+            if(elementType=="Plank")
+            {
+                Plank script = e.GetComponent<Plank>();
+            }
+            else if(elementType=="Spring")
+            {
+                Spring script =e.GetComponent<Spring>();
+            }
+            else
+            {
+                ChangeTemperature script = e.GetComponent<ChangeTemperature>();
+            }
+
+            if (script != null && script.editable)
+            {
+                Debug.Log(e.transform.position);
+                // add plank position to string
+                Vector3 position = e.transform.position;
+                elementCoordinate += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + "," + System.Math.Round(position.z,3) + ";";
+            }
+
+        }
+        return elementCoordinate;
+
+
+    } */
+
+
     private void Awake()
     {
             sendToGoogle = this;
     }
+
 
     public void Send()
     {
@@ -62,38 +104,55 @@ public class SendToGoogle : MonoBehaviour
         _numberOfHeaters = GlobalVariables.heaterCounter;
         _timeForCheckpoint1 = DungeonMaster.timeArray[0];
         _timeForCheckpoint2 = DungeonMaster.timeArray[1];
-        _timeForCheckpoint3 = DungeonMaster.timeArray[2];
+        _timeForCheckpoint3 =DungeonMaster.timeArray[2];
         _timeForGoalCheckpoint = DungeonMaster.timeArray[3];
         //coordinate for props
+        //plankPositions = getCoordinates("Plank");
         plank = GameObject.FindGameObjectsWithTag("Plank");
         foreach (GameObject p in plank)
         {
             Plank script = p.GetComponent<Plank>();
             if(script!=null && script.editable){
+
                 Debug.Log(p.transform.position);
+                // add spring position to string
+                Vector3 position = p.transform.position;
+                plankPositions += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
             }   
         }
+        
+        Debug.Log(plankPositions);
         spring = GameObject.FindGameObjectsWithTag("Spring");
         foreach (GameObject s in spring)
         {
             Spring script = s.GetComponent<Spring>();
             if(script!=null && script.editable){
+
                 Debug.Log(s.transform.position);
+                // add spring position to string
+                Vector3 position = s.transform.position;
+                springPositions += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
             }   
         }
+        Debug.Log(springPositions);
         heater = GameObject.FindGameObjectsWithTag("TempChange");
         foreach (GameObject h in heater)
         {
             ChangeTemperature script = h.GetComponent<ChangeTemperature>();
-            if(script!=null && script.editable){
+            if(script!=null && script.editable)
+            {
                 Debug.Log(h.transform.position);
+                // add heater position to string
+                Vector3 position = h.transform.position;
+                heaterPositions += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
             }   
         }
-        StartCoroutine(Post(_sessionID.ToString(), _userID.ToString(), _numberOfAttempts.ToString(), _numberOfPlanks.ToString(), _numberOfSprings.ToString(), _numberOfHeaters.ToString(),_timeForCheckpoint1.ToString(),_timeForCheckpoint2.ToString(),_timeForCheckpoint3.ToString(),_timeForGoalCheckpoint.ToString()));
+        Debug.Log(springPositions);
+        StartCoroutine(Post(_sessionID.ToString(), _userID.ToString(), _numberOfAttempts.ToString(), _numberOfPlanks.ToString(), _numberOfSprings.ToString(), _numberOfHeaters.ToString(),_timeForCheckpoint1.ToString(),_timeForCheckpoint2.ToString(),_timeForCheckpoint3.ToString(),_timeForGoalCheckpoint.ToString(),plankPositions,springPositions,heaterPositions));
     }
 
     // Send data to Google Form
-    private IEnumerator Post(string sessionID, string userID, string numberOfAttempts, string numberOfPlanks, string numberOfSprings, string numberOfHeaters, string timeForCheckpoint1,string timeForCheckpoint2,string timeForCheckpoint3,string timeForGoalCheckpoint)
+    private IEnumerator Post(string sessionID, string userID, string numberOfAttempts, string numberOfPlanks, string numberOfSprings, string numberOfHeaters, string timeForCheckpoint1,string timeForCheckpoint2,string timeForCheckpoint3,string timeForGoalCheckpoint,string plankPositions,string springPositions,string heaterPositions)
     {
         // Create the form and enter responses
         WWWForm form = new WWWForm();
@@ -107,6 +166,9 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.2126259718", timeForCheckpoint2);
         form.AddField("entry.1981682484", timeForCheckpoint3);
         form.AddField("entry.328997273", timeForGoalCheckpoint);
+        form.AddField("entry.209397380", plankPositions);
+        form.AddField("entry.2035421848", springPositions);
+        form.AddField("entry.1072592397", heaterPositions);
 
         // Send responses and verify result
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form))
