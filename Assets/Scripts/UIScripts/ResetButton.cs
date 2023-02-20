@@ -18,11 +18,15 @@ public class ResetButton : MonoBehaviour
     public void execute()
     {   
         // Reset the global variables
+        if(GlobalVariables.attemptCounter==0){
+            DungeonMaster.timeValue=0;
+        }
         GlobalVariables.plankCounter = 0;
         GlobalVariables.springCounter = 0;
         GlobalVariables.heaterCounter = 0;
         GlobalVariables.attemptCounter++;
         Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
+        
         
         // if counter == 3 then it means that the game has finished hence dont need to increment counter
         // if(DungeonMaster.dm.counter == 3){

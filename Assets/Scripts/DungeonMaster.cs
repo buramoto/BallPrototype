@@ -24,6 +24,13 @@ public class DungeonMaster : MonoBehaviour
     private GoalBlock[] goals;
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
+    // array to store checkpoint time
+    public static float[] timeArray = new float[4];
+
+
+    // timevalue stores the currenttime and timer is the text gameobject
+    public static float timeValue = 0;
+    private GameObject timer;
 
     //Sequence of checkpoints, should be configurable by level
     private char[] sequence = {'p', 'y', 'w'};
@@ -43,7 +50,7 @@ public class DungeonMaster : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        if(dm == null)
+        if (dm == null)
         {
             DontDestroyOnLoad(gameObject);
             dm = this;
@@ -58,7 +65,21 @@ public class DungeonMaster : MonoBehaviour
     private void Start()
     {
         //initalizeLevel();
+        //Initializing the timer object
+        timer = GameObject.Find("Timer");
     }
+
+
+    private void Update()
+    {
+        //Calculating time for every update and updating the text in Timer gameobject
+        timeValue += Time.deltaTime;
+        float minutes = Mathf.FloorToInt(timeValue / 60);
+        float seconds = Mathf.FloorToInt(timeValue % 60);
+        TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
+        tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
 
     /// <summary>
     /// This method initalizes the level for play after loading a scene
@@ -93,6 +114,7 @@ public class DungeonMaster : MonoBehaviour
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
     public void simMode(bool mode, StateReference.resetType type)
     {
+
         if(highlightedObject!=null){
             RemoveHighlightFromObject();
         }
@@ -102,6 +124,9 @@ public class DungeonMaster : MonoBehaviour
             GameObject button = GameObject.Find("StartButton");
             TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
             buttonText.text = "Start";
+            // below function is called so that INITIALLY OPERATION BUTTONS are INACTIVE
+            UIBehavior.gameUI.setOperationInactive();
+
             StopSim?.Invoke(type);
             return;
         }
@@ -116,6 +141,7 @@ public class DungeonMaster : MonoBehaviour
             StartSim?.Invoke();
         }
         else {
+            // initialize time array
             Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");
             for (int i = 0; i < levelPlanks.Length; i++)
             {
@@ -155,6 +181,8 @@ public class DungeonMaster : MonoBehaviour
         Debug.Log("Counter value" + counter);
         if(checkpointColor=='g' && counter==3)
         {
+            //adding goal time to timeArray
+            timeArray[counter]=timeValue;
             //Display a Win screen
             SendToGoogle.sendToGoogle.Send();
             checkpoint.SetActive(false);
@@ -164,12 +192,16 @@ public class DungeonMaster : MonoBehaviour
         else if(checkpointColor == sequence[counter])
         {
             //Correct, play sound
+             //add time value to array
+            timeArray[counter]=timeValue;
+            //Correct, play sound
             counter++;
         }
         else
         {  
             //Player got the ball to the wrong goal block
             simMode(false, StateReference.resetType.wgo);
+            // array initialize to empty
         }
     }
 
@@ -177,12 +209,14 @@ public class DungeonMaster : MonoBehaviour
         if(highlightedObject!=null){
             highlightedObject.GetComponentInChildren<Outline>().enabled =false;
             highlightedObject = null;
+            UIBehavior.gameUI.setOperationInactive();
         }
     }
 
     public void HighlightObject(GameObject currentInstance){
         // Debug.Log("---- DM:" +currentInstance);
         if(currentInstance.CompareTag("Plank") || currentInstance.CompareTag("Spring") || currentInstance.CompareTag("TempChange")){
+                    UIBehavior.gameUI.setOperationActive(currentInstance);
 
                     if( highlightedObject!=null && currentInstance != highlightedObject){
                         highlightedObject.GetComponentInChildren<Outline>().enabled = false;

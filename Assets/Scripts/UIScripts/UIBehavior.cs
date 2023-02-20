@@ -17,6 +17,7 @@ public class UIBehavior : MonoBehaviour
 
     //Buttons
     private Button[] toolKitButtons;
+    private Button[] operationButtons;
 
     //Reset variables
     public Vector3 oobCoords; //Future scope: place an arrow where ball went oob
@@ -33,6 +34,7 @@ public class UIBehavior : MonoBehaviour
             Destroy(gameObject);
         }
         toolKitButtons = gameObject.transform.Find("Toolkit").GetComponentsInChildren<Button>();
+        operationButtons = gameObject.transform.Find("Operations").GetComponentsInChildren<Button>();
     }
 
     private void Start()
@@ -41,14 +43,14 @@ public class UIBehavior : MonoBehaviour
         DungeonMaster.dm.StopSim += stopSim;
     }
 
+    // Winscreen Func
     public void displayWinScreen()
     {
-        var WinSc = Instantiate(winScreen,gameUI.transform.position,Quaternion.identity);
-        WinSc.transform.parent = transform;
-        //WinSc.transform.SetParent(gameUI.transform);
+        Instantiate(winScreen, gameObject.transform);
     }
 
     /// <summary>
+
     /// Event handlers for stop and start sim
     /// </summary>
     /// This should be changed to an event
@@ -59,6 +61,8 @@ public class UIBehavior : MonoBehaviour
         {
             toolKitButtons[i].interactable = false;
         }
+        setOperationInactive();
+        // Debug.Log("UI Behavior -- HighlightedObject"+DungeonMaster.dm.highlightedObject);
     }
     private void stopSim(StateReference.resetType type)
     {
@@ -69,6 +73,32 @@ public class UIBehavior : MonoBehaviour
         }
         //Future scope: create indication for stop type. E.g. arrow pointing to oob coords when type is oob
     }
+
+    public void setOperationInactive(){
+        for(int i=0; i < operationButtons.Length; i++)
+        {
+            operationButtons[i].interactable = false;
+        }
+    }
+    
+    public void setOperationActive(GameObject toolkitInstance){
+        for(int i=0; i < operationButtons.Length; i++)
+        {
+            if(toolkitInstance.CompareTag("TempChange")){ // if heater is selected then only DELETE BUTTON is INTERACTABLE
+                if(operationButtons[i].CompareTag("DeleteButton")){
+                    operationButtons[i].interactable = true;
+                }
+                else{
+                    operationButtons[i].interactable = false;
+                }
+            }
+            else{
+                operationButtons[i].interactable = true;
+            }
+        }
+    }
+
+
 }
 
 //heaterButtonReference.GetComponent<Button>().interactable = true;

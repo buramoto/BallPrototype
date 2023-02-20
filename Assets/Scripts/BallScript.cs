@@ -27,7 +27,7 @@ public class BallScript : MonoBehaviour
 
     // Ball is not editable neither during Simulation nor during Editing Phase
     public bool editable = false;
-
+    public Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -48,7 +48,9 @@ public class BallScript : MonoBehaviour
         // Calculate the height and width of the screen
         screenHeight = 2f * cam.orthographicSize;
         screenWidth = screenHeight * cam.aspect;
-
+        anim = gameObject.GetComponentInChildren<Animator>();
+        Debug.Log("Found the following animator");
+        Debug.Log(anim);
         stopSim();
     }
 
@@ -65,11 +67,18 @@ public class BallScript : MonoBehaviour
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
             UIBehavior.gameUI.oobCoords = transform.position;
         }
+
+        if(Input.GetMouseButtonDown(1))
+        {
+            Debug.Log("Slice key pressed");
+            anim.SetTrigger("Slice");
+        }
     }
 
     //When colliding with an object, invoke appropriate function
     private void OnCollisionStay2D(Collision2D collision)
     {
+        //Debug.LogWarning("Ball collided with " + collision.gameObject.name);
         switch (collision.gameObject.tag)
         {
             case "Plank":

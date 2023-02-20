@@ -12,6 +12,11 @@ TagManager:
   - SpringButton
   - HeaterButton
   - Static
+  - LeftButton
+  - RightButton
+  - DeleteButton
+  - Sword
+  - Enemy
   layers:
   - Default
   - TransparentFX

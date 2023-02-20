@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PropPlacer : MonoBehaviour
 {
@@ -41,21 +42,38 @@ public class PropPlacer : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-            selectedObject = null;
+            //selectedObject = null;
+            //Debug.Log("PropPlacer just after RayCast Hit: "+hit.collider);
+
+            // Debug.Log("Trying to identify using event system: "+EventSystem.current.currentSelectedGameObject );
             dragging = false;
             if(hit.collider == null)
             {
-                if(DungeonMaster.dm.highlightedObject!=null){
+                if( EventSystem.current.currentSelectedGameObject !=null && (
+                    EventSystem.current.currentSelectedGameObject.layer == 5)){
+                    return;
+                }
+                if (DungeonMaster.dm.highlightedObject != null)
+                {
                     DungeonMaster.dm.RemoveHighlightFromObject();
                 }
-                //Clicked on nothing; return
+                selectedObject = null;
                 return;
             }
             
             GameObject clickedObject = hit.collider.gameObject;
+            if(clickedObject.gameObject.layer == 5)
+            {
+                selectedObject = null;
+                DungeonMaster.dm.RemoveHighlightFromObject();
+                //Debug.LogError("Don't use this");
+                return;
+            }
             // Debug.Log("current Instance in PropPlacer: -----> "+clickedObject);
             if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
                 DungeonMaster.dm.HighlightObject(clickedObject);
+                // below function set operation buttons to active mode when a correct object is clicked/highlighted
+                
             }
             switch (clickedObject.tag) //Check to make sure what we clicked is editable. If it is not, return
             {
@@ -79,7 +97,7 @@ public class PropPlacer : MonoBehaviour
                     break;
                 case "Checkpoint":
                     return;
-                    // break;
+                    
                 case "Player":
                     return ;
                     
@@ -101,38 +119,22 @@ public class PropPlacer : MonoBehaviour
         //Other placement options for prop, but this should be done through UI later on 
         //Once we convert to UI controls, these methods should move to their own methods
         //So the UI can call the method
-        if(selectedObject != null)
-        {
-            // Debug.Log(selectedObject.tag);
-            if (Input.GetKey(KeyCode.RightArrow))//Rotate right
-            {
-                selectedObject.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.LeftArrow))//Rotate left
-            {
-                selectedObject.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))//Delete
-            {
-                if(selectedObject.tag == "Plank")
-                {
-                    GlobalVariables.plankCounter--;
-                    Debug.Log("Plank Counter after deletion: " + GlobalVariables.plankCounter);
-                }
-                if(selectedObject.tag == "Spring")
-                {
-                    GlobalVariables.springCounter--;
-                    Debug.Log("Spring Counter after deletion: " + GlobalVariables.springCounter);
-                }
-                if(selectedObject.tag == "TempChange")
-                {
-                    GlobalVariables.heaterCounter--;
-                    Debug.Log("Heater Counter after deletion: " + GlobalVariables.heaterCounter);
-                }
-                Destroy(selectedObject);
-                selectedObject = null;
-            }
-        }
+        // if(selectedObject != null)
+        // {
+        //     // Debug.Log(selectedObject.tag);
+        //     if (Input.GetKey(KeyCode.RightArrow))//Rotate right
+        //     {
+        //         rotateRight(selectedObject);
+        //     }
+        //     if (Input.GetKey(KeyCode.LeftArrow))//Rotate left
+        //     {
+        //         rotateLeft(selectedObject);
+        //     }
+        //     if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))//Delete
+        //     {
+        //         deleteToolkitInstance(selectedObject);
+        //     }
+        // }
     }
 
     public void createPlank()
@@ -197,6 +199,43 @@ public class PropPlacer : MonoBehaviour
         else
         {
             Debug.LogError("In Editing Mode hence NO temperature element created!");
+        }
+    }
+
+
+    public void deleteToolkitInstance(){
+        GameObject toolkitInstance = DungeonMaster.dm.highlightedObject;
+        if(toolkitInstance.tag == "Plank")
+        {
+            GlobalVariables.plankCounter--;
+            Debug.Log("Plank Counter after deletion: " + GlobalVariables.plankCounter);
+        }
+        if(toolkitInstance.tag == "Spring")
+        {
+            GlobalVariables.springCounter--;
+            Debug.Log("Spring Counter after deletion: " + GlobalVariables.springCounter);
+        }
+        if(toolkitInstance.tag == "TempChange")
+        {
+            GlobalVariables.heaterCounter--;
+            Debug.Log("Heater Counter after deletion: " + GlobalVariables.heaterCounter);
+        }
+        Destroy(toolkitInstance);
+        DungeonMaster.dm.RemoveHighlightFromObject();
+
+    }
+
+    public void rotateLeft(){
+        GameObject toolkitInstance = DungeonMaster.dm.highlightedObject;
+        if(toolkitInstance.tag != "TempChange"){
+            toolkitInstance.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
+        }
+    }
+
+    public void rotateRight(){
+        GameObject toolkitInstance = DungeonMaster.dm.highlightedObject;
+        if(toolkitInstance.tag != "TempChange"){
+            toolkitInstance.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
         }
     }
 }
