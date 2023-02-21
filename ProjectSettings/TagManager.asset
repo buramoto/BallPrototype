@@ -18,6 +18,7 @@ TagManager:
   - Sword
   - Enemy
   - Lives
+  - Instructions
   layers:
   - Default
   - TransparentFX

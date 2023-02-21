@@ -71,6 +71,7 @@ public class BallScript : MonoBehaviour
             // If the ball is outside the bounds, call the changeMode() function
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
             UIBehavior.gameUI.oobCoords = transform.position;
+            DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
         }
 
         if(Input.GetMouseButtonDown(1))
