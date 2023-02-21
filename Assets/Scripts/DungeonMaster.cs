@@ -24,8 +24,8 @@ public class DungeonMaster : MonoBehaviour
     private GoalBlock[] goals;
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
-    private GameObject[] enemyElements;
-    public GameObject[] hearts;
+    public GameObject[] enemyElements;
+    public HeartBehavior[] hearts;
 
     public int lives = 2;
 
@@ -69,9 +69,14 @@ public class DungeonMaster : MonoBehaviour
 
     private void Start()
     {
+        //Debug.Log("Enemy Objects found on start of Dungeon mAster"+GameObject.FindGameObjectsWithTag("Enemy").Length);
+
         //initalizeLevel();
         //Initializing the timer object
         timer = GameObject.Find("Timer");
+        Debug.Log("Initialize Level count of ENEMY: " + enemyElements.Length);
+        enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
+        
     }
 
 
@@ -105,9 +110,30 @@ public class DungeonMaster : MonoBehaviour
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
         goals = FindObjectsOfType<GoalBlock>();
-        enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
 
-        hearts = GameObject.FindGameObjectsWithTag("Lives");
+        hearts = FindObjectsOfType<HeartBehavior>();
+
+        enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
+        //Debug.Log("Hearts Length data: " + hearts.Length);
+
+        //hearts = GameObject.FindGameObjectsWithTag("Lives");
+
+        Debug.Log("Hearts Data HEREEE: " + hearts.Length);
+        //if (hearts.Length != 0)
+        //{
+        //    hearts = null;
+        //}
+
+        Debug.Log("---------->" + hearts);
+        //hearts = new GameObject[lives];
+        //for (int i = 0; i < lives; i++)
+        //{
+            
+        //    hearts[i] = allHearts[i];
+        //    //hearts[i].SetActive(true);
+        //    //Debug.Log("Name of Heart: " + hearts[i].name);
+        //}
+
 
         simulationMode = false;
         counter = 0;
@@ -117,6 +143,11 @@ public class DungeonMaster : MonoBehaviour
         for(int i=0;i<goals.Length;i++) {
             Debug.Log(goals[i].gameObject);
             goals[i].gameObject.SetActive(true);
+        }
+
+        for(int i=0; i<enemyElements.Length; i++)
+        {
+            enemyElements[i].SetActive(true);
         }
     }
 
@@ -151,7 +182,7 @@ public class DungeonMaster : MonoBehaviour
         }
         else {
             // initialize time array
-            Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");
+            //Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");
             for (int i = 0; i < levelPlanks.Length; i++)
             {
                 levelPlanks[i].gameObject.SetActive(true);
@@ -165,6 +196,9 @@ public class DungeonMaster : MonoBehaviour
                 balls[i].stopSim();
             }
 
+            Debug.Log("====> Count of Enemy_Elements: " + enemyElements.Length);
+            Debug.Log("====> Count of Hearts: " + hearts.Length);
+
             for (int i = 0; i < enemyElements.Length; i++)
             {
                 enemyElements[i].SetActive(true);
@@ -172,8 +206,9 @@ public class DungeonMaster : MonoBehaviour
 
             for (int i = 0; i < hearts.Length; i++)
             {
-                hearts[i].SetActive(true);
+                hearts[i].gameObject.SetActive(true);
             }
+            lives = 2;
             //Trigger stop sim event
             StopSim?.Invoke(type);
 
