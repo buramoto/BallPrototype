@@ -14,12 +14,14 @@ public class BallScript : MonoBehaviour
     //Outputs
     public GameObject ball;
     public StateReference.temperature tempState;
+    public StateReference.ballType ballState = StateReference.ballType.medium; //To handle different types of balls
     public Vector2 startPosition;
 
     //Private variables
     private SpriteRenderer ballDisplay;
     private Rigidbody2D ballPhysics;
     private Camera cam; // Reference to the main camera in the scene
+    private StateReference.ballType currentState = StateReference.ballType.medium;
 
     // Variables to store the height and width of the screen
     private float screenHeight;
@@ -175,7 +177,7 @@ public class BallScript : MonoBehaviour
             if(goal.goalColor != StateReference.goalColor.green) {
                 checkpoint.SetActive(false);
             }
-            DungeonMaster.dm.checkpointHit(checkpoint, color);
+            DungeonMaster.dm.checkpointHit(checkpoint, color, ballState);
         }
     }
 
@@ -197,5 +199,39 @@ public class BallScript : MonoBehaviour
         transform.position = startPosition;
         tempState = StateReference.temperature.neutral;
         ballDisplay.material.color = Color.gray;
+    }
+
+    /// <summary>
+    /// This method will change the type of ball to the one specified with the parameter
+    /// </summary>
+    /// <param name="newBallState"></param>
+    public void changeBallState(StateReference.ballType newBallState)
+    {
+        //FUTURE SCOPE: Change Rigidbody mass to make ball manuvering more challenging
+        if(currentState == newBallState)
+        {
+            //We are already in current state, no change needed
+            return;
+        }
+        switch (newBallState)
+        {
+            case StateReference.ballType.small:
+                transform.localScale = DungeonMaster.dm.smallBallScale;
+                currentState = StateReference.ballType.small;
+                break;
+            case StateReference.ballType.medium:
+                transform.localScale = DungeonMaster.dm.mediumBallScale;
+                currentState = StateReference.ballType.medium;
+                break;
+            case StateReference.ballType.large:
+                transform.localScale = DungeonMaster.dm.largeBallScale;
+                currentState = StateReference.ballType.large;
+                break;
+            default:
+                transform.localScale = DungeonMaster.dm.mediumBallScale;
+                currentState = StateReference.ballType.medium;
+                break;
+        }
+        return;
     }
 }

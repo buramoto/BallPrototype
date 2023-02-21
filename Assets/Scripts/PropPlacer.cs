@@ -8,12 +8,13 @@ public class PropPlacer : MonoBehaviour
     //Static reference
     public static PropPlacer propPlacer;
 
-
-
     //References to objects
     public GameObject plankPrefab;
     public GameObject springPrefab;
     public GameObject tempElementPrefab;
+
+    //For display purposes
+    public TMPro.TextMeshProUGUI text;
 
     //Private variables
     private bool dragging;
@@ -115,35 +116,16 @@ public class PropPlacer : MonoBehaviour
         {
             dragging = false;
         }
-
-        //Other placement options for prop, but this should be done through UI later on 
-        //Once we convert to UI controls, these methods should move to their own methods
-        //So the UI can call the method
-        // if(selectedObject != null)
-        // {
-        //     // Debug.Log(selectedObject.tag);
-        //     if (Input.GetKey(KeyCode.RightArrow))//Rotate right
-        //     {
-        //         rotateRight(selectedObject);
-        //     }
-        //     if (Input.GetKey(KeyCode.LeftArrow))//Rotate left
-        //     {
-        //         rotateLeft(selectedObject);
-        //     }
-        //     if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))//Delete
-        //     {
-        //         deleteToolkitInstance(selectedObject);
-        //     }
-        // }
+        text.text = "Resources:\n"+DungeonMaster.dm.resources;
     }
 
     public void createPlank()
     {
         DungeonMaster.dm.RemoveHighlightFromObject();
-        if (!DungeonMaster.dm.simulationMode)
+        if (!DungeonMaster.dm.simulationMode && (DungeonMaster.dm.resources - DungeonMaster.dm.plankCost >= 0))
         {
             // Debug.Log("Creating Plank");
-
+            
             // Increment the plank counter
             GlobalVariables.plankCounter++;
             Debug.Log("Plank Counter: " + GlobalVariables.plankCounter);
@@ -152,6 +134,11 @@ public class PropPlacer : MonoBehaviour
             Plank plankScript = newPlank.GetComponent<Plank>();
             plankScript.ChangeTemp(StateReference.temperature.neutral);
             plankScript.editable = true;
+            DungeonMaster.dm.resources = DungeonMaster.dm.resources - DungeonMaster.dm.plankCost;
+        }
+        else if(DungeonMaster.dm.resources < DungeonMaster.dm.plankCost)
+        {
+            Debug.LogWarning("Not enough reseources for a Plank");
         }
         else
         {
@@ -162,7 +149,7 @@ public class PropPlacer : MonoBehaviour
     public void createSpring()
     {
         DungeonMaster.dm.RemoveHighlightFromObject();
-        if (!DungeonMaster.dm.simulationMode)
+        if (!DungeonMaster.dm.simulationMode && (DungeonMaster.dm.resources - DungeonMaster.dm.springCost >= 0))
         {
             Debug.Log("Creating Spring");
 
@@ -173,6 +160,11 @@ public class PropPlacer : MonoBehaviour
             GameObject newSpring = Instantiate(springPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             Spring springScript = newSpring.GetComponent<Spring>();
             springScript.editable = true;
+            DungeonMaster.dm.resources = DungeonMaster.dm.resources - DungeonMaster.dm.springCost;
+        }
+        else if (DungeonMaster.dm.resources < DungeonMaster.dm.plankCost)
+        {
+            Debug.LogWarning("Not enough reseources for a Spring");
         }
         else
         {
@@ -183,7 +175,7 @@ public class PropPlacer : MonoBehaviour
     public void createTempElement()
     {
         DungeonMaster.dm.RemoveHighlightFromObject();
-        if (!DungeonMaster.dm.simulationMode)
+        if (!DungeonMaster.dm.simulationMode && (DungeonMaster.dm.resources - DungeonMaster.dm.elementCost >= 0))
         {
             Debug.Log("Creating Temperature Element");
 
@@ -195,6 +187,11 @@ public class PropPlacer : MonoBehaviour
             ChangeTemperature newTempElementScript = newTempElement.GetComponent<ChangeTemperature>();
             newTempElementScript.ChangeTemp(StateReference.temperature.hot);
             newTempElementScript.editable = true;
+            DungeonMaster.dm.resources = DungeonMaster.dm.resources - DungeonMaster.dm.elementCost;
+        }
+        else if (DungeonMaster.dm.resources < DungeonMaster.dm.plankCost)
+        {
+            Debug.LogWarning("Not enough reseources for an Element");
         }
         else
         {

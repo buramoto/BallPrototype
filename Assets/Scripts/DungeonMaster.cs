@@ -17,6 +17,7 @@ public class DungeonMaster : MonoBehaviour
     //Game variables
     public bool simulationMode;
     public byte counter;
+    public float resources;
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -36,6 +37,16 @@ public class DungeonMaster : MonoBehaviour
 
     //Settings
     public float rotationSpeed;
+    public Vector3 smallBallScale;
+    public Vector3 mediumBallScale;
+    public Vector3 largeBallScale;
+    public float smallResourceValue;
+    public float mediumResourceValue;
+    public float largeResourceValue;
+    //Cost variables
+    public int plankCost;
+    public int springCost;
+    public int elementCost;
 
     /// <summary>
     /// Creates the dm for the first time, or if there is already on (e.g. loading in from a different
@@ -153,16 +164,29 @@ public class DungeonMaster : MonoBehaviour
     /// It will determine if that checkpoint has been hit in the correct sequence then update
     /// the UI as necessary.
     /// </summary>
-    public void checkpointHit(GameObject checkpoint, char checkpointColor)
+    public void checkpointHit(GameObject checkpoint, char checkpointColor, StateReference.ballType ballType)
     {
         Debug.Log("Counter value" + counter);
         if(checkpointColor=='g' && counter==3)
         {
             //Display a Win screen
-            SendToGoogle.sendToGoogle.Send();
             checkpoint.SetActive(false);
-            GlobalVariables.attemptCounter = 0;
             UIBehavior.gameUI.displayWinScreen();
+            //Calculate resources here
+            switch (ballType)
+            {
+                case StateReference.ballType.small:
+                    resources += smallResourceValue;
+                    break;
+                case StateReference.ballType.medium:
+                    resources += mediumResourceValue;
+                    break;
+                case StateReference.ballType.large:
+                    resources += largeResourceValue;
+                    break;
+            }
+            SendToGoogle.sendToGoogle.Send();
+            GlobalVariables.attemptCounter = 0;
         }
         else if(checkpointColor == sequence[counter])
         {
@@ -213,4 +237,20 @@ public class DungeonMaster : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This method is invoked from one of the 3 size change buttons. For each ball in the scene
+    /// it will invoke the change size method on each ball. Scaling is done within ballScript
+    /// </summary>
+    /// <param name="size"></param>
+    public void changeBallSize(StateReference.ballType size)
+    {
+        if (simulationMode)
+        {
+            return;
+        }
+        for (int i = 0; i < balls.Length; i++)
+        {
+            balls[i].changeBallState(size);
+        }
+    }
 }

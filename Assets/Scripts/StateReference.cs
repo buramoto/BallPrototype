@@ -38,4 +38,11 @@ public class StateReference
         win, //Completed level
         start //For scripts starting simulation. No message is needed, so this is the "none" type
     }
+
+    public enum ballType
+    {
+        small,
+        medium,
+        large
+    }
 }
