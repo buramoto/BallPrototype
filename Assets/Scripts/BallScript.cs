@@ -28,7 +28,7 @@ public class BallScript : MonoBehaviour
     // Ball is not editable neither during Simulation nor during Editing Phase
     public bool editable = false;
     public Animator anim;
-    public Collider2D sword; // variable for sword
+    public CapsuleCollider2D sword; // variable for sword
 
     // Start is called before the first frame update
     void Start()
@@ -81,8 +81,8 @@ public class BallScript : MonoBehaviour
                 sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
                 sword.enabled = true;
                 anim.SetTrigger("Slice");
-
-                Invoke("setSwordInActive", 1500);
+                Debug.Log("about to call setSwordInActive");
+                Invoke("setSwordInActive", 1500/1000f);
 
             }
         }
@@ -223,6 +223,8 @@ public class BallScript : MonoBehaviour
 
     public void setSwordInActive()
     {
+        Debug.Log("Sword About to SET ENABLED = FALSE");
+        sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
         sword.enabled = false;
     }
 }

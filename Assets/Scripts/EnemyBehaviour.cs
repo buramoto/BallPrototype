@@ -27,14 +27,14 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Player"))
         {
-            DungeonMaster.dm.hearts[DungeonMaster.dm.lives - 1].SetActive(false);
+            DungeonMaster.dm.hearts[DungeonMaster.dm.lives - 1].gameObject.SetActive(false);
             DungeonMaster.dm.lives -= 1;
             Debug.Log("Player has lives left: "+ DungeonMaster.dm.lives);
             Debug.Log("Collided with Player");
             if (DungeonMaster.dm.lives <= 0)
             {
-                DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
                 DungeonMaster.dm.lives = 2;
+                DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
             }
 
            
