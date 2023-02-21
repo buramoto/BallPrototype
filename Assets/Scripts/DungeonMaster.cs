@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using static System.Net.Mime.MediaTypeNames;
+using Unity.VisualScripting;
 
 public class DungeonMaster : MonoBehaviour
 {
@@ -26,6 +28,9 @@ public class DungeonMaster : MonoBehaviour
     private ChangeTemperature[] tempElements;
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
+    public TMPro.TextMeshProUGUI instructions;
+    
+
 
     public int lives = 2;
 
@@ -73,6 +78,7 @@ public class DungeonMaster : MonoBehaviour
 
         //initalizeLevel();
         //Initializing the timer object
+        //instructions = Get;
         timer = GameObject.Find("Timer");
         Debug.Log("Initialize Level count of ENEMY: " + enemyElements.Length);
         enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
@@ -107,6 +113,7 @@ public class DungeonMaster : MonoBehaviour
             winScreen.SetActive(false);
             Destroy(winScreen);
         }
+        instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion"; 
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
         goals = FindObjectsOfType<GoalBlock>();
@@ -177,12 +184,14 @@ public class DungeonMaster : MonoBehaviour
             {
                 balls[i].startSim();
             }
+            instructions.text = "Right Click To Attack Enemy";
             //Trigger start sim event
             StartSim?.Invoke();
         }
         else {
             // initialize time array
             //Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");
+            instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
             for (int i = 0; i < levelPlanks.Length; i++)
             {
                 levelPlanks[i].gameObject.SetActive(true);
