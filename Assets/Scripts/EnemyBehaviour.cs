@@ -21,13 +21,25 @@ public class EnemyBehaviour : MonoBehaviour
         if(collision.gameObject.CompareTag("Sword"))
         {
             Debug.Log("Collided with Sword");
-            Destroy(gameObject);
+            // Instead of destroying we will SET setActive(FALSE)
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         else if(collision.gameObject.CompareTag("Player"))
         {
+            DungeonMaster.dm.hearts[DungeonMaster.dm.lives - 1].SetActive(false);
+            DungeonMaster.dm.lives -= 1;
+            Debug.Log("Player has lives left: "+ DungeonMaster.dm.lives);
             Debug.Log("Collided with Player");
-            ResetButton r = FindAnyObjectByType<ResetButton>();
-            r.execute();
+            if (DungeonMaster.dm.lives <= 0)
+            {
+                DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
+                DungeonMaster.dm.lives = 2;
+            }
+
+           
+            //ResetButton r = FindAnyObjectByType<ResetButton>();
+            //r.execute();
             //Need to call the reset function currently or reduce health later
 
         }

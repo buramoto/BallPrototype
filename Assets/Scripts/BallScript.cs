@@ -28,10 +28,15 @@ public class BallScript : MonoBehaviour
     // Ball is not editable neither during Simulation nor during Editing Phase
     public bool editable = false;
     public Animator anim;
+    public Collider2D sword; // variable for sword
 
     // Start is called before the first frame update
     void Start()
     {
+        // setting the ball's sword to inactive intially, when user clicks right mouse button only then collider comopenent will be set active
+        sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
+        sword.enabled = false;
+
         //Set the ball to its starting position (This should be changed to be configurable based on level
         ball.transform.position = startPosition;
 
@@ -71,7 +76,15 @@ public class BallScript : MonoBehaviour
         if(Input.GetMouseButtonDown(1))
         {
             Debug.Log("Slice key pressed");
-            anim.SetTrigger("Slice");
+            if (DungeonMaster.dm.simulationMode)
+            {
+                sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
+                sword.enabled = true;
+                anim.SetTrigger("Slice");
+
+                Invoke("setSwordInActive", 1500);
+
+            }
         }
     }
 
@@ -140,6 +153,7 @@ public class BallScript : MonoBehaviour
             return;         
         }
         else{
+
             ChangeTemperature elementProperties = element.GetComponent<ChangeTemperature>();
             switch (elementProperties.setting)
             {
@@ -205,5 +219,10 @@ public class BallScript : MonoBehaviour
         transform.position = startPosition;
         tempState = StateReference.temperature.neutral;
         ballDisplay.material.color = Color.gray;
+    }
+
+    public void setSwordInActive()
+    {
+        sword.enabled = false;
     }
 }
