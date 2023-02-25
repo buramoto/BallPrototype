@@ -249,6 +249,8 @@ public class DungeonMaster : MonoBehaviour
             //Display a Win screen
             SendToGoogle.sendToGoogle.Send();
             checkpoint.SetActive(false);
+            GlobalVariables.oobCounter = 0;
+            GlobalVariables.wgoCounter = 0;
             GlobalVariables.attemptCounter = 0;
             UIBehavior.gameUI.displayWinScreen();
         }
@@ -263,6 +265,7 @@ public class DungeonMaster : MonoBehaviour
         else
         {  
             //Player got the ball to the wrong goal block
+            GlobalVariables.wgoCounter = 0;
             simMode(false, StateReference.resetType.wgo);
             // array initialize to empty
         }

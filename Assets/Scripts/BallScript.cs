@@ -69,6 +69,8 @@ public class BallScript : MonoBehaviour
         if (ballX < -screenWidth / 2 || ballX > screenWidth / 2 || ballY < -screenHeight / 2 || ballY > screenHeight / 2)
         {
             // If the ball is outside the bounds, call the changeMode() function
+            GlobalVariables.oobCounter++;
+            Debug.Log(GlobalVariables.oobCounter);
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
             UIBehavior.gameUI.oobCoords = transform.position;
             DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";

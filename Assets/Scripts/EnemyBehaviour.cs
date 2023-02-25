@@ -33,6 +33,7 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log("Collided with Player");
             if (DungeonMaster.dm.lives <= 0)
             {
+                GlobalVariables.kbeCounter++;
                 DungeonMaster.dm.lives = 2;
                 DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
             }
