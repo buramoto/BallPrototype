@@ -24,7 +24,6 @@ public class ResetButton : MonoBehaviour
         GlobalVariables.plankCounter = 0;
         GlobalVariables.springCounter = 0;
         GlobalVariables.heaterCounter = 0;
-        DungeonMaster.dm.lives = 2;
         GlobalVariables.attemptCounter++;
 
         //GameObject[] hearts = GameObject.FindGameObjectsWithTag("Lives");

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using static System.Net.Mime.MediaTypeNames;
 using Unity.VisualScripting;
+using System.Linq;
 
 public class DungeonMaster : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class DungeonMaster : MonoBehaviour
     //Game variables
     public bool simulationMode;
     public byte counter;
+    public int lives;
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -27,26 +29,21 @@ public class DungeonMaster : MonoBehaviour
     private GoalBlock[] goals;
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
-    private string[] scenes = { "EnemyTutorial" };
+    private string[] tutorialScenes = { "EnemyTutorial" };
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
     //public TMPro.TextMeshProUGUI instructions;
-    
 
-
-    public int lives = 2;
-
-    // array to store checkpoint time
+    //Analytics
     public static float[] timeArray = new float[4];
-
-
-    // timevalue stores the currenttime and timer is the text gameobject
     public static float timeValue = 0;
     private GameObject timer;
 
     //Sequence of checkpoints, should be configurable by level
     // private char[] sequence = {'p', 'y', 'w', 'g'};//original
-    private char[] sequence = {'g'};
+    private char[] sequence = {'g'};//THIS NEEDS TO CHANGE
+    private string nextSceneName = "UIDev"; //This should be set in the local DM
+    private string currentSceneName;
 
     //Events
     public delegate void StartSimulation();
@@ -56,6 +53,7 @@ public class DungeonMaster : MonoBehaviour
 
     //Settings
     public float rotationSpeed;
+    public int maxLives;
 
     /// <summary>
     /// Creates the dm for the first time, or if there is already on (e.g. loading in from a different
@@ -71,7 +69,8 @@ public class DungeonMaster : MonoBehaviour
         }
         else
         {
-            dm.sequence = sequence;
+            dm.sequence = sequence;//Should change
+            dm.nextSceneName = nextSceneName; //Set the next level scene name
             Destroy(gameObject);
         }
     }
@@ -110,14 +109,15 @@ public class DungeonMaster : MonoBehaviour
     /// </summary>
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Initalizing level "+scene.name);
-
+        currentSceneName = scene.name;
+        Debug.Log("Initalizing level "+currentSceneName);
         GameObject winScreen = GameObject.Find("WinScreen(Clone)");
         if(winScreen != null){
             winScreen.SetActive(false);
             Destroy(winScreen);
         }
         //instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion"; 
+        lives = maxLives;
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
         goals = FindObjectsOfType<GoalBlock>();
@@ -159,6 +159,14 @@ public class DungeonMaster : MonoBehaviour
         {
             enemyElements[i].SetActive(true);
         }
+    }
+
+    /// <summary>
+    /// Loads the next scene
+    /// </summary>
+    public void loadNextLevel()
+    {
+        SceneManager.LoadScene(nextSceneName);
     }
 
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
@@ -220,7 +228,7 @@ public class DungeonMaster : MonoBehaviour
             {
                 hearts[i].gameObject.SetActive(true);
             }
-            lives = 2;
+            lives = maxLives;
             //Trigger stop sim event
             StopSim?.Invoke(type);
 
@@ -245,24 +253,24 @@ public class DungeonMaster : MonoBehaviour
     public void checkpointHit(GameObject checkpoint, char checkpointColor)
     {
         Debug.Log("Counter value" + counter);
-        if(checkpointColor=='g' && counter==0)//was 3
+        if(checkpointColor=='g')
         {
             //adding goal time to timeArray
             timeArray[counter]=timeValue;
             //Display a Win screen
-            string sceneName = SceneManager.GetActiveScene().name;
-            if(!Array.Exists(scenes,scene => scene == sceneName)) {
+            if (!tutorialScenes.Contains(currentSceneName))
+            {
                 Debug.Log("GOOGLE");
                 SendToGoogle.sendToGoogle.Send();
             }
             checkpoint.SetActive(false);
             GlobalVariables.attemptCounter = 0;
-            UIBehavior.gameUI.displayWinScreen();
+            UIBehavior.gameUI.displayNextLevelScreen(nextSceneName);
         }
         else if(checkpointColor == sequence[counter])
         {
             //Correct, play sound
-             //add time value to array
+            //add time value to array
             timeArray[counter]=timeValue;
             //Correct, play sound
             counter++;
