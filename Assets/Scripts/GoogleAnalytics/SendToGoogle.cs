@@ -148,7 +148,7 @@ public class SendToGoogle : MonoBehaviour
             }   
         }
         Debug.Log(springPositions);
-        StartCoroutine(Post(_sessionID.ToString(), _userID.ToString(), _numberOfAttempts.ToString(), _numberOfPlanks.ToString(), _numberOfSprings.ToString(), _numberOfHeaters.ToString(),_timeForCheckpoint1.ToString(),_timeForCheckpoint2.ToString(),_timeForCheckpoint3.ToString(),_timeForGoalCheckpoint.ToString(),plankPositions,springPositions,heaterPositions));
+        //StartCoroutine(Post(_sessionID.ToString(), _userID.ToString(), _numberOfAttempts.ToString(), _numberOfPlanks.ToString(), _numberOfSprings.ToString(), _numberOfHeaters.ToString(),_timeForCheckpoint1.ToString(),_timeForCheckpoint2.ToString(),_timeForCheckpoint3.ToString(),_timeForGoalCheckpoint.ToString(),plankPositions,springPositions,heaterPositions));
     }
 
     // Send data to Google Form

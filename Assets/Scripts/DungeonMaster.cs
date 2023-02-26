@@ -43,7 +43,8 @@ public class DungeonMaster : MonoBehaviour
     private GameObject timer;
 
     //Sequence of checkpoints, should be configurable by level
-    private char[] sequence = {'p', 'y', 'w'};
+    private char[] sequence = {'g'};
+    private int checkpointcount_tutorial1 = 0;
 
     //Events
     public delegate void StartSimulation();
@@ -242,7 +243,7 @@ public class DungeonMaster : MonoBehaviour
     public void checkpointHit(GameObject checkpoint, char checkpointColor)
     {
         Debug.Log("Counter value" + counter);
-        if(checkpointColor=='g' && counter==3)
+        if(checkpointColor=='g' && counter==checkpointcount_tutorial1)
         {
             //adding goal time to timeArray
             timeArray[counter]=timeValue;
