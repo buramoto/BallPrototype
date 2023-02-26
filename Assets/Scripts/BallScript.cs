@@ -20,6 +20,7 @@ public class BallScript : MonoBehaviour
     private SpriteRenderer ballDisplay;
     private Rigidbody2D ballPhysics;
     private Camera cam; // Reference to the main camera in the scene
+    private CapsuleCollider2D sword; // variable for sword
 
     // Variables to store the height and width of the screen
     private float screenHeight;
@@ -28,7 +29,6 @@ public class BallScript : MonoBehaviour
     // Ball is not editable neither during Simulation nor during Editing Phase
     public bool editable = false;
     public Animator anim;
-    public CapsuleCollider2D sword; // variable for sword
 
     // Start is called before the first frame update
     void Start()
@@ -71,7 +71,7 @@ public class BallScript : MonoBehaviour
             // If the ball is outside the bounds, call the changeMode() function
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
             UIBehavior.gameUI.oobCoords = transform.position;
-            DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
+            //DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
         }
 
         if(Input.GetMouseButtonDown(1))

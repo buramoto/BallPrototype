@@ -8,8 +8,6 @@ public class PropPlacer : MonoBehaviour
     //Static reference
     public static PropPlacer propPlacer;
 
-
-
     //References to objects
     public GameObject plankPrefab;
     public GameObject springPrefab;

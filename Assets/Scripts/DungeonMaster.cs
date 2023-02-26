@@ -28,7 +28,7 @@ public class DungeonMaster : MonoBehaviour
     private ChangeTemperature[] tempElements;
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
-    public TMPro.TextMeshProUGUI instructions;
+    //public TMPro.TextMeshProUGUI instructions;
     
 
 
@@ -43,7 +43,8 @@ public class DungeonMaster : MonoBehaviour
     private GameObject timer;
 
     //Sequence of checkpoints, should be configurable by level
-    private char[] sequence = {'p', 'y', 'w'};
+    //private char[] sequence = {'p', 'y', 'w'};//original
+    private char[] sequence = {'g'};
 
     //Events
     public delegate void StartSimulation();
@@ -68,6 +69,7 @@ public class DungeonMaster : MonoBehaviour
         }
         else
         {
+            dm.sequence = sequence;
             Destroy(gameObject);
         }
     }
@@ -113,7 +115,7 @@ public class DungeonMaster : MonoBehaviour
             winScreen.SetActive(false);
             Destroy(winScreen);
         }
-        instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion"; 
+        //instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion"; 
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
         goals = FindObjectsOfType<GoalBlock>();
@@ -135,12 +137,11 @@ public class DungeonMaster : MonoBehaviour
         //hearts = new GameObject[lives];
         //for (int i = 0; i < lives; i++)
         //{
-            
+
         //    hearts[i] = allHearts[i];
         //    //hearts[i].SetActive(true);
         //    //Debug.Log("Name of Heart: " + hearts[i].name);
         //}
-
 
         simulationMode = false;
         counter = 0;
@@ -184,14 +185,14 @@ public class DungeonMaster : MonoBehaviour
             {
                 balls[i].startSim();
             }
-            instructions.text = "Right Click To Attack Enemy";
+            //instructions.text = "Right Click To Attack Enemy";
             //Trigger start sim event
             StartSim?.Invoke();
         }
         else {
             // initialize time array
             //Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");
-            instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
+            //instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
             for (int i = 0; i < levelPlanks.Length; i++)
             {
                 levelPlanks[i].gameObject.SetActive(true);
@@ -242,12 +243,12 @@ public class DungeonMaster : MonoBehaviour
     public void checkpointHit(GameObject checkpoint, char checkpointColor)
     {
         Debug.Log("Counter value" + counter);
-        if(checkpointColor=='g' && counter==3)
+        if(checkpointColor=='g' && counter==0)//was 3
         {
             //adding goal time to timeArray
             timeArray[counter]=timeValue;
             //Display a Win screen
-            SendToGoogle.sendToGoogle.Send();
+            //SendToGoogle.sendToGoogle.Send();
             checkpoint.SetActive(false);
             GlobalVariables.attemptCounter = 0;
             UIBehavior.gameUI.displayWinScreen();
