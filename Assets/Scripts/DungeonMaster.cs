@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,7 @@ public class DungeonMaster : MonoBehaviour
     private GoalBlock[] goals;
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
+    private string[] scenes = { "EnemyTutorial" };
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
     //public TMPro.TextMeshProUGUI instructions;
@@ -43,7 +45,7 @@ public class DungeonMaster : MonoBehaviour
     private GameObject timer;
 
     //Sequence of checkpoints, should be configurable by level
-    //private char[] sequence = {'p', 'y', 'w'};//original
+    // private char[] sequence = {'p', 'y', 'w', 'g'};//original
     private char[] sequence = {'g'};
 
     //Events
@@ -248,7 +250,11 @@ public class DungeonMaster : MonoBehaviour
             //adding goal time to timeArray
             timeArray[counter]=timeValue;
             //Display a Win screen
-            //SendToGoogle.sendToGoogle.Send();
+            string sceneName = SceneManager.GetActiveScene().name;
+            if(!Array.Exists(scenes,scene => scene == sceneName)) {
+                Debug.Log("GOOGLE");
+                SendToGoogle.sendToGoogle.Send();
+            }
             checkpoint.SetActive(false);
             GlobalVariables.attemptCounter = 0;
             UIBehavior.gameUI.displayWinScreen();
