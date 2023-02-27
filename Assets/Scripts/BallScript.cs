@@ -30,6 +30,8 @@ public class BallScript : MonoBehaviour
     public Animator anim;
     public CapsuleCollider2D sword; // variable for sword
 
+    // public bool hasCollided = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,7 +72,12 @@ public class BallScript : MonoBehaviour
         {
             // If the ball is outside the bounds, call the changeMode() function
             GlobalVariables.oobCounter++;
-            Debug.Log(GlobalVariables.oobCounter);
+
+            Debug.Log("oob "+ GlobalVariables.heaterUsed);
+            GlobalVariables.heaterUsed = 0;
+            GlobalVariables.plankUsed = 0;
+            GlobalVariables.springUsed = 0;
+            
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
             UIBehavior.gameUI.oobCoords = transform.position;
             DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
@@ -91,14 +98,26 @@ public class BallScript : MonoBehaviour
         }
     }
 
+    // void LateUpdate(){
+    //     if (hasCollided)
+    //     {
+    //         // Debug.Log("Ball collided with something");
+    //         hasCollided = false;
+    //     }
+    // }
+
     //When colliding with an object, invoke appropriate function
     private void OnCollisionStay2D(Collision2D collision)
     {
-        //Debug.LogWarning("Ball collided with " + collision.gameObject.name);
+        // Debug.LogWarning("Ball collided with " + collision.gameObject.name);
         switch (collision.gameObject.tag)
         {
             case "Plank":
                 plankCollision(collision.gameObject);
+                break;
+            case "Spring":
+                GlobalVariables.springUsed++;
+                // Debug.Log("Spring used"+GlobalVariables.springUsed);
                 break;
             case "Static_Plank":
                 Debug.LogError("Static Plank Reference!");
@@ -109,6 +128,7 @@ public class BallScript : MonoBehaviour
     //Change temperature based on heating/cooling element
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.LogWarning("Ball entered trigger " + other.gameObject.name);
         switch (other.gameObject.tag)
         {
             case "Checkpoint":
@@ -116,6 +136,14 @@ public class BallScript : MonoBehaviour
                 break;
             case "TempChange":
                 elementCollision(other.gameObject);
+
+                // On collision with the heater, increment the heaterUsed variable
+                if(other.gameObject.tag == "TempChange")
+                {   
+                    // Debug.Log("Heater used"+GlobalVariables.heaterUsed);
+                    GlobalVariables.heaterUsed++;
+                    // Debug.Log(GlobalVariables.heaterUsed);
+                }
                 break;
         }
         
@@ -147,6 +175,12 @@ public class BallScript : MonoBehaviour
             default:
                 break;
         }
+        // if(plankProperties.editable == true && hasCollided == false)
+        // {
+            // GlobalVariables.plankUsed++;
+            // Debug.Log("Plank used"+GlobalVariables.plankUsed);
+            // hasCollided = true;
+        // }
     }
 
     private void elementCollision(GameObject element)

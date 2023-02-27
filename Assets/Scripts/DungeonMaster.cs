@@ -185,6 +185,8 @@ public class DungeonMaster : MonoBehaviour
                 balls[i].startSim();
             }
             instructions.text = "Right Click To Attack Enemy";
+
+
             //Trigger start sim event
             StartSim?.Invoke();
         }
@@ -218,6 +220,7 @@ public class DungeonMaster : MonoBehaviour
                 hearts[i].gameObject.SetActive(true);
             }
             lives = 2;
+            
             //Trigger stop sim event
             StopSim?.Invoke(type);
 
@@ -246,12 +249,21 @@ public class DungeonMaster : MonoBehaviour
         {
             //adding goal time to timeArray
             timeArray[counter]=timeValue;
+
+            // Storing the number of player's lives left
+            GlobalVariables.livesLeft = lives;
+
+            Debug.Log("Heaters used: " + GlobalVariables.heaterUsed);
             //Display a Win screen
             SendToGoogle.sendToGoogle.Send();
             checkpoint.SetActive(false);
             GlobalVariables.oobCounter = 0;
             GlobalVariables.wgoCounter = 0;
             GlobalVariables.attemptCounter = 0;
+            GlobalVariables.plankUsed = 0;
+            GlobalVariables.springUsed = 0;
+            GlobalVariables.heaterUsed = 0;
+            
             UIBehavior.gameUI.displayWinScreen();
         }
         else if(checkpointColor == sequence[counter])
@@ -306,6 +318,13 @@ public class DungeonMaster : MonoBehaviour
                 highlightedObject.GetComponentInChildren<Outline>().enabled =false;
             }
         }
+    }
+
+    public void onCollisionEnter(Collision collision){
+        Debug.Log("Collision with: " + collision.gameObject.name);
+
+        // if(collision.gameObject.CompareTag("Plank")){
+            // }
     }
 
 }
