@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PropPlacer : MonoBehaviour
 {
@@ -31,11 +32,78 @@ public class PropPlacer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (DungeonMaster.dm.simulationMode)
         {
+            // if user is in simulation mode and he presses "SPACE BAR" - For Next Instruction
+            // Below If for TUTORIAL 1
+            if (DungeonMaster.dm.tutorial1 == SceneManager.GetActiveScene().name) {
+                if (Tutorial1.instructionIndex == 0)
+                {
+                    Tutorial1.UpdateInstructionIndex();
+                }
+                if (Tutorial1.instructionIndex == 1 && Input.GetKeyDown(KeyCode.Space))
+                {
+                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex - 1].SetActive(false);
+                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex].SetActive(true);
+                }
+            }
+
             //We are in simulation mode. Player should not be editing anything
             return;
         }
+        // when in editing mode we instruct user to place heater and a plank Below Code is for Tutorial 1
+        if (DungeonMaster.dm.tutorial1 == SceneManager.GetActiveScene().name && !DungeonMaster.dm.simulationMode)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (Tutorial1.instructionIndex == 1)
+                {
+                    Tutorial1.tutorial1Reference.instructionArray[0].SetActive(false);
+                    Tutorial1.tutorial1Reference.instructionArray[1].SetActive(false);
+                    Tutorial1.tutorial1Reference.instructionArray[2].SetActive(true);
+                    Tutorial1.UpdateInstructionIndex();
+                }
+                else if (Tutorial1.instructionIndex == 2)
+                {
+                    Tutorial1.UpdateInstructionIndex();
+                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex - 1].SetActive(false);
+                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex].SetActive(true);
+                }
+                else if (Tutorial1.instructionIndex == 3)
+                {
+                    Tutorial1.UpdateInstructionIndex();
+                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex - 1].SetActive(false);
+                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex].SetActive(false);
+                }
+            }
+        }
+
+        if (DungeonMaster.dm.tutorial2 == SceneManager.GetActiveScene().name && !DungeonMaster.dm.simulationMode)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (Tutorial2.instructionIndex == 0)
+                {
+                    Tutorial2.UpdateInstructionIndex();
+                    Tutorial2.tutorial2Reference.instructionArray[Tutorial2.instructionIndex - 1].SetActive(false);
+                    Tutorial2.tutorial2Reference.instructionArray[Tutorial2.instructionIndex].SetActive(true);
+                }
+                else if (Tutorial2.instructionIndex == 1)
+                {
+                    Tutorial2.UpdateInstructionIndex();
+                    Tutorial2.tutorial2Reference.instructionArray[Tutorial2.instructionIndex - 1].SetActive(false);
+                    Tutorial2.tutorial2Reference.instructionArray[Tutorial2.instructionIndex].SetActive(true);
+                }
+                else if (Tutorial2.instructionIndex == 2)
+                {
+                    Tutorial2.UpdateInstructionIndex();
+                    Tutorial2.tutorial2Reference.instructionArray[Tutorial2.instructionIndex - 1].SetActive(false);
+                    Tutorial2.tutorial2Reference.instructionArray[Tutorial2.instructionIndex].SetActive(false);
+                }
+            }
+        }
+
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {

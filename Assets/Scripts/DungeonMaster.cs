@@ -32,10 +32,19 @@ public class DungeonMaster : MonoBehaviour
     private string[] tutorialScenes = { "EnemyTutorial" };
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
-    //public TMPro.TextMeshProUGUI instructions;
+    public TMPro.TextMeshProUGUI instructions;
 
-    //Analytics
+    // variable to store different scene names
+    public string tutorial1 = "Tutorial_1";
+    public string tutorial2 = "Tutorial_2";
+
+    public int lives = 2;
+
+    // array to store checkpoint time
     public static float[] timeArray = new float[4];
+
+
+    // timevalue stores the currentTime and timer is the text gameobject
     public static float timeValue = 0;
     private GameObject timer;
 
@@ -44,6 +53,7 @@ public class DungeonMaster : MonoBehaviour
     private char[] sequence = {'g'};//THIS NEEDS TO CHANGE
     private string nextSceneName = "UIDev"; //This should be set in the local DM
     private string currentSceneName;
+    private int checkpointcount_tutorial1 = 0;
 
     //Events
     public delegate void StartSimulation();
@@ -253,7 +263,7 @@ public class DungeonMaster : MonoBehaviour
     public void checkpointHit(GameObject checkpoint, char checkpointColor)
     {
         Debug.Log("Counter value" + counter);
-        if(checkpointColor=='g')
+        if(checkpointColor=='g' && counter==checkpointcount_tutorial1)
         {
             //adding goal time to timeArray
             timeArray[counter]=timeValue;

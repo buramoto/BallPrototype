@@ -34,8 +34,11 @@ public class BallScript : MonoBehaviour
     void Start()
     {
         // setting the ball's sword to inactive intially, when user clicks right mouse button only then collider comopenent will be set active
-        sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
-        sword.enabled = false;
+        if(gameObject.GetComponentInChildren<CapsuleCollider2D>() != null)
+        {
+            sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
+            sword.enabled = false;
+        }
 
         //Set the ball to its starting position (This should be changed to be configurable based on level
         ball.transform.position = startPosition;
