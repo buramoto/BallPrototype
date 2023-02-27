@@ -29,8 +29,10 @@ public class DungeonMaster : MonoBehaviour
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;
-    
 
+    // variable to store different scene names
+    public string tutorial1 = "Tutorial_1";
+    public string tutorial2 = "Tutorial_2";
 
     public int lives = 2;
 
@@ -38,7 +40,7 @@ public class DungeonMaster : MonoBehaviour
     public static float[] timeArray = new float[4];
 
 
-    // timevalue stores the currenttime and timer is the text gameobject
+    // timevalue stores the currentTime and timer is the text gameobject
     public static float timeValue = 0;
     private GameObject timer;
 
