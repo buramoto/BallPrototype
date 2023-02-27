@@ -10,7 +10,7 @@ public class ChangeTemperature : MonoBehaviour
     */
     public bool editable;
     public StateReference.temperature setting;
-
+    public bool hasCollided = false;
     private SpriteRenderer elementDisplay;
     // Start is called before the first frame update
     // Start is called before the first frame update

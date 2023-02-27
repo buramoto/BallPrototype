@@ -31,16 +31,15 @@ public class SendToGoogle : MonoBehaviour
     public GameObject[] plank;
     public GameObject[] spring;
     public GameObject[] heater;
-    public GameObject[] element;
     private string plankPositions;
     private string springPositions;
     private string heaterPositions;
-    private string elementCoordinate;
     private int _kbeCounterValue;
     private int _oobCounterValue;
     private int _wgoCounterValue;
     private string resetButtonCounters;
     private int _livesLeft;
+
     // Get the user ID
     public static string GetUserID()
     {
@@ -61,40 +60,46 @@ public class SendToGoogle : MonoBehaviour
         return System.Convert.ToBase64String(hash);
     }
 
-    /* private static string getCoordinates(string elementType)
+    public static string getCoordinates(string elementType)
     {
-        //Debug.Log("122222");
-        element = GameObject.FindGameObjectsWithTag(elementType);
-        //Debug.Log("22222222898429292");
-        //private string elementCoordinate;
+        string elementCoordinate = "";
+        Debug.Log("getCoordinates"+ elementType);
+        GameObject[] element = GameObject.FindGameObjectsWithTag(elementType);
         foreach (GameObject e in element)
         {
-            if(elementType=="Plank")
+            if(elementType == "Plank")
             {
                 Plank script = e.GetComponent<Plank>();
+                if(script!=null && script.editable)
+                {
+                    // add spring position to string
+                    Vector3 position = e.transform.position;
+                    elementCoordinate += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
+                }   
             }
-            else if(elementType=="Spring")
+            else if(elementType == "Spring")
             {
-                Spring script =e.GetComponent<Spring>();
+                Spring script = e.GetComponent<Spring>();
+                if(script!=null && script.editable)
+                {
+                    // add spring position to string
+                    Vector3 position = e.transform.position;
+                    elementCoordinate += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
+                }   
             }
-            else
+            else if(elementType == "TempChange")
             {
                 ChangeTemperature script = e.GetComponent<ChangeTemperature>();
+                if(script!=null && script.editable)
+                {
+                    // add heater position to string
+                    Vector3 position = e.transform.position;
+                    elementCoordinate += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
+                }   
             }
-
-            if (script != null && script.editable)
-            {
-                Debug.Log(e.transform.position);
-                // add plank position to string
-                Vector3 position = e.transform.position;
-                elementCoordinate += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + "," + System.Math.Round(position.z,3) + ";";
-            }
-
         }
         return elementCoordinate;
-
-
-    } */
+    }
 
 
     private void Awake()
@@ -128,47 +133,13 @@ public class SendToGoogle : MonoBehaviour
         _livesLeft = GlobalVariables.livesLeft;
 
         //coordinate for props
-        //plankPositions = getCoordinates("Plank");
-        plank = GameObject.FindGameObjectsWithTag("Plank");
-        foreach (GameObject p in plank)
-        {
-            Plank script = p.GetComponent<Plank>();
-            if(script!=null && script.editable){
-
-                Debug.Log(p.transform.position);
-                // add spring position to string
-                Vector3 position = p.transform.position;
-                plankPositions += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
-            }   
-        }
+        plankPositions = getCoordinates("Plank");
+        Debug.Log("Plank Positions: "+plankPositions);
+        springPositions = getCoordinates("Spring");
+        Debug.Log("Spring Positions: "+springPositions);
+        heaterPositions = getCoordinates("TempChange");
+        Debug.Log("Heater Positions: "+heaterPositions);
         
-        Debug.Log(plankPositions);
-        spring = GameObject.FindGameObjectsWithTag("Spring");
-        foreach (GameObject s in spring)
-        {
-            Spring script = s.GetComponent<Spring>();
-            if(script!=null && script.editable){
-
-                Debug.Log(s.transform.position);
-                // add spring position to string
-                Vector3 position = s.transform.position;
-                springPositions += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
-            }   
-        }
-        Debug.Log(springPositions);
-        heater = GameObject.FindGameObjectsWithTag("TempChange");
-        foreach (GameObject h in heater)
-        {
-            ChangeTemperature script = h.GetComponent<ChangeTemperature>();
-            if(script!=null && script.editable)
-            {
-                Debug.Log(h.transform.position);
-                // add heater position to string
-                Vector3 position = h.transform.position;
-                heaterPositions += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
-            }   
-        }
-        Debug.Log(springPositions);
         Debug.Log("kbe Counter");
         Debug.Log(_kbeCounterValue);
         Debug.Log("oob Counter");

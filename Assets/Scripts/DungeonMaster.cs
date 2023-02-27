@@ -197,6 +197,10 @@ public class DungeonMaster : MonoBehaviour
             for (int i = 0; i < levelPlanks.Length; i++)
             {
                 levelPlanks[i].gameObject.SetActive(true);
+                // if(levelPlanks[i].gameObject.name == "Plank(Clone)" && levelPlanks[i].gameObject.GetComponent<Plank>().editable == true && levelPlanks[i].GameObject.GetComponent<Plank>().hasCollided == true)
+                // {
+                //     levelPlanks[i].gameObject.GetComponent<Plank>().hasCollided = false;
+                // }
             }
             for (int i = 0; i < goals.Length; i++)
             {
@@ -220,6 +224,8 @@ public class DungeonMaster : MonoBehaviour
                 hearts[i].gameObject.SetActive(true);
             }
             lives = 2;
+            
+            resetValues();
             
             //Trigger stop sim event
             StopSim?.Invoke(type);
@@ -263,7 +269,6 @@ public class DungeonMaster : MonoBehaviour
             GlobalVariables.plankUsed = 0;
             GlobalVariables.springUsed = 0;
             GlobalVariables.heaterUsed = 0;
-            
             UIBehavior.gameUI.displayWinScreen();
         }
         else if(checkpointColor == sequence[counter])
@@ -320,11 +325,41 @@ public class DungeonMaster : MonoBehaviour
         }
     }
 
-    public void onCollisionEnter(Collision collision){
-        Debug.Log("Collision with: " + collision.gameObject.name);
+    public void resetValues(){
+        GameObject[] plank = GameObject.FindGameObjectsWithTag("Plank");
+        foreach (GameObject p in plank)
+        {
+            Plank script = p.GetComponent<Plank>();
+            if(script!=null && script.editable){
 
-        // if(collision.gameObject.CompareTag("Plank")){
-            // }
+                Debug.Log(p.transform.position);
+                script.hasCollided = false;
+
+            }   
+        }
+        GameObject[] spring = GameObject.FindGameObjectsWithTag("Spring");
+        foreach (GameObject s in spring)
+        {
+            Spring script = s.GetComponent<Spring>();
+            if(script!=null && script.editable){
+                script.hasCollided = false;
+
+            }   
+        }
+        GameObject[] heater = GameObject.FindGameObjectsWithTag("TempChange");
+        foreach (GameObject h in heater)
+        {
+            ChangeTemperature script = h.GetComponent<ChangeTemperature>();
+            if(script!=null && script.editable){
+                script.hasCollided = false;
+
+            }   
+        }
+        GlobalVariables.plankUsed = 0;
+        GlobalVariables.springUsed = 0;
+        GlobalVariables.heaterUsed = 0;
+
     }
+
 
 }

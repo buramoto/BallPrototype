@@ -10,7 +10,7 @@ public class Plank : MonoBehaviour
     //Outlets
     public StateReference.temperature plankState;
     public bool editable = true;
-
+    public bool hasCollided = false;
     //Private variables
     private SpriteRenderer plankDisplay;
 
