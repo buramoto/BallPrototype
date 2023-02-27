@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 /// <summary>
 /// This script used to make sure the canvas does not destroy itself when switching levels
@@ -18,8 +19,15 @@ public class UIBehavior : MonoBehaviour
     public GameObject nextLevelScreen;
 
     //Buttons
-    private Button[] toolKitButtons;
-    private Button[] operationButtons;
+    private Button[] toolKitButtons = null;
+    private Button[] operationButtons = null;
+
+    //Elements
+    //IDictionary<string, GameObject> modeElements = new Dictionary<string, GameObject>();//All elements for each mode
+    public GameObject levelMode;
+    public GameObject mainMenuMode;
+    public GameObject levelSelectPanel;
+    public GameObject buttonPrefab;
 
     //Reset variables
     public Vector3 oobCoords; //Future scope: place an arrow where ball went oob
@@ -38,8 +46,8 @@ public class UIBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        toolKitButtons = gameObject.transform.Find("Toolkit").GetComponentsInChildren<Button>();
-        operationButtons = gameObject.transform.Find("Operations").GetComponentsInChildren<Button>();
+        //toolKitButtons = transform.Find("Toolkit").GetComponentsInChildren<Button>();
+        //operationButtons = transform.Find("Operations").GetComponentsInChildren<Button>();
     }
 
     private void Start()
@@ -54,6 +62,23 @@ public class UIBehavior : MonoBehaviour
         {
             Destroy(activeScreen);
         }
+        //if/else statement below sets the UI elements to either level or main menu mode
+        if(scene.name == "MainMenu")
+        {
+            levelMode.SetActive(false);
+            mainMenuMode.SetActive(true);
+            initMainMenu();
+        }
+        else
+        {
+            mainMenuMode.SetActive(false);
+            levelMode.SetActive(true);
+            if (toolKitButtons == null)
+            {
+                toolKitButtons = transform.Find("Toolkit").GetComponentsInChildren<Button>();
+                operationButtons = transform.Find("Operations").GetComponentsInChildren<Button>();
+            }
+        }
     }
 
     // Winscreen Func
@@ -65,6 +90,30 @@ public class UIBehavior : MonoBehaviour
     public void displayNextLevelScreen(string sceneName)
     {
         activeScreen = Instantiate(nextLevelScreen, gameObject.transform);
+    }
+
+    private void initMainMenu()
+    {
+        Debug.LogWarning("Initalizing main menu");
+        Debug.Log(Path.Combine(Directory.GetCurrentDirectory(),"Assets","Scenes"));
+        Debug.Log(Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes")));
+        for (int i =0; i < SceneManager.sceneCount; i++)
+        {
+            Debug.Log("Scene number " + i);
+            Scene scene = SceneManager.GetSceneAt(i);
+            if(scene.name == "MainMenu")
+            {
+                continue;
+            }
+            GameObject button = Instantiate(buttonPrefab, levelSelectPanel.transform);
+            button.GetComponentInChildren<Text>().text = scene.name;
+            button.GetComponentInChildren<Button>().onClick.AddListener(delegate{levelSelect(scene.name);});
+        }
+    }
+
+    private void levelSelect(string levelName)
+    {
+        print("Loading scene " + levelName);
     }
 
     /// <summary>
