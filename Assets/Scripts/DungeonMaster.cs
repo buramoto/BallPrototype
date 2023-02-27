@@ -21,7 +21,7 @@ public class DungeonMaster : MonoBehaviour
     //Game variables
     public bool simulationMode;
     public byte counter;
-    public int lives;
+    public int lives = 2;
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -38,7 +38,6 @@ public class DungeonMaster : MonoBehaviour
     public string tutorial1 = "Tutorial_1";
     public string tutorial2 = "Tutorial_2";
 
-    public int lives = 2;
 
     // array to store checkpoint time
     public static float[] timeArray = new float[4];
