@@ -21,6 +21,8 @@ TagManager:
   - Instructions
   - Tutorial2Instructions
   - HealthLoss
+  - Order
+  - SwordHolder
   layers:
   - Default
   - TransparentFX
