@@ -202,7 +202,6 @@ public class DungeonMaster : MonoBehaviour
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
     public void simMode(bool mode, StateReference.resetType type)
     {
-
         if(highlightedObject!=null){
             RemoveHighlightFromObject();
         }

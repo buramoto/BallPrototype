@@ -20,6 +20,7 @@ TagManager:
   - Lives
   - Instructions
   - Tutorial2Instructions
+  - HealthLoss
   layers:
   - Default
   - TransparentFX

@@ -804,6 +804,10 @@ MonoBehaviour:
   springPrefab: {fileID: 3725497670154412353, guid: b2b0276e6968a9d468102d2dc19ca26a, type: 3}
   tempElementPrefab: {fileID: 3316150428761557205, guid: dffaa62acf076e646810530f9028a5b7, type: 3}
   selectedObject: {fileID: 0}
+  instructionIndex2: 0
+  instructionArray2Text:
+  - 'Ball can Bounce off the Spring '
+  - So use Planks & Springs to Direct Ball to the goal block
 --- !u!114 &184224288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6857,7 +6861,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press Space for next >
+  m_text: Press N for next >
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
