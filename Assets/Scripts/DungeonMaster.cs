@@ -51,10 +51,12 @@ public class DungeonMaster : MonoBehaviour
 
     //Sequence of checkpoints, should be configurable by level
     // private char[] sequence = {'p', 'y', 'w', 'g'};//original
-    private char[] sequence = {'g'};//THIS NEEDS TO CHANGE
+    private char[] sequence;//THIS NEEDS TO CHANGE
+    private IDictionary<string,char[]> sequences = new Dictionary<string, char[]>();
+    
     public string nextSceneName; //This should be set in the local DM
     public string currentSceneName;
-    private int checkpointcount_tutorial1 = 0;
+    // private int checkpointcount_tutorial1 = 0;
 
     //Events
     public delegate void StartSimulation();
@@ -77,11 +79,16 @@ public class DungeonMaster : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             dm = this;
             SceneManager.sceneLoaded += initalizeLevel;
-            // sceneIndex += 1;
+            char[] tutorial_sequence = {'g'};
+            sequences.Add("Tutorial_1",tutorial_sequence);
+            sequences.Add("Tutorial_2",tutorial_sequence);
+            sequences.Add("EnemyTutorial",tutorial_sequence);
+            char[] main_level_sequence = {'p','y','w','g'};
+            sequences.Add("UIDev",main_level_sequence);
         }
         else
         {
-            dm.sequence = sequence;//Should change
+            // dm.sequence = sequence;//Should change
             // dm.nextSceneName = scenes[sceneIndex+1]; //Set the next level scene name
             // dm.currentSceneName = scenes[sceneIndex];
             Destroy(gameObject);
@@ -125,6 +132,7 @@ public class DungeonMaster : MonoBehaviour
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
         currentSceneName = scene.name;
+        sequence = sequences[currentSceneName];
         Debug.Log("Initalizing level "+currentSceneName);
         GameObject winScreen = GameObject.Find("WinScreen(Clone)");
         if(winScreen != null){

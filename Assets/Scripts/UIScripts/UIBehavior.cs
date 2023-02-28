@@ -57,10 +57,10 @@ public class UIBehavior : MonoBehaviour
     }
 
     // Winscreen Func
-    // public void displayWinScreen()
-    // {
-    //     activeScreen = Instantiate(winScreen, gameObject.transform);
-    // }
+    public void displayWinScreen()
+    {
+        activeScreen = Instantiate(winScreen, gameObject.transform);
+    }
 
     public void displayNextLevelScreen(string sceneName)
     {
