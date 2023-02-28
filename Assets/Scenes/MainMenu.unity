@@ -308,6 +308,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &729555741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6171845429601630082, guid: d01470217d875054a98ea192585a9129, type: 3}
+  m_PrefabInstance: {fileID: 1504501624}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &921767351 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1717778677363821182, guid: d01470217d875054a98ea192585a9129, type: 3}
@@ -316,6 +321,11 @@ GameObject:
 --- !u!224 &921767352 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8215938006104068739, guid: d01470217d875054a98ea192585a9129, type: 3}
+  m_PrefabInstance: {fileID: 1504501624}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1188593623 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6171845427970819488, guid: d01470217d875054a98ea192585a9129, type: 3}
   m_PrefabInstance: {fileID: 1504501624}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1365835980 stripped
@@ -435,6 +445,14 @@ PrefabInstance:
       propertyPath: mainMenuMode
       value: 
       objectReference: {fileID: 921767351}
+    - target: {fileID: 6171845428107800258, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: toolKitPanel
+      value: 
+      objectReference: {fileID: 1188593623}
+    - target: {fileID: 6171845428107800258, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: operationPanel
+      value: 
+      objectReference: {fileID: 729555741}
     - target: {fileID: 6171845428107800258, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: levelSelectPanel
       value: 

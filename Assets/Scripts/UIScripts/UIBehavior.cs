@@ -29,6 +29,8 @@ public class UIBehavior : MonoBehaviour
     public GameObject mainMenuMode;
     public GameObject levelSelectPanel;
     public GameObject buttonPrefab;
+    public GameObject toolKitPanel;
+    public GameObject operationPanel;
 
     //Reset variables
     public Vector3 oobCoords; //Future scope: place an arrow where ball went oob
@@ -41,10 +43,26 @@ public class UIBehavior : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
             gameUI = this;
+            toolKitButtons = toolKitPanel.GetComponentsInChildren<Button>();
+            operationButtons = operationPanel.GetComponentsInChildren<Button>();
             SceneManager.sceneLoaded += initalizeLevel;
+            /*
+            if (SceneManager.GetActiveScene().name != "MainMenu")
+            {
+                toolKitButtons = transform.Find("Toolkit").GetComponentsInChildren<Button>();
+                operationButtons = transform.Find("Operations").GetComponentsInChildren<Button>();
+            }
+            */
         }
         else
         {
+            /*
+            if (gameUI.toolKitButtons == null)
+            {
+                gameUI.toolKitButtons = gameUI.transform.Find("Toolkit").GetComponentsInChildren<Button>();
+                gameUI.operationButtons = gameUI.transform.Find("Operations").GetComponentsInChildren<Button>();
+            }
+            */
             Destroy(gameObject);
         }
         //toolKitButtons = transform.Find("Toolkit").GetComponentsInChildren<Button>();
@@ -74,11 +92,7 @@ public class UIBehavior : MonoBehaviour
         {
             mainMenuMode.SetActive(false);
             levelMode.SetActive(true);
-            if (toolKitButtons == null)
-            {
-                toolKitButtons = transform.Find("Toolkit").GetComponentsInChildren<Button>();
-                operationButtons = transform.Find("Operations").GetComponentsInChildren<Button>();
-            }
+            
         }
     }
 
@@ -96,6 +110,7 @@ public class UIBehavior : MonoBehaviour
     private void initMainMenu()
     {
         Debug.LogWarning("Initalizing main menu");
+
         foreach(string fileName in Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes"), "*.unity"))
         {
             string sceneName = Path.GetFileNameWithoutExtension(fileName);

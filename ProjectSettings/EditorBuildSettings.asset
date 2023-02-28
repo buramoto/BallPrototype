@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UIDev.unity
     guid: 503558d95b74a884fb9cc8494513c19d
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 9c2bf42e7873cdd4690583962614321c
+  - enabled: 1
+    path: Assets/Scenes/EnemyTutorial.unity
+    guid: aa7cf9429949d044f8f9a44f3e783e21
   m_configObjects: {}
