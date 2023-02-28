@@ -101,6 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 7237235675206451526}
   tempState: 0
+  startPosition: {x: 0, y: 0}
+  editable: 0
+  anim: {fileID: 0}
+  sword: {fileID: 5942755607843396257, guid: 3f64b67adeabee745a94e7961f3bb315, type: 3}
 --- !u!50 &7237235675206451524
 Rigidbody2D:
   serializedVersion: 4

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// This script used to make sure the canvas does not destroy itself when switching levels
@@ -13,7 +14,8 @@ public class UIBehavior : MonoBehaviour
     public static UIBehavior gameUI;
 
     //Menus
-    public GameObject winScreen ;
+    public GameObject winScreen;
+    public GameObject nextLevelScreen;
 
     //Buttons
     private Button[] toolKitButtons;
@@ -22,12 +24,15 @@ public class UIBehavior : MonoBehaviour
     //Reset variables
     public Vector3 oobCoords; //Future scope: place an arrow where ball went oob
 
+    private GameObject activeScreen = null;
+
     void Awake()
     {
         if(gameUI == null)
         {
             DontDestroyOnLoad(gameObject);
             gameUI = this;
+            SceneManager.sceneLoaded += initalizeLevel;
         }
         else
         {
@@ -43,14 +48,26 @@ public class UIBehavior : MonoBehaviour
         DungeonMaster.dm.StopSim += stopSim;
     }
 
+    private void initalizeLevel(Scene scene, LoadSceneMode mode)
+    {
+        if(activeScreen != null)
+        {
+            Destroy(activeScreen);
+        }
+    }
+
     // Winscreen Func
     public void displayWinScreen()
     {
-        Instantiate(winScreen, gameObject.transform);
+        activeScreen = Instantiate(winScreen, gameObject.transform);
+    }
+
+    public void displayNextLevelScreen(string sceneName)
+    {
+        activeScreen = Instantiate(nextLevelScreen, gameObject.transform);
     }
 
     /// <summary>
-
     /// Event handlers for stop and start sim
     /// </summary>
     /// This should be changed to an event
@@ -98,9 +115,7 @@ public class UIBehavior : MonoBehaviour
         }
     }
 
+    
+
 
 }
-
-//heaterButtonReference.GetComponent<Button>().interactable = true;
-//plankButtonReference.GetComponent<Button>().interactable = true;
-//springButtonReference.GetComponent<Button>().interactable = true;

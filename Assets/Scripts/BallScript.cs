@@ -20,6 +20,7 @@ public class BallScript : MonoBehaviour
     private SpriteRenderer ballDisplay;
     private Rigidbody2D ballPhysics;
     private Camera cam; // Reference to the main camera in the scene
+    private CapsuleCollider2D sword; // variable for sword
 
     // Variables to store the height and width of the screen
     private float screenHeight;
@@ -28,14 +29,27 @@ public class BallScript : MonoBehaviour
     // Ball is not editable neither during Simulation nor during Editing Phase
     public bool editable = false;
     public Animator anim;
-    public CapsuleCollider2D sword; // variable for sword
+
+    // SwordHolder variable (parent of sword)
+    public GameObject swordHolder; 
 
     // Start is called before the first frame update
     void Start()
     {
+        swordHolder = gameObject.transform.GetChild(0).gameObject;
         // setting the ball's sword to inactive intially, when user clicks right mouse button only then collider comopenent will be set active
-        sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
-        sword.enabled = false;
+        if(gameObject.GetComponentInChildren<CapsuleCollider2D>() != null)
+        {
+            sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
+            sword.enabled = false;
+        }
+
+        if(DungeonMaster.dm.currentSceneName == "Tutorial_2"){
+            // GameObject dmInstance = FindAnyObjectByType<DungeonMaster>().gameObject;
+            // dmInstance.AddComponent<Tutorial2>();
+            // GameObject[] tut2GameObject = FindGameObjectsWithTag("Tutorial2Instructions");
+            PropPlacer.instructionArray2 = GameObject.FindGameObjectsWithTag("Tutorial2Instructions");
+        }
 
         //Set the ball to its starting position (This should be changed to be configurable based on level
         ball.transform.position = startPosition;
@@ -61,6 +75,7 @@ public class BallScript : MonoBehaviour
 
     private void Update()
     {
+        swordHolder.transform.rotation = Quaternion.Euler(0.0f, 0.0f, gameObject.transform.rotation.z * -1.0f);
         // Get the x and y positions of the ball
         float ballX = transform.position.x;
         float ballY = transform.position.y;
@@ -71,7 +86,7 @@ public class BallScript : MonoBehaviour
             // If the ball is outside the bounds, call the changeMode() function
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
             UIBehavior.gameUI.oobCoords = transform.position;
-            DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
+            //DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
         }
 
         if(Input.GetMouseButtonDown(1))
