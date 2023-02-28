@@ -102,7 +102,6 @@ public class DungeonMaster : MonoBehaviour
     private void Update()
     {
         //Calculating time for every update and updating the text in Timer gameobject
-        Debug.Log(lives);
         timeValue += Time.deltaTime;
         float minutes = Mathf.FloorToInt(timeValue / 60);
         float seconds = Mathf.FloorToInt(timeValue % 60);
