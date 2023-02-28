@@ -40,6 +40,14 @@ public class BallScript : MonoBehaviour
             sword.enabled = false;
         }
 
+        if(DungeonMaster.dm.currentSceneName == "Tutorial_2"){
+            // GameObject dmInstance = FindAnyObjectByType<DungeonMaster>().gameObject;
+            // dmInstance.AddComponent<Tutorial2>();
+            // GameObject[] tut2GameObject = FindGameObjectsWithTag("Tutorial2Instructions");
+            PropPlacer.instructionArray2 = GameObject.FindGameObjectsWithTag("Tutorial2Instructions");
+            // Debug.Log(PropPlacer.instructionArray2.Length);
+        }
+
         //Set the ball to its starting position (This should be changed to be configurable based on level
         ball.transform.position = startPosition;
 

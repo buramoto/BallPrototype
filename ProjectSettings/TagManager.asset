@@ -19,6 +19,7 @@ TagManager:
   - Enemy
   - Lives
   - Instructions
+  - Tutorial2Instructions
   layers:
   - Default
   - TransparentFX

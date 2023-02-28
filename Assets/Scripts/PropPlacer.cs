@@ -21,28 +21,38 @@ public class PropPlacer : MonoBehaviour
     //Settings
     private float rotationSpeed; //Derived from Dungeonmaster at start
 
+
+    // variable to get Instruction Array for Tutorial 2
+    public static GameObject[] instructionArray2;
+    public int instructionIndex2 = 0;
+    public string[] instructionArray2Text = new string[] {"Ball can Bounce off the Spring ", "So use Planks & Springs to Direct Ball to the goal block"};
+
     private void Start()
     {
         rotationSpeed = DungeonMaster.dm.rotationSpeed;
         selectedObject = null;
         dragging = false;
         propPlacer = this;
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         
         if (DungeonMaster.dm.simulationMode)
         {
             // if user is in simulation mode and he presses "SPACE BAR" - For Next Instruction
             // Below If for TUTORIAL 1
-            if (DungeonMaster.dm.currentSceneName == SceneManager.GetActiveScene().name) {
+            if ("Tutorial_1" == SceneManager.GetActiveScene().name) {
                 if (Tutorial1.instructionIndex == 0)
                 {
                     Tutorial1.UpdateInstructionIndex();
                 }
-                if (Tutorial1.instructionIndex == 1 && Input.GetKeyDown(KeyCode.Space))
+                if (Tutorial1.instructionIndex == 1 && Input.GetKeyDown(KeyCode.N))
                 {
                     Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex - 1].SetActive(false);
                     Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex].SetActive(true);
@@ -53,9 +63,9 @@ public class PropPlacer : MonoBehaviour
             return;
         }
         // when in editing mode we instruct user to place heater and a plank Below Code is for Tutorial 1
-        if (DungeonMaster.dm.currentSceneName == SceneManager.GetActiveScene().name && !DungeonMaster.dm.simulationMode)
+        if (DungeonMaster.dm.currentSceneName == "Tutorial_1" && !DungeonMaster.dm.simulationMode)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.N))
             {
                 if (Tutorial1.instructionIndex == 1)
                 {
@@ -79,28 +89,29 @@ public class PropPlacer : MonoBehaviour
             }
         }
 
-        if (DungeonMaster.dm.currentSceneName == SceneManager.GetActiveScene().name && !DungeonMaster.dm.simulationMode)
+        if (DungeonMaster.dm.currentSceneName == "Tutorial_2" && !DungeonMaster.dm.simulationMode)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.N))
             {
-                if (Tutorial2.instructionIndex == 0)
+                if (instructionIndex2 == 0)
                 {
-                    Tutorial2.UpdateInstructionIndex();
-                    Tutorial2.tutorial2Reference.instructionArray[Tutorial2.instructionIndex - 1].SetActive(false);
-                    Tutorial2.tutorial2Reference.instructionArray[Tutorial2.instructionIndex].SetActive(true);
+                    instructionArray2[0].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = instructionArray2Text[0];
+                    instructionIndex2++;
+                    // instructionArray2[instructionIndex2].SetActive(true);
                 }
-                else if (Tutorial2.instructionIndex == 1)
+                else if (instructionIndex2 == 1)
                 {
-                    Tutorial2.UpdateInstructionIndex();
-                    Tutorial2.tutorial2Reference.instructionArray[Tutorial2.instructionIndex - 1].SetActive(false);
-                    Tutorial2.tutorial2Reference.instructionArray[Tutorial2.instructionIndex].SetActive(true);
+                    instructionArray2[0].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = instructionArray2Text[1];
+                    instructionIndex2++;
+                    // instructionArray2[instructionIndex2].SetActive(true);
                 }
-                else if (Tutorial2.instructionIndex == 2)
+                else if (instructionIndex2 == 2)
                 {
-                    Tutorial2.UpdateInstructionIndex();
-                    Tutorial2.tutorial2Reference.instructionArray[Tutorial2.instructionIndex - 1].SetActive(false);
-                    Tutorial2.tutorial2Reference.instructionArray[Tutorial2.instructionIndex].SetActive(false);
+                    
+                    instructionArray2[0].SetActive(false);
+                    instructionArray2[1].SetActive(false);
                 }
+
             }
         }
 
