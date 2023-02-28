@@ -189,6 +189,9 @@ public class DungeonMaster : MonoBehaviour
     public void loadNextLevel()
     {
         if(sceneIndex<scenes.Length-1) {
+            timeValue = 0;
+            TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
+            tm.text = "0:00";
             currentSceneName = scenes[sceneIndex];
             sceneIndex++;
             nextSceneName = scenes[sceneIndex];
