@@ -21,7 +21,7 @@ public class DungeonMaster : MonoBehaviour
     //Game variables
     public bool simulationMode;
     public byte counter;
-    public int lives = 2;
+    public int lives;
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -82,6 +82,7 @@ public class DungeonMaster : MonoBehaviour
             dm.nextSceneName = nextSceneName; //Set the next level scene name
             Destroy(gameObject);
         }
+        maxLives = 2;
     }
 
     private void Start()
@@ -101,6 +102,7 @@ public class DungeonMaster : MonoBehaviour
     private void Update()
     {
         //Calculating time for every update and updating the text in Timer gameobject
+        Debug.Log(lives);
         timeValue += Time.deltaTime;
         float minutes = Mathf.FloorToInt(timeValue / 60);
         float seconds = Mathf.FloorToInt(timeValue % 60);
@@ -138,13 +140,12 @@ public class DungeonMaster : MonoBehaviour
 
         //hearts = GameObject.FindGameObjectsWithTag("Lives");
 
-        Debug.Log("Hearts Data HEREEE: " + hearts.Length);
         //if (hearts.Length != 0)
         //{
         //    hearts = null;
         //}
 
-        Debug.Log("---------->" + hearts);
+        // Debug.Log("---------->" + hearts);
         //hearts = new GameObject[lives];
         //for (int i = 0; i < lives; i++)
         //{
