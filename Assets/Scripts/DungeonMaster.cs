@@ -22,6 +22,7 @@ public class DungeonMaster : MonoBehaviour
     public bool simulationMode;
     public byte counter;
     public int lives;
+    public static int sceneIndex = 0;
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -29,14 +30,15 @@ public class DungeonMaster : MonoBehaviour
     private GoalBlock[] goals;
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
-    private string[] tutorialScenes = { "EnemyTutorial" };
+    private string[] tutorialScenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial" };
+    private static string[] scenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial", "UIDev" };
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;
 
     // variable to store different scene names
-    public string tutorial1 = "Tutorial_1";
-    public string tutorial2 = "Tutorial_2";
+    // public string tutorial1 = "Tutorial_1";
+    // public string tutorial2 = "Tutorial_2";
 
 
     // array to store checkpoint time
@@ -50,8 +52,8 @@ public class DungeonMaster : MonoBehaviour
     //Sequence of checkpoints, should be configurable by level
     // private char[] sequence = {'p', 'y', 'w', 'g'};//original
     private char[] sequence = {'g'};//THIS NEEDS TO CHANGE
-    private string nextSceneName = "UIDev"; //This should be set in the local DM
-    private string currentSceneName;
+    public string nextSceneName; //This should be set in the local DM
+    public string currentSceneName;
     private int checkpointcount_tutorial1 = 0;
 
     //Events
@@ -75,11 +77,13 @@ public class DungeonMaster : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             dm = this;
             SceneManager.sceneLoaded += initalizeLevel;
+            // sceneIndex += 1;
         }
         else
         {
             dm.sequence = sequence;//Should change
-            dm.nextSceneName = nextSceneName; //Set the next level scene name
+            // dm.nextSceneName = scenes[sceneIndex+1]; //Set the next level scene name
+            // dm.currentSceneName = scenes[sceneIndex];
             Destroy(gameObject);
         }
         maxLives = 2;
@@ -95,6 +99,7 @@ public class DungeonMaster : MonoBehaviour
         timer = GameObject.Find("Timer");
         Debug.Log("Initialize Level count of ENEMY: " + enemyElements.Length);
         enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
+        // Debug.Log("Scene Index" + sceneIndex);
         
     }
 
@@ -175,6 +180,9 @@ public class DungeonMaster : MonoBehaviour
     /// </summary>
     public void loadNextLevel()
     {
+        currentSceneName = scenes[sceneIndex];
+        sceneIndex++;
+        nextSceneName = scenes[sceneIndex];
         SceneManager.LoadScene(nextSceneName);
     }
 
@@ -262,7 +270,7 @@ public class DungeonMaster : MonoBehaviour
     public void checkpointHit(GameObject checkpoint, char checkpointColor)
     {
         Debug.Log("Counter value" + counter);
-        if(checkpointColor=='g' && counter==checkpointcount_tutorial1)
+        if(checkpointColor=='g')
         {
             //adding goal time to timeArray
             timeArray[counter]=timeValue;

@@ -37,7 +37,7 @@ public class PropPlacer : MonoBehaviour
         {
             // if user is in simulation mode and he presses "SPACE BAR" - For Next Instruction
             // Below If for TUTORIAL 1
-            if (DungeonMaster.dm.tutorial1 == SceneManager.GetActiveScene().name) {
+            if (DungeonMaster.dm.currentSceneName == SceneManager.GetActiveScene().name) {
                 if (Tutorial1.instructionIndex == 0)
                 {
                     Tutorial1.UpdateInstructionIndex();
@@ -53,7 +53,7 @@ public class PropPlacer : MonoBehaviour
             return;
         }
         // when in editing mode we instruct user to place heater and a plank Below Code is for Tutorial 1
-        if (DungeonMaster.dm.tutorial1 == SceneManager.GetActiveScene().name && !DungeonMaster.dm.simulationMode)
+        if (DungeonMaster.dm.currentSceneName == SceneManager.GetActiveScene().name && !DungeonMaster.dm.simulationMode)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -79,7 +79,7 @@ public class PropPlacer : MonoBehaviour
             }
         }
 
-        if (DungeonMaster.dm.tutorial2 == SceneManager.GetActiveScene().name && !DungeonMaster.dm.simulationMode)
+        if (DungeonMaster.dm.currentSceneName == SceneManager.GetActiveScene().name && !DungeonMaster.dm.simulationMode)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
