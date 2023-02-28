@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
+using TMPro;
 
 /// <summary>
 /// This script used to make sure the canvas does not destroy itself when switching levels
@@ -95,19 +96,16 @@ public class UIBehavior : MonoBehaviour
     private void initMainMenu()
     {
         Debug.LogWarning("Initalizing main menu");
-        Debug.Log(Path.Combine(Directory.GetCurrentDirectory(),"Assets","Scenes"));
-        Debug.Log(Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes")));
-        for (int i =0; i < SceneManager.sceneCount; i++)
+        foreach(string fileName in Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes"), "*.unity"))
         {
-            Debug.Log("Scene number " + i);
-            Scene scene = SceneManager.GetSceneAt(i);
-            if(scene.name == "MainMenu")
+            string sceneName = Path.GetFileNameWithoutExtension(fileName);
+            if (sceneName == "MainMenu")
             {
                 continue;
             }
             GameObject button = Instantiate(buttonPrefab, levelSelectPanel.transform);
-            button.GetComponentInChildren<Text>().text = scene.name;
-            button.GetComponentInChildren<Button>().onClick.AddListener(delegate{levelSelect(scene.name);});
+            button.GetComponentInChildren<TMP_Text>().text = sceneName;
+            button.GetComponentInChildren<Button>().onClick.AddListener(delegate { levelSelect(sceneName); });
         }
     }
 
