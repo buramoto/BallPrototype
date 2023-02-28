@@ -111,7 +111,8 @@ public class UIBehavior : MonoBehaviour
 
     private void levelSelect(string levelName)
     {
-        print("Loading scene " + levelName);
+        Debug.Log("Loading scene " + levelName);
+        SceneManager.LoadScene(levelName);
     }
 
     /// <summary>
