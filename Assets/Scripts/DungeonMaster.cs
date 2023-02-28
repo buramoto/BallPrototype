@@ -188,10 +188,12 @@ public class DungeonMaster : MonoBehaviour
     /// </summary>
     public void loadNextLevel()
     {
-        currentSceneName = scenes[sceneIndex];
-        sceneIndex++;
-        nextSceneName = scenes[sceneIndex];
-        SceneManager.LoadScene(nextSceneName);
+        if(sceneIndex<scenes.Length-1) {
+            currentSceneName = scenes[sceneIndex];
+            sceneIndex++;
+            nextSceneName = scenes[sceneIndex];
+            SceneManager.LoadScene(nextSceneName);
+        }
     }
 
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
@@ -290,7 +292,11 @@ public class DungeonMaster : MonoBehaviour
             }
             checkpoint.SetActive(false);
             GlobalVariables.attemptCounter = 0;
-            UIBehavior.gameUI.displayNextLevelScreen(nextSceneName);
+            if(sceneIndex == scenes.Length-1) {
+                UIBehavior.gameUI.displayWinScreen();
+            } else {
+                UIBehavior.gameUI.displayNextLevelScreen(nextSceneName);
+            }
         }
         else if(checkpointColor == sequence[counter])
         {
