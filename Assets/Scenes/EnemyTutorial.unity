@@ -953,6 +953,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6171845427970819488, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6171845428107800259, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1041,6 +1045,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6171845428123670082, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 184224287, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+    - target: {fileID: 6171845428123670082, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: createPlank
+      objectReference: {fileID: 0}
     - target: {fileID: 6171845428123670083, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1112,6 +1124,22 @@ PrefabInstance:
     - target: {fileID: 6171845429117462048, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171845429117462055, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 184224287, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+    - target: {fileID: 6171845429117462055, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: createSpring
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171845429266818302, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 184224287, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+    - target: {fileID: 6171845429266818302, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: createTempElement
       objectReference: {fileID: 0}
     - target: {fileID: 6171845429266818303, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchorMax.y
