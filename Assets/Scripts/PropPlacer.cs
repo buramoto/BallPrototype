@@ -19,7 +19,7 @@ public class PropPlacer : MonoBehaviour
     public GameObject selectedObject; //Make this private when debugging is done
 
     //Settings
-    private float rotationSpeed; //Derived from Dungeonmaster at start
+    public const float rotationSpeed=500; //Now turned into a constant field
 
 
     // variable to get Instruction Array for Tutorial 2
@@ -29,12 +29,9 @@ public class PropPlacer : MonoBehaviour
 
     private void Start()
     {
-        rotationSpeed = DungeonMaster.dm.rotationSpeed;
         selectedObject = null;
         dragging = false;
         propPlacer = this;
-
-        
     }
 
     // Update is called once per frame
@@ -42,7 +39,6 @@ public class PropPlacer : MonoBehaviour
     {
 
 
-        
         if (DungeonMaster.dm.simulationMode)
         {
             // if user is in simulation mode and he presses "SPACE BAR" - For Next Instruction
