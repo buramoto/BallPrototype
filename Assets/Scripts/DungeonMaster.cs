@@ -36,10 +36,6 @@ public class DungeonMaster : MonoBehaviour
     public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;
 
-    // variable to store different scene names
-    // public string tutorial1 = "Tutorial_1";
-    // public string tutorial2 = "Tutorial_2";
-
 
     // array to store checkpoint time
     public static float[] timeArray = new float[4];
@@ -88,7 +84,7 @@ public class DungeonMaster : MonoBehaviour
         else
         {
             // dm.sequence = sequence;//Should change
-            // dm.nextSceneName = scenes[sceneIndex+1]; //Set the next level scene name
+            dm.nextSceneName = nextSceneName; //Set the next level scene name
             // dm.currentSceneName = scenes[sceneIndex];
             Destroy(gameObject);
         }
@@ -164,17 +160,18 @@ public class DungeonMaster : MonoBehaviour
     /// <summary>
     /// Loads the next scene
     /// </summary>
-    public void loadNextLevel()
+    public void loadNextLevel(string levelName = null)
     {
-        if(sceneIndex<scenes.Length-1) {
-            timeValue = 0;
-            TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
-            tm.text = "0:00";
-            currentSceneName = scenes[sceneIndex];
-            sceneIndex++;
-            nextSceneName = scenes[sceneIndex];
-            SceneManager.LoadScene(nextSceneName);
+        if(levelName == null)
+        {
+            //Win screen here
+            return;
         }
+        timeValue = 0;
+        //TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
+        //tm.text = "0:00";
+        currentSceneName = nextSceneName;
+        SceneManager.LoadScene(levelName);
     }
     public void loadMainMenu()
     {
@@ -280,6 +277,7 @@ public class DungeonMaster : MonoBehaviour
 
             Debug.Log("Heaters used: " + GlobalVariables.heaterUsed);
             //Display a Win screen
+            //ANALYTICS
             if (!tutorialScenes.Contains(currentSceneName))
             {
                 Debug.Log("GOOGLE");
@@ -293,8 +291,7 @@ public class DungeonMaster : MonoBehaviour
             GlobalVariables.plankUsed = 0;
             GlobalVariables.springUsed = 0;
             GlobalVariables.heaterUsed = 0;
-            UIBehavior.gameUI.displayWinScreen();
-            if(sceneIndex == scenes.Length-1) {
+            if(currentSceneName == "UIDev") {
                 UIBehavior.gameUI.displayWinScreen();
             } else {
                 UIBehavior.gameUI.displayNextLevelScreen(nextSceneName);

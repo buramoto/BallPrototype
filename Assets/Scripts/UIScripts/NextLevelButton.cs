@@ -6,6 +6,6 @@ public class NextLevelButton : MonoBehaviour
 {
     public void execute()
     {
-        DungeonMaster.dm.loadNextLevel();
+        DungeonMaster.dm.loadNextLevel(DungeonMaster.dm.nextSceneName);
     }
 }

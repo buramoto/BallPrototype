@@ -120,7 +120,7 @@ public class UIBehavior : MonoBehaviour
             }
             GameObject button = Instantiate(buttonPrefab, levelSelectPanel.transform);
             button.GetComponentInChildren<TMP_Text>().text = sceneName;
-            button.GetComponentInChildren<Button>().onClick.AddListener(delegate { levelSelect(sceneName); });
+            button.GetComponentInChildren<Button>().onClick.AddListener(delegate { DungeonMaster.dm.loadNextLevel(sceneName); });
         }
     }
 
