@@ -218,6 +218,10 @@ public class DungeonMaster : MonoBehaviour
             for (int i = 0; i < levelPlanks.Length; i++)
             {
                 levelPlanks[i].gameObject.SetActive(true);
+                // if(levelPlanks[i].gameObject.name == "Plank(Clone)" && levelPlanks[i].gameObject.GetComponent<Plank>().editable == true && levelPlanks[i].GameObject.GetComponent<Plank>().hasCollided == true)
+                // {
+                //     levelPlanks[i].gameObject.GetComponent<Plank>().hasCollided = false;
+                // }
             }
             for (int i = 0; i < goals.Length; i++)
             {
@@ -240,6 +244,8 @@ public class DungeonMaster : MonoBehaviour
             {
                 hearts[i].gameObject.SetActive(true);
             }
+            //From Analytics
+            //resetValues();
             lives = maxLives;
             //Trigger stop sim event
             StopSim?.Invoke(type);
@@ -269,6 +275,11 @@ public class DungeonMaster : MonoBehaviour
         {
             //adding goal time to timeArray
             timeArray[counter]=timeValue;
+
+            // Storing the number of player's lives left
+            GlobalVariables.livesLeft = lives;
+
+            Debug.Log("Heaters used: " + GlobalVariables.heaterUsed);
             //Display a Win screen
             if (!tutorialScenes.Contains(currentSceneName))
             {
@@ -276,7 +287,14 @@ public class DungeonMaster : MonoBehaviour
                 SendToGoogle.sendToGoogle.Send();
             }
             checkpoint.SetActive(false);
+            GlobalVariables.oobCounter = 0;
+            GlobalVariables.wgoCounter = 0;
             GlobalVariables.attemptCounter = 0;
+            //From Analytics
+            GlobalVariables.plankUsed = 0;
+            GlobalVariables.springUsed = 0;
+            GlobalVariables.heaterUsed = 0;
+            UIBehavior.gameUI.displayWinScreen();
             if(sceneIndex == scenes.Length-1) {
                 UIBehavior.gameUI.displayWinScreen();
             } else {
@@ -294,6 +312,7 @@ public class DungeonMaster : MonoBehaviour
         else
         {  
             //Player got the ball to the wrong goal block
+            GlobalVariables.wgoCounter = 0;
             simMode(false, StateReference.resetType.wgo);
             // array initialize to empty
         }
@@ -335,5 +354,42 @@ public class DungeonMaster : MonoBehaviour
             }
         }
     }
+
+    public void resetValues(){
+        GameObject[] plank = GameObject.FindGameObjectsWithTag("Plank");
+        foreach (GameObject p in plank)
+        {
+            Plank script = p.GetComponent<Plank>();
+            if(script!=null && script.editable){
+
+                Debug.Log(p.transform.position);
+                script.hasCollided = false;
+
+            }   
+        }
+        GameObject[] spring = GameObject.FindGameObjectsWithTag("Spring");
+        foreach (GameObject s in spring)
+        {
+            Spring script = s.GetComponent<Spring>();
+            if(script!=null && script.editable){
+                script.hasCollided = false;
+
+            }   
+        }
+        GameObject[] heater = GameObject.FindGameObjectsWithTag("TempChange");
+        foreach (GameObject h in heater)
+        {
+            ChangeTemperature script = h.GetComponent<ChangeTemperature>();
+            if(script!=null && script.editable){
+                script.hasCollided = false;
+
+            }   
+        }
+        GlobalVariables.plankUsed = 0;
+        GlobalVariables.springUsed = 0;
+        GlobalVariables.heaterUsed = 0;
+
+    }
+
 
 }

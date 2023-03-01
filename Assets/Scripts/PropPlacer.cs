@@ -229,6 +229,7 @@ public class PropPlacer : MonoBehaviour
             Plank plankScript = newPlank.GetComponent<Plank>();
             plankScript.ChangeTemp(StateReference.temperature.neutral);
             plankScript.editable = true;
+            plankScript.hasCollided = false;
         }
         else
         {
@@ -250,6 +251,7 @@ public class PropPlacer : MonoBehaviour
             GameObject newSpring = Instantiate(springPrefab, new Vector3(0, 0, 0), Quaternion.identity);
             Spring springScript = newSpring.GetComponent<Spring>();
             springScript.editable = true;
+            springScript.hasCollided = false;
         }
         else
         {
@@ -272,6 +274,7 @@ public class PropPlacer : MonoBehaviour
             ChangeTemperature newTempElementScript = newTempElement.GetComponent<ChangeTemperature>();
             newTempElementScript.ChangeTemp(StateReference.temperature.hot);
             newTempElementScript.editable = true;
+            newTempElementScript.hasCollided = false;
         }
         else
         {
@@ -285,17 +288,32 @@ public class PropPlacer : MonoBehaviour
         if(toolkitInstance.tag == "Plank")
         {
             GlobalVariables.plankCounter--;
-            Debug.Log("Plank Counter after deletion: " + GlobalVariables.plankCounter);
+            // Debug.Log("Plank Counter after deletion: " + GlobalVariables.plankCounter);
+            if(toolkitInstance.GetComponent<Plank>().hasCollided)
+            {
+                GlobalVariables.plankUsed--;
+                // Debug.Log("Plank Collided Counter after deletion: " + GlobalVariables.plankUsed);
+            }
         }
         if(toolkitInstance.tag == "Spring")
         {
             GlobalVariables.springCounter--;
-            Debug.Log("Spring Counter after deletion: " + GlobalVariables.springCounter);
+            // Debug.Log("Spring Counter after deletion: " + GlobalVariables.springCounter);
+            if(toolkitInstance.GetComponent<Spring>().hasCollided)
+            {
+                GlobalVariables.springUsed--;
+                // Debug.Log("Spring Collided Counter after deletion: " + GlobalVariables.springUsed);
+            }
         }
         if(toolkitInstance.tag == "TempChange")
         {
             GlobalVariables.heaterCounter--;
-            Debug.Log("Heater Counter after deletion: " + GlobalVariables.heaterCounter);
+            // Debug.Log("Heater Counter after deletion: " + GlobalVariables.heaterCounter);
+            if(toolkitInstance.GetComponent<ChangeTemperature>().hasCollided)
+            {
+                GlobalVariables.heaterUsed--;
+                // Debug.Log("Heater Collided Counter after deletion: " + GlobalVariables.heaterUsed);
+            }
         }
         Destroy(toolkitInstance);
         DungeonMaster.dm.RemoveHighlightFromObject();
@@ -315,4 +333,5 @@ public class PropPlacer : MonoBehaviour
             toolkitInstance.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
         }
     }
+
 }

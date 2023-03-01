@@ -11,6 +11,7 @@ public class Spring : MonoBehaviour
     //Outlets
     public bool editable;
     public float springForce;
+    public bool hasCollided = false;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

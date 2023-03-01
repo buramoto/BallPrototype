@@ -24,8 +24,12 @@ public class ResetButton : MonoBehaviour
         GlobalVariables.plankCounter = 0;
         GlobalVariables.springCounter = 0;
         GlobalVariables.heaterCounter = 0;
+        GlobalVariables.plankUsed = 0;
+        GlobalVariables.springUsed = 0;
+        GlobalVariables.heaterUsed = 0;
+        Debug.Log("reset heater used: " + GlobalVariables.heaterUsed);
         GlobalVariables.attemptCounter++;
-
+        GlobalVariables.kbeCounter=0;
         //GameObject[] hearts = GameObject.FindGameObjectsWithTag("Lives");
 
         //Debug.Log("---------->" + hearts);
@@ -33,7 +37,6 @@ public class ResetButton : MonoBehaviour
         //{
         //    Debug.Log("Name of Heart: " + hearts[i].name);
         //}
-
 
         Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
         
