@@ -117,8 +117,8 @@ public class DungeonMaster : MonoBehaviour
         timeValue += Time.deltaTime;
         float minutes = Mathf.FloorToInt(timeValue / 60);
         float seconds = Mathf.FloorToInt(timeValue % 60);
-        TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
-        tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        //TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
+        //tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
 
@@ -134,12 +134,10 @@ public class DungeonMaster : MonoBehaviour
         currentSceneName = scene.name;
         sequence = sequences[currentSceneName];
         Debug.Log("Initalizing level "+currentSceneName);
-        GameObject winScreen = GameObject.Find("WinScreen(Clone)");
-        if(winScreen != null){
-            winScreen.SetActive(false);
-            Destroy(winScreen);
+        if(currentSceneName == "MainMenu")
+        {
+            return;
         }
-        //instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion"; 
         lives = maxLives;
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
@@ -148,30 +146,10 @@ public class DungeonMaster : MonoBehaviour
         hearts = FindObjectsOfType<HeartBehavior>();
 
         enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
-        //Debug.Log("Hearts Length data: " + hearts.Length);
-
-        //hearts = GameObject.FindGameObjectsWithTag("Lives");
-
-        //if (hearts.Length != 0)
-        //{
-        //    hearts = null;
-        //}
-
-        // Debug.Log("---------->" + hearts);
-        //hearts = new GameObject[lives];
-        //for (int i = 0; i < lives; i++)
-        //{
-
-        //    hearts[i] = allHearts[i];
-        //    //hearts[i].SetActive(true);
-        //    //Debug.Log("Name of Heart: " + hearts[i].name);
-        //}
 
         simulationMode = false;
         counter = 0;
         simMode(false, StateReference.resetType.ssb);
-        Debug.Log("Initalizing level of Dungeon Master has been Executed");
-        // Debug.Log(goals.Length);
         for(int i=0;i<goals.Length;i++) {
             Debug.Log(goals[i].gameObject);
             goals[i].gameObject.SetActive(true);
@@ -183,6 +161,7 @@ public class DungeonMaster : MonoBehaviour
         }
     }
 
+    //Scene loads
     /// <summary>
     /// Loads the next scene
     /// </summary>
@@ -197,6 +176,10 @@ public class DungeonMaster : MonoBehaviour
             nextSceneName = scenes[sceneIndex];
             SceneManager.LoadScene(nextSceneName);
         }
+    }
+    public void loadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
