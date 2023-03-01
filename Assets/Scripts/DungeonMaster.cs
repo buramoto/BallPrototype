@@ -51,8 +51,8 @@ public class DungeonMaster : MonoBehaviour
 
     //Sequence of checkpoints, should be configurable by level
     // private char[] sequence = {'p', 'y', 'w', 'g'};//original
-    private char[] sequence;//THIS NEEDS TO CHANGE
-    private IDictionary<string,char[]> sequences = new Dictionary<string, char[]>();
+    //private char[] sequence;//THIS NEEDS TO CHANGE
+    //private IDictionary<string,char[]> sequences = new Dictionary<string, char[]>();
     
     public string nextSceneName; //This should be set in the local DM
     public string currentSceneName;
@@ -80,11 +80,11 @@ public class DungeonMaster : MonoBehaviour
             dm = this;
             SceneManager.sceneLoaded += initalizeLevel;
             char[] tutorial_sequence = {'g'};
-            sequences.Add("Tutorial_1",tutorial_sequence);
-            sequences.Add("Tutorial_2",tutorial_sequence);
-            sequences.Add("EnemyTutorial",tutorial_sequence);
+            //sequences.Add("Tutorial_1",tutorial_sequence);
+            //sequences.Add("Tutorial_2",tutorial_sequence);
+            //sequences.Add("EnemyTutorial",tutorial_sequence);
             char[] main_level_sequence = {'p','y','w','g'};
-            sequences.Add("UIDev",main_level_sequence);
+            //sequences.Add("UIDev",main_level_sequence);
         }
         else
         {
@@ -132,7 +132,7 @@ public class DungeonMaster : MonoBehaviour
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
         currentSceneName = scene.name;
-        sequence = sequences[currentSceneName];
+        //sequence = sequences[currentSceneName];
         Debug.Log("Initalizing level "+currentSceneName);
         if(currentSceneName == "MainMenu")
         {
@@ -301,20 +301,13 @@ public class DungeonMaster : MonoBehaviour
                 UIBehavior.gameUI.displayNextLevelScreen(nextSceneName);
             }
         }
-        else if(checkpointColor == sequence[counter])
+        else
         {
             //Correct, play sound
             //add time value to array
             timeArray[counter]=timeValue;
             //Correct, play sound
             counter++;
-        }
-        else
-        {  
-            //Player got the ball to the wrong goal block
-            GlobalVariables.wgoCounter = 0;
-            simMode(false, StateReference.resetType.wgo);
-            // array initialize to empty
         }
     }
 
