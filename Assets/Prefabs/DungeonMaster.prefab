@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1398476507067783388}
   - component: {fileID: 3756637869312585074}
+  - component: {fileID: 184224287}
   m_Layer: 0
   m_Name: DungeonMaster
   m_TagString: Untagged
@@ -44,5 +45,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33820affdc175644593a74fe4bc5b7e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  highlightedObject: {fileID: 0}
   simulationMode: 0
-  rotationSpeed: 0
+  counter: 0
+  enemyElements: []
+  hearts: []
+  instructions: {fileID: 0}
+  lives: 2
+  rotationSpeed: 500
+--- !u!114 &184224287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398476507067783386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3719c89ac3b3a14bad8b0c42bdcae88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  plankPrefab: {fileID: 951476148478341739, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
+  springPrefab: {fileID: 3725497670154412353, guid: b2b0276e6968a9d468102d2dc19ca26a, type: 3}
+  tempElementPrefab: {fileID: 3316150428761557205, guid: dffaa62acf076e646810530f9028a5b7, type: 3}
+  selectedObject: {fileID: 0}

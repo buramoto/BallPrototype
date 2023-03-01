@@ -20,13 +20,13 @@ public class StartStopButton : MonoBehaviour
         {
             DungeonMaster.dm.simMode(true, StateReference.resetType.start);
             text.text = "Stop";
-            DungeonMaster.dm.instructions.text = "Right Click To Attack Enemy";
+            //DungeonMaster.dm.instructions.text = "Right Click To Attack Enemy";
         }
         else
         {
             DungeonMaster.dm.simMode(false, StateReference.resetType.ssb);
             text.text = "Start";
-            DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
+            //DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
         }
     }
 
@@ -34,12 +34,12 @@ public class StartStopButton : MonoBehaviour
         if (!DungeonMaster.dm.simulationMode)
         {   
             text.text = "Stop";
-            DungeonMaster.dm.instructions.text = "Right Click To Attack Enemy";
+            //DungeonMaster.dm.instructions.text = "Right Click To Attack Enemy";
         }
         else
         {   
             text.text = "Start";
-            DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
+            //DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
         }
     }
 }

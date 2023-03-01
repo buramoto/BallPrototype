@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PropPlacer : MonoBehaviour
 {
     //Static reference
     public static PropPlacer propPlacer;
-
-
 
     //References to objects
     public GameObject plankPrefab;
@@ -22,22 +21,100 @@ public class PropPlacer : MonoBehaviour
     //Settings
     private float rotationSpeed; //Derived from Dungeonmaster at start
 
+
+    // variable to get Instruction Array for Tutorial 2
+    public static GameObject[] instructionArray2;
+    public int instructionIndex2 = 0;
+    public string[] instructionArray2Text = new string[] {"Ball can Bounce off the Spring ", "So use Planks & Springs to Direct Ball to the goal block"};
+
     private void Start()
     {
         rotationSpeed = DungeonMaster.dm.rotationSpeed;
         selectedObject = null;
         dragging = false;
         propPlacer = this;
+
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
+        
         if (DungeonMaster.dm.simulationMode)
         {
+            // if user is in simulation mode and he presses "SPACE BAR" - For Next Instruction
+            // Below If for TUTORIAL 1
+            if ("Tutorial_1" == SceneManager.GetActiveScene().name) {
+                if (Tutorial1.instructionIndex == 0)
+                {
+                    Tutorial1.UpdateInstructionIndex();
+                }
+                if (Tutorial1.instructionIndex == 1 && Input.GetKeyDown(KeyCode.N))
+                {
+                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex - 1].SetActive(false);
+                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex].SetActive(true);
+                }
+            }
+
             //We are in simulation mode. Player should not be editing anything
             return;
         }
+        // when in editing mode we instruct user to place heater and a plank Below Code is for Tutorial 1
+        if (DungeonMaster.dm.currentSceneName == "Tutorial_1" && !DungeonMaster.dm.simulationMode)
+        {
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                if (Tutorial1.instructionIndex == 1)
+                {
+                    Tutorial1.tutorial1Reference.instructionArray[0].SetActive(false);
+                    Tutorial1.tutorial1Reference.instructionArray[1].SetActive(false);
+                    Tutorial1.tutorial1Reference.instructionArray[2].SetActive(true);
+                    Tutorial1.UpdateInstructionIndex();
+                }
+                else if (Tutorial1.instructionIndex == 2)
+                {
+                    Tutorial1.UpdateInstructionIndex();
+                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex - 1].SetActive(false);
+                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex].SetActive(true);
+                }
+                else if (Tutorial1.instructionIndex == 3)
+                {
+                    Tutorial1.UpdateInstructionIndex();
+                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex - 1].SetActive(false);
+                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex].SetActive(false);
+                }
+            }
+        }
+
+        if (DungeonMaster.dm.currentSceneName == "Tutorial_2" && !DungeonMaster.dm.simulationMode)
+        {
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                if (instructionIndex2 == 0)
+                {
+                    instructionArray2[0].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = instructionArray2Text[0];
+                    instructionIndex2++;
+                    // instructionArray2[instructionIndex2].SetActive(true);
+                }
+                else if (instructionIndex2 == 1)
+                {
+                    instructionArray2[0].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = instructionArray2Text[1];
+                    instructionIndex2++;
+                    // instructionArray2[instructionIndex2].SetActive(true);
+                }
+                else if (instructionIndex2 == 2)
+                {
+                    
+                    instructionArray2[0].SetActive(false);
+                    instructionArray2[1].SetActive(false);
+                }
+
+            }
+        }
+
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {

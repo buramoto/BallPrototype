@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using static System.Net.Mime.MediaTypeNames;
 using Unity.VisualScripting;
+using System.Linq;
 
 public class DungeonMaster : MonoBehaviour
 {
@@ -19,6 +21,8 @@ public class DungeonMaster : MonoBehaviour
     //Game variables
     public bool simulationMode;
     public byte counter;
+    public int lives;
+    public static int sceneIndex = 0;
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -26,24 +30,33 @@ public class DungeonMaster : MonoBehaviour
     private GoalBlock[] goals;
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
+    private string[] tutorialScenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial" };
+    private static string[] scenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial", "UIDev" };
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;
-    
 
+    // variable to store different scene names
+    // public string tutorial1 = "Tutorial_1";
+    // public string tutorial2 = "Tutorial_2";
 
-    public int lives = 2;
 
     // array to store checkpoint time
     public static float[] timeArray = new float[4];
 
 
-    // timevalue stores the currenttime and timer is the text gameobject
+    // timevalue stores the currentTime and timer is the text gameobject
     public static float timeValue = 0;
     private GameObject timer;
 
     //Sequence of checkpoints, should be configurable by level
-    private char[] sequence = {'p', 'y', 'w'};
+    // private char[] sequence = {'p', 'y', 'w', 'g'};//original
+    private char[] sequence;//THIS NEEDS TO CHANGE
+    private IDictionary<string,char[]> sequences = new Dictionary<string, char[]>();
+    
+    public string nextSceneName; //This should be set in the local DM
+    public string currentSceneName;
+    // private int checkpointcount_tutorial1 = 0;
 
     //Events
     public delegate void StartSimulation();
@@ -53,6 +66,7 @@ public class DungeonMaster : MonoBehaviour
 
     //Settings
     public float rotationSpeed;
+    public int maxLives;
 
     /// <summary>
     /// Creates the dm for the first time, or if there is already on (e.g. loading in from a different
@@ -65,11 +79,21 @@ public class DungeonMaster : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             dm = this;
             SceneManager.sceneLoaded += initalizeLevel;
+            char[] tutorial_sequence = {'g'};
+            sequences.Add("Tutorial_1",tutorial_sequence);
+            sequences.Add("Tutorial_2",tutorial_sequence);
+            sequences.Add("EnemyTutorial",tutorial_sequence);
+            char[] main_level_sequence = {'p','y','w','g'};
+            sequences.Add("UIDev",main_level_sequence);
         }
         else
         {
+            // dm.sequence = sequence;//Should change
+            // dm.nextSceneName = scenes[sceneIndex+1]; //Set the next level scene name
+            // dm.currentSceneName = scenes[sceneIndex];
             Destroy(gameObject);
         }
+        maxLives = 2;
     }
 
     private void Start()
@@ -82,6 +106,7 @@ public class DungeonMaster : MonoBehaviour
         timer = GameObject.Find("Timer");
         Debug.Log("Initialize Level count of ENEMY: " + enemyElements.Length);
         enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
+        // Debug.Log("Scene Index" + sceneIndex);
         
     }
 
@@ -92,8 +117,8 @@ public class DungeonMaster : MonoBehaviour
         timeValue += Time.deltaTime;
         float minutes = Mathf.FloorToInt(timeValue / 60);
         float seconds = Mathf.FloorToInt(timeValue % 60);
-        TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
-        tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        //TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
+        //tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
 
@@ -106,14 +131,14 @@ public class DungeonMaster : MonoBehaviour
     /// </summary>
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Initalizing level "+scene.name);
-
-        GameObject winScreen = GameObject.Find("WinScreen(Clone)");
-        if(winScreen != null){
-            winScreen.SetActive(false);
-            Destroy(winScreen);
+        currentSceneName = scene.name;
+        sequence = sequences[currentSceneName];
+        Debug.Log("Initalizing level "+currentSceneName);
+        if(currentSceneName == "MainMenu")
+        {
+            return;
         }
-        instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion"; 
+        lives = maxLives;
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
         goals = FindObjectsOfType<GoalBlock>();
@@ -121,32 +146,10 @@ public class DungeonMaster : MonoBehaviour
         hearts = FindObjectsOfType<HeartBehavior>();
 
         enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
-        //Debug.Log("Hearts Length data: " + hearts.Length);
-
-        //hearts = GameObject.FindGameObjectsWithTag("Lives");
-
-        Debug.Log("Hearts Data HEREEE: " + hearts.Length);
-        //if (hearts.Length != 0)
-        //{
-        //    hearts = null;
-        //}
-
-        Debug.Log("---------->" + hearts);
-        //hearts = new GameObject[lives];
-        //for (int i = 0; i < lives; i++)
-        //{
-            
-        //    hearts[i] = allHearts[i];
-        //    //hearts[i].SetActive(true);
-        //    //Debug.Log("Name of Heart: " + hearts[i].name);
-        //}
-
 
         simulationMode = false;
         counter = 0;
         simMode(false, StateReference.resetType.ssb);
-        Debug.Log("Initalizing level of Dungeon Master has been Executed");
-        // Debug.Log(goals.Length);
         for(int i=0;i<goals.Length;i++) {
             Debug.Log(goals[i].gameObject);
             goals[i].gameObject.SetActive(true);
@@ -158,10 +161,30 @@ public class DungeonMaster : MonoBehaviour
         }
     }
 
+    //Scene loads
+    /// <summary>
+    /// Loads the next scene
+    /// </summary>
+    public void loadNextLevel()
+    {
+        if(sceneIndex<scenes.Length-1) {
+            timeValue = 0;
+            TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
+            tm.text = "0:00";
+            currentSceneName = scenes[sceneIndex];
+            sceneIndex++;
+            nextSceneName = scenes[sceneIndex];
+            SceneManager.LoadScene(nextSceneName);
+        }
+    }
+    public void loadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
     public void simMode(bool mode, StateReference.resetType type)
     {
-
         if(highlightedObject!=null){
             RemoveHighlightFromObject();
         }
@@ -184,16 +207,14 @@ public class DungeonMaster : MonoBehaviour
             {
                 balls[i].startSim();
             }
-            instructions.text = "Right Click To Attack Enemy";
-
-
+            //instructions.text = "Right Click To Attack Enemy";
             //Trigger start sim event
             StartSim?.Invoke();
         }
         else {
             // initialize time array
             //Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");
-            instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
+            //instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
             for (int i = 0; i < levelPlanks.Length; i++)
             {
                 levelPlanks[i].gameObject.SetActive(true);
@@ -223,10 +244,9 @@ public class DungeonMaster : MonoBehaviour
             {
                 hearts[i].gameObject.SetActive(true);
             }
-            lives = 2;
-            
-            resetValues();
-            
+            //From Analytics
+            //resetValues();
+            lives = maxLives;
             //Trigger stop sim event
             StopSim?.Invoke(type);
 
@@ -251,7 +271,7 @@ public class DungeonMaster : MonoBehaviour
     public void checkpointHit(GameObject checkpoint, char checkpointColor)
     {
         Debug.Log("Counter value" + counter);
-        if(checkpointColor=='g' && counter==3)
+        if(checkpointColor=='g')
         {
             //adding goal time to timeArray
             timeArray[counter]=timeValue;
@@ -261,20 +281,30 @@ public class DungeonMaster : MonoBehaviour
 
             Debug.Log("Heaters used: " + GlobalVariables.heaterUsed);
             //Display a Win screen
-            SendToGoogle.sendToGoogle.Send();
+            if (!tutorialScenes.Contains(currentSceneName))
+            {
+                Debug.Log("GOOGLE");
+                SendToGoogle.sendToGoogle.Send();
+            }
             checkpoint.SetActive(false);
             GlobalVariables.oobCounter = 0;
             GlobalVariables.wgoCounter = 0;
             GlobalVariables.attemptCounter = 0;
+            //From Analytics
             GlobalVariables.plankUsed = 0;
             GlobalVariables.springUsed = 0;
             GlobalVariables.heaterUsed = 0;
             UIBehavior.gameUI.displayWinScreen();
+            if(sceneIndex == scenes.Length-1) {
+                UIBehavior.gameUI.displayWinScreen();
+            } else {
+                UIBehavior.gameUI.displayNextLevelScreen(nextSceneName);
+            }
         }
         else if(checkpointColor == sequence[counter])
         {
             //Correct, play sound
-             //add time value to array
+            //add time value to array
             timeArray[counter]=timeValue;
             //Correct, play sound
             counter++;

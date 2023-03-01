@@ -140,6 +140,7 @@ public class SendToGoogle : MonoBehaviour
         heaterPositions = getCoordinates("TempChange");
         Debug.Log("Heater Positions: "+heaterPositions);
         
+        //From Analytics kept as is
         Debug.Log("kbe Counter");
         Debug.Log(_kbeCounterValue);
         Debug.Log("oob Counter");

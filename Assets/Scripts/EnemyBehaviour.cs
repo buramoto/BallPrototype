@@ -1,19 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject RedSplashScreen;
     void Start()
     {
-        
+        RedSplashScreen = GameObject.FindWithTag("HealthLoss");
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (RedSplashScreen != null)
+        {
+            if (RedSplashScreen.GetComponent<Image>().color.a >0) {
+                var color = RedSplashScreen.GetComponent<Image>().color;
+                color.a -= 0.008f;
+                RedSplashScreen.GetComponent<Image>().color = color;
+            }
+
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,7 +47,9 @@ public class EnemyBehaviour : MonoBehaviour
                 DungeonMaster.dm.lives = 2;
                 DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
             }
-
+            var color = RedSplashScreen.GetComponent<Image>().color;
+            color.a = 0.9f;
+            RedSplashScreen.GetComponent<Image>().color = color;
            
             //ResetButton r = FindAnyObjectByType<ResetButton>();
             //r.execute();
