@@ -65,7 +65,6 @@ public class DungeonMaster : MonoBehaviour
     public event StopSimulation StopSim;
 
     //Settings
-    public float rotationSpeed;
     public int maxLives;
 
     /// <summary>

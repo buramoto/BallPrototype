@@ -285,7 +285,7 @@ PrefabInstance:
     - target: {fileID: 6171845427920735974, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1442696870}
+      objectReference: {fileID: 184224287, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
     - target: {fileID: 6171845427920735974, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: deleteToolkitInstance
@@ -513,7 +513,7 @@ PrefabInstance:
     - target: {fileID: 6171845429269247594, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1442696870}
+      objectReference: {fileID: 184224287, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
     - target: {fileID: 6171845429269247594, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: rotateLeft
@@ -569,7 +569,7 @@ PrefabInstance:
     - target: {fileID: 6171845429511606762, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1442696870}
+      objectReference: {fileID: 184224287, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
     - target: {fileID: 6171845429511606762, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: rotateRight
