@@ -30,12 +30,26 @@ public class BallScript : MonoBehaviour
     public bool editable = false;
     public Animator anim;
 
+    // SwordHolder variable (parent of sword)
+    public GameObject swordHolder; 
+
     // Start is called before the first frame update
     void Start()
     {
+        swordHolder = gameObject.transform.GetChild(0).gameObject;
         // setting the ball's sword to inactive intially, when user clicks right mouse button only then collider comopenent will be set active
-        sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
-        sword.enabled = false;
+        if(gameObject.GetComponentInChildren<CapsuleCollider2D>() != null)
+        {
+            sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
+            sword.enabled = false;
+        }
+
+        if(DungeonMaster.dm.currentSceneName == "Tutorial_2"){
+            // GameObject dmInstance = FindAnyObjectByType<DungeonMaster>().gameObject;
+            // dmInstance.AddComponent<Tutorial2>();
+            // GameObject[] tut2GameObject = FindGameObjectsWithTag("Tutorial2Instructions");
+            PropPlacer.instructionArray2 = GameObject.FindGameObjectsWithTag("Tutorial2Instructions");
+        }
 
         //Set the ball to its starting position (This should be changed to be configurable based on level
         ball.transform.position = startPosition;
@@ -61,6 +75,7 @@ public class BallScript : MonoBehaviour
 
     private void Update()
     {
+        swordHolder.transform.rotation = Quaternion.Euler(0.0f, 0.0f, gameObject.transform.rotation.z * -1.0f);
         // Get the x and y positions of the ball
         float ballX = transform.position.x;
         float ballY = transform.position.y;
