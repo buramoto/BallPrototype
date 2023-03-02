@@ -208,6 +208,7 @@ public class BallScript : MonoBehaviour
             {
                 case StateReference.temperature.hot:
                     Debug.Log("Collided with heater");
+                    element.SetActive(false);
                     tempState = StateReference.temperature.hot;
                     ballDisplay.material.color = Color.red;
                     break;
