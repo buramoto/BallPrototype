@@ -17,6 +17,7 @@ public class UIBehavior : MonoBehaviour
 
     //Menus
     public GameObject winScreen;
+    public GameObject gameOverScreen;
     public GameObject nextLevelScreen;
 
     //Buttons
@@ -103,6 +104,13 @@ public class UIBehavior : MonoBehaviour
     {
         activeScreen = Instantiate(winScreen, gameObject.transform);
     }
+
+    // GameOver Func
+    public void displayGameOverScreen()
+    {
+        activeScreen = Instantiate(gameOverScreen, gameObject.transform);
+    }
+
 
     public void displayNextLevelScreen(string sceneName)
     {

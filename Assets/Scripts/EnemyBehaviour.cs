@@ -45,7 +45,9 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 GlobalVariables.kbeCounter++;
                 DungeonMaster.dm.lives = 2;
-                DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
+                Destroy(gameObject);
+                //DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
+                UIBehavior.gameUI.displayGameOverScreen();
             }
             var color = RedSplashScreen.GetComponent<Image>().color;
             color.a = 0.9f;

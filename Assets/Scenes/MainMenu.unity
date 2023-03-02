@@ -338,6 +338,10 @@ PrefabInstance:
       propertyPath: controlPanel
       value: 
       objectReference: {fileID: 1504501625}
+    - target: {fileID: 6171845428107800258, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: gameOverScreen
+      value: 
+      objectReference: {fileID: 5152136842586593548, guid: 2942bbe94b1504abca514bd03f94262d, type: 3}
     - target: {fileID: 6171845428107800259, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_Pivot.x
       value: 0
