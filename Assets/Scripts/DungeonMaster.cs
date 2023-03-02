@@ -25,7 +25,6 @@ public class DungeonMaster : MonoBehaviour
     public static int sceneIndex = 0;
 
     //References to all static objects in scene
-
     private BallScript[] balls;
     private Plank[] levelPlanks;
     private GoalBlock[] goals;
@@ -391,6 +390,13 @@ public class DungeonMaster : MonoBehaviour
         GlobalVariables.springUsed = 0;
         GlobalVariables.heaterUsed = 0;
 
+    }
+
+    // becuase we have a balls[] and in future we might have multiple balls,
+    // hence this function take the index of the particular ball which is to be frozen
+    public void freezeBall(int index)
+    {
+        balls[0].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
     }
 
 
