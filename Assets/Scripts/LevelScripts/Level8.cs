@@ -11,7 +11,7 @@ public class Level8 : MonoBehaviour
     {
         UIBehavior.gameUI.toolKitPanel.SetActive(true);
         UIBehavior.gameUI.operationPanel.SetActive(true);
-        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>()[1].gameObject.SetActive(true);
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
         
         UIBehavior.gameUI.toolKitPanel.SetActive(false);
         UIBehavior.gameUI.operationPanel.SetActive(false);
