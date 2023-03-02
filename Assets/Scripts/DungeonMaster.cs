@@ -31,7 +31,7 @@ public class DungeonMaster : MonoBehaviour
     private GoalBlock[] goals;
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
-    private string[] tutorialScenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial" ,"Level1","Level2"};
+    private string[] tutorialScenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial" , "Level1", "Level2", "Level5"};
     private static string[] scenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial", "UIDev" };
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
@@ -270,6 +270,8 @@ public class DungeonMaster : MonoBehaviour
         Debug.Log("Counter value" + counter);
         if(checkpointColor=='g')
         {
+            // Stopping the ball once it hits the checkpoint
+            balls[0].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
             //adding goal time to timeArray
             timeArray[counter]=timeValue;
 
@@ -278,6 +280,7 @@ public class DungeonMaster : MonoBehaviour
 
             Debug.Log("Heaters used: " + GlobalVariables.heaterUsed);
             //Display a Win screen
+
             //ANALYTICS
             if (!tutorialScenes.Contains(currentSceneName))
             {

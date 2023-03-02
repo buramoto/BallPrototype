@@ -11,7 +11,6 @@ public class Level2 : MonoBehaviour
         
         UIBehavior.gameUI.toolKitPanel.SetActive(true);
         UIBehavior.gameUI.operationPanel.SetActive(true);
-        //Debug.Log();
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
         
         UIBehavior.gameUI.toolKitPanel.SetActive(false);
