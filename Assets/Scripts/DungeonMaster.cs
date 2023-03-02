@@ -31,7 +31,7 @@ public class DungeonMaster : MonoBehaviour
     private GoalBlock[] goals;
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
-    private string[] tutorialScenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial" ,"Level1"};
+    private string[] tutorialScenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial" ,"Level1","Level2"};
     private static string[] scenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial", "UIDev" };
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
