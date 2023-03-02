@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Tutorial1 : MonoBehaviour
 {
@@ -12,6 +13,10 @@ public class Tutorial1 : MonoBehaviour
 
     private void Awake()
     {
+        UIBehavior.gameUI.toolKitPanel.SetActive(true);
+        UIBehavior.gameUI.operationPanel.SetActive(true);
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>()[1].gameObject.SetActive(true);
+        
         if (tutorial1Reference == null)
         {
             tutorial1Reference = this;
