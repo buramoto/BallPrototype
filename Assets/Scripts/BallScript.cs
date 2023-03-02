@@ -38,6 +38,9 @@ public class BallScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //if (gameObject.transform.GetChild(0).gameObject;) {
+
+        //}
         swordHolder = gameObject.transform.GetChild(0).gameObject;
         // setting the ball's sword to inactive intially, when user clicks right mouse button only then collider comopenent will be set active
         if(gameObject.GetComponentInChildren<CapsuleCollider2D>() != null)

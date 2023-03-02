@@ -25,12 +25,13 @@ public class DungeonMaster : MonoBehaviour
     public static int sceneIndex = 0;
 
     //References to all static objects in scene
+
     private BallScript[] balls;
     private Plank[] levelPlanks;
     private GoalBlock[] goals;
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
-    private string[] tutorialScenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial" };
+    private string[] tutorialScenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial" ,"Level1"};
     private static string[] scenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial", "UIDev" };
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;

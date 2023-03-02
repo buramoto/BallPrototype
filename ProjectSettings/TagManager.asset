@@ -60,3 +60,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Topmost
+    uniqueID: 1247793489
+    locked: 0
