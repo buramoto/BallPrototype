@@ -49,7 +49,7 @@ public class BallScript : MonoBehaviour
             sword.enabled = false;
         }
 
-        if(DungeonMaster.dm.currentSceneName == "Tutorial_2"){
+        if(DungeonMaster.dm.currentSceneName == "Level7"){
             // GameObject dmInstance = FindAnyObjectByType<DungeonMaster>().gameObject;
             // dmInstance.AddComponent<Tutorial2>();
             // GameObject[] tut2GameObject = FindGameObjectsWithTag("Tutorial2Instructions");

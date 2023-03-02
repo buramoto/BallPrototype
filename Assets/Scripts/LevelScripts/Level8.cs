@@ -1,15 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Tutorial1 : MonoBehaviour
+public class Level8 : MonoBehaviour
 {
-    public static int instructionIndex = 0;
-    public GameObject[] instructionArray = new GameObject[5];
-    public static Tutorial1 tutorial1Reference;
-    // Start is called before the first frame update
+    public static Level8 Level8Reference;
 
     private void Awake()
     {
@@ -17,29 +13,28 @@ public class Tutorial1 : MonoBehaviour
         UIBehavior.gameUI.operationPanel.SetActive(true);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>()[1].gameObject.SetActive(true);
         
-        if (tutorial1Reference == null)
+        UIBehavior.gameUI.toolKitPanel.SetActive(false);
+        UIBehavior.gameUI.operationPanel.SetActive(false);
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>()[1].gameObject.SetActive(false);
+
+        if (Level8Reference == null)
         {
-            tutorial1Reference = this;
+            Level8Reference = this;
         }
         else
         {
 
         }
     }
-
+    // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public static void UpdateInstructionIndex()
-    {
-        instructionIndex += 1;
     }
 }

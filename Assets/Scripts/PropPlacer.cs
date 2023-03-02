@@ -22,7 +22,7 @@ public class PropPlacer : MonoBehaviour
     public const float rotationSpeed=500; //Now turned into a constant field
 
 
-    // variable to get Instruction Array for Tutorial 2
+    // variable to get Instruction Array for Level 7
     public static GameObject[] instructionArray2;
     public int instructionIndex2 = 0;
     public string[] instructionArray2Text = new string[] {"Ball can Bounce off the Spring ", "So use Planks & Springs to Direct Ball to the goal block"};
@@ -43,15 +43,15 @@ public class PropPlacer : MonoBehaviour
         {
             // if user is in simulation mode and he presses "SPACE BAR" - For Next Instruction
             // Below If for TUTORIAL 1
-            if ("Tutorial_1" == SceneManager.GetActiveScene().name) {
-                if (Tutorial1.instructionIndex == 0)
+            if ("Level6" == SceneManager.GetActiveScene().name) {
+                if (Level6.instructionIndex == 0)
                 {
-                    Tutorial1.UpdateInstructionIndex();
+                    Level6.UpdateInstructionIndex();
                 }
-                if (Tutorial1.instructionIndex == 1 && Input.GetKeyDown(KeyCode.N))
+                if (Level6.instructionIndex == 1 && Input.GetKeyDown(KeyCode.N))
                 {
-                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex - 1].SetActive(false);
-                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex].SetActive(true);
+                    Level6.level6Reference.instructionArray[Level6.instructionIndex - 1].SetActive(false);
+                    Level6.level6Reference.instructionArray[Level6.instructionIndex].SetActive(true);
                 }
             }
 
@@ -59,33 +59,33 @@ public class PropPlacer : MonoBehaviour
             return;
         }
         // when in editing mode we instruct user to place heater and a plank Below Code is for Tutorial 1
-        if (DungeonMaster.dm.currentSceneName == "Tutorial_1" && !DungeonMaster.dm.simulationMode)
+        if (DungeonMaster.dm.currentSceneName == "Level6" && !DungeonMaster.dm.simulationMode)
         {
             if (Input.GetKeyDown(KeyCode.N))
             {
-                if (Tutorial1.instructionIndex == 1)
+                if (Level6.instructionIndex == 1)
                 {
-                    Tutorial1.tutorial1Reference.instructionArray[0].SetActive(false);
-                    Tutorial1.tutorial1Reference.instructionArray[1].SetActive(false);
-                    Tutorial1.tutorial1Reference.instructionArray[2].SetActive(true);
-                    Tutorial1.UpdateInstructionIndex();
+                    Level6.level6Reference.instructionArray[0].SetActive(false);
+                    Level6.level6Reference.instructionArray[1].SetActive(false);
+                    Level6.level6Reference.instructionArray[2].SetActive(true);
+                    Level6.UpdateInstructionIndex();
                 }
-                else if (Tutorial1.instructionIndex == 2)
+                else if (Level6.instructionIndex == 2)
                 {
-                    Tutorial1.UpdateInstructionIndex();
-                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex - 1].SetActive(false);
-                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex].SetActive(true);
+                    Level6.UpdateInstructionIndex();
+                    Level6.level6Reference.instructionArray[Level6.instructionIndex - 1].SetActive(false);
+                    Level6.level6Reference.instructionArray[Level6.instructionIndex].SetActive(true);
                 }
-                else if (Tutorial1.instructionIndex == 3)
+                else if (Level6.instructionIndex == 3)
                 {
-                    Tutorial1.UpdateInstructionIndex();
-                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex - 1].SetActive(false);
-                    Tutorial1.tutorial1Reference.instructionArray[Tutorial1.instructionIndex].SetActive(false);
+                    Level6.UpdateInstructionIndex();
+                    Level6.level6Reference.instructionArray[Level6.instructionIndex - 1].SetActive(false);
+                    Level6.level6Reference.instructionArray[Level6.instructionIndex].SetActive(false);
                 }
             }
         }
 
-        if (DungeonMaster.dm.currentSceneName == "Tutorial_2" && !DungeonMaster.dm.simulationMode)
+        if (DungeonMaster.dm.currentSceneName == "Level7" && !DungeonMaster.dm.simulationMode)
         {
             if (Input.GetKeyDown(KeyCode.N))
             {

@@ -31,8 +31,17 @@ public class DungeonMaster : MonoBehaviour
     private GoalBlock[] goals;
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
-    private string[] tutorialScenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial" , "Level1", "Level2", "Level5"};
-    private static string[] scenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial", "UIDev" };
+
+    // For our reference:
+    // Level1: Introduction to Ball, Goal, Start button
+    // Level2: Introduction to Ice Planks
+    // Level5: Introduction to Springs
+    // Level6: Planks and Heater
+    // Level7: Planks and Spring
+    // Level8: Introduction to enemies
+    // Level9: Main Level (Previously "UIDev")
+    private string[] tutorialScenes = {"Level1", "Level2", "Level5", "Level6", "Level7", "Level8"};
+    private static string[] scenes = {"Level1", "Level2", "Level5", "Level6", "Level7", "Level8", "Level9"};
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;
@@ -295,7 +304,7 @@ public class DungeonMaster : MonoBehaviour
             GlobalVariables.plankUsed = 0;
             GlobalVariables.springUsed = 0;
             GlobalVariables.heaterUsed = 0;
-            if(currentSceneName == "UIDev") {
+            if(currentSceneName == "Level9") {
                 UIBehavior.gameUI.displayWinScreen();
             } else {
                 UIBehavior.gameUI.displayNextLevelScreen(nextSceneName);
