@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 public class Level3 : MonoBehaviour
 {
     private bool first = true;
@@ -46,7 +46,14 @@ public class Level3 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        GameObject button = GameObject.Find("StartButton");
+        TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+        if(buttonText.text=="Start" && first==false)
+        {
+            GameObject dtext1 = GameObject.Find("Heater_Text");
+            Debug.Log(dtext1);
+            dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Create Heater between ball and plank";
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -56,10 +63,9 @@ public class Level3 : MonoBehaviour
             GameObject dtext = GameObject.Find("Heater_Text");
             Debug.Log(dtext);
             dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Oops we are stuck!!! Press stop";
-            GameObject dtext1 = GameObject.Find("Place_Text");
-            Debug.Log(dtext1);
-            dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Create Heater here -->";
             first = false;
         }
     }
+
+
 }
