@@ -152,6 +152,7 @@ public class UIBehavior : MonoBehaviour
             toolKitButtons[i].interactable = false;
         }
         setOperationInactive();
+        disableResetButton();
         // Debug.Log("UI Behavior -- HighlightedObject"+DungeonMaster.dm.highlightedObject);
     }
     private void stopSim(StateReference.resetType type)
@@ -161,6 +162,7 @@ public class UIBehavior : MonoBehaviour
         {
             toolKitButtons[i].interactable = true;
         }
+        enableResetButton();
         //Future scope: create indication for stop type. E.g. arrow pointing to oob coords when type is oob
     }
 
@@ -186,6 +188,18 @@ public class UIBehavior : MonoBehaviour
                 operationButtons[i].interactable = true;
             }
         }
+    }
+
+    // used to disable RESET button when simulation mode is ON
+    public void disableResetButton()
+    {
+        controlPanel.GetComponentsInChildren<Button>(true)[2].interactable = false;
+    }
+
+    // used to enable RESET Button when simulation mode is OFF
+    public void enableResetButton()
+    {
+        controlPanel.GetComponentsInChildren<Button>(true)[2].interactable = true;
     }
 
     
