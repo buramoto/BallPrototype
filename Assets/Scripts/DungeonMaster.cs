@@ -251,6 +251,7 @@ public class DungeonMaster : MonoBehaviour
             //From Analytics
             //resetValues();
             lives = maxLives;
+            SendToGoogle.sendToGoogle.resetGlobalVariables("ModeChange");
             //Trigger stop sim event
             StopSim?.Invoke(type);
 
@@ -262,7 +263,7 @@ public class DungeonMaster : MonoBehaviour
             GameObject button = GameObject.Find("StartButton");
             TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
             buttonText.text = "Start";
-            GlobalVariables.heaterCoordinates = "";
+            // GlobalVariables.heaterCoordinates = "";
 
         }
         simulationMode = !simulationMode;
@@ -295,21 +296,22 @@ public class DungeonMaster : MonoBehaviour
             Debug.Log("Scene Name: " + GlobalVariables.sceneName);
 
             //ANALYTICS
-            if (!tutorialScenes.Contains(currentSceneName))
+            if (GlobalVariables.sceneName != "Level1" && GlobalVariables.sceneName != "Level2")
             {
                 Debug.Log("GOOGLE");
                 SendToGoogle.sendToGoogle.Send();
             }
             checkpoint.SetActive(false);
-            GlobalVariables.oobCounter = 0;
-            GlobalVariables.wgoCounter = 0;
-            GlobalVariables.attemptCounter = 0;
-            //From Analytics
-            GlobalVariables.plankUsed = 0;
-            GlobalVariables.springUsed = 0;
-            GlobalVariables.heaterUsed = 0;
+            // GlobalVariables.oobCounter = 0;
+            // GlobalVariables.wgoCounter = 0;
+            // GlobalVariables.attemptCounter = 0;
+            // //From Analytics
+            // GlobalVariables.plankUsed = 0;
+            // GlobalVariables.springUsed = 0;
+            // GlobalVariables.heaterUsed = 0;
 
-            GlobalVariables.heaterCoordinates = "";
+            // GlobalVariables.heaterCoordinates = "";
+            SendToGoogle.sendToGoogle.resetGlobalVariables("New Level");
 
             if(currentSceneName == "Level9") {
                 UIBehavior.gameUI.displayWinScreen();
@@ -397,8 +399,7 @@ public class DungeonMaster : MonoBehaviour
         GlobalVariables.plankUsed = 0;
         GlobalVariables.springUsed = 0;
         GlobalVariables.heaterUsed = 0;
-        GlobalVariables.heaterCoordinates = "";
-
+        // GlobalVariables.heaterCoordinates = "";
     }
 
     // becuase we have a balls[] and in future we might have multiple balls,

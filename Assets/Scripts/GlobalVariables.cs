@@ -22,7 +22,11 @@ public class GlobalVariables : MonoBehaviour
 
     //heater coordinates
 
-    public static string heaterCoordinates;
+    // public static string heaterCoordinates;
+
+    public static List<GameObject> usedHeaterObjects = new List<GameObject>();
+    public static List<GameObject> usedPlankObjects = new List<GameObject>();
+    public static List<GameObject> usedSpringObjects = new List<GameObject>();
 
     // Level Name
     public static string sceneName;
@@ -35,6 +39,6 @@ public class GlobalVariables : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Debug.Log("Plank Counter: " + plankCounter);
+
     }
 }

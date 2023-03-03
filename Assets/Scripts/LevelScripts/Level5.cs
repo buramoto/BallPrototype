@@ -51,7 +51,7 @@ public class Level5 : MonoBehaviour
         oobCount++;
 
         // If the counter is 2, then display the text to assist the player
-        if (type == "oob" && oobCount == 2 && UIBehavior.gameUI)
+        if (type == "oob" && oobCount == 2)
         {
             GameObject dtext = GameObject.Find("Spring_Text");
             Debug.Log(dtext);

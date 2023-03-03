@@ -11,7 +11,7 @@ public class SendToGoogle : MonoBehaviour
     public static SendToGoogle sendToGoogle;
 
     // URL of the Google Form
-    [SerializeField] public string URL;
+    [SerializeField] private string URL = "https://docs.google.com/forms/u/1/d/e/1FAIpQLSd-me1BBMWKkP_7_P9WYRii1JI-7gXpsiKg7F6Vu7s5JPQojg/formResponse";
 
     // Data to be sent to Google Form
     private string _sessionID;
@@ -66,41 +66,145 @@ public class SendToGoogle : MonoBehaviour
     {
         string elementCoordinate = "";
         Debug.Log("getCoordinates"+ elementType);
-        GameObject[] element = GameObject.FindGameObjectsWithTag(elementType);
-        foreach (GameObject e in element)
-        {
-            if(elementType == "Plank")
+        if(elementType == "TempChange"){
+            foreach (GameObject obj in GlobalVariables.usedHeaterObjects)
             {
-                Plank script = e.GetComponent<Plank>();
+                ChangeTemperature script = obj.GetComponent<ChangeTemperature>();
                 if(script!=null && script.editable)
                 {
                     // add spring position to string
-                    Vector3 position = e.transform.position;
+                    Vector3 position = obj.transform.position;
                     elementCoordinate += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
-                }   
-            }
-            else if(elementType == "Spring")
-            {
-                Spring script = e.GetComponent<Spring>();
-                if(script!=null && script.editable)
-                {
-                    // add spring position to string
-                    Vector3 position = e.transform.position;
-                    elementCoordinate += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
-                }   
-            }
-            else if(elementType == "TempChange")
-            {
-                ChangeTemperature script = e.GetComponent<ChangeTemperature>();
-                if(script!=null && script.editable)
-                {
-                    // add heater position to string
-                    Vector3 position = e.transform.position;
-                    elementCoordinate += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
-                }   
+                }  
             }
         }
+        else if(elementType == "Plank")
+        {
+            foreach (GameObject obj in GlobalVariables.usedPlankObjects)
+            {
+                Plank script = obj.GetComponent<Plank>();
+                if(script!=null && script.editable)
+                {
+                    // add spring position to string
+                    Vector3 position = obj.transform.position;
+                    elementCoordinate += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
+                }  
+            }
+        }
+        else if(elementType == "Spring")
+        {
+            foreach (GameObject obj in GlobalVariables.usedSpringObjects)
+            {
+                Spring script = obj.GetComponent<Spring>();
+                if(script!=null && script.editable)
+                {
+                    // add spring position to string
+                    Vector3 position = obj.transform.position;
+                    elementCoordinate += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
+                }  
+            }
+        }
+        // else
+        // {
+        //     GameObject[] element = GameObject.FindGameObjectsWithTag(elementType);
+        //     Debug.Log("getCoordinates length"+ element.Length);
+        //     foreach (GameObject e in element)
+        //     {
+        //         if(elementType == "Plank")
+        //         {
+        //             Plank script = e.GetComponent<Plank>();
+        //             if(script!=null && script.editable)
+        //             {
+        //                 // add spring position to plank
+        //                 Vector3 position = e.transform.position;
+        //                 elementCoordinate += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
+        //             }   
+        //         }
+        //         else if(elementType == "Spring")
+        //         {
+        //             Spring script = e.GetComponent<Spring>();
+        //             if(script!=null && script.editable)
+        //             {
+        //                 // add spring position to string
+        //                 Vector3 position = e.transform.position;
+        //                 elementCoordinate += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
+        //             }   
+        //         }
+        //     }
+        // }
         return elementCoordinate;
+    }
+
+    public void resetGlobalVariables(string type){
+        if(type == "New Level" || type == "Reset Button"){
+            if(type == "New Level"){
+                GlobalVariables.attemptCounter = 1;
+            }
+            else{
+                GlobalVariables.attemptCounter += 1;
+            }
+            GlobalVariables.plankCounter = 0;
+            GlobalVariables.springCounter = 0;
+            GlobalVariables.heaterCounter = 0; 
+            GlobalVariables.kbeCounter = 0;
+            GlobalVariables.oobCounter = 0;
+            GlobalVariables.wgoCounter = 0; 
+        }
+        else if(type == "OOB"){
+            GlobalVariables.attemptCounter += 1;
+            GlobalVariables.oobCounter += 1; 
+        }
+        else if(type == "KBE"){
+            GlobalVariables.attemptCounter += 1;
+            GlobalVariables.kbeCounter += 1;
+        }
+        else if(type == "WGO"){
+            GlobalVariables.attemptCounter += 1;
+            GlobalVariables.wgoCounter += 1;
+        }
+        // else if(type == "Reset Button"){
+        //     GlobalVariables.attemptCounter += 1;
+        //     GlobalVariables.plankCounter = 0;
+        //     GlobalVariables.springCounter = 0;
+        //     GlobalVariables.heaterCounter = 0; 
+        // }
+        
+        GameObject[] plank = GameObject.FindGameObjectsWithTag("Plank");
+        foreach (GameObject p in plank)
+        {
+            Plank script = p.GetComponent<Plank>();
+            if(script!=null && script.editable){
+                script.hasCollided = false;
+            }   
+        }
+        GameObject[] spring = GameObject.FindGameObjectsWithTag("Spring");
+        foreach (GameObject s in spring)
+        {
+            Spring script = s.GetComponent<Spring>();
+            if(script!=null && script.editable){
+                script.hasCollided = false;
+            }   
+        }
+        GameObject[] heater = GameObject.FindGameObjectsWithTag("TempChange");
+        foreach (GameObject h in heater)
+        {
+            ChangeTemperature script = h.GetComponent<ChangeTemperature>();
+            if(script!=null && script.editable){
+                script.hasCollided = false;
+            }   
+        }
+        foreach (GameObject obj in GlobalVariables.usedHeaterObjects)
+        {
+            obj.SetActive(true);
+        }
+        GlobalVariables.plankUsed = 0;
+        GlobalVariables.springUsed = 0;
+        GlobalVariables.heaterUsed = 0;
+        // GlobalVariables.heaterCoordinates = "";
+        GlobalVariables.livesLeft = DungeonMaster.dm.lives; 
+        GlobalVariables.usedHeaterObjects.Clear();
+        GlobalVariables.usedPlankObjects.Clear();
+        GlobalVariables.usedSpringObjects.Clear();
     }
 
 
@@ -143,8 +247,8 @@ public class SendToGoogle : MonoBehaviour
         springPositions = getCoordinates("Spring");
         Debug.Log("Spring Positions: "+springPositions);
         //heaterPositions = getCoordinates("TempChange");
-        heaterPositions=GlobalVariables.heaterCoordinates;
-        Debug.Log("Heater Positions: "+GlobalVariables.heaterCoordinates);
+        heaterPositions = getCoordinates("TempChange");
+        Debug.Log("Heater Positions: "+ heaterPositions);
         
         //From Analytics kept as is
         Debug.Log("kbe Counter");

@@ -17,19 +17,20 @@ public class ResetButton : MonoBehaviour
     // Update is called once per frame
     public void execute()
     {   
+        SendToGoogle.sendToGoogle.resetGlobalVariables("Reset Button");
         // Reset the global variables
-        if(GlobalVariables.attemptCounter==0){
-            DungeonMaster.timeValue=0;
-        }
-        GlobalVariables.plankCounter = 0;
-        GlobalVariables.springCounter = 0;
-        GlobalVariables.heaterCounter = 0;
-        GlobalVariables.plankUsed = 0;
-        GlobalVariables.springUsed = 0;
-        GlobalVariables.heaterUsed = 0;
-        Debug.Log("reset heater used: " + GlobalVariables.heaterUsed);
-        GlobalVariables.attemptCounter++;
-        GlobalVariables.kbeCounter=0;
+        // if(GlobalVariables.attemptCounter==0){
+        //     DungeonMaster.timeValue=0;
+        // }
+        // GlobalVariables.plankCounter = 0;
+        // GlobalVariables.springCounter = 0;
+        // GlobalVariables.heaterCounter = 0;
+        // GlobalVariables.plankUsed = 0;
+        // GlobalVariables.springUsed = 0;
+        // GlobalVariables.heaterUsed = 0;
+        // Debug.Log("reset heater used: " + GlobalVariables.heaterUsed);
+        // GlobalVariables.attemptCounter++;
+        // GlobalVariables.kbeCounter=0;
         //GameObject[] hearts = GameObject.FindGameObjectsWithTag("Lives");
 
         //Debug.Log("---------->" + hearts);
@@ -38,7 +39,7 @@ public class ResetButton : MonoBehaviour
         //    Debug.Log("Name of Heart: " + hearts[i].name);
         //}
 
-        Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
+        // Debug.Log("Attempt after reset: " + GlobalVariables.attemptCounter);
         
         
         // if counter == 3 then it means that the game has finished hence dont need to increment counter

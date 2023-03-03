@@ -89,9 +89,10 @@ public class BallScript : MonoBehaviour
         if (ballX < -screenWidth / 2 || ballX > screenWidth / 2 || ballY < -screenHeight / 2 || ballY > screenHeight / 2)
         {
             // If the ball is outside the bounds, call the changeMode() function
-            GlobalVariables.oobCounter++;
+            // GlobalVariables.oobCounter++;
 
-            DungeonMaster.dm.resetValues();
+            // DungeonMaster.dm.resetValues();
+            SendToGoogle.sendToGoogle.resetGlobalVariables("OOB");
             
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
             if(DungeonMaster.dm.currentSceneName == "Level5"){
@@ -128,6 +129,7 @@ public class BallScript : MonoBehaviour
                 if(collision.gameObject.GetComponent<Spring>().hasCollided == false)
                 {
                     GlobalVariables.springUsed++;
+                    GlobalVariables.usedSpringObjects.Add(collision.gameObject);
                     collision.gameObject.GetComponent<Spring>().hasCollided = true;
                     Debug.Log("Spring used "+GlobalVariables.springUsed);
                 }
@@ -153,6 +155,7 @@ public class BallScript : MonoBehaviour
                 if(other.gameObject.tag == "TempChange" && other.GetComponent<ChangeTemperature>().hasCollided == false && DungeonMaster.dm.simulationMode)
                 {   
                     GlobalVariables.heaterUsed++;
+                    GlobalVariables.usedHeaterObjects.Add(other.gameObject);
                     other.GetComponent<ChangeTemperature>().hasCollided = true;
                     Debug.Log("Heater used "+GlobalVariables.heaterUsed);
                 }
@@ -191,6 +194,7 @@ public class BallScript : MonoBehaviour
         {
             GlobalVariables.plankUsed++;
             Debug.Log("Plank used"+GlobalVariables.plankUsed);
+            GlobalVariables.usedPlankObjects.Add(plank.gameObject);
             plankProperties.hasCollided = true;
         }
     }
@@ -210,12 +214,16 @@ public class BallScript : MonoBehaviour
                     Debug.Log("Collided with heater");
 
 
-                    Vector3 position = element.transform.position;
-                    GlobalVariables.heaterCoordinates += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
-                    Debug.Log("Heater Coordinates" + GlobalVariables.heaterCoordinates);
+                    // Vector3 position = element.transform.position;
+                    // GlobalVariables.heaterCoordinates += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
+                    // Debug.Log("Heater Coordinates" + GlobalVariables.heaterCoordinates);
 
+                    // adding heater element to list
+                    // GlobalVariables.usedHeaterObjects.Add(element);
+                    
                     // destroying heater element
                     element.SetActive(false);
+
                     tempState = StateReference.temperature.hot;
                     ballDisplay.material.color = Color.red;
                     break;
