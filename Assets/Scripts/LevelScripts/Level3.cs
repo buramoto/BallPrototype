@@ -58,7 +58,7 @@ public class Level3 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (first && collision.gameObject.name == "Ball" && this.name == "Collider1")
+        if (first && collision.gameObject.name == "Ball" && this.name == "Collider1" && GlobalVariables.heaterUsed<1)
         {
             GameObject dtext = GameObject.Find("Heater_Text");
             Debug.Log(dtext);

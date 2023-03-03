@@ -23,6 +23,7 @@ public class DungeonMaster : MonoBehaviour
     public byte counter;
     public int lives;
     public static int sceneIndex = 0;
+    private bool isLevelOn;
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -117,10 +118,12 @@ public class DungeonMaster : MonoBehaviour
     {
         //Calculating time for every update and updating the text in Timer gameobject
         // if(currentSceneName != "Level1" && currentSceneName != "Level2" && SceneManager.GetActiveScene().name != "MainMenu") {
-            timeValue += Time.deltaTime;
-            float minutes = Mathf.FloorToInt(timeValue / 60);
-            float seconds = Mathf.FloorToInt(timeValue % 60);
-            UIBehavior.gameUI.updateTimer(minutes,seconds);
+            if(isLevelOn) {
+                timeValue += Time.deltaTime;
+                float minutes = Mathf.FloorToInt(timeValue / 60);
+                float seconds = Mathf.FloorToInt(timeValue % 60);
+                UIBehavior.gameUI.updateTimer(minutes,seconds);
+            }
         // }
     }
 
@@ -141,6 +144,7 @@ public class DungeonMaster : MonoBehaviour
         {
             return;
         }
+        isLevelOn = true;
         lives = maxLives;
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
@@ -284,6 +288,7 @@ public class DungeonMaster : MonoBehaviour
             DungeonMaster.dm.freezeBall(0);
             //adding goal time to timeArray
             timeArray[counter]=timeValue;
+            isLevelOn = false;
 
             // Storing the number of player's lives left
             GlobalVariables.livesLeft = lives;
