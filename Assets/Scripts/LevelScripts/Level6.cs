@@ -34,7 +34,7 @@ public class Level6 : MonoBehaviour
         
         UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
         UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
-        
+
         if (level6Reference == null)
         {
             level6Reference = this;
