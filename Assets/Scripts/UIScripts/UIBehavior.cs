@@ -132,7 +132,9 @@ public class UIBehavior : MonoBehaviour
     private void initMainMenu()
     {
         Debug.LogWarning("Initalizing main menu");
-
+        if(levelSelectPanel.GetComponentsInChildren<Button>(true).Length > 1) {
+            return;
+        }
         foreach(string fileName in Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes"), "*.unity"))
         {
             string sceneName = Path.GetFileNameWithoutExtension(fileName);
