@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Level3 : MonoBehaviour
 {
+    private bool first = true;
     private void Awake()
     {
         // setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
@@ -46,5 +47,19 @@ public class Level3 : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (first && collision.gameObject.name == "Ball" && this.name == "Collider1")
+        {
+            GameObject dtext = GameObject.Find("Heater_Text");
+            Debug.Log(dtext);
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Oops we are stuck!!! Press stop";
+            GameObject dtext1 = GameObject.Find("Place_Text");
+            Debug.Log(dtext1);
+            dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Create Heater here -->";
+            first = false;
+        }
     }
 }

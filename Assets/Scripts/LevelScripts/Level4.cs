@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Level4 : MonoBehaviour
 {
     // Start is called before the first frame update
+    private int oobCount = 0;
     private void Awake()
     {
         UIBehavior.gameUI.timer.SetActive(true);
@@ -42,18 +43,27 @@ public class Level4 : MonoBehaviour
         
     }
 
-    // public void OutOfBounds(string type)
-    // {
-    //     // Increment the counter for out of bounds
-    //     oobCount++;
-
-    //     // If the counter is 2, then display the text to assist the player
-    //     if (type == "oob" && oobCount == 2 && UIBehavior.gameUI)
-    //     {
-    //         GameObject dtext = GameObject.Find("Spring_Text");
-    //         Debug.Log(dtext);
-    //         dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Stuck? Place spring next to the second plank facing the ball";
-    //         dtext.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 23;
-    //     }
-    // }
+    public void OutOfBounds(string type)
+    {
+        // Increment the counter for out of bounds
+        oobCount++;
+        Debug.Log("Came inside the function");
+         // If the counter is 2, then display the text to assist the player
+         if (type == "oob" && oobCount == 2 && UIBehavior.gameUI)
+         {
+             GameObject dtext = GameObject.Find("Level4_Text");
+             Debug.Log(dtext);
+            Debug.Log("Came inside if");
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Place planks in the gaps correctly";
+             dtext.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 23;
+         }
+         else if(type == "oob" && oobCount == 5 && UIBehavior.gameUI)
+         {
+            GameObject dtext = GameObject.Find("Level4_Text");
+            Debug.Log(dtext);
+            Debug.Log("Came inside else if");
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Stuck? Try stop button to rearrange planks";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 23;
+         }
+     }
 }
