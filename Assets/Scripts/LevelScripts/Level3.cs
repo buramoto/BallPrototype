@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class Level3 : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         // setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
         UIBehavior.gameUI.toolKitPanel.SetActive(true);
@@ -35,8 +34,10 @@ public class Level3 : MonoBehaviour
         // Setting Layout for the OPERATION-PANEL
         UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 150;
         UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 150;
-
-
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
 
     }
 
