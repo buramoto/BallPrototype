@@ -287,6 +287,8 @@ GameObject:
   - component: {fileID: 6171845427920735973}
   - component: {fileID: 6171845427920735974}
   - component: {fileID: 6171845427920735979}
+  - component: {fileID: 344964220}
+  - component: {fileID: 344964221}
   m_Layer: 5
   m_Name: Delete
   m_TagString: DeleteButton
@@ -436,6 +438,66 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 130.9281, y: 46.759727}
   m_EdgeRadius: 0
+--- !u!114 &344964220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845427920735968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22378d450d6a685408d4a78175a49966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipText: 'Removes selected
+
+    object'
+--- !u!114 &344964221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845427920735968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: displayToolTip
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6171845427920735968}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: removeToolTip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &6171845427948620374
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,7 +773,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
+  m_fontSize: 8.2
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -870,16 +932,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   winScreen: {fileID: 1052256959787196163, guid: 24d8ff5cb07a4f24eaeca5c385806e6a, type: 3}
-  gameOverScreen: {fileID: 0}
+  gameOverScreen: {fileID: 5152136842586593548, guid: 2942bbe94b1504abca514bd03f94262d, type: 3}
   nextLevelScreen: {fileID: 1052256959787196163, guid: c451a7b4ed66ecd4a8a493b0bc86e85c, type: 3}
-  timer: {fileID: 0}
+  timer: {fileID: 6171845428316697835}
   levelMode: {fileID: 8244730922171839294}
   mainMenuMode: {fileID: 1717778677363821182}
   levelSelectPanel: {fileID: 161039587}
   buttonPrefab: {fileID: 5134569751309412209, guid: 72d596d03a701ac42ad43cf46b48362c, type: 3}
   toolKitPanel: {fileID: 6171845427970819488}
   operationPanel: {fileID: 6171845429601630082}
-  controlPanel: {fileID: 0}
+  controlPanel: {fileID: 6171845429749053364}
+  offset: {x: 0, y: 30, z: 0}
   oobCoords: {x: 0, y: 0, z: 0}
 --- !u!222 &6171845428107800257
 CanvasRenderer:
@@ -901,6 +964,8 @@ GameObject:
   - component: {fileID: 6171845428123670080}
   - component: {fileID: 6171845428123670081}
   - component: {fileID: 6171845428123670082}
+  - component: {fileID: 207836664}
+  - component: {fileID: 207836665}
   m_Layer: 5
   m_Name: Plank
   m_TagString: PlankButton
@@ -1024,6 +1089,64 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &207836664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845428123670108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22378d450d6a685408d4a78175a49966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipText: Creates a new plank
+--- !u!114 &207836665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845428123670108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: displayToolTip
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6171845428123670108}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: removeToolTip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &6171845428241088135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,7 +1304,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.39454308, y: 0.33}
   m_AnchorMax: {x: 0.64100003, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1.3745995}
+  m_AnchoredPosition: {x: 1.2735977, y: 1.3745995}
   m_SizeDelta: {x: 0, y: -5.2507}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6171845428245692064
@@ -1257,7 +1380,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.39780152, y: 0.33}
   m_AnchorMax: {x: 0.64845693, y: 1}
-  m_AnchoredPosition: {x: 0.000020504, y: -1.5}
+  m_AnchoredPosition: {x: 0.000020980835, y: -1.5}
   m_SizeDelta: {x: 89.387, y: -3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6171845428271487570
@@ -1391,7 +1514,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52.4
+  m_fontSize: 31
   m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1537,7 +1660,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1673,7 +1796,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
+  m_fontSize: 8.2
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1808,7 +1931,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
+  m_fontSize: 8.2
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2021,7 +2144,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
+  m_fontSize: 8.2
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2156,7 +2279,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
+  m_fontSize: 8.2
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2291,7 +2414,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.25
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2345,6 +2468,8 @@ GameObject:
   - component: {fileID: 6171845429117462053}
   - component: {fileID: 6171845429117462054}
   - component: {fileID: 6171845429117462055}
+  - component: {fileID: 454855002}
+  - component: {fileID: 454855003}
   m_Layer: 5
   m_Name: Spring
   m_TagString: SpringButton
@@ -2468,6 +2593,64 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &454855002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845429117462049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22378d450d6a685408d4a78175a49966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipText: Creates a new spring
+--- !u!114 &454855003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845429117462049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: displayToolTip
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6171845429117462049}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: removeToolTip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &6171845429266818296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2480,6 +2663,8 @@ GameObject:
   - component: {fileID: 6171845429266818300}
   - component: {fileID: 6171845429266818301}
   - component: {fileID: 6171845429266818302}
+  - component: {fileID: 1829402361}
+  - component: {fileID: 1829402362}
   m_Layer: 5
   m_Name: Element
   m_TagString: HeaterButton
@@ -2603,6 +2788,64 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1829402361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845429266818296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: displayToolTip
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6171845429266818296}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: removeToolTip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1829402362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845429266818296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22378d450d6a685408d4a78175a49966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipText: Creates a new heater
 --- !u!1 &6171845429269247588
 GameObject:
   m_ObjectHideFlags: 0
@@ -2616,6 +2859,8 @@ GameObject:
   - component: {fileID: 6171845429269247593}
   - component: {fileID: 6171845429269247594}
   - component: {fileID: 6171845429269247599}
+  - component: {fileID: 1767796667}
+  - component: {fileID: 1767796668}
   m_Layer: 5
   m_Name: Left
   m_TagString: LeftButton
@@ -2765,6 +3010,64 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 130.81523, y: 46.924774}
   m_EdgeRadius: 0
+--- !u!114 &1767796667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845429269247588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22378d450d6a685408d4a78175a49966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipText: "Rotate selectect object \ncounter-clockwise"
+--- !u!114 &1767796668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845429269247588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: displayToolTip
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6171845429269247588}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: removeToolTip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &6171845429336247814
 GameObject:
   m_ObjectHideFlags: 0
@@ -2778,6 +3081,8 @@ GameObject:
   - component: {fileID: 6171845429336247819}
   - component: {fileID: 6171845429336247812}
   - component: {fileID: 6171845429336247817}
+  - component: {fileID: 1712768736}
+  - component: {fileID: 1712768737}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -2913,6 +3218,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 0}
+--- !u!114 &1712768736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845429336247814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22378d450d6a685408d4a78175a49966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipText: "Starts and stops \nthe simulation"
+--- !u!114 &1712768737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845429336247814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: displayToolTip
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6171845429336247814}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: removeToolTip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &6171845429448302289
 GameObject:
   m_ObjectHideFlags: 0
@@ -3008,7 +3371,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.25
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3083,10 +3446,10 @@ RectTransform:
   m_Father: {fileID: 6171845429266818303}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.3825431, y: 0.33}
-  m_AnchorMax: {x: 0.6444569, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -2}
+  m_AnchorMin: {x: 0.35, y: 0.33}
+  m_AnchorMax: {x: 0.69, y: 1}
+  m_AnchoredPosition: {x: 0.000078201294, y: 1.5}
+  m_SizeDelta: {x: 0.00019836, y: -5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6171845429474037054
 CanvasRenderer:
@@ -3139,6 +3502,8 @@ GameObject:
   - component: {fileID: 6171845429511606761}
   - component: {fileID: 6171845429511606762}
   - component: {fileID: 6171845429511606767}
+  - component: {fileID: 921537365}
+  - component: {fileID: 921537366}
   m_Layer: 5
   m_Name: Right
   m_TagString: RightButton
@@ -3288,6 +3653,66 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 130.82208, y: 46.887222}
   m_EdgeRadius: 0
+--- !u!114 &921537365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845429511606756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22378d450d6a685408d4a78175a49966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipText: 'Rotate selected object
+
+    clockwise'
+--- !u!114 &921537366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6171845429511606756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: displayToolTip
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 6171845429511606756}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6171845428107800258}
+          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
+          m_MethodName: removeToolTip
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &6171845429514953064
 GameObject:
   m_ObjectHideFlags: 0
@@ -3381,7 +3806,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
+  m_fontSize: 8.2
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3564,7 +3989,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.39445695, y: 0.33}
   m_AnchorMax: {x: 0.63445693, y: 1}
-  m_AnchoredPosition: {x: 0.000014849, y: -0.80604935}
+  m_AnchoredPosition: {x: 0.000015258789, y: -0.80604935}
   m_SizeDelta: {x: 85.587, y: -1.6121}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6171845429682911372
