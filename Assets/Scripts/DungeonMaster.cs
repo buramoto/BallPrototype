@@ -295,6 +295,8 @@ public class DungeonMaster : MonoBehaviour
             GlobalVariables.sceneName = currentScene.name;
             Debug.Log("Scene Name: " + GlobalVariables.sceneName);
 
+            SendToGoogle.sendToGoogle.resetGlobalVariables("New Level");
+
             //ANALYTICS
             if (GlobalVariables.sceneName != "Level1" && GlobalVariables.sceneName != "Level2")
             {
@@ -311,7 +313,6 @@ public class DungeonMaster : MonoBehaviour
             // GlobalVariables.heaterUsed = 0;
 
             // GlobalVariables.heaterCoordinates = "";
-            SendToGoogle.sendToGoogle.resetGlobalVariables("New Level");
 
             if(currentSceneName == "Level9") {
                 UIBehavior.gameUI.displayWinScreen();

@@ -20,10 +20,6 @@ public class GlobalVariables : MonoBehaviour
     public static int wgoCounter = 0;
     public static int livesLeft;
 
-    //heater coordinates
-
-    // public static string heaterCoordinates;
-
     public static List<GameObject> usedHeaterObjects = new List<GameObject>();
     public static List<GameObject> usedPlankObjects = new List<GameObject>();
     public static List<GameObject> usedSpringObjects = new List<GameObject>();
