@@ -22,10 +22,6 @@ public class PropPlacer : MonoBehaviour
     public const float rotationSpeed=500; //Now turned into a constant field
 
 
-    // variable to get Instruction Array for Level 7
-    public static GameObject[] instructionArray2;
-    public int instructionIndex2 = 0;
-    public string[] instructionArray2Text = new string[] {"Ball can Bounce off the Spring ", "So use Planks & Springs to Direct Ball to the goal block"};
 
     private void Start()
     {
@@ -41,75 +37,10 @@ public class PropPlacer : MonoBehaviour
 
         if (DungeonMaster.dm.simulationMode)
         {
-            // if user is in simulation mode and he presses "SPACE BAR" - For Next Instruction
-            // Below If for TUTORIAL 1
-            if ("Level6" == SceneManager.GetActiveScene().name) {
-                if (Level6.instructionIndex == 0)
-                {
-                    Level6.UpdateInstructionIndex();
-                }
-                if (Level6.instructionIndex == 1 && Input.GetKeyDown(KeyCode.N))
-                {
-                    Level6.level6Reference.instructionArray[Level6.instructionIndex - 1].SetActive(false);
-                    Level6.level6Reference.instructionArray[Level6.instructionIndex].SetActive(true);
-                }
-            }
-
             //We are in simulation mode. Player should not be editing anything
             return;
         }
-        // when in editing mode we instruct user to place heater and a plank Below Code is for Tutorial 1
-        if (DungeonMaster.dm.currentSceneName == "Level6" && !DungeonMaster.dm.simulationMode)
-        {
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                if (Level6.instructionIndex == 1)
-                {
-                    Level6.level6Reference.instructionArray[0].SetActive(false);
-                    Level6.level6Reference.instructionArray[1].SetActive(false);
-                    Level6.level6Reference.instructionArray[2].SetActive(true);
-                    Level6.UpdateInstructionIndex();
-                }
-                else if (Level6.instructionIndex == 2)
-                {
-                    Level6.UpdateInstructionIndex();
-                    Level6.level6Reference.instructionArray[Level6.instructionIndex - 1].SetActive(false);
-                    Level6.level6Reference.instructionArray[Level6.instructionIndex].SetActive(true);
-                }
-                else if (Level6.instructionIndex == 3)
-                {
-                    Level6.UpdateInstructionIndex();
-                    Level6.level6Reference.instructionArray[Level6.instructionIndex - 1].SetActive(false);
-                    Level6.level6Reference.instructionArray[Level6.instructionIndex].SetActive(false);
-                }
-            }
-        }
 
-        if (DungeonMaster.dm.currentSceneName == "Level7" && !DungeonMaster.dm.simulationMode)
-        {
-            if (Input.GetKeyDown(KeyCode.N))
-            {
-                if (instructionIndex2 == 0)
-                {
-                    instructionArray2[0].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = instructionArray2Text[0];
-                    instructionIndex2++;
-                    // instructionArray2[instructionIndex2].SetActive(true);
-                }
-                else if (instructionIndex2 == 1)
-                {
-                    instructionArray2[0].GetComponentInChildren<TMPro.TextMeshProUGUI>().text = instructionArray2Text[1];
-                    instructionIndex2++;
-                    // instructionArray2[instructionIndex2].SetActive(true);
-                }
-                else if (instructionIndex2 == 2)
-                {
-                    
-                    instructionArray2[0].SetActive(false);
-                    instructionArray2[1].SetActive(false);
-                }
-
-            }
-        }
 
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))

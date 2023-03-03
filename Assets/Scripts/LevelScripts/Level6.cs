@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class Level6 : MonoBehaviour
 {
-    public static int instructionIndex = 0;
-    public GameObject[] instructionArray = new GameObject[5];
-    public static Level6 level6Reference;
     // Start is called before the first frame update
-
+    private bool first = true;
     private void Awake()
     {
         // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
@@ -35,14 +33,6 @@ public class Level6 : MonoBehaviour
         UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
         UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
 
-        if (level6Reference == null)
-        {
-            level6Reference = this;
-        }
-        else
-        {
-
-        }
     }
 
     void Start()
@@ -53,11 +43,25 @@ public class Level6 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        GameObject button = GameObject.Find("StartButton");
+        TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+        Debug.Log("Value of attempt counter" + GlobalVariables.attemptCounter);
+        if (buttonText.text == "Start" && GlobalVariables.attemptCounter>=2 && GlobalVariables.plankUsed>0)
+        {
+            GameObject dtext1 = GameObject.Find("Level6_Text");
+            Debug.Log(dtext1);
+            dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Try rotating the plank";
+        }
     }
 
-    public static void UpdateInstructionIndex()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        instructionIndex += 1;
+        if (first && collision.gameObject.name == "Ball" && this.name == "Collider1" && GlobalVariables.plankUsed<1)
+        {
+            GameObject dtext = GameObject.Find("Level6_Text");
+            Debug.Log(dtext);
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Place planks to direct the ball";
+            first = false;
+        }
     }
 }
