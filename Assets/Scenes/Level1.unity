@@ -693,6 +693,10 @@ PrefabInstance:
       value: -0.5000305
       objectReference: {fileID: 0}
     - target: {fileID: 6171845428107800258, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 1454916671}
+    - target: {fileID: 6171845428107800258, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: controlPanel
       value: 
       objectReference: {fileID: 1793197428}
@@ -1026,6 +1030,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d01470217d875054a98ea192585a9129, type: 3}
+--- !u!1 &1454916671 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6171845428316697835, guid: d01470217d875054a98ea192585a9129, type: 3}
+  m_PrefabInstance: {fileID: 1454916670}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1591328767
 PrefabInstance:
   m_ObjectHideFlags: 0

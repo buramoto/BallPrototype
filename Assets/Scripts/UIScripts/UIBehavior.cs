@@ -20,6 +20,9 @@ public class UIBehavior : MonoBehaviour
     public GameObject gameOverScreen;
     public GameObject nextLevelScreen;
 
+    //Timer
+    public GameObject timer;
+
     //Buttons
     private Button[] toolKitButtons = null;
     private Button[] operationButtons = null;
@@ -47,6 +50,7 @@ public class UIBehavior : MonoBehaviour
             gameUI = this;
             toolKitButtons = toolKitPanel.GetComponentsInChildren<Button>();
             operationButtons = operationPanel.GetComponentsInChildren<Button>();
+            timer = GameObject.Find("Timer");
             SceneManager.sceneLoaded += initalizeLevel;
             /*
             if (SceneManager.GetActiveScene().name != "MainMenu")
@@ -97,6 +101,14 @@ public class UIBehavior : MonoBehaviour
             levelMode.SetActive(true);
 
         }
+    }
+
+    public void updateTimer(float minutes, float seconds) {
+        if(SceneManager.GetActiveScene().name == "MainMenu" || SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "Level2") {
+            return;
+        }
+        TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
+        tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     // Winscreen Func

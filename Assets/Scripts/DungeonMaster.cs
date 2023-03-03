@@ -52,7 +52,6 @@ public class DungeonMaster : MonoBehaviour
 
     // timevalue stores the currentTime and timer is the text gameobject
     public static float timeValue = 0;
-    private GameObject timer;
 
     //Sequence of checkpoints, should be configurable by level
     // private char[] sequence = {'p', 'y', 'w', 'g'};//original
@@ -107,7 +106,6 @@ public class DungeonMaster : MonoBehaviour
         //initalizeLevel();
         //Initializing the timer object
         //instructions = Get;
-        timer = GameObject.Find("Timer");
         Debug.Log("Initialize Level count of ENEMY: " + enemyElements.Length);
         enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
         // Debug.Log("Scene Index" + sceneIndex);
@@ -118,11 +116,12 @@ public class DungeonMaster : MonoBehaviour
     private void Update()
     {
         //Calculating time for every update and updating the text in Timer gameobject
-        timeValue += Time.deltaTime;
-        float minutes = Mathf.FloorToInt(timeValue / 60);
-        float seconds = Mathf.FloorToInt(timeValue % 60);
-        //TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
-        //tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        // if(currentSceneName != "Level1" && currentSceneName != "Level2" && SceneManager.GetActiveScene().name != "MainMenu") {
+            timeValue += Time.deltaTime;
+            float minutes = Mathf.FloorToInt(timeValue / 60);
+            float seconds = Mathf.FloorToInt(timeValue % 60);
+            UIBehavior.gameUI.updateTimer(minutes,seconds);
+        // }
     }
 
 

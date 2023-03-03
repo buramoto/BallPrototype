@@ -269,7 +269,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.2
+  m_fontSize: 24
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1043,6 +1043,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1717778677363821182, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6171845427920735975, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1067,6 +1071,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6171845428107800258, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 975418793}
     - target: {fileID: 6171845428107800258, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: controlPanel
       value: 
@@ -1337,6 +1345,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d01470217d875054a98ea192585a9129, type: 3}
+--- !u!1 &975418793 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6171845428316697835, guid: d01470217d875054a98ea192585a9129, type: 3}
+  m_PrefabInstance: {fileID: 975418792}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &975418795 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6171845429749053364, guid: d01470217d875054a98ea192585a9129, type: 3}

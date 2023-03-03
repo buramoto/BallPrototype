@@ -9,6 +9,7 @@ public class Level8 : MonoBehaviour
 
     private void Awake()
     {
+        UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);
         UIBehavior.gameUI.operationPanel.SetActive(true);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
