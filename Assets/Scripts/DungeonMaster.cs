@@ -263,6 +263,7 @@ public class DungeonMaster : MonoBehaviour
             GameObject button = GameObject.Find("StartButton");
             TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
             buttonText.text = "Start";
+            GlobalVariables.heaterCoordinates = "";
 
         }
         simulationMode = !simulationMode;
@@ -289,6 +290,11 @@ public class DungeonMaster : MonoBehaviour
             Debug.Log("Heaters used: " + GlobalVariables.heaterUsed);
             //Display a Win screen
 
+            //current scene name
+            Scene currentScene = SceneManager.GetActiveScene();
+            GlobalVariables.sceneName = currentScene.name;
+            Debug.Log("Scene Name: " + GlobalVariables.sceneName);
+
             //ANALYTICS
             if (!tutorialScenes.Contains(currentSceneName))
             {
@@ -303,6 +309,9 @@ public class DungeonMaster : MonoBehaviour
             GlobalVariables.plankUsed = 0;
             GlobalVariables.springUsed = 0;
             GlobalVariables.heaterUsed = 0;
+
+            GlobalVariables.heaterCoordinates = "";
+
             if(currentSceneName == "Level9") {
                 UIBehavior.gameUI.displayWinScreen();
             } else {
@@ -389,6 +398,7 @@ public class DungeonMaster : MonoBehaviour
         GlobalVariables.plankUsed = 0;
         GlobalVariables.springUsed = 0;
         GlobalVariables.heaterUsed = 0;
+        GlobalVariables.heaterCoordinates = "";
 
     }
 

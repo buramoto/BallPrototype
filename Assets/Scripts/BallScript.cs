@@ -208,6 +208,13 @@ public class BallScript : MonoBehaviour
             {
                 case StateReference.temperature.hot:
                     Debug.Log("Collided with heater");
+
+
+                    Vector3 position = element.transform.position;
+                    GlobalVariables.heaterCoordinates += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
+                    Debug.Log("Heater Coordinates" + GlobalVariables.heaterCoordinates);
+
+                    // destroying heater element
                     element.SetActive(false);
                     tempState = StateReference.temperature.hot;
                     ballDisplay.material.color = Color.red;

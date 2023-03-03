@@ -40,6 +40,8 @@ public class SendToGoogle : MonoBehaviour
     private string resetButtonCounters;
     private int _livesLeft;
 
+    private string _level;
+
     // Get the user ID
     public static string GetUserID()
     {
@@ -132,13 +134,17 @@ public class SendToGoogle : MonoBehaviour
         _wgoCounterValue= GlobalVariables.wgoCounter;
         _livesLeft = GlobalVariables.livesLeft;
 
+        _level = GlobalVariables.sceneName;
+
+
         //coordinate for props
         plankPositions = getCoordinates("Plank");
         Debug.Log("Plank Positions: "+plankPositions);
         springPositions = getCoordinates("Spring");
         Debug.Log("Spring Positions: "+springPositions);
-        heaterPositions = getCoordinates("TempChange");
-        Debug.Log("Heater Positions: "+heaterPositions);
+        //heaterPositions = getCoordinates("TempChange");
+        heaterPositions=GlobalVariables.heaterCoordinates;
+        Debug.Log("Heater Positions: "+GlobalVariables.heaterCoordinates);
         
         //From Analytics kept as is
         Debug.Log("kbe Counter");
@@ -147,6 +153,9 @@ public class SendToGoogle : MonoBehaviour
         Debug.Log(_oobCounterValue);
         Debug.Log("wgo Counter");
         Debug.Log(_wgoCounterValue);
+
+        Debug.Log("Scene Name: " + _level);
+        
         resetButtonCounters += _kbeCounterValue.ToString() + "," + _oobCounterValue.ToString() + "," + _wgoCounterValue.ToString();
         StartCoroutine(Post(_sessionID.ToString(), 
                             _userID.ToString(),
@@ -163,17 +172,20 @@ public class SendToGoogle : MonoBehaviour
                             heaterPositions,
                             resetButtonCounters,
                             _livesLeft.ToString(),
-                            _numberOfElementsUsed.ToString()
+                            _numberOfElementsUsed.ToString(),
+                            _level.ToString()
                             ));
     }
 
     // Send data to Google Form
-    private IEnumerator Post(string sessionID, string userID, string numberOfAttempts, string numberOfPlanks, string numberOfSprings, string numberOfHeaters, string timeForCheckpoint1,string timeForCheckpoint2,string timeForCheckpoint3, string timeForGoalCheckpoint, string plankPositions, string springPositions, string heaterPositions, string resetButtonCounters, string livesLeft, string numberOfElementsUsed)
+    private IEnumerator Post(string sessionID, string userID, string numberOfAttempts, string numberOfPlanks, string numberOfSprings, string numberOfHeaters, string timeForCheckpoint1,string timeForCheckpoint2,string timeForCheckpoint3, string timeForGoalCheckpoint, string plankPositions, string springPositions, string heaterPositions, string resetButtonCounters, string livesLeft, string numberOfElementsUsed, string Level)
     {
         // Create the form and enter responses
         WWWForm form = new WWWForm();
+
         form.AddField("entry.1046962840", sessionID);
         form.AddField("entry.1306942327", userID);
+        form.AddField("entry.963340139", Level);
         form.AddField("entry.1054292080", numberOfAttempts);
         form.AddField("entry.141035311", numberOfPlanks);
         form.AddField("entry.163654761", numberOfSprings);

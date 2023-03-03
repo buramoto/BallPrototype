@@ -20,6 +20,12 @@ public class GlobalVariables : MonoBehaviour
     public static int wgoCounter = 0;
     public static int livesLeft;
 
+    //heater coordinates
+
+    public static string heaterCoordinates;
+
+    // Level Name
+    public static string sceneName;
     // Start is called before the first frame update
     void Start()
     {
