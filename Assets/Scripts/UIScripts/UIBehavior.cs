@@ -37,6 +37,10 @@ public class UIBehavior : MonoBehaviour
     public GameObject operationPanel;
     public GameObject controlPanel;
 
+    //Tooltip
+    private GameObject activeTooltip;
+    public Vector3 offset;
+
     //Reset variables
     public Vector3 oobCoords; //Future scope: place an arrow where ball went oob
 
@@ -216,7 +220,37 @@ public class UIBehavior : MonoBehaviour
         controlPanel.GetComponentsInChildren<Button>(true)[2].interactable = true;
     }
 
-    
+    /// <summary>
+    /// This method to be used by toolkit buttons to trigger a tooltip for the buttons
+    /// </summary>
+    /// <param name="tip"></param>
+    public void displayToolTip(GameObject button)
+    {
+        if (!button.GetComponent<Button>().IsInteractable())
+        {
+            return;
+        }
+        activeTooltip = new GameObject("Tooltip");
+        TMPro.TextMeshProUGUI activeToolTipText = activeTooltip.AddComponent<TextMeshProUGUI>();
+        activeTooltip.transform.SetParent(button.transform);
+        if(button.name != "StartButton")
+        {
+            activeTooltip.transform.localPosition = offset;
+        }
+        else
+        {
+            activeTooltip.transform.localPosition = -offset;
+        }
+        activeToolTipText.alignment = TextAlignmentOptions.Center;
+        activeToolTipText.fontSize = 12;
+        activeToolTipText.text = button.GetComponent<ToolTipText>().tipText;
+    }
 
-
+    /// <summary>
+    /// Removes the currently active tooltip
+    /// </summary>
+    public void removeToolTip()
+    {
+        Destroy(activeTooltip);
+    }
 }
