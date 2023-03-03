@@ -280,7 +280,8 @@ public class DungeonMaster : MonoBehaviour
         if(checkpointColor=='g')
         {
             // Stopping the ball once it hits the checkpoint
-            balls[0].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+            // balls[0].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+            DungeonMaster.dm.freezeBall(0);
             //adding goal time to timeArray
             timeArray[counter]=timeValue;
 
@@ -294,8 +295,6 @@ public class DungeonMaster : MonoBehaviour
             Scene currentScene = SceneManager.GetActiveScene();
             GlobalVariables.sceneName = currentScene.name;
             Debug.Log("Scene Name: " + GlobalVariables.sceneName);
-
-            SendToGoogle.sendToGoogle.resetGlobalVariables("New Level");
 
             //ANALYTICS
             if (GlobalVariables.sceneName != "Level1" && GlobalVariables.sceneName != "Level2")
@@ -311,7 +310,7 @@ public class DungeonMaster : MonoBehaviour
             // GlobalVariables.plankUsed = 0;
             // GlobalVariables.springUsed = 0;
             // GlobalVariables.heaterUsed = 0;
-
+            SendToGoogle.sendToGoogle.resetGlobalVariables("New Level");
             // GlobalVariables.heaterCoordinates = "";
 
             if(currentSceneName == "Level9") {
@@ -367,7 +366,7 @@ public class DungeonMaster : MonoBehaviour
         }
     }
 
-    public void resetValues(){
+    /*public void resetValues(){
         GameObject[] plank = GameObject.FindGameObjectsWithTag("Plank");
         foreach (GameObject p in plank)
         {
@@ -401,13 +400,13 @@ public class DungeonMaster : MonoBehaviour
         GlobalVariables.springUsed = 0;
         GlobalVariables.heaterUsed = 0;
         // GlobalVariables.heaterCoordinates = "";
-    }
+    }*/
 
     // becuase we have a balls[] and in future we might have multiple balls,
     // hence this function take the index of the particular ball which is to be frozen
     public void freezeBall(int index)
     {
-        balls[0].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+        balls[index].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
     }
 
 

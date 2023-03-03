@@ -136,7 +136,6 @@ public class BallScript : MonoBehaviour
                     collision.gameObject.GetComponent<Spring>().hasCollided = true;
                     Debug.Log("Spring used "+GlobalVariables.springUsed);
                 }
-                // Debug.Log("Spring used"+GlobalVariables.springUsed);
                 break;
             case "Static_Plank":
                 Debug.LogError("Static Plank Reference!");

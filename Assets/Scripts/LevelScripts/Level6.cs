@@ -13,6 +13,7 @@ public class Level6 : MonoBehaviour
 
     private void Awake()
     {
+        // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
         UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);
         UIBehavior.gameUI.operationPanel.SetActive(true);
