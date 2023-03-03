@@ -49,12 +49,6 @@ public class BallScript : MonoBehaviour
             sword.enabled = false;
         }
 
-        if(DungeonMaster.dm.currentSceneName == "Level7"){
-            // GameObject dmInstance = FindAnyObjectByType<DungeonMaster>().gameObject;
-            // dmInstance.AddComponent<Tutorial2>();
-            // GameObject[] tut2GameObject = FindGameObjectsWithTag("Tutorial2Instructions");
-            PropPlacer.instructionArray2 = GameObject.FindGameObjectsWithTag("Tutorial2Instructions");
-        }
 
         //Set the ball to its starting position (This should be changed to be configurable based on level
         ball.transform.position = startPosition;
@@ -95,7 +89,10 @@ public class BallScript : MonoBehaviour
             SendToGoogle.sendToGoogle.resetGlobalVariables("OOB");
             
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
-            if(DungeonMaster.dm.currentSceneName == "Level5"){
+            if (DungeonMaster.dm.currentSceneName == "Level7"){
+                GameObject.FindObjectOfType<Level7>().SendMessage("OutOfBounds", "oob");
+            }
+            if (DungeonMaster.dm.currentSceneName == "Level5"){
                 GameObject.FindObjectOfType<Level5>().SendMessage("OutOfBounds", "oob");
             }
             if(DungeonMaster.dm.currentSceneName == "Level4"){

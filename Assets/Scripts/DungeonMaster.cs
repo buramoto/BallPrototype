@@ -215,14 +215,12 @@ public class DungeonMaster : MonoBehaviour
             {
                 balls[i].startSim();
             }
-            //instructions.text = "Right Click To Attack Enemy";
             //Trigger start sim event
             StartSim?.Invoke();
         }
         else {
             // initialize time array
             //Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");
-            //instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
             for (int i = 0; i < levelPlanks.Length; i++)
             {
                 levelPlanks[i].gameObject.SetActive(true);

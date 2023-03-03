@@ -5,11 +5,7 @@ using UnityEngine.UI;
 
 public class Level7 : MonoBehaviour
 {
-
-    public static int instructionIndex = 0;
-    public GameObject[] instructionArray = new GameObject[5];
-    public static Level7 Level7Reference;
-
+    private int oobCount = 0;
     private void Awake()
     {
         // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
@@ -36,14 +32,6 @@ public class Level7 : MonoBehaviour
         UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
         UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
 
-        if (Level7Reference == null)
-        {
-            Level7Reference = this;
-        }
-        else
-        {
-
-        }
     }
     // Start is called before the first frame update
     void Start()
@@ -57,8 +45,24 @@ public class Level7 : MonoBehaviour
         
     }
 
-    public static void UpdateInstructionIndex()
+    public void OutOfBounds(string type)
     {
-        instructionIndex += 1;
+        // Increment the counter for out of bounds
+        oobCount++;
+
+        // If the counter is 2, then display the text to assist the player
+        if (type == "oob" && oobCount == 2)
+        {
+            GameObject dtext = GameObject.Find("Level7_Text");
+            Debug.Log(dtext);
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Use Planks and Spring correctly";
+        }
+        if (type == "oob" && oobCount == 5)
+        {
+            GameObject dtext = GameObject.Find("Level7_Text");
+            Debug.Log(dtext);
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Use stop button to change rotation or position";
+        }
     }
+
 }
