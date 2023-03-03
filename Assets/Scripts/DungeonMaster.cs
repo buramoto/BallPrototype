@@ -39,8 +39,8 @@ public class DungeonMaster : MonoBehaviour
     // Level7: Planks and Spring
     // Level8: Introduction to enemies
     // Level9: Main Level (Previously "UIDev")
-    private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level5", "Level6", "Level7", "Level8"};
-    private static string[] scenes = {"Level1", "Level2", "Level3", "Level5", "Level6", "Level7", "Level8", "Level9"};
+    private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8"};
+    private static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9"};
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;

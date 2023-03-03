@@ -6,25 +6,38 @@ using UnityEngine.UI;
 public class Level3 : MonoBehaviour
 {
     // Start is called before the first frame update
-    private void Awake()
-    {
-        UIBehavior.gameUI.toolKitPanel.SetActive(true);
-        UIBehavior.gameUI.operationPanel.SetActive(true);
-        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-
-        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
-        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
-        
-        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(false);
-        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
-
-        // To ensure that the buttons isn't stretched
-        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 100;
-        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 100;
-    }
     void Start()
     {
+        // setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
+        UIBehavior.gameUI.toolKitPanel.SetActive(true);
+        UIBehavior.gameUI.operationPanel.SetActive(true);
+        UIBehavior.gameUI.controlPanel.SetActive(true);
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
+        
+        // below we are making the Rotate Left & Rotate Right buttons InActive
+        UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
+        UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
+
+        // UIBehavior.gameUI.operationPanel.SetActive(false);
+        // below we are setting RESET Btn & UNDO Btn as InActive
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(false);
+
+        // below we are setting PLANK & SPRING InActive
+        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
+        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(false);
+
+        // Setting Layout for the TOOLKIT-PANEL
+        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 150;
+        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 150;
+
+        // Setting Layout for the OPERATION-PANEL
+        UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 150;
+        UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 150;
+
+
+
     }
 
     // Update is called once per frame
@@ -32,19 +45,4 @@ public class Level3 : MonoBehaviour
     {
         
     }
-
-    // public void OutOfBounds(string type)
-    // {
-    //     // Increment the counter for out of bounds
-    //     oobCount++;
-
-    //     // If the counter is 2, then display the text to assist the player
-    //     if (type == "oob" && oobCount == 2 && UIBehavior.gameUI)
-    //     {
-    //         GameObject dtext = GameObject.Find("Spring_Text");
-    //         Debug.Log(dtext);
-    //         dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Stuck? Place spring next to the second plank facing the ball";
-    //         dtext.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 23;
-    //     }
-    // }
 }
