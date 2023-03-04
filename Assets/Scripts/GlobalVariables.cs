@@ -24,6 +24,8 @@ public class GlobalVariables : MonoBehaviour
     public static List<GameObject> usedPlankObjects = new List<GameObject>();
     public static List<GameObject> usedSpringObjects = new List<GameObject>();
 
+    public static int levelScore = 0;
+
     // Level Name
     public static string sceneName;
     // Start is called before the first frame update
