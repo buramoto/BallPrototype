@@ -146,6 +146,10 @@ public class DungeonMaster : MonoBehaviour
         }
         isLevelOn = true;
         lives = maxLives;
+        GameObject button = GameObject.Find("StartButton");
+        TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+        buttonText.text = "Start";
+        UIBehavior.gameUI.changeButtonColor(false);
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
         goals = FindObjectsOfType<GoalBlock>();
