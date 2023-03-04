@@ -86,6 +86,19 @@ public class UIBehavior : MonoBehaviour
         DungeonMaster.dm.StopSim += stopSim;
     }
 
+    // public void changeButtonStateToStart() {
+    //     controlPanel.GetComponentsInChildren<Button>(true)[0].GetComponentsInChildren<Image>(true)[0].color = new Color32(231,64,64,255);
+    //     controlPanel.GetComponentsInChildren<Button>(true)[0].GetComponentsInChildren<TMP_Text>(true)[0].text = "Start";
+    // }
+
+    public void changeButtonColor(bool mode) {
+        if(mode) {
+            controlPanel.GetComponentsInChildren<Button>(true)[0].GetComponentsInChildren<Image>(true)[0].color = new Color32(231,64,64,255);
+        } else {
+            controlPanel.GetComponentsInChildren<Button>(true)[0].GetComponentsInChildren<Image>(true)[0].color = new Color32(52,195,52,255);
+        }
+    }
+
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
         if(activeScreen != null)
@@ -171,6 +184,7 @@ public class UIBehavior : MonoBehaviour
         }
         setOperationInactive();
         disableResetButton();
+        UIBehavior.gameUI.changeButtonColor(true);
         // Debug.Log("UI Behavior -- HighlightedObject"+DungeonMaster.dm.highlightedObject);
     }
     private void stopSim(StateReference.resetType type)
@@ -181,6 +195,7 @@ public class UIBehavior : MonoBehaviour
             toolKitButtons[i].interactable = true;
         }
         enableResetButton();
+        UIBehavior.gameUI.changeButtonColor(false);
         //Future scope: create indication for stop type. E.g. arrow pointing to oob coords when type is oob
     }
 
