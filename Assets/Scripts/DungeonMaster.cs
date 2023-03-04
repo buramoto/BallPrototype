@@ -149,6 +149,7 @@ public class DungeonMaster : MonoBehaviour
         GameObject button = GameObject.Find("StartButton");
         TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
         buttonText.text = "Start";
+        Debug.Log("From DM:"+buttonText.text);
         UIBehavior.gameUI.changeButtonColor(false);
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
@@ -206,6 +207,7 @@ public class DungeonMaster : MonoBehaviour
             GameObject button = GameObject.Find("StartButton");
             TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
             buttonText.text = "Start";
+            UIBehavior.gameUI.changeButtonColor(false);
             // below function is called so that INITIALLY OPERATION BUTTONS are INACTIVE
             UIBehavior.gameUI.setOperationInactive();
 
@@ -269,6 +271,7 @@ public class DungeonMaster : MonoBehaviour
             GameObject button = GameObject.Find("StartButton");
             TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
             buttonText.text = "Start";
+            UIBehavior.gameUI.changeButtonColor(false);
             // GlobalVariables.heaterCoordinates = "";
 
         }

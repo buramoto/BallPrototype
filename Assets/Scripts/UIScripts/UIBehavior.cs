@@ -184,6 +184,7 @@ public class UIBehavior : MonoBehaviour
         }
         setOperationInactive();
         disableResetButton();
+        UIBehavior.gameUI.changeButtonColor(true);
         // Debug.Log("UI Behavior -- HighlightedObject"+DungeonMaster.dm.highlightedObject);
     }
     private void stopSim(StateReference.resetType type)
@@ -194,6 +195,7 @@ public class UIBehavior : MonoBehaviour
             toolKitButtons[i].interactable = true;
         }
         enableResetButton();
+        UIBehavior.gameUI.changeButtonColor(false);
         //Future scope: create indication for stop type. E.g. arrow pointing to oob coords when type is oob
     }
 
