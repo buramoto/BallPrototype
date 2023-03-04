@@ -8,6 +8,7 @@ public class Level2 : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        Time.timeScale = 1;
         // GameObject.Find("Timer").SetActive(false);
         UIBehavior.gameUI.timer.SetActive(false);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);

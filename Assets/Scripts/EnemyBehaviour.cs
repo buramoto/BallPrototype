@@ -48,9 +48,13 @@ public class EnemyBehaviour : MonoBehaviour
                 Destroy(gameObject);
                 // not wokring as BALLS[] variable is private,
                 // so either make it public OR find ball by tag OR call the function dm.freezeBall();
-                DungeonMaster.dm.freezeBall(0);
+                // DungeonMaster.dm.freezeBall(0);
                 //DungeonMaster.dm.balls[0].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
                 //DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
+                // if(RedSplashScreen != null){
+                //     RedSplashScreen
+                // }
+                
                 UIBehavior.gameUI.displayGameOverScreen();
 
             }

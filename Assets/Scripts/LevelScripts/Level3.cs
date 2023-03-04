@@ -8,6 +8,7 @@ public class Level3 : MonoBehaviour
     private bool first = true;
     private void Awake()
     {
+        Time.timeScale = 1;
         // setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
         UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);

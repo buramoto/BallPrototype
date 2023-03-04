@@ -290,7 +290,8 @@ public class DungeonMaster : MonoBehaviour
         {
             // Stopping the ball once it hits the checkpoint
             // balls[0].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-            DungeonMaster.dm.freezeBall(0);
+            // DungeonMaster.dm.freezeBall(0);
+            Time.timeScale = 0;
             //adding goal time to timeArray
             timeArray[counter]=timeValue;
             isLevelOn = false;

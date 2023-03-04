@@ -9,6 +9,7 @@ public class Level5 : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+        Time.timeScale = 1;
         // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
         UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);

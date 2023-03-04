@@ -10,6 +10,7 @@ public class Level8 : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1;
         // Set the timer, tool kit panel, operation panel, and control panel to active
         UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);

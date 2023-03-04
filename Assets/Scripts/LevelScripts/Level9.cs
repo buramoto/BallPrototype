@@ -9,6 +9,7 @@ public class Level9 : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1;
         UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);
         UIBehavior.gameUI.operationPanel.SetActive(true);
