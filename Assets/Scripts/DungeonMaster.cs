@@ -161,6 +161,13 @@ public class DungeonMaster : MonoBehaviour
 
         simulationMode = false;
         counter = 0;
+        Debug.Log("IN initialize level setting to 0");
+        GlobalVariables.levelScore = 0;
+        GameObject scoreText = GameObject.Find("Score_Text");
+        if(scoreText!=null)
+        {
+            scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+        }
         simMode(false, StateReference.resetType.ssb);
         for(int i=0;i<goals.Length;i++) {
             Debug.Log(goals[i].gameObject);
@@ -243,7 +250,14 @@ public class DungeonMaster : MonoBehaviour
             {
                 balls[i].stopSim();
             }
-
+            GlobalVariables.levelScore = 0;
+            Debug.Log("IN stop sim reset to 0");
+            GlobalVariables.levelScore = 0;
+            GameObject scoreText = GameObject.Find("Score_Text");
+            if (scoreText != null)
+            {
+                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+            }
             Debug.Log("====> Count of Enemy_Elements: " + enemyElements.Length);
             Debug.Log("====> Count of Hearts: " + hearts.Length);
 
@@ -294,7 +308,14 @@ public class DungeonMaster : MonoBehaviour
             //adding goal time to timeArray
             timeArray[counter]=timeValue;
             isLevelOn = false;
-
+            GlobalVariables.levelScore += 500;
+            Debug.Log("Checking"+GlobalVariables.levelScore);
+            GameObject scoreText = GameObject.Find("Score_Text");
+            Debug.Log("This is the score go" + scoreText);
+            if (scoreText != null)
+            {
+                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+            }
             // Storing the number of player's lives left
             GlobalVariables.livesLeft = lives;
 
@@ -341,6 +362,27 @@ public class DungeonMaster : MonoBehaviour
             timeArray[counter]=timeValue;
             //Correct, play sound
             counter++;
+            if(checkpointColor=='p')
+            {
+                GlobalVariables.levelScore += 100;
+                Debug.Log("added 100 Score is :-" + GlobalVariables.levelScore);
+            }
+            else if(checkpointColor=='y')
+            {
+                GlobalVariables.levelScore += 200;
+                Debug.Log("added 200 Score is :-" + GlobalVariables.levelScore);
+            }
+            else if(checkpointColor=='w')
+            {
+                GlobalVariables.levelScore += 300;
+                Debug.Log("added 300 Score is :-" + GlobalVariables.levelScore);
+            }
+            GameObject scoreText = GameObject.Find("Score_Text");
+            Debug.Log("This is the score go" + scoreText);
+            if (scoreText != null)
+            {
+                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+            }
         }
     }
 
