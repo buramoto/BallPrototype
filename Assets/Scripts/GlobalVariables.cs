@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static StateReference;
 
 public class GlobalVariables : MonoBehaviour
 {
@@ -25,6 +26,12 @@ public class GlobalVariables : MonoBehaviour
     public static List<GameObject> usedSpringObjects = new List<GameObject>();
 
     public static int levelScore = 0;
+
+    /// <summary>
+    /// Dictionary to store corresponding color and points to be awarded
+    /// </summary>
+    public static Dictionary<goalColor, int> scoreDict = new Dictionary<goalColor, int> { [goalColor.purple] = 100, [goalColor.yellow] = 200, [goalColor.white] = 300 };
+
 
     // Level Name
     public static string sceneName;

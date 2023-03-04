@@ -56,7 +56,7 @@ public class Level4 : MonoBehaviour
              GameObject dtext = GameObject.Find("Level4_Text");
              Debug.Log(dtext);
             Debug.Log("Came inside if");
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Place planks in the gaps correctly";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Create & Rotate Planks to bridge the gap";
              dtext.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 23;
          }
          else if(type == "oob" && oobCount == 5 && UIBehavior.gameUI)

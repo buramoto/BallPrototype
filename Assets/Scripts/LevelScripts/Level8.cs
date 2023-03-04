@@ -36,17 +36,17 @@ public class Level8 : MonoBehaviour
             Debug.Log(dtext);
             dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Right Click to Attack Enemies when the ball is moving";
         }
-        if (GlobalVariables.kbeCounter > 0 && GlobalVariables.kbeCounter < 3)
+        if (GlobalVariables.kbeCounter > 0 && GlobalVariables.kbeCounter < 2)
         {
             GameObject dtext = GameObject.Find("Level8_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Time it correctly to kill them";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: A Sword would always appears from right";
         }
-        if (GlobalVariables.kbeCounter  == 3)
+        if (GlobalVariables.kbeCounter  == 2)
         {
             GameObject dtext = GameObject.Find("Level8_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Remember that you only have 2 lives";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Note: you only have 2 lives";
         }
     }
     // Start is called before the first frame update

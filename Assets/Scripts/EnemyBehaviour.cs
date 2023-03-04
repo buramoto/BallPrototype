@@ -55,7 +55,10 @@ public class EnemyBehaviour : MonoBehaviour
                 // if(RedSplashScreen != null){
                 //     RedSplashScreen
                 // }
-                
+                var col = RedSplashScreen.GetComponent<Image>().color;
+                col.a = 0.00f;
+                RedSplashScreen.GetComponent<Image>().color = col;
+
                 UIBehavior.gameUI.displayGameOverScreen();
 
             }

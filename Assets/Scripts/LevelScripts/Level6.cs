@@ -47,7 +47,14 @@ public class Level6 : MonoBehaviour
         GameObject button = GameObject.Find("StartButton");
         TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
         Debug.Log("Value of attempt counter" + GlobalVariables.attemptCounter);
-        if (buttonText.text == "Start" && GlobalVariables.attemptCounter>=2 && GlobalVariables.plankUsed>0)
+        //if (GlobalVariables.heaterUsed < 1 && buttonText.text == "Start" &&  GlobalVariables.attemptCounter >= 2 )
+        //{
+        //    GameObject dtext1 = GameObject.Find("Level6_Text");
+        //    Debug.Log(dtext1);
+        //    dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Place a Heater Right Below the Ball";
+        //}
+
+        if (buttonText.text == "Start" && GlobalVariables.attemptCounter>=3 && GlobalVariables.plankUsed>0)
         {
             GameObject dtext1 = GameObject.Find("Level6_Text");
             Debug.Log(dtext1);
@@ -61,7 +68,7 @@ public class Level6 : MonoBehaviour
         {
             GameObject dtext = GameObject.Find("Level6_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Place planks to direct the ball";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Use Heater to Heat the Ball\n Align Planks to direct ball";
             first = false;
         }
     }

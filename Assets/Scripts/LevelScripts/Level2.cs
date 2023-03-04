@@ -44,13 +44,13 @@ public class Level2 : MonoBehaviour
         {
             GameObject dtext = GameObject.Find("Level_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Use it to guide the ball";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Ice Sheets do not affect the ball";
         }
         else if (collision.gameObject.name == "Ball" && this.name == "Collider2")
         {
             GameObject dtext = GameObject.Find("Level_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Use it to your advantage";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "But it may block path to Goal";
         }
     }
 }

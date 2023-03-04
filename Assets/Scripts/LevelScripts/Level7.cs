@@ -56,13 +56,13 @@ public class Level7 : MonoBehaviour
         {
             GameObject dtext = GameObject.Find("Level7_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Use Planks and Spring correctly";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Try aligning Wood Planks & a Spring";
         }
         if (type == "oob" && oobCount == 5)
         {
             GameObject dtext = GameObject.Find("Level7_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Use stop button to change rotation or position";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Try Rotating the Wood Planks/Spring";
         }
     }
 

@@ -365,17 +365,18 @@ public class DungeonMaster : MonoBehaviour
             counter++;
             if(checkpointColor=='p')
             {
-                GlobalVariables.levelScore += 100;
+                
+                GlobalVariables.scoreDict[checkpoint.GetComponent<GoalBlock>().goalColor] += 100;
                 Debug.Log("added 100 Score is :-" + GlobalVariables.levelScore);
             }
             else if(checkpointColor=='y')
             {
-                GlobalVariables.levelScore += 200;
+                GlobalVariables.scoreDict[checkpoint.GetComponent<GoalBlock>().goalColor] += 200;
                 Debug.Log("added 200 Score is :-" + GlobalVariables.levelScore);
             }
             else if(checkpointColor=='w')
             {
-                GlobalVariables.levelScore += 300;
+                GlobalVariables.scoreDict[checkpoint.GetComponent<GoalBlock>().goalColor] += 300;
                 Debug.Log("added 300 Score is :-" + GlobalVariables.levelScore);
             }
             GameObject scoreText = GameObject.Find("Score_Text");

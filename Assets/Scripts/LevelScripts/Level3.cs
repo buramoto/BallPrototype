@@ -53,7 +53,14 @@ public class Level3 : MonoBehaviour
         {
             GameObject dtext1 = GameObject.Find("Heater_Text");
             Debug.Log(dtext1);
-            dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Create Heater between ball and plank";
+            dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Click on Heater button";
+        }
+
+        if (buttonText.text == "Start" && GlobalVariables.heaterUsed > 0) {
+            Debug.Log("Try to Set new Message");
+            GameObject dtext1 = GameObject.Find("Heater_Text");
+            Debug.Log(dtext1);
+            dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "A Red-Hot Ball melts only 1 Ice Sheet";
         }
     }
 
@@ -63,7 +70,7 @@ public class Level3 : MonoBehaviour
         {
             GameObject dtext = GameObject.Find("Heater_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Oops we are stuck!!! Press stop";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Oops, stuck?\n Press stop";
             first = false;
         }
     }

@@ -57,7 +57,7 @@ public class Level5 : MonoBehaviour
         {
             GameObject dtext = GameObject.Find("Spring_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Stuck? Place spring next to the second plank facing the ball";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Stuck?\nPlace spring at the end of second plank facing the ball";
             dtext.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 23;
         }
     }
