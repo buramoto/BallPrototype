@@ -22,7 +22,8 @@ public class GoalBlock : MonoBehaviour
                 renderer.color = Color.yellow;
                 break;
             case StateReference.goalColor.green:
-                renderer.color = Color.green;
+                // commented this line so that the goal block isnt green in color
+                //renderer.color = Color.green;
                 break;
             default:
                 Debug.Log("Goal color is not set!");

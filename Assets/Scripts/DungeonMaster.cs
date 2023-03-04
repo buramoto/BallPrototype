@@ -305,11 +305,16 @@ public class DungeonMaster : MonoBehaviour
                 Debug.Log("GOOGLE");
                 SendToGoogle.sendToGoogle.Send();
             }
-            checkpoint.SetActive(false);
+            // commenting below line so that checkpoint is not removed from the screen if it is the FINISH LINE
+            
+            //checkpoint.SetActive(false);
+            
+
+
             // GlobalVariables.oobCounter = 0;
             // GlobalVariables.wgoCounter = 0;
             // GlobalVariables.attemptCounter = 0;
-            // //From Analytics
+            // From Analytics
             // GlobalVariables.plankUsed = 0;
             // GlobalVariables.springUsed = 0;
             // GlobalVariables.heaterUsed = 0;
