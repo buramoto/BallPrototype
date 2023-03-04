@@ -132,6 +132,12 @@ public class UIBehavior : MonoBehaviour
     public void displayWinScreen()
     {
         activeScreen = Instantiate(winScreen, gameObject.transform);
+        GameObject FinalScore = GameObject.Find("Final_Score");
+        Debug.Log("This is the score go" + FinalScore);
+        if (FinalScore != null)
+        {
+            FinalScore.GetComponent<TMPro.TextMeshProUGUI>().text = "Your Score:- " + GlobalVariables.levelScore.ToString();
+        }
     }
 
     // GameOver Func
@@ -148,6 +154,12 @@ public class UIBehavior : MonoBehaviour
     public void displayNextLevelScreen(string sceneName)
     {
         activeScreen = Instantiate(nextLevelScreen, gameObject.transform);
+        GameObject FinalScore = GameObject.Find("Final_Score");
+        Debug.Log("This is the score go" + FinalScore);
+        if (FinalScore != null)
+        {
+            FinalScore.GetComponent<TMPro.TextMeshProUGUI>().text = "Your Score:- " + GlobalVariables.levelScore.ToString();
+        }
     }
 
     private void initMainMenu()
