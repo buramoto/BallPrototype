@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Level8 : MonoBehaviour
 {
     public static Level8 Level8Reference;
+    // private int kbeCount = 0;
 
     private void Awake()
     {
@@ -28,6 +29,24 @@ public class Level8 : MonoBehaviour
         {
 
         }
+        if (GlobalVariables.kbeCounter == 0)
+        {
+            GameObject dtext = GameObject.Find("Level8_Text");
+            Debug.Log(dtext);
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Right Click to Attack Enemies when the ball is moving";
+        }
+        if (GlobalVariables.kbeCounter > 0 && GlobalVariables.kbeCounter < 3)
+        {
+            GameObject dtext = GameObject.Find("Level8_Text");
+            Debug.Log(dtext);
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Time it correctly to kill them";
+        }
+        if (GlobalVariables.kbeCounter  == 3)
+        {
+            GameObject dtext = GameObject.Find("Level8_Text");
+            Debug.Log(dtext);
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Remember that you only have 2 lives";
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -38,6 +57,15 @@ public class Level8 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    public void KillByEnemy(string type)
+    {
+        // Increment the counter for kill by enemy
+        // kbeCount++;
+
+        // If the counter is 2, then display the text to assist the player
+       
     }
 }
