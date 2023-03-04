@@ -61,6 +61,10 @@ public class ResetButton : MonoBehaviour
         // winScreenExecute();
     }
 
+    public void tryAgainExecute(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     // public void winScreenExecute()
     // {
     //     GameObject winScreen = GameObject.Find("WinScreen(Clone)");

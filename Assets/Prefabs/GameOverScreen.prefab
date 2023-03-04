@@ -542,7 +542,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5831715068875126129}
         m_TargetAssemblyTypeName: ResetButton, Assembly-CSharp
-        m_MethodName: execute
+        m_MethodName: tryAgainExecute
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

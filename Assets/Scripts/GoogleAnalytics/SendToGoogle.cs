@@ -151,7 +151,7 @@ public class SendToGoogle : MonoBehaviour
             GlobalVariables.wgoCounter = 0; 
         }
         else if(type == "OOB"){
-            GlobalVariables.attemptCounter += 1;
+            // GlobalVariables.attemptCounter += 1;
             GlobalVariables.oobCounter += 1; 
         }
         else if(type == "KBE"){
