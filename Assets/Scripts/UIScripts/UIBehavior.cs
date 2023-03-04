@@ -137,6 +137,10 @@ public class UIBehavior : MonoBehaviour
     // GameOver Func
     public void displayGameOverScreen()
     {
+        GameObject button = GameObject.Find("StartButton");
+        TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+        buttonText.text = "Start";
+        changeButtonColor(false);
         activeScreen = Instantiate(gameOverScreen, gameObject.transform);
     }
 
