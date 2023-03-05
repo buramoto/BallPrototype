@@ -31,6 +31,13 @@ public class EnemyBehaviour : MonoBehaviour
         if(collision.gameObject.CompareTag("Sword"))
         {
             Debug.Log("Collided with Sword");
+            GlobalVariables.levelScore += 50;
+            GameObject scoreText = GameObject.Find("Score_Text");
+            Debug.Log("This is the score go" + scoreText);
+            if (scoreText != null)
+            {
+                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+            }
             // Instead of destroying we will SET setActive(FALSE)
             //Destroy(gameObject);
             gameObject.SetActive(false);
@@ -43,8 +50,24 @@ public class EnemyBehaviour : MonoBehaviour
             Debug.Log("Collided with Player");
             if (DungeonMaster.dm.lives <= 0)
             {
-                DungeonMaster.dm.lives = 2;
-                DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
+                SendToGoogle.sendToGoogle.resetGlobalVariables("KBE");
+                
+                Destroy(gameObject);
+                // not wokring as BALLS[] variable is private,
+                // so either make it public OR find ball by tag OR call the function dm.freezeBall();
+                // DungeonMaster.dm.freezeBall(0);
+
+                //DungeonMaster.dm.balls[0].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+                //DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
+                // if(RedSplashScreen != null){
+                //     RedSplashScreen
+                // }
+                var col = RedSplashScreen.GetComponent<Image>().color;
+                col.a = 0.00f;
+                RedSplashScreen.GetComponent<Image>().color = col;
+                Time.timeScale = 0;
+                UIBehavior.gameUI.displayGameOverScreen();
+
             }
             var color = RedSplashScreen.GetComponent<Image>().color;
             color.a = 0.9f;

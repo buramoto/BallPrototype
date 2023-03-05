@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6125850291190678210}
   - component: {fileID: 6125850291190678211}
   - component: {fileID: 6125850291190678268}
+  - component: {fileID: -423525469869016126}
+  - component: {fileID: 8329306365913448104}
   m_Layer: 0
   m_Name: GoalBlock
   m_TagString: Checkpoint
@@ -79,7 +81,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 1
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -99,18 +101,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.0019678175}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.99606436}
   m_EdgeRadius: 0
 --- !u!114 &6125850291190678268
 MonoBehaviour:
@@ -125,3 +127,71 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalColor: 1
+--- !u!114 &-423525469869016126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6125850291190678269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a8114d267a044f7a2e052448259de9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  URL: https://docs.google.com/forms/u/1/d/e/1FAIpQLSd-me1BBMWKkP_7_P9WYRii1JI-7gXpsiKg7F6Vu7s5JPQojg/formResponse
+  plank: []
+  spring: []
+  heater: []
+--- !u!60 &8329306365913448104
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6125850291190678269}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 1
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.50093967, y: -0.48617792}
+      - {x: -0.49955928, y: -0.49521968}
+      - {x: -0.49955928, y: -0.28653318}
+      - {x: -0.4466762, y: -0.22041605}
+      - {x: -0.23973718, y: -0.21717413}
+      - {x: -0.2456311, y: 0.26134282}
+      - {x: -0.35810265, y: 0.2651289}
+      - {x: -0.35827705, y: 0.26310325}
+      - {x: -0.35616824, y: 0.5023205}
+      - {x: 0.38830358, y: 0.507303}
+      - {x: 0.39088044, y: 0.26090065}
+      - {x: 0.23635523, y: 0.2623623}
+      - {x: 0.24051358, y: -0.22591084}
+      - {x: 0.46287513, y: -0.2281965}
+      - {x: 0.504587, y: -0.28719977}
+      - {x: 0.504587, y: -0.28719977}
+      - {x: 0.504587, y: -0.28719977}
+      - {x: 0.504587, y: -0.28719977}
+      - {x: 0.504587, y: -0.28719977}
+      - {x: 0.504587, y: -0.28719977}
+      - {x: 0.504587, y: -0.28719977}
+      - {x: 0.504587, y: -0.28719977}
+      - {x: 0.504587, y: -0.28719977}
+      - {x: 0.504587, y: -0.28719977}
+      - {x: 0.504587, y: -0.28719977}
+      - {x: 0.504587, y: -0.28719977}
+      - {x: 0.504587, y: -0.28719977}

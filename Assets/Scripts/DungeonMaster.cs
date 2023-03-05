@@ -23,6 +23,7 @@ public class DungeonMaster : MonoBehaviour
     public byte counter;
     public int lives;
     public static int sceneIndex = 0;
+    private bool isLevelOn;
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -30,15 +31,20 @@ public class DungeonMaster : MonoBehaviour
     private GoalBlock[] goals;
     private Spring[] levelSprings;
     private ChangeTemperature[] tempElements;
-    private string[] tutorialScenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial" };
-    private static string[] scenes = { "Tutorial_1", "Tutorial_2", "EnemyTutorial", "UIDev" };
+
+    // For our reference:
+    // Level1: Introduction to Ball, Goal, Start button
+    // Level2: Introduction to Ice Planks
+    // Level5: Introduction to Springs
+    // Level6: Planks and Heater
+    // Level7: Planks and Spring
+    // Level8: Introduction to enemies
+    // Level9: Main Level (Previously "UIDev")
+    private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8"};
+    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12"};
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;
-
-    // variable to store different scene names
-    // public string tutorial1 = "Tutorial_1";
-    // public string tutorial2 = "Tutorial_2";
 
 
     // array to store checkpoint time
@@ -47,12 +53,11 @@ public class DungeonMaster : MonoBehaviour
 
     // timevalue stores the currentTime and timer is the text gameobject
     public static float timeValue = 0;
-    private GameObject timer;
 
     //Sequence of checkpoints, should be configurable by level
     // private char[] sequence = {'p', 'y', 'w', 'g'};//original
-    private char[] sequence;//THIS NEEDS TO CHANGE
-    private IDictionary<string,char[]> sequences = new Dictionary<string, char[]>();
+    //private char[] sequence;//THIS NEEDS TO CHANGE
+    //private IDictionary<string,char[]> sequences = new Dictionary<string, char[]>();
     
     public string nextSceneName; //This should be set in the local DM
     public string currentSceneName;
@@ -65,7 +70,6 @@ public class DungeonMaster : MonoBehaviour
     public event StopSimulation StopSim;
 
     //Settings
-    public float rotationSpeed;
     public int maxLives;
 
     /// <summary>
@@ -80,16 +84,16 @@ public class DungeonMaster : MonoBehaviour
             dm = this;
             SceneManager.sceneLoaded += initalizeLevel;
             char[] tutorial_sequence = {'g'};
-            sequences.Add("Tutorial_1",tutorial_sequence);
-            sequences.Add("Tutorial_2",tutorial_sequence);
-            sequences.Add("EnemyTutorial",tutorial_sequence);
+            //sequences.Add("Tutorial_1",tutorial_sequence);
+            //sequences.Add("Tutorial_2",tutorial_sequence);
+            //sequences.Add("EnemyTutorial",tutorial_sequence);
             char[] main_level_sequence = {'p','y','w','g'};
-            sequences.Add("UIDev",main_level_sequence);
+            //sequences.Add("UIDev",main_level_sequence);
         }
         else
         {
             // dm.sequence = sequence;//Should change
-            // dm.nextSceneName = scenes[sceneIndex+1]; //Set the next level scene name
+            dm.nextSceneName = nextSceneName; //Set the next level scene name
             // dm.currentSceneName = scenes[sceneIndex];
             Destroy(gameObject);
         }
@@ -103,7 +107,6 @@ public class DungeonMaster : MonoBehaviour
         //initalizeLevel();
         //Initializing the timer object
         //instructions = Get;
-        timer = GameObject.Find("Timer");
         Debug.Log("Initialize Level count of ENEMY: " + enemyElements.Length);
         enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
         // Debug.Log("Scene Index" + sceneIndex);
@@ -114,11 +117,14 @@ public class DungeonMaster : MonoBehaviour
     private void Update()
     {
         //Calculating time for every update and updating the text in Timer gameobject
-        timeValue += Time.deltaTime;
-        float minutes = Mathf.FloorToInt(timeValue / 60);
-        float seconds = Mathf.FloorToInt(timeValue % 60);
-        TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
-        tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        // if(currentSceneName != "Level1" && currentSceneName != "Level2" && SceneManager.GetActiveScene().name != "MainMenu") {
+            if(isLevelOn) {
+                timeValue += Time.deltaTime;
+                float minutes = Mathf.FloorToInt(timeValue / 60);
+                float seconds = Mathf.FloorToInt(timeValue % 60);
+                UIBehavior.gameUI.updateTimer(minutes,seconds);
+            }
+        // }
     }
 
 
@@ -132,15 +138,19 @@ public class DungeonMaster : MonoBehaviour
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
         currentSceneName = scene.name;
-        sequence = sequences[currentSceneName];
+        //sequence = sequences[currentSceneName];
         Debug.Log("Initalizing level "+currentSceneName);
-        GameObject winScreen = GameObject.Find("WinScreen(Clone)");
-        if(winScreen != null){
-            winScreen.SetActive(false);
-            Destroy(winScreen);
+        if(currentSceneName == "MainMenu")
+        {
+            return;
         }
-        //instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion"; 
+        isLevelOn = true;
         lives = maxLives;
+        GameObject button = GameObject.Find("StartButton");
+        TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+        buttonText.text = "Start";
+        Debug.Log("From DM:"+buttonText.text);
+        UIBehavior.gameUI.changeButtonColor(false);
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
         goals = FindObjectsOfType<GoalBlock>();
@@ -148,30 +158,17 @@ public class DungeonMaster : MonoBehaviour
         hearts = FindObjectsOfType<HeartBehavior>();
 
         enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
-        //Debug.Log("Hearts Length data: " + hearts.Length);
-
-        //hearts = GameObject.FindGameObjectsWithTag("Lives");
-
-        //if (hearts.Length != 0)
-        //{
-        //    hearts = null;
-        //}
-
-        // Debug.Log("---------->" + hearts);
-        //hearts = new GameObject[lives];
-        //for (int i = 0; i < lives; i++)
-        //{
-
-        //    hearts[i] = allHearts[i];
-        //    //hearts[i].SetActive(true);
-        //    //Debug.Log("Name of Heart: " + hearts[i].name);
-        //}
 
         simulationMode = false;
         counter = 0;
+        Debug.Log("IN initialize level setting to 0");
+        GlobalVariables.levelScore = 0;
+        GameObject scoreText = GameObject.Find("Score_Text");
+        if(scoreText!=null)
+        {
+            scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+        }
         simMode(false, StateReference.resetType.ssb);
-        Debug.Log("Initalizing level of Dungeon Master has been Executed");
-        // Debug.Log(goals.Length);
         for(int i=0;i<goals.Length;i++) {
             Debug.Log(goals[i].gameObject);
             goals[i].gameObject.SetActive(true);
@@ -183,20 +180,26 @@ public class DungeonMaster : MonoBehaviour
         }
     }
 
+    //Scene loads
     /// <summary>
     /// Loads the next scene
     /// </summary>
-    public void loadNextLevel()
+    public void loadNextLevel(string levelName = null)
     {
-        if(sceneIndex<scenes.Length-1) {
-            timeValue = 0;
-            TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
-            tm.text = "0:00";
-            currentSceneName = scenes[sceneIndex];
-            sceneIndex++;
-            nextSceneName = scenes[sceneIndex];
-            SceneManager.LoadScene(nextSceneName);
+        if(levelName == null)
+        {
+            //Win screen here
+            return;
         }
+        timeValue = 0;
+        //TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
+        //tm.text = "0:00";
+        currentSceneName = nextSceneName;
+        SceneManager.LoadScene(levelName);
+    }
+    public void loadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
@@ -211,6 +214,7 @@ public class DungeonMaster : MonoBehaviour
             GameObject button = GameObject.Find("StartButton");
             TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
             buttonText.text = "Start";
+            UIBehavior.gameUI.changeButtonColor(false);
             // below function is called so that INITIALLY OPERATION BUTTONS are INACTIVE
             UIBehavior.gameUI.setOperationInactive();
 
@@ -224,17 +228,19 @@ public class DungeonMaster : MonoBehaviour
             {
                 balls[i].startSim();
             }
-            //instructions.text = "Right Click To Attack Enemy";
             //Trigger start sim event
             StartSim?.Invoke();
         }
         else {
             // initialize time array
             //Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");
-            //instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
             for (int i = 0; i < levelPlanks.Length; i++)
             {
                 levelPlanks[i].gameObject.SetActive(true);
+                // if(levelPlanks[i].gameObject.name == "Plank(Clone)" && levelPlanks[i].gameObject.GetComponent<Plank>().editable == true && levelPlanks[i].GameObject.GetComponent<Plank>().hasCollided == true)
+                // {
+                //     levelPlanks[i].gameObject.GetComponent<Plank>().hasCollided = false;
+                // }
             }
             for (int i = 0; i < goals.Length; i++)
             {
@@ -244,7 +250,14 @@ public class DungeonMaster : MonoBehaviour
             {
                 balls[i].stopSim();
             }
-
+            GlobalVariables.levelScore = 0;
+            Debug.Log("IN stop sim reset to 0");
+            GlobalVariables.levelScore = 0;
+            GameObject scoreText = GameObject.Find("Score_Text");
+            if (scoreText != null)
+            {
+                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+            }
             Debug.Log("====> Count of Enemy_Elements: " + enemyElements.Length);
             Debug.Log("====> Count of Hearts: " + hearts.Length);
 
@@ -257,7 +270,10 @@ public class DungeonMaster : MonoBehaviour
             {
                 hearts[i].gameObject.SetActive(true);
             }
+            //From Analytics
+            //resetValues();
             lives = maxLives;
+            SendToGoogle.sendToGoogle.resetGlobalVariables("ModeChange");
             //Trigger stop sim event
             StopSim?.Invoke(type);
 
@@ -269,6 +285,8 @@ public class DungeonMaster : MonoBehaviour
             GameObject button = GameObject.Find("StartButton");
             TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
             buttonText.text = "Start";
+            UIBehavior.gameUI.changeButtonColor(false);
+            // GlobalVariables.heaterCoordinates = "";
 
         }
         simulationMode = !simulationMode;
@@ -284,35 +302,89 @@ public class DungeonMaster : MonoBehaviour
         Debug.Log("Counter value" + counter);
         if(checkpointColor=='g')
         {
+            // Stopping the ball once it hits the checkpoint
+            // balls[0].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+            // DungeonMaster.dm.freezeBall(0);
+            Time.timeScale = 0;
             //adding goal time to timeArray
-            timeArray[counter]=timeValue;
+            //timeArray[counter]=timeValue;
+            isLevelOn = false;
+            GlobalVariables.levelScore += 500;
+            Debug.Log("Checking"+GlobalVariables.levelScore);
+            GameObject scoreText = GameObject.Find("Score_Text");
+            Debug.Log("This is the score go" + scoreText);
+            if (scoreText != null)
+            {
+                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+            }
+            // Storing the number of player's lives left
+            GlobalVariables.livesLeft = lives;
+
+            Debug.Log("Heaters used: " + GlobalVariables.heaterUsed);
             //Display a Win screen
-            if (!tutorialScenes.Contains(currentSceneName))
+
+            //current scene name
+            Scene currentScene = SceneManager.GetActiveScene();
+            GlobalVariables.sceneName = currentScene.name;
+            Debug.Log("Scene Name: " + GlobalVariables.sceneName);
+
+            //ANALYTICS
+            if (GlobalVariables.sceneName != "Level1" && GlobalVariables.sceneName != "Level2")
             {
                 Debug.Log("GOOGLE");
                 SendToGoogle.sendToGoogle.Send();
             }
-            checkpoint.SetActive(false);
-            GlobalVariables.attemptCounter = 0;
-            if(sceneIndex == scenes.Length-1) {
+            // commenting below line so that checkpoint is not removed from the screen if it is the FINISH LINE
+            
+            //checkpoint.SetActive(false);
+            
+
+
+            // GlobalVariables.oobCounter = 0;
+            // GlobalVariables.wgoCounter = 0;
+            // GlobalVariables.attemptCounter = 0;
+            // From Analytics
+            // GlobalVariables.plankUsed = 0;
+            // GlobalVariables.springUsed = 0;
+            // GlobalVariables.heaterUsed = 0;
+            SendToGoogle.sendToGoogle.resetGlobalVariables("New Level");
+            // GlobalVariables.heaterCoordinates = "";
+
+            if(currentSceneName == scenes[scenes.Length-1]) {
                 UIBehavior.gameUI.displayWinScreen();
             } else {
                 UIBehavior.gameUI.displayNextLevelScreen(nextSceneName);
             }
         }
-        else if(checkpointColor == sequence[counter])
+        else
         {
             //Correct, play sound
             //add time value to array
             timeArray[counter]=timeValue;
             //Correct, play sound
             counter++;
-        }
-        else
-        {  
-            //Player got the ball to the wrong goal block
-            simMode(false, StateReference.resetType.wgo);
-            // array initialize to empty
+            if(checkpointColor=='p')
+            {
+
+                GlobalVariables.levelScore += GlobalVariables.scoreDict[checkpoint.GetComponent<GoalBlock>().goalColor];
+                Debug.Log("added 100 Score is :-" + GlobalVariables.levelScore);
+            }
+            else if(checkpointColor=='y')
+            {
+                GlobalVariables.levelScore += GlobalVariables.scoreDict[checkpoint.GetComponent<GoalBlock>().goalColor];
+                Debug.Log("added 200 Score is :-" + GlobalVariables.levelScore);
+            }
+            else if(checkpointColor=='w')
+            {
+                GlobalVariables.levelScore += GlobalVariables.scoreDict[checkpoint.GetComponent<GoalBlock>().goalColor];
+                Debug.Log("added 300 Score is :-" + GlobalVariables.levelScore);
+            }
+            GameObject scoreText = GameObject.Find("Score_Text");
+            Debug.Log("This is the score go" + scoreText);
+            if (scoreText != null)
+            {
+                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+            }
         }
     }
 
@@ -352,5 +424,49 @@ public class DungeonMaster : MonoBehaviour
             }
         }
     }
+
+    /*public void resetValues(){
+        GameObject[] plank = GameObject.FindGameObjectsWithTag("Plank");
+        foreach (GameObject p in plank)
+        {
+            Plank script = p.GetComponent<Plank>();
+            if(script!=null && script.editable){
+
+                Debug.Log(p.transform.position);
+                script.hasCollided = false;
+
+            }   
+        }
+        GameObject[] spring = GameObject.FindGameObjectsWithTag("Spring");
+        foreach (GameObject s in spring)
+        {
+            Spring script = s.GetComponent<Spring>();
+            if(script!=null && script.editable){
+                script.hasCollided = false;
+
+            }   
+        }
+        GameObject[] heater = GameObject.FindGameObjectsWithTag("TempChange");
+        foreach (GameObject h in heater)
+        {
+            ChangeTemperature script = h.GetComponent<ChangeTemperature>();
+            if(script!=null && script.editable){
+                script.hasCollided = false;
+
+            }   
+        }
+        GlobalVariables.plankUsed = 0;
+        GlobalVariables.springUsed = 0;
+        GlobalVariables.heaterUsed = 0;
+        // GlobalVariables.heaterCoordinates = "";
+    }*/
+
+    // becuase we have a balls[] and in future we might have multiple balls,
+    // hence this function take the index of the particular ball which is to be frozen
+    public void freezeBall(int index)
+    {
+        balls[index].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+    }
+
 
 }
