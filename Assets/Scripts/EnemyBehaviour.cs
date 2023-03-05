@@ -31,6 +31,13 @@ public class EnemyBehaviour : MonoBehaviour
         if(collision.gameObject.CompareTag("Sword"))
         {
             Debug.Log("Collided with Sword");
+            GlobalVariables.levelScore += 50;
+            GameObject scoreText = GameObject.Find("Score_Text");
+            Debug.Log("This is the score go" + scoreText);
+            if (scoreText != null)
+            {
+                scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+            }
             // Instead of destroying we will SET setActive(FALSE)
             //Destroy(gameObject);
             gameObject.SetActive(false);

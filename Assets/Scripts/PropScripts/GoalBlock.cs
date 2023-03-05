@@ -13,13 +13,13 @@ public class GoalBlock : MonoBehaviour
         switch (goalColor)
         {
             case StateReference.goalColor.purple:
-                renderer.color = new Color(181, 0, 255);//CHANGE THIS TO PURPLE
+                //renderer.color = new Color(181, 0, 255);//CHANGE THIS TO PURPLE
                 break;
             case StateReference.goalColor.white:
-                renderer.color = Color.white;
+                //renderer.color = Color.white;
                 break;
             case StateReference.goalColor.yellow:
-                renderer.color = Color.yellow;
+                //renderer.color = Color.yellow;
                 break;
             case StateReference.goalColor.green:
                 // commented this line so that the goal block isnt green in color
