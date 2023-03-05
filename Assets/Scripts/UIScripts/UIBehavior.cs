@@ -131,6 +131,10 @@ public class UIBehavior : MonoBehaviour
     // Winscreen Func
     public void displayWinScreen()
     {
+        GameObject button = GameObject.Find("StartButton");
+        TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+        buttonText.text = "Start";
+        changeButtonColor(false);
         activeScreen = Instantiate(winScreen, gameObject.transform);
         GameObject FinalScore = GameObject.Find("Final_Score");
         Debug.Log("This is the score go" + FinalScore);
@@ -153,6 +157,10 @@ public class UIBehavior : MonoBehaviour
 
     public void displayNextLevelScreen(string sceneName)
     {
+        GameObject button = GameObject.Find("StartButton");
+        TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+        buttonText.text = "Start";
+        changeButtonColor(false);
         activeScreen = Instantiate(nextLevelScreen, gameObject.transform);
         GameObject FinalScore = GameObject.Find("Final_Score");
         Debug.Log("This is the score go" + FinalScore);
