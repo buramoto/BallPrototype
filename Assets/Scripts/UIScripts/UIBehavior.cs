@@ -90,10 +90,11 @@ public class UIBehavior : MonoBehaviour
         DungeonMaster.dm.StopSim += stopSim;
     }
 
-    // public void changeButtonStateToStart() {
-    //     controlPanel.GetComponentsInChildren<Button>(true)[0].GetComponentsInChildren<Image>(true)[0].color = new Color32(231,64,64,255);
-    //     controlPanel.GetComponentsInChildren<Button>(true)[0].GetComponentsInChildren<TMP_Text>(true)[0].text = "Start";
-    // }
+    public void changeButtonStateToStart() {
+        GameObject button = GameObject.Find("StartButton");
+        TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+        buttonText.text = "Start";
+    }
 
     public void changeButtonColor(bool mode) {
         if(mode) {

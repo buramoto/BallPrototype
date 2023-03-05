@@ -203,6 +203,7 @@ public class DungeonMaster : MonoBehaviour
     }
     public void loadMainMenu()
     {
+        UIBehavior.gameUI.changeButtonStateToStart();
         SceneManager.LoadScene("MainMenu");
     }
 
