@@ -47,14 +47,14 @@ public class Level6 : MonoBehaviour
         GameObject button = GameObject.Find("StartButton");
         TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
         Debug.Log("Value of attempt counter" + GlobalVariables.attemptCounter);
-        //if (GlobalVariables.heaterUsed < 1 && buttonText.text == "Start" &&  GlobalVariables.attemptCounter >= 2 )
-        //{
-        //    GameObject dtext1 = GameObject.Find("Level6_Text");
-        //    Debug.Log(dtext1);
-        //    dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Place a Heater Right Below the Ball";
-        //}
+        if (GlobalVariables.heaterCounter < 1 && buttonText.text == "Start" && GlobalVariables.attemptCounter >= 2)
+        {
+            GameObject dtext1 = GameObject.Find("Level6_Text");
+            Debug.Log(dtext1);
+            dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Place a Heater Right Below the Ball";
+        }
 
-        if (buttonText.text == "Start" && GlobalVariables.attemptCounter>=3 && GlobalVariables.plankUsed>0)
+        if (buttonText.text == "Start" && GlobalVariables.attemptCounter>=3 && GlobalVariables.plankCounter>0)
         {
             GameObject dtext1 = GameObject.Find("Level6_Text");
             Debug.Log(dtext1);
@@ -64,11 +64,11 @@ public class Level6 : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (first && collision.gameObject.name == "Ball" && this.name == "Collider1" && GlobalVariables.plankUsed<1)
+        if (first && collision.gameObject.name == "Ball" && this.name == "Collider1" && GlobalVariables.plankCounter<1)
         {
             GameObject dtext = GameObject.Find("Level6_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Use Heater to Heat the Ball\n Align Planks to direct ball";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Align Planks to direct ball";
             first = false;
         }
     }

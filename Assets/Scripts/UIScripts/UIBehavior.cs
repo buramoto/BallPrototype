@@ -136,7 +136,7 @@ public class UIBehavior : MonoBehaviour
         Debug.Log("This is the score go" + FinalScore);
         if (FinalScore != null)
         {
-            FinalScore.GetComponent<TMPro.TextMeshProUGUI>().text = "Your Score:- " + GlobalVariables.levelScore.ToString();
+            FinalScore.GetComponent<TMPro.TextMeshProUGUI>().text = "Your Score: " + GlobalVariables.levelScore.ToString();
         }
     }
 
@@ -158,7 +158,7 @@ public class UIBehavior : MonoBehaviour
         Debug.Log("This is the score go" + FinalScore);
         if (FinalScore != null)
         {
-            FinalScore.GetComponent<TMPro.TextMeshProUGUI>().text = "Your Score:- " + GlobalVariables.levelScore.ToString();
+            FinalScore.GetComponent<TMPro.TextMeshProUGUI>().text = "Your Score: " + GlobalVariables.levelScore.ToString();
         }
     }
 
