@@ -980,6 +980,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+      propertyPath: nextSceneName
+      value: Level11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
       propertyPath: currentSceneName
       value: Level10
       objectReference: {fileID: 0}
