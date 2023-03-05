@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1978079667470529568}
   - component: {fileID: 2564453928015820819}
   - component: {fileID: 2967772590713922947}
+  - component: {fileID: 6867018231715242966}
   m_Layer: 0
   m_Name: FinishLine
   m_TagString: Checkpoint
@@ -123,7 +124,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791692765444119982}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -168,3 +169,29 @@ PolygonCollider2D:
       - {x: 0.504587, y: -0.28719977}
       - {x: 0.504587, y: -0.28719977}
       - {x: 0.504587, y: -0.28719977}
+--- !u!61 &6867018231715242966
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791692765444119982}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0011712015, y: -0.36221218}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.5, y: 1.4}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 1
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9963866, y: 0.2645677}
+  m_EdgeRadius: 0

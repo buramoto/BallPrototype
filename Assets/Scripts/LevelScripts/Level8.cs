@@ -40,7 +40,7 @@ public class Level8 : MonoBehaviour
         {
             GameObject dtext = GameObject.Find("Level8_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: A Sword would always appears from right";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: A Sword always appears from right";
         }
         if (GlobalVariables.kbeCounter  == 2)
         {

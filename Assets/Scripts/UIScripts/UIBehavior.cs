@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +38,7 @@ public class UIBehavior : MonoBehaviour
     public GameObject toolKitPanel;
     public GameObject operationPanel;
     public GameObject controlPanel;
+    public GameObject mainMenuBtn;
 
     //Tooltip
     private GameObject activeTooltip;
@@ -54,6 +57,7 @@ public class UIBehavior : MonoBehaviour
             gameUI = this;
             toolKitButtons = toolKitPanel.GetComponentsInChildren<Button>();
             operationButtons = operationPanel.GetComponentsInChildren<Button>();
+            //mainMenuBtn = GameObject.FindGameObjectsWithTag("MenuBtn")[0];
             timer = GameObject.Find("Timer");
             SceneManager.sceneLoaded += initalizeLevel;
             /*
@@ -86,10 +90,11 @@ public class UIBehavior : MonoBehaviour
         DungeonMaster.dm.StopSim += stopSim;
     }
 
-    // public void changeButtonStateToStart() {
-    //     controlPanel.GetComponentsInChildren<Button>(true)[0].GetComponentsInChildren<Image>(true)[0].color = new Color32(231,64,64,255);
-    //     controlPanel.GetComponentsInChildren<Button>(true)[0].GetComponentsInChildren<TMP_Text>(true)[0].text = "Start";
-    // }
+    public void changeButtonStateToStart() {
+        GameObject button = GameObject.Find("StartButton");
+        TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+        buttonText.text = "Start";
+    }
 
     public void changeButtonColor(bool mode) {
         if(mode) {
@@ -108,12 +113,14 @@ public class UIBehavior : MonoBehaviour
         //if/else statement below sets the UI elements to either level or main menu mode
         if (scene.name == "MainMenu")
         {
+            //mainMenuBtn.SetActive(false);
             levelMode.SetActive(false);
             mainMenuMode.SetActive(true);
             initMainMenu();
         }
         else
         {
+            //mainMenuBtn.SetActive(true);
             mainMenuMode.SetActive(false);
             levelMode.SetActive(true);
 
@@ -170,22 +177,61 @@ public class UIBehavior : MonoBehaviour
         }
     }
 
+class MyComparer : IComparer<string>
+{
+    public int Compare(string x, string y)
+    {
+        // Check if both strings have "Level" in them
+        x = Path.GetFileNameWithoutExtension(x); 
+        y = Path.GetFileNameWithoutExtension(y); 
+        if (x.Contains("Level") && y.Contains("Level"))
+        {
+            // Extract the number after "Level" and convert it to integer
+            int xLevel = int.Parse(x.Substring(5));
+            int yLevel = int.Parse(y.Substring(5));
+
+            // Compare the levels
+            return xLevel.CompareTo(yLevel);
+        }
+        else
+        {
+            // If one or both strings don't have "Level" in them, use default comparer
+            return string.Compare(x, y);
+        }
+    }
+}
+
     private void initMainMenu()
     {
         Debug.LogWarning("Initalizing main menu");
         if(levelSelectPanel.GetComponentsInChildren<Button>(true).Length > 1) {
-            return;
-        }
-        foreach(string fileName in Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes"), "*.unity"))
-        {
-            string sceneName = Path.GetFileNameWithoutExtension(fileName);
-            if (sceneName == "MainMenu")
-            {
-                continue;
+            var buttons = levelSelectPanel.GetComponentsInChildren<Button>(true);
+            for(var i=0;i<buttons.Length;i++) {
+                var buttonText = buttons[i].GetComponentInChildren<TMP_Text>().text;
+                if(DungeonMaster.levelsCompleted.Contains(buttonText)) {
+                    Debug.Log("GREEN");
+                    buttons[i].GetComponentInChildren<Image>().color = new Color32(52,195,52,255);
+                } else if (DungeonMaster.levelsAttempted.Contains(buttonText)) {
+                    Debug.Log("RED");
+                    buttons[i].GetComponentInChildren<Image>().color = new Color32(231,64,64,255);
+                }
             }
-            GameObject button = Instantiate(buttonPrefab, levelSelectPanel.transform);
-            button.GetComponentInChildren<TMP_Text>().text = sceneName;
-            button.GetComponentInChildren<Button>().onClick.AddListener(delegate { DungeonMaster.dm.loadNextLevel(sceneName); });
+        } else {
+            // string[] fileNames = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes"), "*.unity");
+            // for(var i=0;i<fileNames.Length;i++)
+            // {
+            //     fileNames[i] = Path.GetFileNameWithoutExtension(fileNames[i]);
+            // }
+            // fileNames = fileNames.Where(fileName => fileName != "MainMenu").ToArray();
+            // Array.Sort(fileNames, new MyComparer());
+            string[] fileNames = DungeonMaster.scenes;
+            foreach(string fileName in fileNames)
+            {
+                GameObject button = Instantiate(buttonPrefab, levelSelectPanel.transform);
+                button.GetComponentInChildren<TMP_Text>().text = fileName;
+                // Debug.Log("CHECK CONTAINMENT: " + DungeonMaster.levelsCompleted.Contains(fileName));
+                button.GetComponentInChildren<Button>().onClick.AddListener(delegate { DungeonMaster.dm.loadNextLevel(fileName); });
+            }
         }
     }
 

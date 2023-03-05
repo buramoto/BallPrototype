@@ -330,6 +330,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 25.75
+  m_fontSize: 33.15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1780,6 +1781,7 @@ RectTransform:
   m_Children:
   - {fileID: 9096439136654893395}
   - {fileID: 8215938006104068739}
+  - {fileID: 3832529413624684447}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1872,6 +1874,7 @@ MonoBehaviour:
   toolKitPanel: {fileID: 6171845427970819488}
   operationPanel: {fileID: 6171845429601630082}
   controlPanel: {fileID: 6171845429749053364}
+  mainMenuBtn: {fileID: 0}
   offset: {x: 0, y: 30, z: 0}
   oobCoords: {x: 0, y: 0, z: 0}
 --- !u!222 &6171845428107800257
