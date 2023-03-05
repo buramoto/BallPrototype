@@ -202,13 +202,14 @@ class MyComparer : IComparer<string>
         if(levelSelectPanel.GetComponentsInChildren<Button>(true).Length > 1) {
             return;
         }
-        string[] fileNames = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes"), "*.unity");
-        for(var i=0;i<fileNames.Length;i++)
-        {
-            fileNames[i] = Path.GetFileNameWithoutExtension(fileNames[i]);
-        }
-        fileNames = fileNames.Where(fileName => fileName != "MainMenu").ToArray();
-        Array.Sort(fileNames, new MyComparer());
+        // string[] fileNames = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes"), "*.unity");
+        // for(var i=0;i<fileNames.Length;i++)
+        // {
+        //     fileNames[i] = Path.GetFileNameWithoutExtension(fileNames[i]);
+        // }
+        // fileNames = fileNames.Where(fileName => fileName != "MainMenu").ToArray();
+        // Array.Sort(fileNames, new MyComparer());
+        string[] fileNames = DungeonMaster.scenes;
         foreach(string fileName in fileNames)
         {
             GameObject button = Instantiate(buttonPrefab, levelSelectPanel.transform);
