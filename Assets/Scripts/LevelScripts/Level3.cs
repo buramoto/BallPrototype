@@ -57,8 +57,9 @@ public class Level3 : MonoBehaviour
         if(buttonText.text=="Start" && first==false)
         {
             GameObject dtext1 = GameObject.Find("Heater_Text");
-            Debug.Log(dtext1);
             dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Click on Heater\n Drag it between Ball & Ice Sheet";
+            GameObject dtext2 = GameObject.Find("Heater_Description");
+            dtext2.GetComponent<TMPro.TextMeshProUGUI>().text = "Remember: Heater heats the Ball & is one time use only"; 
         }
 
         if (buttonText.text == "Start" && GlobalVariables.heaterUsed > 0) {
