@@ -172,7 +172,7 @@ public class UIBehavior : MonoBehaviour
         }
     }
 
-    class MyComparer : IComparer<string>
+class MyComparer : IComparer<string>
 {
     public int Compare(string x, string y)
     {
