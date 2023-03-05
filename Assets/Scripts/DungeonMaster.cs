@@ -41,7 +41,7 @@ public class DungeonMaster : MonoBehaviour
     // Level8: Introduction to enemies
     // Level9: Main Level (Previously "UIDev")
     private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8"};
-    private static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9","Level11"};
+    private static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9","Level11","Level12"};
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;
@@ -307,7 +307,7 @@ public class DungeonMaster : MonoBehaviour
             // DungeonMaster.dm.freezeBall(0);
             Time.timeScale = 0;
             //adding goal time to timeArray
-            timeArray[counter]=timeValue;
+            //timeArray[counter]=timeValue;
             isLevelOn = false;
             GlobalVariables.levelScore += 500;
             Debug.Log("Checking"+GlobalVariables.levelScore);
