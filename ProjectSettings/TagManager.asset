@@ -23,6 +23,7 @@ TagManager:
   - HealthLoss
   - Order
   - SwordHolder
+  - MenuBtn
   layers:
   - Default
   - TransparentFX
