@@ -146,6 +146,8 @@ public class DungeonMaster : MonoBehaviour
         {
             return;
         }
+        levelsCompleted.Remove(currentSceneName);
+        levelsAttempted.Add(currentSceneName);
         isLevelOn = true;
         lives = maxLives;
         GameObject button = GameObject.Find("StartButton");
@@ -317,6 +319,8 @@ public class DungeonMaster : MonoBehaviour
             //adding goal time to timeArray
             //timeArray[counter]=timeValue;
             isLevelOn = false;
+            levelsCompleted.Add(currentSceneName);
+            levelsAttempted.Remove(currentSceneName);
             GlobalVariables.levelScore += 500;
             Debug.Log("Checking"+GlobalVariables.levelScore);
             GameObject scoreText = GameObject.Find("Score_Text");
