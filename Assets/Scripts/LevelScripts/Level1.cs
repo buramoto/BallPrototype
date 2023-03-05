@@ -11,6 +11,12 @@ public class Level1 : MonoBehaviour
     void Start()
     {   
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
+        UIBehavior.gameUI.timer.SetActive(true);
+        UIBehavior.gameUI.toolKitPanel.SetActive(true);
+        UIBehavior.gameUI.operationPanel.SetActive(true);
+        UIBehavior.gameUI.controlPanel.SetActive(true);
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         Time.timeScale = 1;
         // GameObject.Find("Timer").SetActive(false);
         UIBehavior.gameUI.timer.SetActive(false);
@@ -18,6 +24,10 @@ public class Level1 : MonoBehaviour
         UIBehavior.gameUI.operationPanel.SetActive(false);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>()[1].gameObject.SetActive(false);
         image = GameObject.Find("Arrow");
+        var col = image.GetComponent<Image>().color;
+        col.a = 0.3f;
+        image.GetComponent<Image>().color = col;
+        // image.SetActive(true);
     }
 
     // Update is called once per frame
@@ -25,13 +35,17 @@ public class Level1 : MonoBehaviour
     {
         GameObject button = GameObject.Find("StartButton");
         TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
-        if(buttonText.text=="Start")
+        if(!DungeonMaster.dm.simulationMode)
         {
-            image.SetActive(true);
+            var col = image.GetComponent<Image>().color;
+            col.a = 0.3f;
+            image.GetComponent<Image>().color = col;
         }
-        else if(buttonText.text=="Stop")
+        else
         {
-            image.SetActive(false);
+            var col = image.GetComponent<Image>().color;
+            col.a = 0;
+            image.GetComponent<Image>().color = col;
         }
     }
 }
