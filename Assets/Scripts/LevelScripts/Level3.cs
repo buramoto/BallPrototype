@@ -53,7 +53,7 @@ public class Level3 : MonoBehaviour
         {
             GameObject dtext1 = GameObject.Find("Heater_Text");
             Debug.Log(dtext1);
-            dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Click on Heater button";
+            dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Click on Heater\n Drag it between Ball & Ice Sheet";
         }
 
         if (buttonText.text == "Start" && GlobalVariables.heaterUsed > 0) {
