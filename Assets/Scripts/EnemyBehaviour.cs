@@ -19,7 +19,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             if (RedSplashScreen.GetComponent<Image>().color.a >0) {
                 var color = RedSplashScreen.GetComponent<Image>().color;
-                color.a -= 0.008f;
+                color.a -= 0.01f;
                 RedSplashScreen.GetComponent<Image>().color = color;
             }
 

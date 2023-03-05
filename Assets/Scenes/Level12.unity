@@ -853,7 +853,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 951476148478341735, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: plankState
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 951476148478341739, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: m_Name
@@ -1428,7 +1428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 951476148478341735, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: plankState
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 951476148478341739, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: m_Name
@@ -1521,7 +1521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 951476148478341735, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: plankState
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 951476148478341739, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: m_Name
