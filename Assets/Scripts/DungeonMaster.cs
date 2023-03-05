@@ -250,6 +250,12 @@ public class DungeonMaster : MonoBehaviour
             {
                 balls[i].stopSim();
             }
+            if(GlobalVariables.usedHeaterObjects.Count > 0){
+                foreach (GameObject obj in GlobalVariables.usedHeaterObjects)
+                {
+                    obj.SetActive(true);
+                }
+            }
             GlobalVariables.levelScore = 0;
             Debug.Log("IN stop sim reset to 0");
             GlobalVariables.levelScore = 0;
