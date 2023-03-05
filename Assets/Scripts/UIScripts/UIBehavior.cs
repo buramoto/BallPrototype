@@ -38,6 +38,7 @@ public class UIBehavior : MonoBehaviour
     public GameObject toolKitPanel;
     public GameObject operationPanel;
     public GameObject controlPanel;
+    public GameObject mainMenuBtn;
 
     //Tooltip
     private GameObject activeTooltip;
@@ -56,6 +57,7 @@ public class UIBehavior : MonoBehaviour
             gameUI = this;
             toolKitButtons = toolKitPanel.GetComponentsInChildren<Button>();
             operationButtons = operationPanel.GetComponentsInChildren<Button>();
+            mainMenuBtn = GameObject.FindGameObjectsWithTag("MenuBtn")[0];
             timer = GameObject.Find("Timer");
             SceneManager.sceneLoaded += initalizeLevel;
             /*
@@ -110,12 +112,14 @@ public class UIBehavior : MonoBehaviour
         //if/else statement below sets the UI elements to either level or main menu mode
         if (scene.name == "MainMenu")
         {
+            mainMenuBtn.SetActive(false);
             levelMode.SetActive(false);
             mainMenuMode.SetActive(true);
             initMainMenu();
         }
         else
         {
+            mainMenuBtn.SetActive(true);
             mainMenuMode.SetActive(false);
             levelMode.SetActive(true);
 

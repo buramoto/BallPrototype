@@ -8,6 +8,7 @@ public class Level1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
+        GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
         Time.timeScale = 1;
         // GameObject.Find("Timer").SetActive(false);
         UIBehavior.gameUI.timer.SetActive(false);
