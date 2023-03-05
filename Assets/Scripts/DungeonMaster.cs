@@ -41,7 +41,7 @@ public class DungeonMaster : MonoBehaviour
     // Level8: Introduction to enemies
     // Level9: Main Level (Previously "UIDev")
     private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8"};
-    private static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9","Level11","Level12"};
+    private static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12"};
     public GameObject[] enemyElements;
     public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;
@@ -350,7 +350,7 @@ public class DungeonMaster : MonoBehaviour
             SendToGoogle.sendToGoogle.resetGlobalVariables("New Level");
             // GlobalVariables.heaterCoordinates = "";
 
-            if(currentSceneName == "Level9") {
+            if(currentSceneName == scenes[scenes.Length-1]) {
                 UIBehavior.gameUI.displayWinScreen();
             } else {
                 UIBehavior.gameUI.displayNextLevelScreen(nextSceneName);

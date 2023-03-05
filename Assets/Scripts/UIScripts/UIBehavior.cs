@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -170,22 +172,48 @@ public class UIBehavior : MonoBehaviour
         }
     }
 
+    class MyComparer : IComparer<string>
+{
+    public int Compare(string x, string y)
+    {
+        // Check if both strings have "Level" in them
+        x = Path.GetFileNameWithoutExtension(x); 
+        y = Path.GetFileNameWithoutExtension(y); 
+        if (x.Contains("Level") && y.Contains("Level"))
+        {
+            // Extract the number after "Level" and convert it to integer
+            int xLevel = int.Parse(x.Substring(5));
+            int yLevel = int.Parse(y.Substring(5));
+
+            // Compare the levels
+            return xLevel.CompareTo(yLevel);
+        }
+        else
+        {
+            // If one or both strings don't have "Level" in them, use default comparer
+            return string.Compare(x, y);
+        }
+    }
+}
+
     private void initMainMenu()
     {
         Debug.LogWarning("Initalizing main menu");
         if(levelSelectPanel.GetComponentsInChildren<Button>(true).Length > 1) {
             return;
         }
-        foreach(string fileName in Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes"), "*.unity"))
+        string[] fileNames = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes"), "*.unity");
+        for(var i=0;i<fileNames.Length;i++)
         {
-            string sceneName = Path.GetFileNameWithoutExtension(fileName);
-            if (sceneName == "MainMenu")
-            {
-                continue;
-            }
+            fileNames[i] = Path.GetFileNameWithoutExtension(fileNames[i]);
+        }
+        fileNames = fileNames.Where(fileName => fileName != "MainMenu").ToArray();
+        Array.Sort(fileNames, new MyComparer());
+        foreach(string fileName in fileNames)
+        {
             GameObject button = Instantiate(buttonPrefab, levelSelectPanel.transform);
-            button.GetComponentInChildren<TMP_Text>().text = sceneName;
-            button.GetComponentInChildren<Button>().onClick.AddListener(delegate { DungeonMaster.dm.loadNextLevel(sceneName); });
+            button.GetComponentInChildren<TMP_Text>().text = fileName;
+            button.GetComponentInChildren<Button>().onClick.AddListener(delegate { DungeonMaster.dm.loadNextLevel(fileName); });
         }
     }
 
