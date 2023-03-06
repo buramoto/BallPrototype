@@ -315,20 +315,20 @@ class MyComparer : IComparer<string>
         {
             return;
         }
-        activeTooltip = new GameObject("Tooltip");
-        TMPro.TextMeshProUGUI activeToolTipText = activeTooltip.AddComponent<TextMeshProUGUI>();
-        activeTooltip.transform.SetParent(button.transform);
-        if(button.name != "StartButton")
+        activeTooltip = button;
+        foreach(Transform child in button.transform)
         {
-            activeTooltip.transform.localPosition = offset;
+            if(child.tag == "Tooltip")
+            {
+                //child.GetComponent<TMPro.TextMeshProUGUI>().enabled = true;
+                child.gameObject.SetActive(true);
+            }
+            else
+            {
+                //child.GetComponent<TextMeshProUGUI>().enabled = false;
+                child.gameObject.SetActive(false);
+            }
         }
-        else
-        {
-            activeTooltip.transform.localPosition = -offset;
-        }
-        activeToolTipText.alignment = TextAlignmentOptions.Center;
-        activeToolTipText.fontSize = 12;
-        activeToolTipText.text = button.GetComponent<ToolTipText>().tipText;
     }
 
     /// <summary>
@@ -336,6 +336,18 @@ class MyComparer : IComparer<string>
     /// </summary>
     public void removeToolTip()
     {
-        Destroy(activeTooltip);
+        foreach (Transform child in activeTooltip.transform)
+        {
+            if (child.tag == "Tooltip")
+            {
+                //child.GetComponent<CanvasRenderer>().enabled = false;
+                child.gameObject.SetActive(false);
+            }
+            else
+            {
+                //child.GetComponent<CanvasRenderer>().enabled = true;
+                child.gameObject.SetActive(true);
+            }
+        }
     }
 }
