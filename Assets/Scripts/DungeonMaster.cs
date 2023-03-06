@@ -146,8 +146,9 @@ public class DungeonMaster : MonoBehaviour
         {
             return;
         }
-        levelsCompleted.Remove(currentSceneName);
-        levelsAttempted.Add(currentSceneName);
+        if(!levelsCompleted.Contains(currentSceneName)) {
+            levelsAttempted.Add(currentSceneName);
+        }
         isLevelOn = true;
         lives = maxLives;
         GameObject button = GameObject.Find("StartButton");
