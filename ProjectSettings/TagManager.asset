@@ -24,6 +24,7 @@ TagManager:
   - Order
   - SwordHolder
   - MenuBtn
+  - Tooltip
   layers:
   - Default
   - TransparentFX
