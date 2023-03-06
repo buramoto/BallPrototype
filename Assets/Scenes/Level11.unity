@@ -4398,6 +4398,7 @@ MonoBehaviour:
   toolKitPanel: {fileID: 0}
   operationPanel: {fileID: 0}
   controlPanel: {fileID: 0}
+  mainMenuBtn: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   oobCoords: {x: 0, y: 0, z: 0}
 --- !u!222 &1325511730
@@ -4605,6 +4606,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1512958688957212461, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000022888184
+      objectReference: {fileID: 0}
     - target: {fileID: 1717778677363821182, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -4779,7 +4784,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6171845428271487596, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000020980835
+      value: 0.000022888184
       objectReference: {fileID: 0}
     - target: {fileID: 6171845428356835863, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4900,6 +4905,10 @@ PrefabInstance:
     - target: {fileID: 6171845429336247813, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171845429474037048, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000076293945
       objectReference: {fileID: 0}
     - target: {fileID: 6171845429511606763, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchorMax.y
@@ -6832,7 +6841,7 @@ Camera:
   m_GameObject: {fileID: 2010252597}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
