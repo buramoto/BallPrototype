@@ -38,6 +38,7 @@ public class Level11 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         GlobalVariables.levelScore = 0;
         GameObject scoreText = GameObject.Find("Score_Text");
         if (scoreText != null)
@@ -49,7 +50,10 @@ public class Level11 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log("--------------11---------------");
+        Debug.Log(GlobalVariables.plankCounter);
+        Debug.Log(GlobalVariables.heaterCounter);
+        Debug.Log("-----------------------------");
     }
 
     /*

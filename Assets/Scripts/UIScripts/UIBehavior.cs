@@ -334,17 +334,20 @@ class MyComparer : IComparer<string>
     /// </summary>
     public void removeToolTip()
     {
-        foreach (Transform child in activeTooltip.transform)
+        if (activeTooltip)
         {
-            if (child.tag == "Tooltip")
+            foreach (Transform child in activeTooltip.transform)
             {
-                //child.GetComponent<CanvasRenderer>().enabled = false;
-                child.gameObject.SetActive(false);
-            }
-            else
-            {
-                //child.GetComponent<CanvasRenderer>().enabled = true;
-                child.gameObject.SetActive(true);
+                if (child.tag == "Tooltip")
+                {
+                    //child.GetComponent<CanvasRenderer>().enabled = false;
+                    child.gameObject.SetActive(false);
+                }
+                else
+                {
+                    //child.GetComponent<CanvasRenderer>().enabled = true;
+                    child.gameObject.SetActive(true);
+                }
             }
         }
     }

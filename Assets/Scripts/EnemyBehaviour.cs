@@ -50,13 +50,22 @@ public class EnemyBehaviour : MonoBehaviour
             DungeonMaster.dm.lives -= 1;
             Debug.Log("Player has lives left: "+ DungeonMaster.dm.lives);
             Debug.Log("Collided with Player");
-            var color = RedSplashScreen.GetComponent<Image>().color;
-            color.a = 0.9f;
-            RedSplashScreen.GetComponent<Image>().color = color;
+            //var color = RedSplashScreen.GetComponent<Image>().color;
+            //color.a = 0.9f;
+            //RedSplashScreen.GetComponent<Image>().color = color;
+            if (DungeonMaster.dm.lives >= 1)
+            {
+                var color = RedSplashScreen.GetComponent<Image>().color;
+                color.a = 0.9f;
+                RedSplashScreen.GetComponent<Image>().color = color;
+            }
             if (DungeonMaster.dm.lives <= 0)
             {
+                var col = RedSplashScreen.GetComponent<Image>().color;
+                col.a = 0.00f;
+                RedSplashScreen.GetComponent<Image>().color = col;
                 SendToGoogle.sendToGoogle.resetGlobalVariables("KBE");
-                
+
                 // Destroy(gameObject);
                 gameObject.SetActive(false);
                 // not wokring as BALLS[] variable is private,
@@ -68,9 +77,7 @@ public class EnemyBehaviour : MonoBehaviour
                 // if(RedSplashScreen != null){
                 //     RedSplashScreen
                 // }
-                var col = RedSplashScreen.GetComponent<Image>().color;
-                col.a = 0.00f;
-                RedSplashScreen.GetComponent<Image>().color = col;
+
                 Time.timeScale = 0;
                 UIBehavior.gameUI.displayGameOverScreen();
 
