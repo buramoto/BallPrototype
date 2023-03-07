@@ -29,7 +29,6 @@ public class Level3 : MonoBehaviour
         UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
         UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
 
-        // UIBehavior.gameUI.operationPanel.SetActive(false);
         // below we are setting RESET Btn & UNDO Btn as InActive
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(false);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);

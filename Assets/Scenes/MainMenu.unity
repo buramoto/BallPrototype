@@ -324,11 +324,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 161039589, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_CellSize.x
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 161039589, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_CellSize.y
-      value: 30
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 161039589, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 161039589, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_Padding.m_Left
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 161039589, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_Padding.m_Right
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 161039589, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_Padding.m_Bottom
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2094921409, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchorMax.x
@@ -364,11 +380,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2094921410, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_text
-      value: 'Pseudo Bugs Game '
+      value: DROP THE BALL
       objectReference: {fileID: 0}
     - target: {fileID: 2094921410, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_fontSize
-      value: 45.65
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 2094921410, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_fontSizeMin
