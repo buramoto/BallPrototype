@@ -50,7 +50,7 @@ public class DungeonMaster : MonoBehaviour
 
 
     // array to store checkpoint time
-    public static float[] timeArray = new float[4];
+    public static float timeTaken = 0;
 
 
     // timevalue stores the currentTime and timer is the text gameobject
@@ -320,6 +320,7 @@ public class DungeonMaster : MonoBehaviour
             Time.timeScale = 0;
             //adding goal time to timeArray
             //timeArray[counter]=timeValue;
+            timeTaken = timeValue;
             isLevelOn = false;
             levelsCompleted.Add(currentSceneName);
             levelsAttempted.Remove(currentSceneName);
@@ -372,9 +373,7 @@ public class DungeonMaster : MonoBehaviour
         }
         else
         {
-            //Correct, play sound
-            //add time value to array
-            timeArray[counter]=timeValue;
+            GlobalVariables.starsCounter++;
             //Correct, play sound
             counter++;
             if(checkpointColor=='p')

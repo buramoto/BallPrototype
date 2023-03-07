@@ -27,6 +27,8 @@ public class GlobalVariables : MonoBehaviour
 
     public static int levelScore = 0;
 
+    public static int starsCounter = 0;
+
     /// <summary>
     /// Dictionary to store corresponding color and points to be awarded
     /// </summary>

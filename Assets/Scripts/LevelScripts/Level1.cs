@@ -12,12 +12,21 @@ public class Level1 : MonoBehaviour
     {   
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
         UIBehavior.gameUI.timer.SetActive(true);
+        Time.timeScale = 1;
+        // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
+        UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);
         UIBehavior.gameUI.operationPanel.SetActive(true);
-        UIBehavior.gameUI.controlPanel.SetActive(true);
-        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
-        Time.timeScale = 1;
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+
+        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
+        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
+        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+
+        UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
+        UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+        UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         // GameObject.Find("Timer").SetActive(false);
         UIBehavior.gameUI.timer.SetActive(false);
         UIBehavior.gameUI.toolKitPanel.SetActive(false);

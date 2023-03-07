@@ -8,11 +8,13 @@ public class Level7 : MonoBehaviour
     private int oobCount = 0;
     private void Awake()
     {
+        GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
         Time.timeScale = 1;
         // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
         UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);
         UIBehavior.gameUI.operationPanel.SetActive(true);
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
 
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);

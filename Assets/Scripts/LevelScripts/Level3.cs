@@ -8,19 +8,22 @@ public class Level3 : MonoBehaviour
     private bool first = true;
     private void Awake()
     {
+        GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
         Time.timeScale = 1;
-        // setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
+        // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
         UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);
         UIBehavior.gameUI.operationPanel.SetActive(true);
-        UIBehavior.gameUI.controlPanel.SetActive(true);
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
 
-        // below we are making the element buttons Active
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+
+        UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
+        UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+        UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         
         // below we are making the Rotate Left & Rotate Right buttons InActive
         UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
@@ -28,8 +31,8 @@ public class Level3 : MonoBehaviour
 
         // UIBehavior.gameUI.operationPanel.SetActive(false);
         // below we are setting RESET Btn & UNDO Btn as InActive
-        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(false);
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
 
         // below we are setting PLANK & SPRING InActive
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
