@@ -95,19 +95,19 @@ public class Level2 : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("We are getting collision");
-        if (collision.gameObject.name == "Ball" && this.name == "Collider1")
+        if (collision.gameObject.name == "Ball" && this.name == "Collider1" && GlobalVariables.attemptCounter==1)
         {
             GameObject dtext = GameObject.Find("Level_Text");
             Debug.Log(dtext);
             dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Ice Sheets do not affect the ball";
         }
-        else if (collision.gameObject.name == "Ball" && this.name == "Collider2")
+        else if (collision.gameObject.name == "Ball" && this.name == "Collider2" && GlobalVariables.attemptCounter==1)
         {
             GameObject dtext = GameObject.Find("Level_Text");
             Debug.Log(dtext);
             dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "But it may block path to Goal";
         }
-        else if (collision.gameObject.name == "Ball" && this.name == "Collider3")
+        else if (collision.gameObject.name == "Ball" && this.name == "Collider3" && GlobalVariables.attemptCounter==1)
         {
             GameObject dtext = GameObject.Find("Ice_Plank_Text");
             Debug.Log(dtext);

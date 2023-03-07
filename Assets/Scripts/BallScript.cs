@@ -108,10 +108,11 @@ public class BallScript : MonoBehaviour
 
             if (swordHolder.transform.childCount != 0)
             {
-                swordHolder.transform.GetChild(0).gameObject.SetActive(true);
-                Debug.Log("Slice key pressed");
+                
                 if (DungeonMaster.dm.simulationMode)
                 {
+                    swordHolder.transform.GetChild(0).gameObject.SetActive(true);
+                    Debug.Log("Slice key pressed");
                     anim = gameObject.GetComponentInChildren<Animator>();
                     Debug.Log("Found the following animator");
                     Debug.Log(anim);
