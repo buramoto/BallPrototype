@@ -24,9 +24,9 @@ public class SendToGoogle : MonoBehaviour
     private int _numberOfSpringsUsed;
     private int _numberOfHeatersUsed;
     private string _numberOfElementsUsed;
-    private float _timeForCheckpoint1;
-    private float _timeForCheckpoint2;
-    private float _timeForCheckpoint3;
+    // private float _timeForCheckpoint1;
+    // private float _timeForCheckpoint2;
+    // private float _timeForCheckpoint3;
     private float _timeForGoalCheckpoint;
     public GameObject[] plank;
     public GameObject[] spring;
@@ -39,6 +39,8 @@ public class SendToGoogle : MonoBehaviour
     private int _wgoCounterValue;
     private string resetButtonCounters;
     private int _livesLeft;
+    private int _score;
+    private int _starsCount;
 
     private string _level;
 
@@ -142,6 +144,7 @@ public class SendToGoogle : MonoBehaviour
             }
             else{
                 GlobalVariables.attemptCounter += 1;
+                DungeonMaster.timeTaken = 0;
             }
             GlobalVariables.plankCounter = 0;
             GlobalVariables.springCounter = 0;
@@ -205,6 +208,7 @@ public class SendToGoogle : MonoBehaviour
         GlobalVariables.usedHeaterObjects.Clear();
         GlobalVariables.usedPlankObjects.Clear();
         GlobalVariables.usedSpringObjects.Clear();
+        GlobalVariables.starsCounter = 0;
     }
 
 
@@ -229,17 +233,18 @@ public class SendToGoogle : MonoBehaviour
         _numberOfElementsUsed = _numberOfPlanksUsed.ToString() + "," + _numberOfSpringsUsed.ToString() + "," + _numberOfHeatersUsed.ToString();
 
 
-        _timeForCheckpoint1 = DungeonMaster.timeArray[0];
-        _timeForCheckpoint2 = DungeonMaster.timeArray[1];
-        _timeForCheckpoint3 =DungeonMaster.timeArray[2];
-        _timeForGoalCheckpoint = DungeonMaster.timeArray[3];
+        // _timeForCheckpoint1 = DungeonMaster.timeArray[0];
+        // _timeForCheckpoint2 = DungeonMaster.timeArray[1];
+        // _timeForCheckpoint3 =DungeonMaster.timeArray[2];
+        _timeForGoalCheckpoint = DungeonMaster.timeTaken;
         _kbeCounterValue= GlobalVariables.kbeCounter;
         _oobCounterValue= GlobalVariables.oobCounter;
         _wgoCounterValue= GlobalVariables.wgoCounter;
         _livesLeft = GlobalVariables.livesLeft;
 
         _level = GlobalVariables.sceneName;
-
+        _score = GlobalVariables.levelScore;
+        _starsCount = GlobalVariables.starsCounter;
 
         //coordinate for props
         plankPositions = getCoordinates("Plank");
@@ -267,9 +272,6 @@ public class SendToGoogle : MonoBehaviour
                             _numberOfPlanks.ToString(), 
                             _numberOfSprings.ToString(), 
                             _numberOfHeaters.ToString(), 
-                            _timeForCheckpoint1.ToString(),
-                            _timeForCheckpoint2.ToString(),
-                            _timeForCheckpoint3.ToString(),
                             _timeForGoalCheckpoint.ToString(),
                             plankPositions,
                             springPositions,
@@ -277,12 +279,14 @@ public class SendToGoogle : MonoBehaviour
                             resetButtonCounters,
                             _livesLeft.ToString(),
                             _numberOfElementsUsed.ToString(),
-                            _level.ToString()
+                            _level.ToString(),
+                            _score.ToString(),
+                            _starsCount.ToString()
                             ));
     }
 
     // Send data to Google Form
-    private IEnumerator Post(string sessionID, string userID, string numberOfAttempts, string numberOfPlanks, string numberOfSprings, string numberOfHeaters, string timeForCheckpoint1,string timeForCheckpoint2,string timeForCheckpoint3, string timeForGoalCheckpoint, string plankPositions, string springPositions, string heaterPositions, string resetButtonCounters, string livesLeft, string numberOfElementsUsed, string Level)
+    private IEnumerator Post(string sessionID, string userID, string numberOfAttempts, string numberOfPlanks, string numberOfSprings, string numberOfHeaters, string timeForGoalCheckpoint, string plankPositions, string springPositions, string heaterPositions, string resetButtonCounters, string livesLeft, string numberOfElementsUsed, string Level, string score, string starsCount)
     {
         // Create the form and enter responses
         WWWForm form = new WWWForm();
@@ -294,9 +298,6 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.141035311", numberOfPlanks);
         form.AddField("entry.163654761", numberOfSprings);
         form.AddField("entry.1061744410", numberOfHeaters);
-        form.AddField("entry.547195651", timeForCheckpoint1);
-        form.AddField("entry.2126259718", timeForCheckpoint2);
-        form.AddField("entry.1981682484", timeForCheckpoint3);
         form.AddField("entry.328997273", timeForGoalCheckpoint);
         form.AddField("entry.209397380", plankPositions);
         form.AddField("entry.2035421848", springPositions);
@@ -304,6 +305,8 @@ public class SendToGoogle : MonoBehaviour
         form.AddField("entry.1925814045", resetButtonCounters);
         form.AddField("entry.2022844722", livesLeft);
         form.AddField("entry.1499039969", numberOfElementsUsed);
+        form.AddField("entry.2123119901", score);
+        form.AddField("entry.203253810", starsCount);
         // Send responses and verify result
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form))
         {

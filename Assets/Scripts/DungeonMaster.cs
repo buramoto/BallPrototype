@@ -41,7 +41,7 @@ public class DungeonMaster : MonoBehaviour
     // Level8: Introduction to enemies
     // Level9: Main Level (Previously "UIDev")
     private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8"};
-    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12"};
+    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11"};
     public static List<string> levelsCompleted = new List<string>();
     public static List<string> levelsAttempted = new List<string>();
     public GameObject[] enemyElements;
@@ -50,7 +50,7 @@ public class DungeonMaster : MonoBehaviour
 
 
     // array to store checkpoint time
-    public static float[] timeArray = new float[4];
+    public static float timeTaken = 0;
 
 
     // timevalue stores the currentTime and timer is the text gameobject
@@ -70,6 +70,8 @@ public class DungeonMaster : MonoBehaviour
     public event StartSimulation StartSim;
     public delegate void StopSimulation(StateReference.resetType type);
     public event StopSimulation StopSim;
+
+    public GameObject awardPoints;
 
     //Settings
     public int maxLives;
@@ -146,8 +148,9 @@ public class DungeonMaster : MonoBehaviour
         {
             return;
         }
-        levelsCompleted.Remove(currentSceneName);
-        levelsAttempted.Add(currentSceneName);
+        if(!levelsCompleted.Contains(currentSceneName)) {
+            levelsAttempted.Add(currentSceneName);
+        }
         isLevelOn = true;
         lives = maxLives;
         GameObject button = GameObject.Find("StartButton");
@@ -182,6 +185,7 @@ public class DungeonMaster : MonoBehaviour
         {
             enemyElements[i].SetActive(true);
         }
+
     }
 
     //Scene loads
@@ -203,8 +207,16 @@ public class DungeonMaster : MonoBehaviour
     }
     public void loadMainMenu()
     {
+        GlobalVariables.levelScore = 0;
+        GameObject scoreText = GameObject.Find("Score_Text");
+        if (scoreText != null)
+        {
+            scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+        }
         UIBehavior.gameUI.changeButtonStateToStart();
         SceneManager.LoadScene("MainMenu");
+
+        
     }
 
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
@@ -236,6 +248,7 @@ public class DungeonMaster : MonoBehaviour
             //Trigger start sim event
             StartSim?.Invoke();
         }
+
         else {
             // initialize time array
             //Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");
@@ -319,10 +332,11 @@ public class DungeonMaster : MonoBehaviour
             Time.timeScale = 0;
             //adding goal time to timeArray
             //timeArray[counter]=timeValue;
+            timeTaken = timeValue;
             isLevelOn = false;
             levelsCompleted.Add(currentSceneName);
             levelsAttempted.Remove(currentSceneName);
-            GlobalVariables.levelScore += 500;
+            GlobalVariables.levelScore += 100;
             Debug.Log("Checking"+GlobalVariables.levelScore);
             GameObject scoreText = GameObject.Find("Score_Text");
             Debug.Log("This is the score go" + scoreText);
@@ -342,7 +356,7 @@ public class DungeonMaster : MonoBehaviour
             Debug.Log("Scene Name: " + GlobalVariables.sceneName);
 
             //ANALYTICS
-            if (GlobalVariables.sceneName != "Level1" && GlobalVariables.sceneName != "Level2")
+            if (GlobalVariables.sceneName != "Level1")
             {
                 Debug.Log("GOOGLE");
                 SendToGoogle.sendToGoogle.Send();
@@ -371,9 +385,7 @@ public class DungeonMaster : MonoBehaviour
         }
         else
         {
-            //Correct, play sound
-            //add time value to array
-            timeArray[counter]=timeValue;
+            GlobalVariables.starsCounter++;
             //Correct, play sound
             counter++;
             if(checkpointColor=='p')

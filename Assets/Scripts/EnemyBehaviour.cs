@@ -40,6 +40,8 @@ public class EnemyBehaviour : MonoBehaviour
             }
             // Instead of destroying we will SET setActive(FALSE)
             //Destroy(gameObject);
+            Instantiate(DungeonMaster.dm.awardPoints, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
+            Debug.Log("+50 Text Instantiated!!");
             gameObject.SetActive(false);
         }
         else if(collision.gameObject.CompareTag("Player"))
@@ -48,11 +50,15 @@ public class EnemyBehaviour : MonoBehaviour
             DungeonMaster.dm.lives -= 1;
             Debug.Log("Player has lives left: "+ DungeonMaster.dm.lives);
             Debug.Log("Collided with Player");
+            var color = RedSplashScreen.GetComponent<Image>().color;
+            color.a = 0.9f;
+            RedSplashScreen.GetComponent<Image>().color = color;
             if (DungeonMaster.dm.lives <= 0)
             {
                 SendToGoogle.sendToGoogle.resetGlobalVariables("KBE");
                 
-                Destroy(gameObject);
+                // Destroy(gameObject);
+                gameObject.SetActive(false);
                 // not wokring as BALLS[] variable is private,
                 // so either make it public OR find ball by tag OR call the function dm.freezeBall();
                 // DungeonMaster.dm.freezeBall(0);
@@ -69,9 +75,7 @@ public class EnemyBehaviour : MonoBehaviour
                 UIBehavior.gameUI.displayGameOverScreen();
 
             }
-            var color = RedSplashScreen.GetComponent<Image>().color;
-            color.a = 0.9f;
-            RedSplashScreen.GetComponent<Image>().color = color;
+            
            
             //ResetButton r = FindAnyObjectByType<ResetButton>();
             //r.execute();

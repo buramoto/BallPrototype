@@ -27,10 +27,12 @@ public class GlobalVariables : MonoBehaviour
 
     public static int levelScore = 0;
 
+    public static int starsCounter = 0;
+
     /// <summary>
     /// Dictionary to store corresponding color and points to be awarded
     /// </summary>
-    public static Dictionary<goalColor, int> scoreDict = new Dictionary<goalColor, int> { [goalColor.purple] = 100, [goalColor.yellow] = 200, [goalColor.white] = 300 };
+    public static Dictionary<goalColor, int> scoreDict = new Dictionary<goalColor, int> { [goalColor.purple] = 50, [goalColor.yellow] = 50, [goalColor.white] = 50 };
 
 
     // Level Name

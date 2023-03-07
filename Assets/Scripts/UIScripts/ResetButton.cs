@@ -62,7 +62,11 @@ public class ResetButton : MonoBehaviour
     }
 
     public void tryAgainExecute(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Destroy(GameObject.Find("GameOverScreen(Clone)"));
+        // GameObject.Find("GameOverScreen(Clone)").SetActive(false);
+        DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
+        Time.timeScale = 1;
     }
 
     // public void winScreenExecute()
