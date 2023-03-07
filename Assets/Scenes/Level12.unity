@@ -1324,6 +1324,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Sword
       objectReference: {fileID: 0}
+    - target: {fileID: 5942755607843396186, guid: 3f64b67adeabee745a94e7961f3bb315, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5942755607843396261, guid: 3f64b67adeabee745a94e7961f3bb315, type: 3}
       propertyPath: m_RootOrder
       value: 0

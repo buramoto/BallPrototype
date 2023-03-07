@@ -48,6 +48,9 @@ public class EnemyBehaviour : MonoBehaviour
             DungeonMaster.dm.lives -= 1;
             Debug.Log("Player has lives left: "+ DungeonMaster.dm.lives);
             Debug.Log("Collided with Player");
+            var color = RedSplashScreen.GetComponent<Image>().color;
+            color.a = 0.9f;
+            RedSplashScreen.GetComponent<Image>().color = color;
             if (DungeonMaster.dm.lives <= 0)
             {
                 SendToGoogle.sendToGoogle.resetGlobalVariables("KBE");
@@ -70,9 +73,7 @@ public class EnemyBehaviour : MonoBehaviour
                 UIBehavior.gameUI.displayGameOverScreen();
 
             }
-            var color = RedSplashScreen.GetComponent<Image>().color;
-            color.a = 0.9f;
-            RedSplashScreen.GetComponent<Image>().color = color;
+            
            
             //ResetButton r = FindAnyObjectByType<ResetButton>();
             //r.execute();
