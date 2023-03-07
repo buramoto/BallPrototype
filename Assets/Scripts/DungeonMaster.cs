@@ -183,6 +183,7 @@ public class DungeonMaster : MonoBehaviour
         {
             enemyElements[i].SetActive(true);
         }
+
     }
 
     //Scene loads
@@ -204,8 +205,16 @@ public class DungeonMaster : MonoBehaviour
     }
     public void loadMainMenu()
     {
+        GlobalVariables.levelScore = 0;
+        GameObject scoreText = GameObject.Find("Score_Text");
+        if (scoreText != null)
+        {
+            scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+        }
         UIBehavior.gameUI.changeButtonStateToStart();
         SceneManager.LoadScene("MainMenu");
+
+        
     }
 
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start

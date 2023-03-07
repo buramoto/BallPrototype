@@ -38,7 +38,13 @@ public class Level6 : MonoBehaviour
 
     void Start()
     {
-        
+        GlobalVariables.levelScore = 0;
+        GameObject scoreText = GameObject.Find("Score_Text");
+        if (scoreText != null)
+        {
+            scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+        }
+
     }
 
     // Update is called once per frame
