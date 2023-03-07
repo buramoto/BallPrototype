@@ -237,6 +237,7 @@ public class DungeonMaster : MonoBehaviour
             //Trigger start sim event
             StartSim?.Invoke();
         }
+
         else {
             // initialize time array
             //Debug.LogWarning("Simulation stopped due to "+type.ToString()+"!");

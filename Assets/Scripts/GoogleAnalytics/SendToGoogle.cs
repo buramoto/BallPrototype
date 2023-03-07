@@ -144,6 +144,7 @@ public class SendToGoogle : MonoBehaviour
             }
             else{
                 GlobalVariables.attemptCounter += 1;
+                DungeonMaster.timeTaken = 0;
             }
             GlobalVariables.plankCounter = 0;
             GlobalVariables.springCounter = 0;
@@ -271,9 +272,6 @@ public class SendToGoogle : MonoBehaviour
                             _numberOfPlanks.ToString(), 
                             _numberOfSprings.ToString(), 
                             _numberOfHeaters.ToString(), 
-                            // _timeForCheckpoint1.ToString(),
-                            // _timeForCheckpoint2.ToString(),
-                            // _timeForCheckpoint3.ToString(),
                             _timeForGoalCheckpoint.ToString(),
                             plankPositions,
                             springPositions,

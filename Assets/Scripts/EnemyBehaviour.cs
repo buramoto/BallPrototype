@@ -52,7 +52,8 @@ public class EnemyBehaviour : MonoBehaviour
             {
                 SendToGoogle.sendToGoogle.resetGlobalVariables("KBE");
                 
-                Destroy(gameObject);
+                // Destroy(gameObject);
+                gameObject.SetActive(false);
                 // not wokring as BALLS[] variable is private,
                 // so either make it public OR find ball by tag OR call the function dm.freezeBall();
                 // DungeonMaster.dm.freezeBall(0);
