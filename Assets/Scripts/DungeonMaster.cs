@@ -71,6 +71,8 @@ public class DungeonMaster : MonoBehaviour
     public delegate void StopSimulation(StateReference.resetType type);
     public event StopSimulation StopSim;
 
+    public GameObject awardPoints;
+
     //Settings
     public int maxLives;
 

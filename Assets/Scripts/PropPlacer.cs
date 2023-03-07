@@ -13,6 +13,7 @@ public class PropPlacer : MonoBehaviour
     public GameObject plankPrefab;
     public GameObject springPrefab;
     public GameObject tempElementPrefab;
+    public Camera mainCam;
 
     //Private variables
     private bool dragging;
@@ -21,13 +22,18 @@ public class PropPlacer : MonoBehaviour
     //Settings
     public const float rotationSpeed=500; //Now turned into a constant field
 
-
+    private void initalizeLevel(Scene scene, LoadSceneMode mode)
+    {
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
 
     private void Start()
     {
+        SceneManager.sceneLoaded += initalizeLevel;
         selectedObject = null;
         dragging = false;
         propPlacer = this;
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -44,7 +50,7 @@ public class PropPlacer : MonoBehaviour
         }
 
 
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {
 
