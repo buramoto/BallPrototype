@@ -40,6 +40,7 @@ public class Level6 : MonoBehaviour
 
     void Start()
     {
+        GameObject.Find("Level6_Text").GetComponent<TMPro.TextMeshProUGUI>().text = "";
         GlobalVariables.levelScore = 0;
         GameObject scoreText = GameObject.Find("Score_Text");
         if (scoreText != null)
@@ -52,6 +53,11 @@ public class Level6 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("-----------------------------");
+        Debug.Log(GlobalVariables.plankCounter);
+        Debug.Log(GlobalVariables.heaterCounter);
+        Debug.Log("-----------------------------");
+
         GameObject button = GameObject.Find("StartButton");
         TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
         Debug.Log("Value of attempt counter" + GlobalVariables.attemptCounter);

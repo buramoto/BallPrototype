@@ -207,6 +207,7 @@ public class DungeonMaster : MonoBehaviour
     }
     public void loadMainMenu()
     {
+        SendToGoogle.sendToGoogle.resetGlobalVariables("Main Menu");
         GlobalVariables.levelScore = 0;
         GameObject scoreText = GameObject.Find("Score_Text");
         if (scoreText != null)

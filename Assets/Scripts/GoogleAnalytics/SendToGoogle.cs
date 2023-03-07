@@ -138,8 +138,10 @@ public class SendToGoogle : MonoBehaviour
     }
 
     public void resetGlobalVariables(string type){
-        if(type == "New Level" || type == "Reset Button"){
-            if(type == "New Level"){
+        if(type == "New Level" || type == "Reset Button" || type == "Main Menu")
+        {
+            if(type == "New Level" || type == "Main Menu")
+            {
                 GlobalVariables.attemptCounter = 1;
             }
             else{
