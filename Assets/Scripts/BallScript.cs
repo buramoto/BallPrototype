@@ -90,7 +90,7 @@ public class BallScript : MonoBehaviour
             
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
             
-            if(DungeonMaster.dm.currentSceneName == "Level4"){
+            if(DungeonMaster.dm.currentSceneName == "Level3"){
                 GameObject.FindObjectOfType<Level4>().SendMessage("OutOfBounds", "oob");
             }
             if(DungeonMaster.dm.currentSceneName == "Level5"){
