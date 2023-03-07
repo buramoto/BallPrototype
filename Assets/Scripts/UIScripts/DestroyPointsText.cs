@@ -5,7 +5,7 @@ using UnityEngine;
 public class DestroyPointsText : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float timeExisted = 0;
+    //private float timeExisted = 0;
     void Start()
     {
         Invoke("DestroyGameObject", 900/1000f);
