@@ -41,7 +41,7 @@ public class DungeonMaster : MonoBehaviour
     // Level8: Introduction to enemies
     // Level9: Main Level (Previously "UIDev")
     private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8"};
-    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12"};
+    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11"};
     public static List<string> levelsCompleted = new List<string>();
     public static List<string> levelsAttempted = new List<string>();
     public GameObject[] enemyElements;
@@ -356,7 +356,7 @@ public class DungeonMaster : MonoBehaviour
             Debug.Log("Scene Name: " + GlobalVariables.sceneName);
 
             //ANALYTICS
-            if (GlobalVariables.sceneName != "Level1" && GlobalVariables.sceneName != "Level2")
+            if (GlobalVariables.sceneName != "Level1")
             {
                 Debug.Log("GOOGLE");
                 SendToGoogle.sendToGoogle.Send();
