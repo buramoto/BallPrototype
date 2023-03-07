@@ -273,6 +273,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+      propertyPath: awardPoints
+      value: 
+      objectReference: {fileID: 3677057235638134532, guid: 4c9e9aa2e548e4e2fa7f2ac80b0a1e04, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
 --- !u!1001 &1504501624
@@ -377,6 +381,10 @@ PrefabInstance:
     - target: {fileID: 1129881260809333989, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_text
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512958688957212461, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000022888184
       objectReference: {fileID: 0}
     - target: {fileID: 5023556611887295729, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchorMax.y
@@ -702,6 +710,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.20473476
       objectReference: {fileID: 0}
+    - target: {fileID: 6171845429474037048, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000076293945
+      objectReference: {fileID: 0}
     - target: {fileID: 6171845429511606762, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -729,6 +741,10 @@ PrefabInstance:
     - target: {fileID: 6171845429511606763, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171845429682911374, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.16719818
       objectReference: {fileID: 0}
     - target: {fileID: 6888436198134032889, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchorMax.y

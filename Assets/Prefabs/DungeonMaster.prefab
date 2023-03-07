@@ -48,11 +48,14 @@ MonoBehaviour:
   highlightedObject: {fileID: 0}
   simulationMode: 0
   counter: 0
+  lives: 2
   enemyElements: []
   hearts: []
   instructions: {fileID: 0}
-  lives: 2
-  rotationSpeed: 500
+  nextSceneName: 
+  currentSceneName: 
+  awardPoints: {fileID: 3677057235638134532, guid: 4c9e9aa2e548e4e2fa7f2ac80b0a1e04, type: 3}
+  maxLives: 0
 --- !u!114 &184224287
 MonoBehaviour:
   m_ObjectHideFlags: 0
