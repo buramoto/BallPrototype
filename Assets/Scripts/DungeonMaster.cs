@@ -332,7 +332,7 @@ public class DungeonMaster : MonoBehaviour
             isLevelOn = false;
             levelsCompleted.Add(currentSceneName);
             levelsAttempted.Remove(currentSceneName);
-            GlobalVariables.levelScore += 500;
+            GlobalVariables.levelScore += 100;
             Debug.Log("Checking"+GlobalVariables.levelScore);
             GameObject scoreText = GameObject.Find("Score_Text");
             Debug.Log("This is the score go" + scoreText);
