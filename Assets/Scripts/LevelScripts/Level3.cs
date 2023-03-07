@@ -8,6 +8,7 @@ public class Level3 : MonoBehaviour
     private bool first = true;
     private void Awake()
     {
+
         Time.timeScale = 1;
         // setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
         UIBehavior.gameUI.timer.SetActive(true);
@@ -46,7 +47,12 @@ public class Level3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        GlobalVariables.levelScore = 0;
+        GameObject scoreText = GameObject.Find("Score_Text");
+        if (scoreText != null)
+        {
+            scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+        }
     }
 
     // Update is called once per frame

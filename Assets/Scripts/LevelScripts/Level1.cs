@@ -8,8 +8,20 @@ public class Level1 : MonoBehaviour
 {
     public GameObject image;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+
+    }
+
     void Start()
-    {   
+    {
+        GlobalVariables.levelScore = 0;
+        GameObject scoreText = GameObject.Find("Score_Text");
+        if (scoreText != null)
+        {
+            scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+        }
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
         UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);

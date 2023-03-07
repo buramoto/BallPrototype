@@ -71,6 +71,8 @@ public class DungeonMaster : MonoBehaviour
     public delegate void StopSimulation(StateReference.resetType type);
     public event StopSimulation StopSim;
 
+    public GameObject awardPoints;
+
     //Settings
     public int maxLives;
 
@@ -146,8 +148,9 @@ public class DungeonMaster : MonoBehaviour
         {
             return;
         }
-        levelsCompleted.Remove(currentSceneName);
-        levelsAttempted.Add(currentSceneName);
+        if(!levelsCompleted.Contains(currentSceneName)) {
+            levelsAttempted.Add(currentSceneName);
+        }
         isLevelOn = true;
         lives = maxLives;
         GameObject button = GameObject.Find("StartButton");
@@ -182,6 +185,7 @@ public class DungeonMaster : MonoBehaviour
         {
             enemyElements[i].SetActive(true);
         }
+
     }
 
     //Scene loads
@@ -203,8 +207,16 @@ public class DungeonMaster : MonoBehaviour
     }
     public void loadMainMenu()
     {
+        GlobalVariables.levelScore = 0;
+        GameObject scoreText = GameObject.Find("Score_Text");
+        if (scoreText != null)
+        {
+            scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+        }
         UIBehavior.gameUI.changeButtonStateToStart();
         SceneManager.LoadScene("MainMenu");
+
+        
     }
 
     //This method changes the state of the game from edit to simulaton mode. Stopping requires type of stop, starting requires resetType.start
@@ -322,7 +334,7 @@ public class DungeonMaster : MonoBehaviour
             isLevelOn = false;
             levelsCompleted.Add(currentSceneName);
             levelsAttempted.Remove(currentSceneName);
-            GlobalVariables.levelScore += 500;
+            GlobalVariables.levelScore += 100;
             Debug.Log("Checking"+GlobalVariables.levelScore);
             GameObject scoreText = GameObject.Find("Score_Text");
             Debug.Log("This is the score go" + scoreText);

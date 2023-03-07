@@ -40,6 +40,8 @@ public class PropPlacer : MonoBehaviour
     void Update()
     {
 
+        //bool isOffsetCalculated = false;
+        Vector2 offset = new Vector2(0f, 0f);
 
         if (DungeonMaster.dm.simulationMode)
         {
@@ -51,6 +53,7 @@ public class PropPlacer : MonoBehaviour
         Vector2 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {
+
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
             //selectedObject = null;
             //Debug.Log("PropPlacer just after RayCast Hit: "+hit.collider);
@@ -114,37 +117,34 @@ public class PropPlacer : MonoBehaviour
             }
             dragging = true;
             selectedObject = clickedObject;
+            //if (!isOffsetCalculated)
+            //{
+                //offset = mousePosition - (Vector2)selectedObject.transform.position ;
+            //    isOffsetCalculated = true;
+            //}
         }
         //We are still dragging, so update position based on mouse position
         if (dragging)
         {
-            selectedObject.transform.position = mousePosition;
+
+
+            //Debug.Log("Mouse Position Coords: "+mousePosition);
+            //Debug.Log("Selected Object Coords: "+selectedObject.transform.position);
+            //Vector2 offset = (Vector2)selectedObject.transform.position - mousePosition;
+            //Debug.Log("Selected Object Coords - Mouse Pos Coords: " + offset);
+            //if (isOffsetCalculated) {
+            //selectedObject.transform.position = mousePosition + offset;
+            //}
+            selectedObject.transform.position = mousePosition ;
+            //selectedObject.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) +
+            //    new Vector3(offset.x, offset.y, 0f);
         }
         //Player has released m1, stop dragging
         if (Input.GetMouseButtonUp(0))
         {
+            //isOffsetCalculated = false;
             dragging = false;
         }
-
-        //Other placement options for prop, but this should be done through UI later on 
-        //Once we convert to UI controls, these methods should move to their own methods
-        //So the UI can call the method
-        // if(selectedObject != null)
-        // {
-        //     // Debug.Log(selectedObject.tag);
-        //     if (Input.GetKey(KeyCode.RightArrow))//Rotate right
-        //     {
-        //         rotateRight(selectedObject);
-        //     }
-        //     if (Input.GetKey(KeyCode.LeftArrow))//Rotate left
-        //     {
-        //         rotateLeft(selectedObject);
-        //     }
-        //     if (Input.GetKey(KeyCode.Delete) || Input.GetKey(KeyCode.Backspace))//Delete
-        //     {
-        //         deleteToolkitInstance(selectedObject);
-        //     }
-        // }
     }
 
     public void createPlank()

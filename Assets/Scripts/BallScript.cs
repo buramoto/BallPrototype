@@ -66,9 +66,9 @@ public class BallScript : MonoBehaviour
         // Calculate the height and width of the screen
         screenHeight = 2f * cam.orthographicSize;
         screenWidth = screenHeight * cam.aspect;
-        anim = gameObject.GetComponentInChildren<Animator>();
-        Debug.Log("Found the following animator");
-        Debug.Log(anim);
+        //anim = gameObject.GetComponentInChildren<Animator>();
+        //Debug.Log("Found the following animator");
+        //Debug.Log(anim);
         stopSim();
     }
 
@@ -105,14 +105,18 @@ public class BallScript : MonoBehaviour
 
         if(Input.GetMouseButtonDown(1))
         {
+            swordHolder.transform.GetChild(0).gameObject.SetActive(true);
             Debug.Log("Slice key pressed");
             if (DungeonMaster.dm.simulationMode)
             {
+                anim = gameObject.GetComponentInChildren<Animator>();
+                Debug.Log("Found the following animator");
+                Debug.Log(anim);
                 sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
                 sword.enabled = true;
                 anim.SetTrigger("Slice");
                 Debug.Log("about to call setSwordInActive");
-                Invoke("setSwordInActive", 1500/1000f);
+                //Invoke("setSwordInActive", 1500/1000f);
             }
         }
     }
@@ -260,6 +264,7 @@ public class BallScript : MonoBehaviour
                     break;
             }
             if(goal.goalColor != StateReference.goalColor.green) {
+                Instantiate(DungeonMaster.dm.awardPoints, new Vector3(checkpoint.gameObject.transform.position.x, checkpoint.gameObject.transform.position.y, checkpoint.gameObject.transform.position.z), Quaternion.identity);
                 checkpoint.SetActive(false);
             }
             DungeonMaster.dm.checkpointHit(checkpoint, color);
@@ -289,7 +294,8 @@ public class BallScript : MonoBehaviour
     public void setSwordInActive()
     {
         Debug.Log("Sword About to SET ENABLED = FALSE");
-        sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
-        sword.enabled = false;
+        swordHolder.transform.GetChild(0).gameObject.SetActive(false);
+        //sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
+        //sword.enabled = false;
     }
 }
