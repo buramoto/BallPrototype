@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 7283839975876352827}
   m_Layer: 5
   m_Name: HealthLossScreen
-  m_TagString: Untagged
+  m_TagString: HealthLoss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,13 +161,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6941a96d893c04c25be110a733424e51, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df00f43d72208a5469d63763017f3be9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
