@@ -70,7 +70,7 @@ public class EnemyBehaviour : MonoBehaviour
                 //var col = RedSplashScreen.GetComponent<Image>().color;
                 //col.a = 0.00f;
                 //RedSplashScreen.GetComponent<Image>().color = col;
-                //SendToGoogle.sendToGoogle.resetGlobalVariables("KBE");
+                SendToGoogle.sendToGoogle.resetGlobalVariables("KBE");
 
                 // Destroy(gameObject);
                 gameObject.SetActive(false);
