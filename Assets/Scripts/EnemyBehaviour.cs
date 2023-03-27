@@ -6,24 +6,27 @@ using UnityEngine.UI;
 public class EnemyBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject RedSplashScreen;
+    //public GameObject RedSplashScreen;
     void Start()
     {
-        RedSplashScreen = GameObject.FindWithTag("HealthLoss");
+        //RedSplashScreen = GameObject.FindWithTag("HealthLoss");
+        //if (UIBehavior.gameUI.RedSplashScreen == null) {
+            //UIBehavior.gameUI.RedSplashScreen = GameObject.FindWithTag("HealthLoss"); 
+        //}
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (RedSplashScreen != null)
-        {
-            if (RedSplashScreen.GetComponent<Image>().color.a >0) {
-                var color = RedSplashScreen.GetComponent<Image>().color;
-                color.a -= 0.01f;
-                RedSplashScreen.GetComponent<Image>().color = color;
-            }
+        //if (RedSplashScreen != null)
+        //{
+        //    if (RedSplashScreen.GetComponent<Image>().color.a >0) {
+        //        var color = RedSplashScreen.GetComponent<Image>().color;
+        //        color.a -= 0.01f;
+        //        RedSplashScreen.GetComponent<Image>().color = color;
+        //    }
 
-        }
+        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -55,15 +58,18 @@ public class EnemyBehaviour : MonoBehaviour
             //RedSplashScreen.GetComponent<Image>().color = color;
             if (DungeonMaster.dm.lives >= 1)
             {
-                var color = RedSplashScreen.GetComponent<Image>().color;
-                color.a = 0.9f;
-                RedSplashScreen.GetComponent<Image>().color = color;
+                Debug.Log("Current Lives: " + DungeonMaster.dm.lives);
+                UIBehavior.gameUI.setRedSplashScreen();
+
+                //var color = UIBehavior.gameUI.RedSplashScreen.GetComponent<Image>().color;
+                //color.a = 0.9f;
+                //UIBehavior.gameUI.RedSplashScreen.GetComponent<Image>().color = color;
             }
             if (DungeonMaster.dm.lives <= 0)
             {
-                var col = RedSplashScreen.GetComponent<Image>().color;
-                col.a = 0.00f;
-                RedSplashScreen.GetComponent<Image>().color = col;
+                //var col = RedSplashScreen.GetComponent<Image>().color;
+                //col.a = 0.00f;
+                //RedSplashScreen.GetComponent<Image>().color = col;
                 SendToGoogle.sendToGoogle.resetGlobalVariables("KBE");
 
                 // Destroy(gameObject);

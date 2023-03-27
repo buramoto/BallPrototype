@@ -21,6 +21,8 @@ public class UIBehavior : MonoBehaviour
     public GameObject winScreen;
     public GameObject gameOverScreen;
     public GameObject nextLevelScreen;
+    public GameObject RedSplashScreen;
+
 
     //Timer
     public GameObject timer;
@@ -88,6 +90,14 @@ public class UIBehavior : MonoBehaviour
     {
         DungeonMaster.dm.StartSim += startSim;
         DungeonMaster.dm.StopSim += stopSim;
+        //Debug.Log('');
+        //RedSplashScreen = GameObject.FindWithTag("HealthLoss");
+        RedSplashScreen = Instantiate(RedSplashScreen);
+        DontDestroyOnLoad(RedSplashScreen);
+        RedSplashScreen = RedSplashScreen.transform.GetChild(0).gameObject;
+        //Debug.Log("Name of RedSplashScreen: "+RedSplashScreen.name);
+
+        //RedSplashScreen = GameObject.FindWithTag("HealthLoss");
     }
 
     public void changeButtonStateToStart() {
@@ -125,6 +135,30 @@ public class UIBehavior : MonoBehaviour
             levelMode.SetActive(true);
 
         }
+    }
+
+    private void Update()
+    {
+        if (RedSplashScreen != null)
+        {
+            if (RedSplashScreen.GetComponent<Image>().color.a > 0)
+            {
+                var color = RedSplashScreen.GetComponent<Image>().color;
+                color.a -= 0.001f;
+                RedSplashScreen.GetComponent<Image>().color = color;
+            }
+
+        }
+    }
+
+    public void setRedSplashScreen()
+    {
+        Debug.Log("Inside Red Splash Screen Func");
+        var color = RedSplashScreen.GetComponent<Image>().color;
+        color.a = 1.0f;
+        RedSplashScreen.GetComponent<Image>().color = color;
+        Debug.Log("Value of alpha" + RedSplashScreen.GetComponent<Image>());
+        Debug.Log("Value of alpha" + RedSplashScreen.GetComponent<Image>().color.a);
     }
 
     public void updateTimer(float minutes, float seconds) {
