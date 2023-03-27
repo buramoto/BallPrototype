@@ -290,6 +290,7 @@ public class BallScript : MonoBehaviour
     {
         //Debug.Log("Ball: simulaton stopped");
         ballPhysics.constraints = RigidbodyConstraints2D.FreezePosition;
+        ballPhysics.constraints = RigidbodyConstraints2D.FreezeRotation;
         ballPhysics.isKinematic = true;
         transform.position = startPosition;
         tempState = StateReference.temperature.neutral;
