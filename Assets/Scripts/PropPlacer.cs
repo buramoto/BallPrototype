@@ -18,6 +18,7 @@ public class PropPlacer : MonoBehaviour
 
     //Private variables
     private bool dragging;
+    private Vector2 offset = new Vector2(0f,0f);
     public GameObject selectedObject; //Make this private when debugging is done
 
     //Settings
@@ -40,10 +41,6 @@ public class PropPlacer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //bool isOffsetCalculated = false;
-        Vector2 offset = new Vector2(0f, 0f);
-
         if (DungeonMaster.dm.simulationMode)
         {
             //We are in simulation mode. Player should not be editing anything
@@ -81,6 +78,7 @@ public class PropPlacer : MonoBehaviour
             }
             if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
                 DungeonMaster.dm.HighlightObject(clickedObject);
+                offset = (Vector2)clickedObject.transform.position - mousePosition;
                 // below function set operation buttons to active mode when a correct object is clicked/highlighted
                 
             }
@@ -117,7 +115,8 @@ public class PropPlacer : MonoBehaviour
         //We are still dragging, so update position based on mouse position
         if (dragging)
         {
-            selectedObject.transform.position = mousePosition ;
+            Debug.Log(offset);
+            selectedObject.transform.position = mousePosition + offset;
         }
         //Player has released m1, stop dragging
         if (Input.GetMouseButtonUp(0))
