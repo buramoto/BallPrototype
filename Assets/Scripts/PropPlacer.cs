@@ -8,6 +8,7 @@ public class PropPlacer : MonoBehaviour
 {
     //Static reference
     public static PropPlacer propPlacer;
+    public static Vector2 mousePosition;
 
     //References to objects
     public GameObject plankPrefab;
@@ -17,6 +18,7 @@ public class PropPlacer : MonoBehaviour
 
     //Private variables
     private bool dragging;
+    private Vector2 offset = new Vector2(0f,0f);
     public GameObject selectedObject; //Make this private when debugging is done
 
     //Settings
@@ -39,10 +41,6 @@ public class PropPlacer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //bool isOffsetCalculated = false;
-        Vector2 offset = new Vector2(0f, 0f);
-
         if (DungeonMaster.dm.simulationMode)
         {
             //We are in simulation mode. Player should not be editing anything
@@ -50,15 +48,11 @@ public class PropPlacer : MonoBehaviour
         }
 
 
-        Vector2 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {
 
             RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-            //selectedObject = null;
-            //Debug.Log("PropPlacer just after RayCast Hit: "+hit.collider);
-
-            // Debug.Log("Trying to identify using event system: "+EventSystem.current.currentSelectedGameObject );
             dragging = false;
             if(hit.collider == null)
             {
@@ -77,14 +71,14 @@ public class PropPlacer : MonoBehaviour
             GameObject clickedObject = hit.collider.gameObject;
             if(clickedObject.gameObject.layer == 5)
             {
+                //Check if we have clicked on any UI elements
                 selectedObject = null;
                 DungeonMaster.dm.RemoveHighlightFromObject();
-                //Debug.LogError("Don't use this");
                 return;
             }
-            // Debug.Log("current Instance in PropPlacer: -----> "+clickedObject);
             if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
                 DungeonMaster.dm.HighlightObject(clickedObject);
+                offset = (Vector2)clickedObject.transform.position - mousePosition;
                 // below function set operation buttons to active mode when a correct object is clicked/highlighted
                 
             }
@@ -117,27 +111,12 @@ public class PropPlacer : MonoBehaviour
             }
             dragging = true;
             selectedObject = clickedObject;
-            //if (!isOffsetCalculated)
-            //{
-                //offset = mousePosition - (Vector2)selectedObject.transform.position ;
-            //    isOffsetCalculated = true;
-            //}
         }
         //We are still dragging, so update position based on mouse position
         if (dragging)
         {
-
-
-            //Debug.Log("Mouse Position Coords: "+mousePosition);
-            //Debug.Log("Selected Object Coords: "+selectedObject.transform.position);
-            //Vector2 offset = (Vector2)selectedObject.transform.position - mousePosition;
-            //Debug.Log("Selected Object Coords - Mouse Pos Coords: " + offset);
-            //if (isOffsetCalculated) {
-            //selectedObject.transform.position = mousePosition + offset;
-            //}
-            selectedObject.transform.position = mousePosition ;
-            //selectedObject.transform.position = Camera.main.ScreenToWorldPoint(Input.mousePosition) +
-            //    new Vector3(offset.x, offset.y, 0f);
+            Debug.Log(offset);
+            selectedObject.transform.position = mousePosition + offset;
         }
         //Player has released m1, stop dragging
         if (Input.GetMouseButtonUp(0))
@@ -152,21 +131,13 @@ public class PropPlacer : MonoBehaviour
         DungeonMaster.dm.RemoveHighlightFromObject();
         if (!DungeonMaster.dm.simulationMode)
         {
-            // Debug.Log("Creating Plank");
-
             // Increment the plank counter
             GlobalVariables.plankCounter++;
-            Debug.Log("Plank Counter: " + GlobalVariables.plankCounter);
-
-            GameObject newPlank = Instantiate(plankPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject newPlank = Instantiate(plankPrefab, mousePosition, Quaternion.identity);
             Plank plankScript = newPlank.GetComponent<Plank>();
             plankScript.ChangeTemp(StateReference.temperature.neutral);
             plankScript.editable = true;
             plankScript.hasCollided = false;
-        }
-        else
-        {
-            Debug.LogWarning("In Editing Mode hence NO plank created!");
         }
     }
 
@@ -175,20 +146,12 @@ public class PropPlacer : MonoBehaviour
         DungeonMaster.dm.RemoveHighlightFromObject();
         if (!DungeonMaster.dm.simulationMode)
         {
-            Debug.Log("Creating Spring");
-
             // Increment the spring counter
             GlobalVariables.springCounter++;
-            Debug.Log("Spring Counter: " + GlobalVariables.springCounter);
-
-            GameObject newSpring = Instantiate(springPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject newSpring = Instantiate(springPrefab, mousePosition, Quaternion.identity);
             Spring springScript = newSpring.GetComponent<Spring>();
             springScript.editable = true;
             springScript.hasCollided = false;
-        }
-        else
-        {
-            Debug.LogError("In Editing Mode hence NO spring created!");
         }
     }
 
@@ -197,21 +160,14 @@ public class PropPlacer : MonoBehaviour
         DungeonMaster.dm.RemoveHighlightFromObject();
         if (!DungeonMaster.dm.simulationMode)
         {
-            Debug.Log("Creating Temperature Element");
-
             // Increment the heater counter
             GlobalVariables.heaterCounter++;
-            Debug.Log("Heater Counter: " + GlobalVariables.heaterCounter);
-            
-            GameObject newTempElement = Instantiate(tempElementPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            GameObject newTempElement = Instantiate(tempElementPrefab, mousePosition, Quaternion.identity);
+            Debug.Log("Creating plank at: " + mousePosition);
             ChangeTemperature newTempElementScript = newTempElement.GetComponent<ChangeTemperature>();
             newTempElementScript.ChangeTemp(StateReference.temperature.hot);
             newTempElementScript.editable = true;
             newTempElementScript.hasCollided = false;
-        }
-        else
-        {
-            Debug.LogError("In Editing Mode hence NO temperature element created!");
         }
     }
 
@@ -221,31 +177,25 @@ public class PropPlacer : MonoBehaviour
         if(toolkitInstance.tag == "Plank")
         {
             GlobalVariables.plankCounter--;
-            // Debug.Log("Plank Counter after deletion: " + GlobalVariables.plankCounter);
             if(toolkitInstance.GetComponent<Plank>().hasCollided)
             {
                 GlobalVariables.plankUsed--;
-                // Debug.Log("Plank Collided Counter after deletion: " + GlobalVariables.plankUsed);
             }
         }
         if(toolkitInstance.tag == "Spring")
         {
             GlobalVariables.springCounter--;
-            // Debug.Log("Spring Counter after deletion: " + GlobalVariables.springCounter);
             if(toolkitInstance.GetComponent<Spring>().hasCollided)
             {
                 GlobalVariables.springUsed--;
-                // Debug.Log("Spring Collided Counter after deletion: " + GlobalVariables.springUsed);
             }
         }
         if(toolkitInstance.tag == "TempChange")
         {
             GlobalVariables.heaterCounter--;
-            // Debug.Log("Heater Counter after deletion: " + GlobalVariables.heaterCounter);
             if(toolkitInstance.GetComponent<ChangeTemperature>().hasCollided)
             {
                 GlobalVariables.heaterUsed--;
-                // Debug.Log("Heater Collided Counter after deletion: " + GlobalVariables.heaterUsed);
             }
         }
         Destroy(toolkitInstance);
