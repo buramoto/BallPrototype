@@ -5,6 +5,8 @@ using static StateReference;
 
 public class GlobalVariables : MonoBehaviour
 {
+    // Session ID
+    public static string sessionID = null;
     // Total elements generated
     public static int heaterCounter = 0;
     public static int plankCounter = 0;

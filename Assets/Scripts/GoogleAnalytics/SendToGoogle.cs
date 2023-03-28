@@ -47,7 +47,7 @@ public class SendToGoogle : MonoBehaviour
     // Get the user ID
     public static string GetUserID()
     {
-        string uniqueID = SystemInfo.deviceName + SystemInfo.deviceModel;
+        string uniqueID = SystemInfo.deviceUniqueIdentifier + SystemInfo.operatingSystem + SystemInfo.deviceName + SystemInfo.graphicsDeviceName + SystemInfo.processorType + SystemInfo.systemMemorySize;
         byte[] data = System.Text.Encoding.UTF8.GetBytes(uniqueID);
         byte[] hash = new SHA256Managed().ComputeHash(data);
 
@@ -57,8 +57,12 @@ public class SendToGoogle : MonoBehaviour
     // Generate a unique session ID
     public static string GetSessionID()
     {
-        string sessionID = System.Guid.NewGuid().ToString();
-        byte[] data = System.Text.Encoding.UTF8.GetBytes(sessionID);
+        if(GlobalVariables.sessionID == null)
+        {
+            GlobalVariables.sessionID = System.Guid.NewGuid().ToString();
+        }
+        // string sessionID = System.Guid.NewGuid().ToString();
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(GlobalVariables.sessionID);
         byte[] hash = new SHA256Managed().ComputeHash(data);
 
         return System.Convert.ToBase64String(hash);
@@ -224,6 +228,9 @@ public class SendToGoogle : MonoBehaviour
     {
         _sessionID = GetSessionID();
         _userID = GetUserID();
+        Debug.Log("Session ID: " + _sessionID);
+        Debug.Log("User ID: " + _userID);
+        
         _numberOfAttempts = GlobalVariables.attemptCounter;
 
         _numberOfPlanks = GlobalVariables.plankCounter;

@@ -144,7 +144,7 @@ public class UIBehavior : MonoBehaviour
             if (RedSplashScreen.GetComponent<Image>().color.a > 0)
             {
                 var color = RedSplashScreen.GetComponent<Image>().color;
-                color.a -= 0.001f;
+                color.a -= 0.005f;
                 RedSplashScreen.GetComponent<Image>().color = color;
             }
 
