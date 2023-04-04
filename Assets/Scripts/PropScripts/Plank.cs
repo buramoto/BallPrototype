@@ -18,10 +18,11 @@ public class Plank : MonoBehaviour
     public Sprite normPlankSprite;
     public Sprite coldPlankSprite;
     public Sprite hotPlankSprite;
-
+    public int overLaps;
 
     void Start()
     {
+        overLaps = 0;
         //Based on its current temperatue, set the color
         plankDisplay = GetComponent<SpriteRenderer>();
         if (!editable)
@@ -149,4 +150,29 @@ public class Plank : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Plank") || collision.gameObject.CompareTag("Spring") || collision.gameObject.CompareTag("TempChange"))
+        {
+            Debug.Log("This is the trigger enter stage Spring ");
+            overLaps++;
+            Debug.Log("Overlap value becomes" + overLaps);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Plank") || collision.gameObject.CompareTag("Spring") || collision.gameObject.CompareTag("TempChange"))
+        {
+            Debug.Log("This is the trigger exit stage in Heater");
+            overLaps--;
+            Debug.Log("Overlap value becomes" + overLaps);
+        }
+    }
+    public bool isOverlapping()
+    {
+        if (overLaps > 0)
+            return true;
+        return false;
+    }
 }

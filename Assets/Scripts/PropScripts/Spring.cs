@@ -12,10 +12,69 @@ public class Spring : MonoBehaviour
     public bool editable;
     public float springForce;
     public bool hasCollided = false;
+    public int overLaps;
+    public Sprite uncompressedSpringSprite;
+    public Sprite compressedSpringSprite;
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public Animator anim;
+
+
+
+    private void Start()
     {
-        Rigidbody2D ballPhys = collision.gameObject.GetComponent<Rigidbody2D>();
-        ballPhys.AddForce(new Vector2(-springForce * Mathf.Sin(transform.rotation.z), springForce * Mathf.Cos(transform.rotation.z)));
+        overLaps = 0;
+        anim = gameObject.GetComponent<Animator>();
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("------ Collision Detected ---------");
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            int layerIndex = 0; // assuming you have only one layer in your Animator Controller
+
+            // Check if the "compressSpring" trigger is already set
+            AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(layerIndex);
+            if (stateInfo.IsName("springDown") && stateInfo.normalizedTime < 1.0f)
+            {
+                Debug.Log("Spring is compressed right now so ball can't jump at this instant!");
+                // The "beginSpringCompression" trigger is already set, so don't set it again
+                return;
+            }
+            else
+            {
+                anim.SetTrigger("beginSpringCompression");
+                Rigidbody2D ballPhys = collision.gameObject.GetComponent<Rigidbody2D>();
+                ballPhys.AddForce(new Vector2(-springForce * Mathf.Sin(transform.rotation.z), springForce * Mathf.Cos(transform.rotation.z)));
+                Debug.Log("Printing the value of ANIM: " + anim);
+            }
+
+
+        }
+        else if (collision.gameObject.CompareTag("Plank") || collision.gameObject.CompareTag("Spring") || collision.gameObject.CompareTag("TempChange"))
+        {
+            Debug.Log("This is the trigger enter stage Spring ");
+            overLaps++;
+            Debug.Log("Overlap value becomes" + overLaps);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Plank") || collision.gameObject.CompareTag("Spring") || collision.gameObject.CompareTag("TempChange"))
+        {
+            Debug.Log("This is the trigger exit stage in Heater");
+            overLaps--;
+            Debug.Log("Overlap value becomes" + overLaps);
+        }
+    }
+
+
+    public bool isOverlapping()
+    {
+        if (overLaps > 0)
+            return true;
+        return false;
     }
 }

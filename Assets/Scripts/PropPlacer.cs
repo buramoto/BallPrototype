@@ -15,11 +15,17 @@ public class PropPlacer : MonoBehaviour
     public GameObject springPrefab;
     public GameObject tempElementPrefab;
     public Camera mainCam;
+    public GameObject operationsPanelPrefab;
+    private GameObject operationsPanel = null;
+    private RectTransform panel;
 
     //Private variables
     private bool dragging;
     private Vector2 offset = new Vector2(0f,0f);
     public GameObject selectedObject; //Make this private when debugging is done
+    public Vector3 positionBeforeClicking;
+    public Quaternion rotationBeforeClicking;
+    public Collider2D collidingObj;
 
     //Settings
     public const float rotationSpeed=500; //Now turned into a constant field
@@ -63,6 +69,8 @@ public class PropPlacer : MonoBehaviour
                 if (DungeonMaster.dm.highlightedObject != null)
                 {
                     DungeonMaster.dm.RemoveHighlightFromObject();
+                    Destroy(operationsPanel);
+                    operationsPanel = null;
                 }
                 selectedObject = null;
                 return;
@@ -74,13 +82,26 @@ public class PropPlacer : MonoBehaviour
                 //Check if we have clicked on any UI elements
                 selectedObject = null;
                 DungeonMaster.dm.RemoveHighlightFromObject();
+                Destroy(operationsPanel);
+                operationsPanel = null;
                 return;
             }
             if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
                 DungeonMaster.dm.HighlightObject(clickedObject);
                 offset = (Vector2)clickedObject.transform.position - mousePosition;
+                positionBeforeClicking = clickedObject.transform.position;
+                rotationBeforeClicking = clickedObject.transform.rotation;
+                //Creating the toolkit button
+                //Debug.Log("Creating dynamic operations panel");
+
+                // IMPORTANT: This is the code that creates the operations panel on the highlighted object, please uncomment this code when you are done with the operations panel
+                // if(operationsPanel == null)
+                // {
+                //     operationsPanel = Instantiate(operationsPanelPrefab);
+                //     panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
+                // }
                 // below function set operation buttons to active mode when a correct object is clicked/highlighted
-                
+
             }
             switch (clickedObject.tag) //Check to make sure what we clicked is editable. If it is not, return
             {
@@ -115,14 +136,82 @@ public class PropPlacer : MonoBehaviour
         //We are still dragging, so update position based on mouse position
         if (dragging)
         {
-            Debug.Log(offset);
+            //Debug.Log(offset);
             selectedObject.transform.position = mousePosition + offset;
         }
         //Player has released m1, stop dragging
         if (Input.GetMouseButtonUp(0))
         {
             //isOffsetCalculated = false;
-            dragging = false;
+            if (selectedObject != null)
+            {
+                Debug.Log("Selected object is:-" + selectedObject);
+                Debug.Log("Position of the selected object" + selectedObject.transform.position);
+                if(selectedObject.CompareTag("Plank"))
+                {
+                    Plank p1 = selectedObject.GetComponent<Plank>();
+                    Debug.Log("Checking the object p1" + p1);
+
+                    if (p1.isOverlapping() == true)
+                    {
+                        Debug.Log("Object is colliding");
+                        selectedObject.transform.position = positionBeforeClicking;
+                        selectedObject.transform.rotation = rotationBeforeClicking;
+                        dragging = false;
+                    }
+                    else
+                    {
+                        Debug.Log("No Object is colliding successful positioning");
+                        dragging = false;
+                    }
+                }
+                else if(selectedObject.CompareTag("Spring"))
+                {
+                    Spring p1 = selectedObject.GetComponent<Spring>();
+                    Debug.Log("Checking the object p1" + p1);
+
+                    if (p1.isOverlapping() == true)
+                    {
+                        Debug.Log("Object is colliding");
+                        selectedObject.transform.position = positionBeforeClicking;
+                        selectedObject.transform.rotation = rotationBeforeClicking;
+                        dragging = false;
+                    }
+                    else
+                    {
+                        Debug.Log("No Object is colliding successful positioning");
+                        dragging = false;
+                    }
+                }
+                else if(selectedObject.CompareTag("TempChange"))
+                {
+                    ChangeTemperature p1 = selectedObject.GetComponent<ChangeTemperature>();
+                    Debug.Log("Checking the object p1" + p1);
+
+                    if (p1.isOverlapping() == true)
+                    {
+                        Debug.Log("Object is colliding");
+                        selectedObject.transform.position = positionBeforeClicking;
+                        selectedObject.transform.rotation = rotationBeforeClicking;
+                        dragging = false;
+                    }
+                    else
+                    {
+                        Debug.Log("No Object is colliding successful positioning");
+                        dragging = false;
+                    }
+                }
+               //dragging = false;
+            }
+        }
+
+        //Positioning of operations panel
+        if(selectedObject != null)
+        {
+            Vector3 panelOffset = Vector3.down * 50;
+            //Debug.Log(panelOffset);
+            panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position) + panelOffset;
+            //panel.anchorMax = mainCam.WorldToScreenPoint(selectedObject.transform.position);
         }
     }
 
@@ -200,7 +289,8 @@ public class PropPlacer : MonoBehaviour
         }
         Destroy(toolkitInstance);
         DungeonMaster.dm.RemoveHighlightFromObject();
-
+        Destroy(operationsPanel);
+        operationsPanel = null;
     }
 
     public void rotateLeft(){

@@ -185,6 +185,19 @@ public class DungeonMaster : MonoBehaviour
         {
             enemyElements[i].SetActive(true);
         }
+        GameObject levelName = GameObject.Find("Level_Name");
+        if(levelName!=null)
+        {
+            Debug.Log("Scene text"+currentSceneName);
+            if(currentSceneName=="MainMenu")
+            {
+                levelName.GetComponent<TMPro.TextMeshProUGUI>().text="";
+            }
+            else
+            {
+                levelName.GetComponent<TMPro.TextMeshProUGUI>().text = currentSceneName.ToString();
+            }
+        }
 
     }
 
@@ -216,6 +229,12 @@ public class DungeonMaster : MonoBehaviour
         }
         UIBehavior.gameUI.changeButtonStateToStart();
         SceneManager.LoadScene("MainMenu");
+        GameObject levelName = GameObject.Find("Level_Name");
+        if(levelName!=null)
+        {
+            levelName.GetComponent<TMPro.TextMeshProUGUI>().text="";
+
+        }
 
         
     }

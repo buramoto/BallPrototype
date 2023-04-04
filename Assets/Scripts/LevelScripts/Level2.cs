@@ -8,6 +8,7 @@ public class Level2 : MonoBehaviour
 {
     private bool flag = false;
     public GameObject image;
+    public GameObject highlightedArea;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -53,6 +54,12 @@ public class Level2 : MonoBehaviour
         var col = image.GetComponent<Image>().color;
         col.a = 0;
         image.GetComponent<Image>().color = col;
+
+        // Find the highlighted area and make it transparent
+        highlightedArea = GameObject.Find("Highlighted area");
+        var col2 = highlightedArea.GetComponent<Image>().color;
+        col2.a = 0;
+        highlightedArea.GetComponent<Image>().color = col2;
     }
     void Start()
     {
@@ -82,13 +89,16 @@ public class Level2 : MonoBehaviour
         {
             GameObject dtext = GameObject.Find("Level_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Click on Heater\n Drag it here, over the ice sheet";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Click on Heater\n Drag it on the box below";
             GameObject dtext2 = GameObject.Find("Ice_Plank_Text");
             dtext2.GetComponent<TMPro.TextMeshProUGUI>().text = "Remember: Heater heats the Ball & is one time use only"; 
-            dtext2.GetComponent<TMPro.TextMeshProUGUI>().color = Color.white;
+            dtext2.GetComponent<TMPro.TextMeshProUGUI>().color = Color.yellow;
             var col = image.GetComponent<Image>().color;
             col.a = 0.3f;
             image.GetComponent<Image>().color = col;
+            var col2 = highlightedArea.GetComponent<Image>().color;
+            col2.a = 0.3f;
+            highlightedArea.GetComponent<Image>().color = col2;
         }
     }
 
