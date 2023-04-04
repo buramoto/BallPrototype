@@ -134,7 +134,9 @@ public class PropPlacer : MonoBehaviour
         //Positioning of operations panel
         if(selectedObject != null)
         {
-            operationsPanel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position);
+            RectTransform panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
+            panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position);
+            //panel.anchorMax = mainCam.WorldToScreenPoint(selectedObject.transform.position);
         }
     }
 
