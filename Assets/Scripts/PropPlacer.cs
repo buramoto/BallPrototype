@@ -15,6 +15,8 @@ public class PropPlacer : MonoBehaviour
     public GameObject springPrefab;
     public GameObject tempElementPrefab;
     public Camera mainCam;
+    public GameObject operationsPanelPrefab;
+    private GameObject operationsPanel = null;
 
     //Private variables
     private bool dragging;
@@ -66,6 +68,7 @@ public class PropPlacer : MonoBehaviour
                 if (DungeonMaster.dm.highlightedObject != null)
                 {
                     DungeonMaster.dm.RemoveHighlightFromObject();
+                    Destroy(operationsPanel);
                 }
                 selectedObject = null;
                 return;
@@ -84,8 +87,11 @@ public class PropPlacer : MonoBehaviour
                 offset = (Vector2)clickedObject.transform.position - mousePosition;
                 positionBeforeClicking = clickedObject.transform.position;
                 rotationBeforeClicking = clickedObject.transform.rotation;
+                //Creating the toolkit button
+                Debug.Log("Creating dynamic operations panel");
+                operationsPanel = Instantiate(operationsPanelPrefab);
                 // below function set operation buttons to active mode when a correct object is clicked/highlighted
-                
+
             }
             switch (clickedObject.tag) //Check to make sure what we clicked is editable. If it is not, return
             {
@@ -120,7 +126,7 @@ public class PropPlacer : MonoBehaviour
         //We are still dragging, so update position based on mouse position
         if (dragging)
         {
-            Debug.Log(offset);
+            //Debug.Log(offset);
             selectedObject.transform.position = mousePosition + offset;
         }
         //Player has released m1, stop dragging
@@ -187,6 +193,14 @@ public class PropPlacer : MonoBehaviour
                 }
                //dragging = false;
             }
+        }
+
+        //Positioning of operations panel
+        if(selectedObject != null)
+        {
+            RectTransform panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
+            panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position);
+            //panel.anchorMax = mainCam.WorldToScreenPoint(selectedObject.transform.position);
         }
     }
 
