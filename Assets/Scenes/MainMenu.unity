@@ -393,6 +393,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 184224287, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+      propertyPath: operationsPanelPrefab
+      value: 
+      objectReference: {fileID: 1741247113484554124, guid: 6e150cef582bca041a31c25a49e96621, type: 3}
     - target: {fileID: 1398476507067783386, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
       propertyPath: m_Name
       value: DungeonMaster
