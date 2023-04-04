@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 951476148478341733}
   - component: {fileID: 951476148478341738}
   - component: {fileID: 951476148478341735}
+  - component: {fileID: 5481143453469857655}
   m_Layer: 0
   m_Name: Plank
   m_TagString: Plank
@@ -127,9 +128,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plankState: 2
   editable: 0
+  hasCollided: 0
   normPlankSprite: {fileID: 21300000, guid: bc35a87eff14bcc46b597cfb9b62e261, type: 3}
   coldPlankSprite: {fileID: 0}
   hotPlankSprite: {fileID: 0}
+  overLaps: 0
+--- !u!50 &5481143453469857655
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 951476148478341739}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1000000
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &5049282867788942879
 GameObject:
   m_ObjectHideFlags: 0

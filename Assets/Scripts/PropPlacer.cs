@@ -20,6 +20,9 @@ public class PropPlacer : MonoBehaviour
     private bool dragging;
     private Vector2 offset = new Vector2(0f,0f);
     public GameObject selectedObject; //Make this private when debugging is done
+    public Vector3 positionBeforeClicking;
+    public Quaternion rotationBeforeClicking;
+    public Collider2D collidingObj;
 
     //Settings
     public const float rotationSpeed=500; //Now turned into a constant field
@@ -79,6 +82,8 @@ public class PropPlacer : MonoBehaviour
             if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
                 DungeonMaster.dm.HighlightObject(clickedObject);
                 offset = (Vector2)clickedObject.transform.position - mousePosition;
+                positionBeforeClicking = clickedObject.transform.position;
+                rotationBeforeClicking = clickedObject.transform.rotation;
                 // below function set operation buttons to active mode when a correct object is clicked/highlighted
                 
             }
@@ -122,7 +127,66 @@ public class PropPlacer : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             //isOffsetCalculated = false;
-            dragging = false;
+            if (selectedObject != null)
+            {
+                Debug.Log("Selected object is:-" + selectedObject);
+                Debug.Log("Position of the selected object" + selectedObject.transform.position);
+                if(selectedObject.CompareTag("Plank"))
+                {
+                    Plank p1 = selectedObject.GetComponent<Plank>();
+                    Debug.Log("Checking the object p1" + p1);
+
+                    if (p1.isOverlapping() == true)
+                    {
+                        Debug.Log("Object is colliding");
+                        selectedObject.transform.position = positionBeforeClicking;
+                        selectedObject.transform.rotation = rotationBeforeClicking;
+                        dragging = false;
+                    }
+                    else
+                    {
+                        Debug.Log("No Object is colliding successful positioning");
+                        dragging = false;
+                    }
+                }
+                else if(selectedObject.CompareTag("Spring"))
+                {
+                    Spring p1 = selectedObject.GetComponent<Spring>();
+                    Debug.Log("Checking the object p1" + p1);
+
+                    if (p1.isOverlapping() == true)
+                    {
+                        Debug.Log("Object is colliding");
+                        selectedObject.transform.position = positionBeforeClicking;
+                        selectedObject.transform.rotation = rotationBeforeClicking;
+                        dragging = false;
+                    }
+                    else
+                    {
+                        Debug.Log("No Object is colliding successful positioning");
+                        dragging = false;
+                    }
+                }
+                else if(selectedObject.CompareTag("TempChange"))
+                {
+                    ChangeTemperature p1 = selectedObject.GetComponent<ChangeTemperature>();
+                    Debug.Log("Checking the object p1" + p1);
+
+                    if (p1.isOverlapping() == true)
+                    {
+                        Debug.Log("Object is colliding");
+                        selectedObject.transform.position = positionBeforeClicking;
+                        selectedObject.transform.rotation = rotationBeforeClicking;
+                        dragging = false;
+                    }
+                    else
+                    {
+                        Debug.Log("No Object is colliding successful positioning");
+                        dragging = false;
+                    }
+                }
+               //dragging = false;
+            }
         }
     }
 

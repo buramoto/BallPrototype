@@ -12,10 +12,12 @@ public class ChangeTemperature : MonoBehaviour
     public StateReference.temperature setting;
     public bool hasCollided = false;
     private SpriteRenderer elementDisplay;
+    public int overLaps;
     // Start is called before the first frame update
     // Start is called before the first frame update
     void Start()
     {
+        overLaps = 0;
         elementDisplay = GetComponent<SpriteRenderer>();
         switch (setting)
         {
@@ -48,4 +50,31 @@ public class ChangeTemperature : MonoBehaviour
                 break;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Plank") || collision.gameObject.CompareTag("Spring") || collision.gameObject.CompareTag("TempChange"))
+        {
+            Debug.Log("This is the trigger enter stage in Heater");
+            overLaps++;
+            Debug.Log("Overlap value becomes" + overLaps);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Plank") || collision.gameObject.CompareTag("Spring") || collision.gameObject.CompareTag("TempChange"))
+        {
+            Debug.Log("This is the trigger exit stage in Heater");
+            overLaps--;
+            Debug.Log("Overlap value becomes" + overLaps);
+        }
+    }
+
+    public bool isOverlapping()
+    {
+        if (overLaps > 0)
+            return true;
+        return false;
+    } 
 }
