@@ -93,11 +93,13 @@ public class PropPlacer : MonoBehaviour
                 rotationBeforeClicking = clickedObject.transform.rotation;
                 //Creating the toolkit button
                 //Debug.Log("Creating dynamic operations panel");
-                if(operationsPanel == null)
-                {
-                    operationsPanel = Instantiate(operationsPanelPrefab);
-                    panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
-                }
+
+                // IMPORTANT: This is the code that creates the operations panel on the highlighted object, please uncomment this code when you are done with the operations panel
+                // if(operationsPanel == null)
+                // {
+                //     operationsPanel = Instantiate(operationsPanelPrefab);
+                //     panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
+                // }
                 // below function set operation buttons to active mode when a correct object is clicked/highlighted
 
             }
