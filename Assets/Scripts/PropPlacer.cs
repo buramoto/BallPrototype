@@ -17,6 +17,7 @@ public class PropPlacer : MonoBehaviour
     public Camera mainCam;
     public GameObject operationsPanelPrefab;
     private GameObject operationsPanel = null;
+    private RectTransform panel;
 
     //Private variables
     private bool dragging;
@@ -66,6 +67,7 @@ public class PropPlacer : MonoBehaviour
                 {
                     DungeonMaster.dm.RemoveHighlightFromObject();
                     Destroy(operationsPanel);
+                    operationsPanel = null;
                 }
                 selectedObject = null;
                 return;
@@ -77,14 +79,20 @@ public class PropPlacer : MonoBehaviour
                 //Check if we have clicked on any UI elements
                 selectedObject = null;
                 DungeonMaster.dm.RemoveHighlightFromObject();
+                Destroy(operationsPanel);
+                operationsPanel = null;
                 return;
             }
             if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
                 DungeonMaster.dm.HighlightObject(clickedObject);
                 offset = (Vector2)clickedObject.transform.position - mousePosition;
                 //Creating the toolkit button
-                Debug.Log("Creating dynamic operations panel");
-                operationsPanel = Instantiate(operationsPanelPrefab);
+                //Debug.Log("Creating dynamic operations panel");
+                if(operationsPanel == null)
+                {
+                    operationsPanel = Instantiate(operationsPanelPrefab);
+                    panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
+                }
                 // below function set operation buttons to active mode when a correct object is clicked/highlighted
 
             }
@@ -134,8 +142,9 @@ public class PropPlacer : MonoBehaviour
         //Positioning of operations panel
         if(selectedObject != null)
         {
-            RectTransform panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
-            panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position);
+            Vector3 panelOffset = Vector3.down * 50;
+            //Debug.Log(panelOffset);
+            panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position) + panelOffset;
             //panel.anchorMax = mainCam.WorldToScreenPoint(selectedObject.transform.position);
         }
     }
@@ -214,7 +223,8 @@ public class PropPlacer : MonoBehaviour
         }
         Destroy(toolkitInstance);
         DungeonMaster.dm.RemoveHighlightFromObject();
-
+        Destroy(operationsPanel);
+        operationsPanel = null;
     }
 
     public void rotateLeft(){
