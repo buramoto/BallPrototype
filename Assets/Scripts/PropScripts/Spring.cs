@@ -23,7 +23,7 @@ public class Spring : MonoBehaviour
     private void Start()
     {
         overLaps = 0;
-        //anim = gameObject.GetComponent<Animator>();
+        anim = gameObject.GetComponent<Animator>();
     }
 
 
@@ -32,23 +32,23 @@ public class Spring : MonoBehaviour
         Debug.Log("------ Collision Detected ---------");
         if (collision.gameObject.CompareTag("Player"))
         {
-            //int layerIndex = 0; // assuming you have only one layer in your Animator Controller
+            int layerIndex = 0; // assuming you have only one layer in your Animator Controller
 
-            //// Check if the "compressSpring" trigger is already set
-            //AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(layerIndex);
-            //if (stateInfo.IsName("springDown") && stateInfo.normalizedTime < 1.0f)
-            //{
-            //    Debug.Log("Spring is compressed right now so ball can't jump at this instant!");
-            //    // The "beginSpringCompression" trigger is already set, so don't set it again
-            //    return;
-            //}
-            //else
-            //{
-                //anim.SetTrigger("beginSpringCompression");
+            // Check if the "compressSpring" trigger is already set
+            AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(layerIndex);
+            if (stateInfo.IsName("springDown") && stateInfo.normalizedTime < 1.0f)
+            {
+                Debug.Log("Spring is compressed right now so ball can't jump at this instant!");
+                // The "beginSpringCompression" trigger is already set, so don't set it again
+                return;
+            }
+            else
+            {
+                anim.SetTrigger("beginSpringCompression");
                 Rigidbody2D ballPhys = collision.gameObject.GetComponent<Rigidbody2D>();
                 ballPhys.AddForce(new Vector2(-springForce * Mathf.Sin(transform.rotation.z), springForce * Mathf.Cos(transform.rotation.z)));
-                //Debug.Log("Printing the value of ANIM: " + anim);
-            //}
+                Debug.Log("Printing the value of ANIM: " + anim);
+            }
 
 
         }
