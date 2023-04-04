@@ -13,19 +13,44 @@ public class Spring : MonoBehaviour
     public float springForce;
     public bool hasCollided = false;
     public int overLaps;
+    public Sprite uncompressedSpringSprite;
+    public Sprite compressedSpringSprite;
+
+    public Animator anim;
+
+
 
     private void Start()
     {
         overLaps = 0;
+        //anim = gameObject.GetComponent<Animator>();
     }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("------ Collision Detected ---------");
         if (collision.gameObject.CompareTag("Player"))
         {
-            Rigidbody2D ballPhys = collision.gameObject.GetComponent<Rigidbody2D>();
-            ballPhys.AddForce(new Vector2(-springForce * Mathf.Sin(transform.rotation.z), springForce * Mathf.Cos(transform.rotation.z)));
+            //int layerIndex = 0; // assuming you have only one layer in your Animator Controller
+
+            //// Check if the "compressSpring" trigger is already set
+            //AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(layerIndex);
+            //if (stateInfo.IsName("springDown") && stateInfo.normalizedTime < 1.0f)
+            //{
+            //    Debug.Log("Spring is compressed right now so ball can't jump at this instant!");
+            //    // The "beginSpringCompression" trigger is already set, so don't set it again
+            //    return;
+            //}
+            //else
+            //{
+                //anim.SetTrigger("beginSpringCompression");
+                Rigidbody2D ballPhys = collision.gameObject.GetComponent<Rigidbody2D>();
+                ballPhys.AddForce(new Vector2(-springForce * Mathf.Sin(transform.rotation.z), springForce * Mathf.Cos(transform.rotation.z)));
+                //Debug.Log("Printing the value of ANIM: " + anim);
+            //}
+
+
         }
         else if (collision.gameObject.CompareTag("Plank") || collision.gameObject.CompareTag("Spring") || collision.gameObject.CompareTag("TempChange"))
         {
