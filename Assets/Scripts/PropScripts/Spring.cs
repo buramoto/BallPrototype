@@ -14,8 +14,8 @@ public class Spring : MonoBehaviour
     public bool hasCollided = false;
     public int overLaps;
     public Sprite uncompressedSpringSprite;
-    public Sprite compressedSpringSprite;
-
+    public Sprite outline;
+    public SpriteRenderer spriteRenderer;
     public Animator anim;
 
 
@@ -24,6 +24,7 @@ public class Spring : MonoBehaviour
     {
         overLaps = 0;
         anim = gameObject.GetComponent<Animator>();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
@@ -44,10 +45,14 @@ public class Spring : MonoBehaviour
             }
             else
             {
-                anim.SetTrigger("beginSpringCompression");
-                Rigidbody2D ballPhys = collision.gameObject.GetComponent<Rigidbody2D>();
-                ballPhys.AddForce(new Vector2(-springForce * Mathf.Sin(transform.rotation.z), springForce * Mathf.Cos(transform.rotation.z)));
-                Debug.Log("Printing the value of ANIM: " + anim);
+                if (DungeonMaster.dm.simulationMode) {
+
+
+                    anim.SetTrigger("beginSpringCompression");
+                    Rigidbody2D ballPhys = collision.gameObject.GetComponent<Rigidbody2D>();
+                    ballPhys.AddForce(new Vector2(-springForce * Mathf.Sin(transform.rotation.z), springForce * Mathf.Cos(transform.rotation.z)), ForceMode2D.Impulse);
+                    Debug.Log("Printing the value of ANIM: " + anim);
+                }
             }
 
 
