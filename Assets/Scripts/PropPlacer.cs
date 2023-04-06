@@ -95,11 +95,11 @@ public class PropPlacer : MonoBehaviour
                 //Debug.Log("Creating dynamic operations panel");
 
                 // IMPORTANT: This is the code that creates the operations panel on the highlighted object, please uncomment this code when you are done with the operations panel
-                // if(operationsPanel == null)
-                // {
-                //     operationsPanel = Instantiate(operationsPanelPrefab);
-                //     panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
-                // }
+                if(operationsPanel == null)
+                {
+                    operationsPanel = Instantiate(operationsPanelPrefab);
+                    panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
+                }
                 // below function set operation buttons to active mode when a correct object is clicked/highlighted
 
             }
@@ -208,9 +208,10 @@ public class PropPlacer : MonoBehaviour
         //Positioning of operations panel
         if(selectedObject != null)
         {
-            Vector3 panelOffset = Vector3.down * 50;
-            //Debug.Log(panelOffset);
-            panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position) + panelOffset;
+            Bounds propCorners = selectedObject.GetComponent<BoxCollider2D>().bounds;
+            //Vector3 panelOffset = new Vector3(0, propCorners.center.y - propCorners.extents.y, 0);
+            Vector3 panelOffset = new Vector3(0, propCorners.extents.y + 0.5f, 0);
+            panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position - panelOffset);
             //panel.anchorMax = mainCam.WorldToScreenPoint(selectedObject.transform.position);
         }
     }
