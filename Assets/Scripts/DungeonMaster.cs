@@ -24,6 +24,8 @@ public class DungeonMaster : MonoBehaviour
     public int lives;
     public static int sceneIndex = 0;
     private bool isLevelOn;
+    public float shakeDuration;
+    public float shakeMagnitude;
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -543,6 +545,14 @@ public class DungeonMaster : MonoBehaviour
     public void freezeBall(int index)
     {
         balls[index].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+    }
+
+    public void ShakeCamera()
+    {
+        Debug.Log("ShakeCamera() in DM called--------*********");
+        Debug.Log(gameObject.GetComponent<PropPlacer>().mainCam.GetComponent<CameraShake>());
+
+        StartCoroutine(gameObject.GetComponent<PropPlacer>().mainCam.GetComponent<CameraShake>().Shake(shakeDuration,shakeMagnitude));
     }
 
 

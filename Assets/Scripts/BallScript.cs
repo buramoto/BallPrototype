@@ -101,9 +101,11 @@ public class BallScript : MonoBehaviour
             }
             UIBehavior.gameUI.oobCoords = transform.position;
             //DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
+            DungeonMaster.dm.ShakeCamera();
+
         }
 
-        if(Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1))
         {
 
             if (swordHolder.transform.childCount != 0)
