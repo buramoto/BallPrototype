@@ -435,7 +435,14 @@ public class DungeonMaster : MonoBehaviour
 
     public void RemoveHighlightFromObject(){
         if(highlightedObject!=null){
-            highlightedObject.GetComponentInChildren<Outline>().enabled =false;
+            if (highlightedObject.CompareTag("Spring"))
+            {
+                highlightedObject.GetComponent<Spring>().spriteRenderer.sprite = highlightedObject.GetComponent<Spring>().uncompressedSpringSprite;
+            }
+            else
+            {
+                highlightedObject.GetComponentInChildren<Outline>().enabled =false;
+            }
             highlightedObject = null;
             UIBehavior.gameUI.setOperationInactive();
         }
@@ -444,22 +451,42 @@ public class DungeonMaster : MonoBehaviour
     public void HighlightObject(GameObject currentInstance){
         // Debug.Log("---- DM:" +currentInstance);
         if(currentInstance.CompareTag("Plank") || currentInstance.CompareTag("Spring") || currentInstance.CompareTag("TempChange")){
-                    UIBehavior.gameUI.setOperationActive(currentInstance);
+            UIBehavior.gameUI.setOperationActive(currentInstance);
 
-                    if( highlightedObject!=null && currentInstance != highlightedObject){
-                        highlightedObject.GetComponentInChildren<Outline>().enabled = false;
-                        currentInstance.GetComponentInChildren<Outline>().enabled = true;
-                        highlightedObject = currentInstance;
-                    }
-                    else if(currentInstance == highlightedObject){
-                        // Debug.Log("In currentInstance == highlightedObject");
-                        // do nothing as previously highlighted object is same as the currently clicked object
-                    }
-                    else if(highlightedObject ==null){
-                        // Debug.Log("DM ---> "+currentInstance.GetComponentInChildren<Outline>());
-                        currentInstance.GetComponentInChildren<Outline>().enabled =true;
-                        highlightedObject = currentInstance;
-                    }
+            if( highlightedObject!=null && currentInstance != highlightedObject){
+                if (currentInstance.CompareTag("Spring"))
+                {
+                    HighlightSpring(currentInstance);
+                }
+                else {   
+                    currentInstance.GetComponentInChildren<Outline>().enabled = true;
+                }
+                if (highlightedObject.CompareTag("Spring"))
+                {
+                    highlightedObject.GetComponent<Spring>().spriteRenderer.sprite = highlightedObject.GetComponent<Spring>().uncompressedSpringSprite;
+                }
+                else
+                {
+                    highlightedObject.GetComponentInChildren<Outline>().enabled = false;
+                }
+                highlightedObject = currentInstance;
+            }
+            else if(currentInstance == highlightedObject){
+                // Debug.Log("In currentInstance == highlightedObject");
+                // do nothing as previously highlighted object is same as the currently clicked object
+            }
+            else if(highlightedObject ==null){
+                // Debug.Log("DM ---> "+currentInstance.GetComponentInChildren<Outline>());
+                if (currentInstance.CompareTag("Spring"))
+                {
+                    HighlightSpring(currentInstance);
+                }
+                else
+                {
+                    currentInstance.GetComponentInChildren<Outline>().enabled = true;
+                }
+                highlightedObject = currentInstance;
+            }
                     
         }
         else{
@@ -468,6 +495,11 @@ public class DungeonMaster : MonoBehaviour
                 highlightedObject.GetComponentInChildren<Outline>().enabled =false;
             }
         }
+    }
+
+    public void HighlightSpring(GameObject springInstance)
+    {
+        springInstance.GetComponent<Spring>().spriteRenderer.sprite = springInstance.GetComponent<Spring>().outline;
     }
 
     /*public void resetValues(){

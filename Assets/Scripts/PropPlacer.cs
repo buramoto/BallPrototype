@@ -91,6 +91,7 @@ public class PropPlacer : MonoBehaviour
                 offset = (Vector2)clickedObject.transform.position - mousePosition;
                 positionBeforeClicking = clickedObject.transform.position;
                 rotationBeforeClicking = clickedObject.transform.rotation;
+                Debug.Log("MouseDown on : " + clickedObject.tag);
                 //Creating the toolkit button
                 //Debug.Log("Creating dynamic operations panel");
 
@@ -168,7 +169,7 @@ public class PropPlacer : MonoBehaviour
                 else if(selectedObject.CompareTag("Spring"))
                 {
                     Spring p1 = selectedObject.GetComponent<Spring>();
-                    Debug.Log("Checking the object p1" + p1);
+                    Debug.Log("Checking the object p1 " + p1);
 
                     if (p1.isOverlapping() == true)
                     {
@@ -236,12 +237,14 @@ public class PropPlacer : MonoBehaviour
         DungeonMaster.dm.RemoveHighlightFromObject();
         if (!DungeonMaster.dm.simulationMode)
         {
+            Debug.Log("A Spring has been created");
             // Increment the spring counter
             GlobalVariables.springCounter++;
             GameObject newSpring = Instantiate(springPrefab, mousePosition, Quaternion.identity);
             Spring springScript = newSpring.GetComponent<Spring>();
             springScript.editable = true;
             springScript.hasCollided = false;
+            springScript.spriteRenderer = newSpring.GetComponent<SpriteRenderer>();
         }
     }
 
