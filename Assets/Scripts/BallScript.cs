@@ -314,8 +314,10 @@ public class BallScript : MonoBehaviour
                     break;
             }
             if(goal.goalColor != StateReference.goalColor.green) {
+                Debug.Log("points :"+DungeonMaster.dm.awardPoints);
                 Instantiate(DungeonMaster.dm.awardPoints, new Vector3(checkpoint.gameObject.transform.position.x, checkpoint.gameObject.transform.position.y, checkpoint.gameObject.transform.position.z), Quaternion.identity);
                 checkpoint.SetActive(false);
+                time = time + 2;
             }
             DungeonMaster.dm.checkpointHit(checkpoint, color);
         }
