@@ -28,6 +28,7 @@ TagManager:
   - Firepoint
   - CannonBase
   - Cannon
+  - BarrelHolder
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 public class CanonManager : MonoBehaviour
 {
     // variables for GameObject References
@@ -9,6 +11,10 @@ public class CanonManager : MonoBehaviour
     public LineRenderer lineRenderer;
     private Camera _cam;
     public GameObject barrelHolder;
+    private Collider2D ballCollider2D;
+    private Collider2D barrelCollider2D;
+    private GameObject ball;
+    public static CanonManager canonManager;
 
     // variables for canon logic
     private const int N_TRAJECTORY_POINTS = 10;
@@ -21,30 +27,48 @@ public class CanonManager : MonoBehaviour
     public float canonAutoRotateSpeed = 1;
 
 
+
+    private void Awake()
+    {
+        if (canonManager == null)
+        {
+            canonManager = this;
+        }
+    }
+
     void Start()
     {
         _cam = DungeonMaster.dm.GetComponent<PropPlacer>().mainCam;
 
         lineRenderer.positionCount = N_TRAJECTORY_POINTS;
         lineRenderer.enabled = false;
+        ballCollider2D = GameObject.FindWithTag("Player").GetComponent<Collider2D>();
+        barrelCollider2D = GameObject.FindWithTag("BarrelHolder").GetComponentInChildren<Collider2D>();
+        ball = GameObject.FindWithTag("Player");
     }
 
     void Update()
     {
         if (DungeonMaster.dm.simulationMode)
         {
-            // Add one more check that if the canon has the ball only then allow the below operations.
+            //Debug.Log("isCannonBallPresent *****" + isCanonBallPresent);
+            
+
+            //  one more check to see that if the canon has the ball only then allow the shooting operation.
             if (isCanonBallPresent) {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
                 {
                     _pressingMouse = true;
                     lineRenderer.enabled = true;
                 }
                 if (Input.GetMouseButtonUp(0))
                 {
-                    _pressingMouse = false;
                     lineRenderer.enabled = false;
-                    _Fire();
+                    if (_pressingMouse)
+                    {
+                        _Fire();
+                    }
+                    _pressingMouse = false;
                 }
 
                 if (_pressingMouse)
@@ -57,7 +81,7 @@ public class CanonManager : MonoBehaviour
                     //transform.LookAt(mousePos);
                     //GameObject child = GameObject.FindWithTag("Firepoint");
                     float angle = Mathf.Atan2(mousePos.x - transform.position.x, mousePos.y - transform.position.y) * Mathf.Rad2Deg;
-                    Debug.Log("ANGLE VALUE: ++++++++" + angle);
+                    //Debug.Log("ANGLE VALUE: ++++++++" + angle);
                     angle *= -1;
 
                     // set rotation of Cannon Barrel to face mouse position
@@ -148,5 +172,31 @@ public class CanonManager : MonoBehaviour
             // setting the canonBallPrefab to reference our Game's Ball
             cannonBallPrefab = other.gameObject;
         }
+    }
+
+    public void barrelCollisionEncountered()
+    {
+        // here we are checking that if the ball is already in the cannon then don't execute this code
+        // but if the ball is not in the cannon then check if the ball is colliding with the BarrelHolder
+        // according to the current scenario the BarrelHolder has a separate collider from the cannon object
+        // hence we need to do this checking
+
+        Debug.Log("Collision detected with BARREL");
+        this.isCanonBallPresent = true;
+
+        ball.transform.position = GameObject.FindWithTag("CannonBase").transform.position;
+
+        // disabling the gravity forces on the ball
+        Rigidbody2D ballRigidBody = ball.GetComponent<Rigidbody2D>();
+        ballRigidBody.isKinematic = true;
+
+        // Stopping the Ball's Rotation because the ball inside of the canon
+        //ballRigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        ballRigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
+
+        // setting the canonBallPrefab to reference our Game's Ball
+        cannonBallPrefab = ball.gameObject;
+            
+        
     }
 }
