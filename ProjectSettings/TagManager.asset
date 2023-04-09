@@ -25,6 +25,7 @@ TagManager:
   - SwordHolder
   - MenuBtn
   - Tooltip
+  - HealthSlider
   layers:
   - Default
   - TransparentFX

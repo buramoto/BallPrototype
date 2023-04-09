@@ -155,6 +155,7 @@ public class DungeonMaster : MonoBehaviour
             levelsAttempted.Add(currentSceneName);
         }
         isLevelOn = true;
+        _ballHealth = new UnitHealth(100, 100);
         // lives = maxLives;
         GameObject button = GameObject.Find("StartButton");
         TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();

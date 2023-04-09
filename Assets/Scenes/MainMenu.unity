@@ -1530,6 +1530,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.8705883
       objectReference: {fileID: 0}
+    - target: {fileID: 6389631627167101849, guid: a1716d843a9630c4caaa602228177de9, type: 3}
+      propertyPath: m_TagString
+      value: HealthSlider
+      objectReference: {fileID: 0}
     - target: {fileID: 7376556913449173964, guid: a1716d843a9630c4caaa602228177de9, type: 3}
       propertyPath: m_SizeDelta.x
       value: 631.2831
