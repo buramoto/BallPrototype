@@ -162,6 +162,8 @@ public class DungeonMaster : MonoBehaviour
         buttonText.text = "Start";
         Debug.Log("From DM:"+buttonText.text);
         UIBehavior.gameUI.changeButtonColor(false);
+        Debug.Log("Going to set max health in slider"+_ballHealth.MaxHealth);
+        UIBehavior.gameUI.setMaxHealth(_ballHealth.MaxHealth);
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
         goals = FindObjectsOfType<GoalBlock>();

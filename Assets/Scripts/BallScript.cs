@@ -101,8 +101,16 @@ public class BallScript : MonoBehaviour
             }
             UIBehavior.gameUI.oobCoords = transform.position;
             //DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
+            DungeonMaster.dm._ballHealth.DamageUnit(10);
+            UIBehavior.gameUI.setHealth(DungeonMaster.dm._ballHealth.Health);
+            if(DungeonMaster.dm._ballHealth.Health <= 0) {
+                SendToGoogle.sendToGoogle.resetGlobalVariables("OOB");
+                Time.timeScale = 0;
+                // gameObject.SetActive(false);
+                UIBehavior.gameUI.displayGameOverScreen();
+            } else {
             DungeonMaster.dm.ShakeCamera();
-
+            }
         }
 
         if (Input.GetMouseButtonDown(1))

@@ -137,7 +137,7 @@ public class UIBehavior : MonoBehaviour
             mainMenuBtn.SetActive(true);
             mainMenuMode.SetActive(false);
             levelMode.SetActive(true);
-            setMaxHealth(100);
+            setMaxHealth(DungeonMaster.dm._ballHealth.MaxHealth);
         }
     }
 
