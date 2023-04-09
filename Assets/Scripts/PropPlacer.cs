@@ -86,6 +86,11 @@ public class PropPlacer : MonoBehaviour
                 operationsPanel = null;
                 return;
             }
+            if (clickedObject.tag == "Cannon") {
+                DungeonMaster.dm.RemoveHighlightFromObject();
+                selectedObject = null;
+                return;
+            }
             if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
                 DungeonMaster.dm.HighlightObject(clickedObject);
                 offset = (Vector2)clickedObject.transform.position - mousePosition;

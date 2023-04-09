@@ -25,6 +25,9 @@ TagManager:
   - SwordHolder
   - MenuBtn
   - Tooltip
+  - Firepoint
+  - CannonBase
+  - Cannon
   layers:
   - Default
   - TransparentFX
