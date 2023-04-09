@@ -24,6 +24,8 @@ public class DungeonMaster : MonoBehaviour
     public int lives;
     public static int sceneIndex = 0;
     private bool isLevelOn;
+    public float shakeDuration;
+    public float shakeMagnitude;
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -41,7 +43,7 @@ public class DungeonMaster : MonoBehaviour
     // Level8: Introduction to enemies
     // Level9: Main Level (Previously "UIDev")
     private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8"};
-    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11"};
+    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11", "Level12"};
     public static List<string> levelsCompleted = new List<string>();
     public static List<string> levelsAttempted = new List<string>();
     public GameObject[] enemyElements;
@@ -543,6 +545,14 @@ public class DungeonMaster : MonoBehaviour
     public void freezeBall(int index)
     {
         balls[index].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+    }
+
+    public void ShakeCamera()
+    {
+        Debug.Log("ShakeCamera() in DM called--------*********");
+        Debug.Log(gameObject.GetComponent<PropPlacer>().mainCam.GetComponent<CameraShake>());
+
+        StartCoroutine(gameObject.GetComponent<PropPlacer>().mainCam.GetComponent<CameraShake>().Shake(shakeDuration,shakeMagnitude));
     }
 
 
