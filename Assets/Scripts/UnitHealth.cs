@@ -32,6 +32,10 @@ public class UnitHealth
         {
             _currentHealth -= damageAmount;
         }
+        if(_currentHealth < 0)
+        {
+            _currentHealth = 0;
+        }
     }
 
     public void HealUnit(int healAmount)
