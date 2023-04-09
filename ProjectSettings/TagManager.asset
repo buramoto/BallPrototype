@@ -25,6 +25,7 @@ TagManager:
   - SwordHolder
   - MenuBtn
   - Tooltip
+  - BallTimer
   layers:
   - Default
   - TransparentFX

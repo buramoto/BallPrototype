@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class BallScript : MonoBehaviour
 {
@@ -31,7 +32,14 @@ public class BallScript : MonoBehaviour
     public Animator anim;
 
     // SwordHolder variable (parent of sword)
-    public GameObject swordHolder; 
+    public GameObject swordHolder;
+    public GameObject BallTimer;
+    public float levelBombTime;
+    float time = 10;
+    bool timedecrease = false;
+    public GameObject smoke;
+    private Renderer ballRenderer;
+    private Renderer ballTimerRenderer;
 
     // public bool hasCollided = false;
 
@@ -42,6 +50,14 @@ public class BallScript : MonoBehaviour
 
         //}
         swordHolder = gameObject.transform.GetChild(0).gameObject;
+        BallTimer = GameObject.FindGameObjectWithTag("BallTimer");
+        Debug.Log("Object is set" + BallTimer);
+        if (BallTimer != null)
+        {
+            BallTimer.transform.position = ball.transform.position;
+        }
+        time = levelBombTime;
+        timedecrease = false;
         // setting the ball's sword to inactive intially, when user clicks right mouse button only then collider comopenent will be set active
         if(gameObject.GetComponentInChildren<CapsuleCollider2D>() != null)
         {
@@ -52,14 +68,18 @@ public class BallScript : MonoBehaviour
 
         //Set the ball to its starting position (This should be changed to be configurable based on level
         ball.transform.position = startPosition;
-
+        if (BallTimer != null)
+        {
+            BallTimer.transform.position = startPosition;
+            ballTimerRenderer = BallTimer.GetComponent<MeshRenderer>();
+        }
         //Set inital temperature
         tempState = StateReference.temperature.neutral;
         ball.SetActive(true);
         ballDisplay = GetComponent<SpriteRenderer>();
         ballDisplay.material.color = Color.gray;
         ballPhysics = GetComponent<Rigidbody2D>();
-
+        ballRenderer = ball.GetComponent<SpriteRenderer>();
         // Get the reference to the main camera
         cam = Camera.main;
 
@@ -74,6 +94,10 @@ public class BallScript : MonoBehaviour
 
     private void Update()
     {
+        if (BallTimer != null) 
+        {
+            BallTimer.transform.position = ball.transform.position;
+        }
         swordHolder.transform.rotation = Quaternion.Euler(0.0f, 0.0f, gameObject.transform.rotation.z * -1.0f);
         // Get the x and y positions of the ball
         float ballX = transform.position.x;
@@ -122,6 +146,27 @@ public class BallScript : MonoBehaviour
                     Debug.Log("about to call setSwordInActive");
                     //Invoke("setSwordInActive", 1500/1000f);
                 }
+            }
+        }
+
+        if(BallTimer!=null && timedecrease==true)
+        {
+            BallTimer = GameObject.FindGameObjectWithTag("BallTimer");
+            if (time > 0)
+            {
+                time -= Time.deltaTime;
+            }
+            if (Mathf.RoundToInt(time).ToString() == "0")
+            {
+                ballRenderer.enabled = false;
+                ballTimerRenderer.enabled = false;
+                BallTimer = null;
+                Instantiate(smoke, ball.transform.position, Quaternion.identity);
+                Debug.Log("Ka Booooom !!!!");
+            }
+            else
+            {
+                BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + " s";
             }
         }
     }
@@ -284,6 +329,8 @@ public class BallScript : MonoBehaviour
         ballPhysics.constraints = RigidbodyConstraints2D.None;
         ballPhysics.isKinematic = false;
         //ballPhysics.transform.position = startPosition;
+        time = levelBombTime;
+        timedecrease = true;
     }
 
     public void stopSim()
@@ -295,6 +342,29 @@ public class BallScript : MonoBehaviour
         transform.position = startPosition;
         tempState = StateReference.temperature.neutral;
         ballDisplay.material.color = Color.gray;
+        time = 10;
+        if (BallTimer != null)
+        {
+            BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + " s";
+            timedecrease = false;
+            ballRenderer.enabled = true;
+            ballTimerRenderer.enabled = true;
+            BallTimer.transform.position = ball.transform.position;
+        }
+        else
+        {
+            Debug.Log("In else");
+            BallTimer = GameObject.FindGameObjectWithTag("BallTimer");
+            if (BallTimer != null)
+            {
+                Debug.Log("Ball Timer found" + BallTimer);
+                BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + " s";
+                timedecrease = false;
+                ballRenderer.enabled = true;
+                ballTimerRenderer.enabled = true;
+                BallTimer.transform.position = ball.transform.position;
+            }
+        }
     }
 
     public void setSwordInActive()
