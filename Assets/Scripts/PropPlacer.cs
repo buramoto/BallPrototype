@@ -77,7 +77,10 @@ public class PropPlacer : MonoBehaviour
             }
             
             GameObject clickedObject = hit.collider.gameObject;
-            if(clickedObject.gameObject.layer == 5)
+            //Debug.Log("__________/------RayCast Hit's: "+clickedObject.tag);
+            //Debug.Log("__________/------RayCast Hit's: " + hit);
+
+            if (clickedObject.gameObject.layer == 5)
             {
                 //Check if we have clicked on any UI elements
                 selectedObject = null;
