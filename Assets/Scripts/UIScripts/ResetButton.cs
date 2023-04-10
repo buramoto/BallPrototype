@@ -66,6 +66,8 @@ public class ResetButton : MonoBehaviour
         Destroy(GameObject.Find("GameOverScreen(Clone)"));
         // GameObject.Find("GameOverScreen(Clone)").SetActive(false);
         DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
+        DungeonMaster.dm._ballHealth = new UnitHealth(100,100);
+        UIBehavior.gameUI.setHealth(DungeonMaster.dm._ballHealth.Health);
         Time.timeScale = 1;
     }
 

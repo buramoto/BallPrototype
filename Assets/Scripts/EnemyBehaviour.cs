@@ -49,45 +49,54 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else if(collision.gameObject.CompareTag("Player"))
         {
-            DungeonMaster.dm.hearts[DungeonMaster.dm.lives - 1].gameObject.SetActive(false);
-            DungeonMaster.dm.lives -= 1;
-            Debug.Log("Player has lives left: "+ DungeonMaster.dm.lives);
+            // DungeonMaster.dm.hearts[DungeonMaster.dm.lives - 1].gameObject.SetActive(false);
+            // DungeonMaster.dm.lives -= 1;
+            // Debug.Log("Player has lives left: "+ DungeonMaster.dm.lives);
             Debug.Log("Collided with Player");
+            DungeonMaster.dm._ballHealth.DamageUnit(10);
+            UIBehavior.gameUI.setHealth(DungeonMaster.dm._ballHealth.Health);
+            Debug.Log("Player Health: " + DungeonMaster.dm._ballHealth.Health);
             //var color = RedSplashScreen.GetComponent<Image>().color;
             //color.a = 0.9f;
             //RedSplashScreen.GetComponent<Image>().color = color;
-            if (DungeonMaster.dm.lives >= 1)
+            if (DungeonMaster.dm._ballHealth.Health >= 0)
             {
-                Debug.Log("Current Lives: " + DungeonMaster.dm.lives);
+                // Debug.Log("Current Lives: " + DungeonMaster.dm.lives);
                 UIBehavior.gameUI.setRedSplashScreen();
 
                 //var color = UIBehavior.gameUI.RedSplashScreen.GetComponent<Image>().color;
                 //color.a = 0.9f;
                 //UIBehavior.gameUI.RedSplashScreen.GetComponent<Image>().color = color;
             }
-            if (DungeonMaster.dm.lives <= 0)
-            {
-                //var col = RedSplashScreen.GetComponent<Image>().color;
-                //col.a = 0.00f;
-                //RedSplashScreen.GetComponent<Image>().color = col;
+            if(DungeonMaster.dm._ballHealth.Health <= 0) {
                 SendToGoogle.sendToGoogle.resetGlobalVariables("KBE");
-
-                // Destroy(gameObject);
-                gameObject.SetActive(false);
-                // not wokring as BALLS[] variable is private,
-                // so either make it public OR find ball by tag OR call the function dm.freezeBall();
-                // DungeonMaster.dm.freezeBall(0);
-
-                //DungeonMaster.dm.balls[0].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-                //DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
-                // if(RedSplashScreen != null){
-                //     RedSplashScreen
-                // }
-
                 Time.timeScale = 0;
+                gameObject.SetActive(false);
                 UIBehavior.gameUI.displayGameOverScreen();
-
             }
+            // if (DungeonMaster.dm.lives <= 0)
+            // {
+            //     //var col = RedSplashScreen.GetComponent<Image>().color;
+            //     //col.a = 0.00f;
+            //     //RedSplashScreen.GetComponent<Image>().color = col;
+            //     SendToGoogle.sendToGoogle.resetGlobalVariables("KBE");
+
+            //     // Destroy(gameObject);
+            //     gameObject.SetActive(false);
+            //     // not wokring as BALLS[] variable is private,
+            //     // so either make it public OR find ball by tag OR call the function dm.freezeBall();
+            //     // DungeonMaster.dm.freezeBall(0);
+
+            //     //DungeonMaster.dm.balls[0].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+            //     //DungeonMaster.dm.simMode(false, StateReference.resetType.kbe);
+            //     // if(RedSplashScreen != null){
+            //     //     RedSplashScreen
+            //     // }
+
+            //     Time.timeScale = 0;
+            //     UIBehavior.gameUI.displayGameOverScreen();
+
+            // }
             
            
             //ResetButton r = FindAnyObjectByType<ResetButton>();
