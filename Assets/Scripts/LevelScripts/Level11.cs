@@ -50,10 +50,10 @@ public class Level11 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("--------------11---------------");
-        Debug.Log(GlobalVariables.plankCounter);
-        Debug.Log(GlobalVariables.heaterCounter);
-        Debug.Log("-----------------------------");
+        //Debug.Log("--------------11---------------");
+        //Debug.Log(GlobalVariables.plankCounter);
+        //Debug.Log(GlobalVariables.heaterCounter);
+        //Debug.Log("-----------------------------");
     }
 
     /*

@@ -21,9 +21,12 @@ public class DungeonMaster : MonoBehaviour
     //Game variables
     public bool simulationMode;
     public byte counter;
-    public int lives;
+    // public int lives;
     public static int sceneIndex = 0;
     private bool isLevelOn;
+    public float shakeDuration;
+    public float shakeMagnitude;
+    public UnitHealth _ballHealth = new UnitHealth(100, 100);
 
     //References to all static objects in scene
     private BallScript[] balls;
@@ -41,11 +44,11 @@ public class DungeonMaster : MonoBehaviour
     // Level8: Introduction to enemies
     // Level9: Main Level (Previously "UIDev")
     private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8"};
-    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level13","Level14"};
+    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12","Level13","Level14"};
     public static List<string> levelsCompleted = new List<string>();
     public static List<string> levelsAttempted = new List<string>();
     public GameObject[] enemyElements;
-    public HeartBehavior[] hearts;
+    // public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;
 
 
@@ -74,7 +77,7 @@ public class DungeonMaster : MonoBehaviour
     public GameObject awardPoints;
 
     //Settings
-    public int maxLives;
+    // public int maxLives;
 
     /// <summary>
     /// Creates the dm for the first time, or if there is already on (e.g. loading in from a different
@@ -101,7 +104,7 @@ public class DungeonMaster : MonoBehaviour
             // dm.currentSceneName = scenes[sceneIndex];
             Destroy(gameObject);
         }
-        maxLives = 2;
+        // maxLives = 2;
     }
 
     private void Start()
@@ -152,17 +155,20 @@ public class DungeonMaster : MonoBehaviour
             levelsAttempted.Add(currentSceneName);
         }
         isLevelOn = true;
-        lives = maxLives;
+        _ballHealth = new UnitHealth(100, 100);
+        // lives = maxLives;
         GameObject button = GameObject.Find("StartButton");
         TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
         buttonText.text = "Start";
         Debug.Log("From DM:"+buttonText.text);
         UIBehavior.gameUI.changeButtonColor(false);
+        Debug.Log("Going to set max health in slider"+_ballHealth.MaxHealth);
+        UIBehavior.gameUI.setMaxHealth(_ballHealth.MaxHealth);
         balls = FindObjectsOfType<BallScript>();
         levelPlanks = FindObjectsOfType<Plank>();
         goals = FindObjectsOfType<GoalBlock>();
 
-        hearts = FindObjectsOfType<HeartBehavior>();
+        // hearts = FindObjectsOfType<HeartBehavior>();
 
         enemyElements = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -303,20 +309,20 @@ public class DungeonMaster : MonoBehaviour
                 scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
             }
             Debug.Log("====> Count of Enemy_Elements: " + enemyElements.Length);
-            Debug.Log("====> Count of Hearts: " + hearts.Length);
+            // Debug.Log("====> Count of Hearts: " + hearts.Length);
 
             for (int i = 0; i < enemyElements.Length; i++)
             {
                 enemyElements[i].SetActive(true);
             }
 
-            for (int i = 0; i < hearts.Length; i++)
-            {
-                hearts[i].gameObject.SetActive(true);
-            }
+            // for (int i = 0; i < hearts.Length; i++)
+            // {
+            //     hearts[i].gameObject.SetActive(true);
+            // }
             //From Analytics
             //resetValues();
-            lives = maxLives;
+            // lives = maxLives;
             SendToGoogle.sendToGoogle.resetGlobalVariables("ModeChange");
             //Trigger stop sim event
             StopSim?.Invoke(type);
@@ -365,7 +371,7 @@ public class DungeonMaster : MonoBehaviour
                 scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
             }
             // Storing the number of player's lives left
-            GlobalVariables.livesLeft = lives;
+            // GlobalVariables.livesLeft = lives;
 
             Debug.Log("Heaters used: " + GlobalVariables.heaterUsed);
             //Display a Win screen
@@ -435,7 +441,14 @@ public class DungeonMaster : MonoBehaviour
 
     public void RemoveHighlightFromObject(){
         if(highlightedObject!=null){
-            highlightedObject.GetComponentInChildren<Outline>().enabled =false;
+            if (highlightedObject.CompareTag("Spring"))
+            {
+                highlightedObject.GetComponent<Spring>().spriteRenderer.sprite = highlightedObject.GetComponent<Spring>().uncompressedSpringSprite;
+            }
+            else
+            {
+                highlightedObject.GetComponentInChildren<Outline>().enabled =false;
+            }
             highlightedObject = null;
             UIBehavior.gameUI.setOperationInactive();
         }
@@ -444,22 +457,42 @@ public class DungeonMaster : MonoBehaviour
     public void HighlightObject(GameObject currentInstance){
         // Debug.Log("---- DM:" +currentInstance);
         if(currentInstance.CompareTag("Plank") || currentInstance.CompareTag("Spring") || currentInstance.CompareTag("TempChange")){
-                    UIBehavior.gameUI.setOperationActive(currentInstance);
+            UIBehavior.gameUI.setOperationActive(currentInstance);
 
-                    if( highlightedObject!=null && currentInstance != highlightedObject){
-                        highlightedObject.GetComponentInChildren<Outline>().enabled = false;
-                        currentInstance.GetComponentInChildren<Outline>().enabled = true;
-                        highlightedObject = currentInstance;
-                    }
-                    else if(currentInstance == highlightedObject){
-                        // Debug.Log("In currentInstance == highlightedObject");
-                        // do nothing as previously highlighted object is same as the currently clicked object
-                    }
-                    else if(highlightedObject ==null){
-                        // Debug.Log("DM ---> "+currentInstance.GetComponentInChildren<Outline>());
-                        currentInstance.GetComponentInChildren<Outline>().enabled =true;
-                        highlightedObject = currentInstance;
-                    }
+            if( highlightedObject!=null && currentInstance != highlightedObject){
+                if (currentInstance.CompareTag("Spring"))
+                {
+                    HighlightSpring(currentInstance);
+                }
+                else {   
+                    currentInstance.GetComponentInChildren<Outline>().enabled = true;
+                }
+                if (highlightedObject.CompareTag("Spring"))
+                {
+                    highlightedObject.GetComponent<Spring>().spriteRenderer.sprite = highlightedObject.GetComponent<Spring>().uncompressedSpringSprite;
+                }
+                else
+                {
+                    highlightedObject.GetComponentInChildren<Outline>().enabled = false;
+                }
+                highlightedObject = currentInstance;
+            }
+            else if(currentInstance == highlightedObject){
+                // Debug.Log("In currentInstance == highlightedObject");
+                // do nothing as previously highlighted object is same as the currently clicked object
+            }
+            else if(highlightedObject ==null){
+                // Debug.Log("DM ---> "+currentInstance.GetComponentInChildren<Outline>());
+                if (currentInstance.CompareTag("Spring"))
+                {
+                    HighlightSpring(currentInstance);
+                }
+                else
+                {
+                    currentInstance.GetComponentInChildren<Outline>().enabled = true;
+                }
+                highlightedObject = currentInstance;
+            }
                     
         }
         else{
@@ -468,6 +501,11 @@ public class DungeonMaster : MonoBehaviour
                 highlightedObject.GetComponentInChildren<Outline>().enabled =false;
             }
         }
+    }
+
+    public void HighlightSpring(GameObject springInstance)
+    {
+        springInstance.GetComponent<Spring>().spriteRenderer.sprite = springInstance.GetComponent<Spring>().outline;
     }
 
     /*public void resetValues(){
@@ -511,6 +549,14 @@ public class DungeonMaster : MonoBehaviour
     public void freezeBall(int index)
     {
         balls[index].gameObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+    }
+
+    public void ShakeCamera()
+    {
+        Debug.Log("ShakeCamera() in DM called--------*********");
+        Debug.Log(gameObject.GetComponent<PropPlacer>().mainCam.GetComponent<CameraShake>());
+
+        StartCoroutine(gameObject.GetComponent<PropPlacer>().mainCam.GetComponent<CameraShake>().Shake(shakeDuration,shakeMagnitude));
     }
 
 

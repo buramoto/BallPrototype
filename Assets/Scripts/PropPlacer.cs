@@ -77,7 +77,10 @@ public class PropPlacer : MonoBehaviour
             }
             
             GameObject clickedObject = hit.collider.gameObject;
-            if(clickedObject.gameObject.layer == 5)
+            //Debug.Log("__________/------RayCast Hit's: "+clickedObject.tag);
+            //Debug.Log("__________/------RayCast Hit's: " + hit);
+
+            if (clickedObject.gameObject.layer == 5)
             {
                 //Check if we have clicked on any UI elements
                 selectedObject = null;
@@ -86,11 +89,17 @@ public class PropPlacer : MonoBehaviour
                 operationsPanel = null;
                 return;
             }
+            if (clickedObject.tag == "Cannon") {
+                DungeonMaster.dm.RemoveHighlightFromObject();
+                selectedObject = null;
+                return;
+            }
             if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
                 DungeonMaster.dm.HighlightObject(clickedObject);
                 offset = (Vector2)clickedObject.transform.position - mousePosition;
                 positionBeforeClicking = clickedObject.transform.position;
                 rotationBeforeClicking = clickedObject.transform.rotation;
+                Debug.Log("MouseDown on : " + clickedObject.tag);
                 //Creating the toolkit button
                 //Debug.Log("Creating dynamic operations panel");
 
@@ -168,7 +177,7 @@ public class PropPlacer : MonoBehaviour
                 else if(selectedObject.CompareTag("Spring"))
                 {
                     Spring p1 = selectedObject.GetComponent<Spring>();
-                    Debug.Log("Checking the object p1" + p1);
+                    Debug.Log("Checking the object p1 " + p1);
 
                     if (p1.isOverlapping() == true)
                     {
@@ -236,12 +245,14 @@ public class PropPlacer : MonoBehaviour
         DungeonMaster.dm.RemoveHighlightFromObject();
         if (!DungeonMaster.dm.simulationMode)
         {
+            Debug.Log("A Spring has been created");
             // Increment the spring counter
             GlobalVariables.springCounter++;
             GameObject newSpring = Instantiate(springPrefab, mousePosition, Quaternion.identity);
             Spring springScript = newSpring.GetComponent<Spring>();
             springScript.editable = true;
             springScript.hasCollided = false;
+            springScript.spriteRenderer = newSpring.GetComponent<SpriteRenderer>();
         }
     }
 

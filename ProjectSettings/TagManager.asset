@@ -26,6 +26,10 @@ TagManager:
   - MenuBtn
   - Tooltip
   - BallTimer
+  - Firepoint
+  - CannonBase
+  - Cannon
+  - BarrelHolder
   layers:
   - Default
   - TransparentFX

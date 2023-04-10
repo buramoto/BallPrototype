@@ -210,7 +210,8 @@ public class SendToGoogle : MonoBehaviour
         GlobalVariables.springUsed = 0;
         GlobalVariables.heaterUsed = 0;
         // GlobalVariables.heaterCoordinates = "";
-        GlobalVariables.livesLeft = DungeonMaster.dm.lives; 
+        // GlobalVariables.livesLeft = DungeonMaster.dm.lives; 
+        GlobalVariables.livesLeft = -1; 
         GlobalVariables.usedHeaterObjects.Clear();
         GlobalVariables.usedPlankObjects.Clear();
         GlobalVariables.usedSpringObjects.Clear();

@@ -31,6 +31,9 @@ public class UIBehavior : MonoBehaviour
     private Button[] toolKitButtons = null;
     private Button[] operationButtons = null;
 
+    //Health Slider
+    Slider _healthSlider;
+
     //Elements
     //IDictionary<string, GameObject> modeElements = new Dictionary<string, GameObject>();//All elements for each mode
     public GameObject levelMode;
@@ -61,6 +64,7 @@ public class UIBehavior : MonoBehaviour
             operationButtons = operationPanel.GetComponentsInChildren<Button>();
             mainMenuBtn = GameObject.FindGameObjectsWithTag("MenuBtn")[0];
             timer = GameObject.Find("Timer");
+            _healthSlider = GameObject.FindGameObjectsWithTag("HealthSlider")[0].GetComponent<Slider>();
             SceneManager.sceneLoaded += initalizeLevel;
             /*
             if (SceneManager.GetActiveScene().name != "MainMenu")
@@ -133,7 +137,7 @@ public class UIBehavior : MonoBehaviour
             mainMenuBtn.SetActive(true);
             mainMenuMode.SetActive(false);
             levelMode.SetActive(true);
-
+            setMaxHealth(DungeonMaster.dm._ballHealth.MaxHealth);
         }
     }
 
@@ -149,6 +153,15 @@ public class UIBehavior : MonoBehaviour
             }
 
         }
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        _healthSlider.maxValue = maxHealth;
+        _healthSlider.value = maxHealth;
+    }
+
+    public void setHealth(int health) {
+        _healthSlider.value = health;
     }
 
     public void setRedSplashScreen()
