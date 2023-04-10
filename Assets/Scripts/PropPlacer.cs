@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PropPlacer : MonoBehaviour
 {
@@ -52,7 +53,6 @@ public class PropPlacer : MonoBehaviour
             //We are in simulation mode. Player should not be editing anything
             return;
         }
-
 
         mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
@@ -223,6 +223,21 @@ public class PropPlacer : MonoBehaviour
             panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position - panelOffset);
             //panel.anchorMax = mainCam.WorldToScreenPoint(selectedObject.transform.position);
         }
+
+        // if (GlobalVariables.heaterCap > 0)
+        // {
+        //     GameObject.Find("Element").GetComponent<Button>().interactable = true;
+        // }
+
+        // if (GlobalVariables.plankCap > 0)
+        // {
+        //     GameObject.Find("Plank").GetComponent<Button>().interactable = true;
+        // }
+
+        // if (GlobalVariables.springCap > 0)
+        // {
+        //     GameObject.Find("Spring").GetComponent<Button>().interactable = true;
+        // }
     }
 
     public void createPlank()
@@ -237,6 +252,13 @@ public class PropPlacer : MonoBehaviour
             plankScript.ChangeTemp(StateReference.temperature.neutral);
             plankScript.editable = true;
             plankScript.hasCollided = false;
+
+            GlobalVariables.plankCap -= 1;
+            if (GlobalVariables.plankCap == 0)
+            {
+                GameObject.Find("Plank").GetComponent<Button>().interactable = false;
+                return;
+            }
         }
     }
 
@@ -253,6 +275,13 @@ public class PropPlacer : MonoBehaviour
             springScript.editable = true;
             springScript.hasCollided = false;
             springScript.spriteRenderer = newSpring.GetComponent<SpriteRenderer>();
+
+            GlobalVariables.springCap -= 1;
+            if (GlobalVariables.springCap == 0)
+            {
+                GameObject.Find("Spring").GetComponent<Button>().interactable = false;
+                return;
+            }
         }
     }
 
@@ -269,6 +298,15 @@ public class PropPlacer : MonoBehaviour
             newTempElementScript.ChangeTemp(StateReference.temperature.hot);
             newTempElementScript.editable = true;
             newTempElementScript.hasCollided = false;
+
+            Debug.Log("GlobalVariables.heaterCap: " + GlobalVariables.heaterCap);
+            
+            GlobalVariables.heaterCap -= 1;
+            if (GlobalVariables.heaterCap == 0)
+            {
+                GameObject.Find("Element").GetComponent<Button>().interactable = false;
+                return;
+            }
         }
     }
 
@@ -278,6 +316,11 @@ public class PropPlacer : MonoBehaviour
         if(toolkitInstance.tag == "Plank")
         {
             GlobalVariables.plankCounter--;
+            GlobalVariables.plankCap += 1;
+            if (GlobalVariables.plankCap > 0)
+            {
+                GameObject.Find("Plank").GetComponent<Button>().interactable = true;
+            }
             if(toolkitInstance.GetComponent<Plank>().hasCollided)
             {
                 GlobalVariables.plankUsed--;
@@ -286,6 +329,11 @@ public class PropPlacer : MonoBehaviour
         if(toolkitInstance.tag == "Spring")
         {
             GlobalVariables.springCounter--;
+            GlobalVariables.springCap += 1;
+            if (GlobalVariables.springCap > 0)
+            {
+                GameObject.Find("Spring").GetComponent<Button>().interactable = true;
+            }
             if(toolkitInstance.GetComponent<Spring>().hasCollided)
             {
                 GlobalVariables.springUsed--;
@@ -294,6 +342,11 @@ public class PropPlacer : MonoBehaviour
         if(toolkitInstance.tag == "TempChange")
         {
             GlobalVariables.heaterCounter--;
+            GlobalVariables.heaterCap += 1;
+            if (GlobalVariables.heaterCap > 0)
+            {
+                GameObject.Find("Element").GetComponent<Button>().interactable = true;
+            }
             if(toolkitInstance.GetComponent<ChangeTemperature>().hasCollided)
             {
                 GlobalVariables.heaterUsed--;

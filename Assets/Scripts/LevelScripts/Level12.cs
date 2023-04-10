@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class Level12 : MonoBehaviour
 {
+    // private int plankCount = 5;
+    // private int springCount = 5;
+    // private int heaterCount = 5;
+    // GameObject plankCount = GameObject.Find("PlankCount");
+    // GameObject springCount = GameObject.Find("SpringCount");
+    // GameObject heaterCount = GameObject.Find("HeaterCount");
     private void Awake()
     {
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
@@ -12,7 +18,7 @@ public class Level12 : MonoBehaviour
         // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
         UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);
-        UIBehavior.gameUI.operationPanel.SetActive(true);
+        // UIBehavior.gameUI.operationPanel.SetActive(true);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
 
@@ -20,9 +26,9 @@ public class Level12 : MonoBehaviour
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
 
-        UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
-        UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-        UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
+        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
+        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
 
         // Setting the Heater and Plank Btn in the ToolKit Panel to INACTIVE
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
@@ -32,9 +38,14 @@ public class Level12 : MonoBehaviour
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 120;
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 120;
 
-        UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
-        UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
+        // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
+        // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
 
+        GlobalVariables.plankCap = 5;
+        GlobalVariables.springCap = 5;
+        GlobalVariables.heaterCap = 5;
+        Debug.Log("before"+ UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text);
+        Debug.Log("after"+ UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text);
     }
     // Start is called before the first frame update
     void Start()
@@ -46,6 +57,9 @@ public class Level12 : MonoBehaviour
         {
             scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
         }
+        UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
+        UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
+        UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
 
     // Update is called once per frame
@@ -55,6 +69,11 @@ public class Level12 : MonoBehaviour
         Debug.Log(GlobalVariables.plankCounter);
         Debug.Log(GlobalVariables.heaterCounter);
         Debug.Log("-----------------------------");
+        UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCounter.ToString();
+        UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCounter.ToString();
+        UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCounter.ToString();
+        // springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
+        // heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
 
     /*

@@ -29,7 +29,7 @@ public class UIBehavior : MonoBehaviour
 
     //Buttons
     private Button[] toolKitButtons = null;
-    private Button[] operationButtons = null;
+    // private Button[] operationButtons = null;
 
     //Health Slider
     Slider _healthSlider;
@@ -44,6 +44,9 @@ public class UIBehavior : MonoBehaviour
     public GameObject operationPanel;
     public GameObject controlPanel;
     public GameObject mainMenuBtn;
+    public GameObject plankCount;
+    public GameObject springCount;
+    public GameObject heaterCount;
 
     //Tooltip
     private GameObject activeTooltip;
@@ -61,7 +64,13 @@ public class UIBehavior : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             gameUI = this;
             toolKitButtons = toolKitPanel.GetComponentsInChildren<Button>();
-            operationButtons = operationPanel.GetComponentsInChildren<Button>();
+            plankCount = toolKitPanel.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "PlankCount").First().gameObject;
+            springCount = toolKitPanel.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "SpringCount").First().gameObject;
+            heaterCount = toolKitPanel.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "HeaterCount").First().gameObject;
+            // plankCount = GameObject.FindGameObjectsWithTag("PlankCount")[0];
+            // springCount = GameObject.FindGameObjectsWithTag("SpringCount")[0];
+            // heaterCount = GameObject.FindGameObjectsWithTag("HeaterCount")[0];
+            // operationButtons = operationPanel.GetComponentsInChildren<Button>();
             mainMenuBtn = GameObject.FindGameObjectsWithTag("MenuBtn")[0];
             timer = GameObject.Find("Timer");
             _healthSlider = GameObject.FindGameObjectsWithTag("HealthSlider")[0].GetComponent<Slider>();
@@ -297,7 +306,7 @@ class MyComparer : IComparer<string>
         {
             toolKitButtons[i].interactable = false;
         }
-        setOperationInactive();
+        // setOperationInactive();
         disableResetButton();
         UIBehavior.gameUI.changeButtonColor(true);
         // Debug.Log("UI Behavior -- HighlightedObject"+DungeonMaster.dm.highlightedObject);
@@ -307,36 +316,36 @@ class MyComparer : IComparer<string>
         //Debug.Log("UI stopping sim");
         for (int i = 0; i < toolKitButtons.Length; i++)
         {
-            toolKitButtons[i].interactable = true;
+            toolKitButtons[i].interactable = true; 
         }
         enableResetButton();
         UIBehavior.gameUI.changeButtonColor(false);
         //Future scope: create indication for stop type. E.g. arrow pointing to oob coords when type is oob
     }
 
-    public void setOperationInactive(){
-        for(int i=0; i < operationButtons.Length; i++)
-        {
-            operationButtons[i].interactable = false;
-        }
-    }
+    // public void setOperationInactive(){
+    //     for(int i=0; i < operationButtons.Length; i++)
+    //     {
+    //         operationButtons[i].interactable = false;
+    //     }
+    // }
     
-    public void setOperationActive(GameObject toolkitInstance){
-        for(int i=0; i < operationButtons.Length; i++)
-        {
-            if(toolkitInstance.CompareTag("TempChange")){ // if heater is selected then only DELETE BUTTON is INTERACTABLE
-                if(operationButtons[i].CompareTag("DeleteButton")){
-                    operationButtons[i].interactable = true;
-                }
-                else{
-                    operationButtons[i].interactable = false;
-                }
-            }
-            else{
-                operationButtons[i].interactable = true;
-            }
-        }
-    }
+    // public void setOperationActive(GameObject toolkitInstance){
+    //     for(int i=0; i < operationButtons.Length; i++)
+    //     {
+    //         if(toolkitInstance.CompareTag("TempChange")){ // if heater is selected then only DELETE BUTTON is INTERACTABLE
+    //             if(operationButtons[i].CompareTag("DeleteButton")){
+    //                 operationButtons[i].interactable = true;
+    //             }
+    //             else{
+    //                 operationButtons[i].interactable = false;
+    //             }
+    //         }
+    //         else{
+    //             operationButtons[i].interactable = true;
+    //         }
+    //     }
+    // }
 
     // used to disable RESET button when simulation mode is ON
     public void disableResetButton()

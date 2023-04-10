@@ -17,6 +17,11 @@ public class GlobalVariables : MonoBehaviour
     public static int plankUsed = 0;
     public static int springUsed = 0;
 
+    // Upper cap of elements in the current level
+    public static int heaterCap = 0;
+    public static int plankCap = 0;
+    public static int springCap = 0;
+
     public static int attemptCounter = 1;
     public static int kbeCounter = 0;
     public static int oobCounter = 0;

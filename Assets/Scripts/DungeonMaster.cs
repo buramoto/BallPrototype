@@ -259,7 +259,7 @@ public class DungeonMaster : MonoBehaviour
             buttonText.text = "Start";
             UIBehavior.gameUI.changeButtonColor(false);
             // below function is called so that INITIALLY OPERATION BUTTONS are INACTIVE
-            UIBehavior.gameUI.setOperationInactive();
+            // UIBehavior.gameUI.setOperationInactive();
 
             StopSim?.Invoke(type);
             return;
@@ -450,14 +450,14 @@ public class DungeonMaster : MonoBehaviour
                 highlightedObject.GetComponentInChildren<Outline>().enabled =false;
             }
             highlightedObject = null;
-            UIBehavior.gameUI.setOperationInactive();
+            // UIBehavior.gameUI.setOperationInactive();
         }
     }
 
     public void HighlightObject(GameObject currentInstance){
         // Debug.Log("---- DM:" +currentInstance);
         if(currentInstance.CompareTag("Plank") || currentInstance.CompareTag("Spring") || currentInstance.CompareTag("TempChange")){
-            UIBehavior.gameUI.setOperationActive(currentInstance);
+            // UIBehavior.gameUI.setOperationActive(currentInstance);
 
             if( highlightedObject!=null && currentInstance != highlightedObject){
                 if (currentInstance.CompareTag("Spring"))
