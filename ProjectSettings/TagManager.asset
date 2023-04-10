@@ -30,6 +30,8 @@ TagManager:
   - CannonBase
   - Cannon
   - BarrelHolder
+  - HealthSlider
+  - Barrel
   layers:
   - Default
   - TransparentFX

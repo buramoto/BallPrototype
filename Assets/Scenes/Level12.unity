@@ -4813,6 +4813,9 @@ MonoBehaviour:
   operationPanel: {fileID: 0}
   controlPanel: {fileID: 0}
   mainMenuBtn: {fileID: 0}
+  plankCount: {fileID: 0}
+  springCount: {fileID: 0}
+  heaterCount: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   oobCoords: {x: 0, y: 0, z: 0}
 --- !u!222 &1325511730
@@ -4882,7 +4885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1024076368813536137, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.4999962
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1512958688957212461, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5258,11 +5261,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7327621250177370450, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.4999962
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8807108872393162886, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.4999962
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9096439136654893395, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.664978
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d01470217d875054a98ea192585a9129, type: 3}
@@ -6617,7 +6624,7 @@ GameObject:
   - component: {fileID: 1737770161}
   m_Layer: 0
   m_Name: Barrel
-  m_TagString: Untagged
+  m_TagString: Barrel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
