@@ -13,6 +13,7 @@ public class Background : MonoBehaviour
     {
         if(bg == null)
         {
+            bg = this;
             DontDestroyOnLoad(this);
         }
         else
