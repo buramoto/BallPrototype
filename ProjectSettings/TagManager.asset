@@ -32,6 +32,8 @@ TagManager:
   - BarrelHolder
   - HealthSlider
   - Barrel
+  - Airflow
+  - WindParticles
   layers:
   - Default
   - TransparentFX
