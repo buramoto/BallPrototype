@@ -191,17 +191,18 @@ public class DungeonMaster : MonoBehaviour
         {
             enemyElements[i].SetActive(true);
         }
-        GameObject levelName = GameObject.Find("Level_Name");
-        if(levelName!=null)
+        // GameObject levelName = GameObject.Find("Level_Name");
+        TextMeshPro levelNumber = GameObject.Find("Background").GetComponentInChildren<TextMeshPro>();
+        if(levelNumber!=null)
         {
             Debug.Log("Scene text"+currentSceneName);
             if(currentSceneName=="MainMenu")
             {
-                levelName.GetComponent<TMPro.TextMeshProUGUI>().text="";
+                levelNumber.text="";
             }
             else
             {
-                levelName.GetComponent<TMPro.TextMeshProUGUI>().text = currentSceneName.ToString();
+                levelNumber.text = currentSceneName.ToString().Substring(5);
             }
         }
 
@@ -235,10 +236,11 @@ public class DungeonMaster : MonoBehaviour
         }
         UIBehavior.gameUI.changeButtonStateToStart();
         SceneManager.LoadScene("MainMenu");
-        GameObject levelName = GameObject.Find("Level_Name");
-        if(levelName!=null)
+        // GameObject levelName = GameObject.Find("Level_Name");
+        TextMeshPro levelNumber = GameObject.Find("Background").GetComponentInChildren<TextMeshPro>();
+        if(levelNumber!=null)
         {
-            levelName.GetComponent<TMPro.TextMeshProUGUI>().text="";
+            levelNumber.text="";
 
         }
 
