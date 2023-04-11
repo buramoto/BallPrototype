@@ -233,7 +233,10 @@ public class PropPlacer : MonoBehaviour
             Bounds propCorners = selectedObject.GetComponent<BoxCollider2D>().bounds;
             //Vector3 panelOffset = new Vector3(0, propCorners.center.y - propCorners.extents.y, 0);
             Vector3 panelOffset = new Vector3(0, propCorners.extents.y + 0.5f, 0);
-            panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position - panelOffset);
+            if(panel && panelOffset!=null)
+            {
+                panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position - panelOffset);
+            }
             //panel.anchorMax = mainCam.WorldToScreenPoint(selectedObject.transform.position);
         }
 
