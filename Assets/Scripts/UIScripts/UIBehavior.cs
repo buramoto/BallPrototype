@@ -187,8 +187,8 @@ public class UIBehavior : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "MainMenu" || SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "Level2") {
             return;
         }
-        TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
-        tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        // TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
+        // tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     // Winscreen Func
