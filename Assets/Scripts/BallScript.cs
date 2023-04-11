@@ -54,7 +54,7 @@ public class BallScript : MonoBehaviour
         Debug.Log("Object is set" + BallTimer);
         if (BallTimer != null)
         {
-            BallTimer.transform.position = ball.transform.position;
+            BallTimer.transform.position = GameObject.FindGameObjectWithTag("TimerPosition").transform.position;
         }
         time = levelBombTime;
         timedecrease = false;
@@ -70,7 +70,7 @@ public class BallScript : MonoBehaviour
         ball.transform.position = startPosition;
         if (BallTimer != null)
         {
-            BallTimer.transform.position = startPosition;
+            BallTimer.transform.position = GameObject.FindGameObjectWithTag("TimerPosition").transform.position;
             ballTimerRenderer = BallTimer.GetComponent<MeshRenderer>();
         }
         //Set inital temperature
@@ -96,7 +96,7 @@ public class BallScript : MonoBehaviour
     {
         if (BallTimer != null) 
         {
-            BallTimer.transform.position = ball.transform.position;
+            BallTimer.transform.position = GameObject.FindGameObjectWithTag("TimerPosition").transform.position;
         }
         swordHolder.transform.rotation = Quaternion.Euler(0.0f, 0.0f, gameObject.transform.rotation.z * -1.0f);
         // Get the x and y positions of the ball
@@ -361,7 +361,7 @@ public class BallScript : MonoBehaviour
             timedecrease = false;
             ballRenderer.enabled = true;
             ballTimerRenderer.enabled = true;
-            BallTimer.transform.position = ball.transform.position;
+            BallTimer.transform.position = GameObject.FindGameObjectWithTag("TimerPosition").transform.position;
         }
         else
         {
@@ -374,7 +374,7 @@ public class BallScript : MonoBehaviour
                 timedecrease = false;
                 ballRenderer.enabled = true;
                 ballTimerRenderer.enabled = true;
-                BallTimer.transform.position = ball.transform.position;
+                BallTimer.transform.position = GameObject.FindGameObjectWithTag("TimerPosition").transform.position;
             }
         }
     }

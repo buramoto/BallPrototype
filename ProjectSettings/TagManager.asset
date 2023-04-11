@@ -34,6 +34,7 @@ TagManager:
   - Barrel
   - Airflow
   - WindParticles
+  - TimerPosition
   layers:
   - Default
   - TransparentFX
