@@ -34,9 +34,8 @@ public class Level11 : MonoBehaviour
         // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
         // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
 
-        GlobalVariables.plankCap = 4;
-        GlobalVariables.springCap = 4;
-        GlobalVariables.heaterCap = 4;
+        GlobalVariables.springCap = 2;
+        GlobalVariables.heaterCap = 1;
     }
     // Start is called before the first frame update
     void Start()
@@ -47,7 +46,6 @@ public class Level11 : MonoBehaviour
         {
             scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
         }
-        UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
         UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
@@ -59,7 +57,6 @@ public class Level11 : MonoBehaviour
         //Debug.Log(GlobalVariables.plankCounter);
         //Debug.Log(GlobalVariables.heaterCounter);
         //Debug.Log("-----------------------------");
-        UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
         UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }

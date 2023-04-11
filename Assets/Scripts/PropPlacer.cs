@@ -243,7 +243,7 @@ public class PropPlacer : MonoBehaviour
     public void createPlank()
     {
         DungeonMaster.dm.RemoveHighlightFromObject();
-        if (!DungeonMaster.dm.simulationMode)
+        if (!DungeonMaster.dm.simulationMode && GlobalVariables.plankCap > 0)
         {
             // Increment the plank counter
             GlobalVariables.plankCounter++;
@@ -265,7 +265,7 @@ public class PropPlacer : MonoBehaviour
     public void createSpring()
     {
         DungeonMaster.dm.RemoveHighlightFromObject();
-        if (!DungeonMaster.dm.simulationMode)
+        if (!DungeonMaster.dm.simulationMode && GlobalVariables.springCap > 0)
         {
             Debug.Log("A Spring has been created");
             // Increment the spring counter
@@ -288,7 +288,7 @@ public class PropPlacer : MonoBehaviour
     public void createTempElement()
     {
         DungeonMaster.dm.RemoveHighlightFromObject();
-        if (!DungeonMaster.dm.simulationMode)
+        if (!DungeonMaster.dm.simulationMode && GlobalVariables.heaterCap > 0)
         {
             // Increment the heater counter
             GlobalVariables.heaterCounter++;
