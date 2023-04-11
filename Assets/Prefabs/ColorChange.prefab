@@ -104,7 +104,10 @@ MonoBehaviour:
   editable: 0
   setting: 1
   hasCollided: 0
+  elementDisplay: {fileID: 0}
   overLaps: 0
+  unhighlightedHeater: {fileID: 21300000, guid: b6b6d03971a4e462ea623d7c7d99e014, type: 3}
+  outline: {fileID: 21300000, guid: 9b3390a8a08a74d9f8bc6a3d73b9ae33, type: 3}
 --- !u!70 &3316150428761557204
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

@@ -447,9 +447,13 @@ public class DungeonMaster : MonoBehaviour
             {
                 highlightedObject.GetComponent<Spring>().spriteRenderer.sprite = highlightedObject.GetComponent<Spring>().uncompressedSpringSprite;
             }
+            else if (highlightedObject.CompareTag("TempChange"))
+            {
+                highlightedObject.GetComponent<ChangeTemperature>().elementDisplay.sprite = highlightedObject.GetComponent<ChangeTemperature>().unhighlightedHeater;
+            }
             else
             {
-                highlightedObject.GetComponentInChildren<Outline>().enabled =false;
+                highlightedObject.GetComponentInChildren<Outline>().enabled = false;
             }
             highlightedObject = null;
             // UIBehavior.gameUI.setOperationInactive();
@@ -465,6 +469,10 @@ public class DungeonMaster : MonoBehaviour
                 if (currentInstance.CompareTag("Spring"))
                 {
                     HighlightSpring(currentInstance);
+                }
+                else if (currentInstance.CompareTag("TempChange"))
+                {
+                    HighlightHeater(currentInstance);
                 }
                 else {   
                     currentInstance.GetComponentInChildren<Outline>().enabled = true;
@@ -489,6 +497,9 @@ public class DungeonMaster : MonoBehaviour
                 {
                     HighlightSpring(currentInstance);
                 }
+                else if (currentInstance.CompareTag("TempChange")) {
+                    HighlightHeater(currentInstance);
+                }
                 else
                 {
                     currentInstance.GetComponentInChildren<Outline>().enabled = true;
@@ -508,6 +519,11 @@ public class DungeonMaster : MonoBehaviour
     public void HighlightSpring(GameObject springInstance)
     {
         springInstance.GetComponent<Spring>().spriteRenderer.sprite = springInstance.GetComponent<Spring>().outline;
+    }
+
+    public void HighlightHeater(GameObject heaterInstance)
+    {
+        heaterInstance.GetComponent<ChangeTemperature>().elementDisplay.sprite = heaterInstance.GetComponent<ChangeTemperature>().outline;
     }
 
     /*public void resetValues(){
@@ -555,7 +571,7 @@ public class DungeonMaster : MonoBehaviour
 
     public void ShakeCamera()
     {
-        Debug.Log("ShakeCamera() in DM called--------*********");
+        //Debug.Log("ShakeCamera() in DM called--------*********");
         Debug.Log(gameObject.GetComponent<PropPlacer>().mainCam.GetComponent<CameraShake>());
 
         StartCoroutine(gameObject.GetComponent<PropPlacer>().mainCam.GetComponent<CameraShake>().Shake(shakeDuration,shakeMagnitude));
