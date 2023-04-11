@@ -327,7 +327,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 318477942}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.432107, y: -2.0072622, z: -9.910006}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1184,7 +1184,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403446791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.432107, y: 2.0072622, z: -0.08999412}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1766,7 +1766,7 @@ PrefabInstance:
       objectReference: {fileID: 3677057235638134532, guid: 30a59ffceb659482cb9c39ab62a6ee3d, type: 3}
     - target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
       propertyPath: nextSceneName
-      value: Level14
+      value: Level15
       objectReference: {fileID: 0}
     - target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
       propertyPath: currentSceneName
