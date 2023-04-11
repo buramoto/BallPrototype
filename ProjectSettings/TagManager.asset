@@ -35,6 +35,8 @@ TagManager:
   - Airflow
   - WindParticles
   - TimerPosition
+  - Undefined
+  - OperationForObject
   layers:
   - Default
   - TransparentFX

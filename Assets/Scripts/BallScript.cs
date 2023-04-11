@@ -352,6 +352,7 @@ public class BallScript : MonoBehaviour
         ballPhysics.constraints = RigidbodyConstraints2D.FreezeRotation;
         ballPhysics.isKinematic = true;
         transform.position = startPosition;
+        transform.rotation = Quaternion.identity;
         tempState = StateReference.temperature.neutral;
         ballDisplay.material.color = Color.gray;
         time = 10;
