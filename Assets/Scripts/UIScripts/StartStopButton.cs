@@ -20,6 +20,10 @@ public class StartStopButton : MonoBehaviour
         {
             DungeonMaster.dm.simMode(true, StateReference.resetType.start);
             text.text = "Stop";
+            if (GameObject.FindWithTag("OperationForObject") != null)
+            {
+                Destroy(GameObject.FindWithTag("OperationForObject"));
+            }
             UIBehavior.gameUI.disableResetButton();
             UIBehavior.gameUI.changeButtonColor(true);
             //DungeonMaster.dm.instructions.text = "Right Click To Attack Enemy";

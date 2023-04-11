@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PropPlacer : MonoBehaviour
 {
@@ -53,7 +54,6 @@ public class PropPlacer : MonoBehaviour
             return;
         }
 
-
         mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
         {
@@ -77,7 +77,10 @@ public class PropPlacer : MonoBehaviour
             }
             
             GameObject clickedObject = hit.collider.gameObject;
-            if(clickedObject.gameObject.layer == 5)
+            //Debug.Log("__________/------RayCast Hit's: "+clickedObject.tag);
+            //Debug.Log("__________/------RayCast Hit's: " + hit);
+
+            if (clickedObject.gameObject.layer == 5)
             {
                 //Check if we have clicked on any UI elements
                 selectedObject = null;
@@ -86,20 +89,26 @@ public class PropPlacer : MonoBehaviour
                 operationsPanel = null;
                 return;
             }
+            if (clickedObject.tag == "Cannon" || clickedObject.tag == "Barrel" || clickedObject.tag == "Airflow") {
+                DungeonMaster.dm.RemoveHighlightFromObject();
+                selectedObject = null;
+                return;
+            }
             if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
                 DungeonMaster.dm.HighlightObject(clickedObject);
                 offset = (Vector2)clickedObject.transform.position - mousePosition;
                 positionBeforeClicking = clickedObject.transform.position;
                 rotationBeforeClicking = clickedObject.transform.rotation;
+                Debug.Log("MouseDown on : " + clickedObject.tag);
                 //Creating the toolkit button
                 //Debug.Log("Creating dynamic operations panel");
 
                 // IMPORTANT: This is the code that creates the operations panel on the highlighted object, please uncomment this code when you are done with the operations panel
-                // if(operationsPanel == null)
-                // {
-                //     operationsPanel = Instantiate(operationsPanelPrefab);
-                //     panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
-                // }
+                if(operationsPanel == null)
+                {
+                    operationsPanel = Instantiate(operationsPanelPrefab);
+                    panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
+                }
                 // below function set operation buttons to active mode when a correct object is clicked/highlighted
 
             }
@@ -131,6 +140,11 @@ public class PropPlacer : MonoBehaviour
                     
             }
             dragging = true;
+            if (clickedObject.tag == "Plank" || clickedObject.tag == "Spring")
+            {
+                clickedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                clickedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
             selectedObject = clickedObject;
         }
         //We are still dragging, so update position based on mouse position
@@ -164,11 +178,14 @@ public class PropPlacer : MonoBehaviour
                         Debug.Log("No Object is colliding successful positioning");
                         dragging = false;
                     }
+                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
                 }
                 else if(selectedObject.CompareTag("Spring"))
                 {
                     Spring p1 = selectedObject.GetComponent<Spring>();
-                    Debug.Log("Checking the object p1" + p1);
+                    Debug.Log("Checking the object p1 " + p1);
 
                     if (p1.isOverlapping() == true)
                     {
@@ -182,6 +199,9 @@ public class PropPlacer : MonoBehaviour
                         Debug.Log("No Object is colliding successful positioning");
                         dragging = false;
                     }
+
+                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
                 }
                 else if(selectedObject.CompareTag("TempChange"))
                 {
@@ -200,7 +220,9 @@ public class PropPlacer : MonoBehaviour
                         Debug.Log("No Object is colliding successful positioning");
                         dragging = false;
                     }
+                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
                 }
+
                //dragging = false;
             }
         }
@@ -208,17 +230,33 @@ public class PropPlacer : MonoBehaviour
         //Positioning of operations panel
         if(selectedObject != null)
         {
-            Vector3 panelOffset = Vector3.down * 50;
-            //Debug.Log(panelOffset);
-            panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position) + panelOffset;
+            Bounds propCorners = selectedObject.GetComponent<BoxCollider2D>().bounds;
+            //Vector3 panelOffset = new Vector3(0, propCorners.center.y - propCorners.extents.y, 0);
+            Vector3 panelOffset = new Vector3(0, propCorners.extents.y + 0.5f, 0);
+            panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position - panelOffset);
             //panel.anchorMax = mainCam.WorldToScreenPoint(selectedObject.transform.position);
         }
+
+        // if (GlobalVariables.heaterCap > 0)
+        // {
+        //     GameObject.Find("Element").GetComponent<Button>().interactable = true;
+        // }
+
+        // if (GlobalVariables.plankCap > 0)
+        // {
+        //     GameObject.Find("Plank").GetComponent<Button>().interactable = true;
+        // }
+
+        // if (GlobalVariables.springCap > 0)
+        // {
+        //     GameObject.Find("Spring").GetComponent<Button>().interactable = true;
+        // }
     }
 
     public void createPlank()
     {
         DungeonMaster.dm.RemoveHighlightFromObject();
-        if (!DungeonMaster.dm.simulationMode)
+        if (!DungeonMaster.dm.simulationMode && GlobalVariables.plankCap > 0)
         {
             // Increment the plank counter
             GlobalVariables.plankCounter++;
@@ -227,27 +265,43 @@ public class PropPlacer : MonoBehaviour
             plankScript.ChangeTemp(StateReference.temperature.neutral);
             plankScript.editable = true;
             plankScript.hasCollided = false;
+
+            GlobalVariables.plankCap -= 1;
+            if (GlobalVariables.plankCap == 0)
+            {
+                GameObject.Find("Plank").GetComponent<Button>().interactable = false;
+                return;
+            }
         }
     }
 
     public void createSpring()
     {
         DungeonMaster.dm.RemoveHighlightFromObject();
-        if (!DungeonMaster.dm.simulationMode)
+        if (!DungeonMaster.dm.simulationMode && GlobalVariables.springCap > 0)
         {
+            Debug.Log("A Spring has been created");
             // Increment the spring counter
             GlobalVariables.springCounter++;
             GameObject newSpring = Instantiate(springPrefab, mousePosition, Quaternion.identity);
             Spring springScript = newSpring.GetComponent<Spring>();
             springScript.editable = true;
             springScript.hasCollided = false;
+            springScript.spriteRenderer = newSpring.GetComponent<SpriteRenderer>();
+
+            GlobalVariables.springCap -= 1;
+            if (GlobalVariables.springCap == 0)
+            {
+                GameObject.Find("Spring").GetComponent<Button>().interactable = false;
+                return;
+            }
         }
     }
 
     public void createTempElement()
     {
         DungeonMaster.dm.RemoveHighlightFromObject();
-        if (!DungeonMaster.dm.simulationMode)
+        if (!DungeonMaster.dm.simulationMode && GlobalVariables.heaterCap > 0)
         {
             // Increment the heater counter
             GlobalVariables.heaterCounter++;
@@ -257,6 +311,15 @@ public class PropPlacer : MonoBehaviour
             newTempElementScript.ChangeTemp(StateReference.temperature.hot);
             newTempElementScript.editable = true;
             newTempElementScript.hasCollided = false;
+
+            Debug.Log("GlobalVariables.heaterCap: " + GlobalVariables.heaterCap);
+            
+            GlobalVariables.heaterCap -= 1;
+            if (GlobalVariables.heaterCap == 0)
+            {
+                GameObject.Find("Element").GetComponent<Button>().interactable = false;
+                return;
+            }
         }
     }
 
@@ -266,6 +329,11 @@ public class PropPlacer : MonoBehaviour
         if(toolkitInstance.tag == "Plank")
         {
             GlobalVariables.plankCounter--;
+            GlobalVariables.plankCap += 1;
+            if (GlobalVariables.plankCap > 0)
+            {
+                GameObject.Find("Plank").GetComponent<Button>().interactable = true;
+            }
             if(toolkitInstance.GetComponent<Plank>().hasCollided)
             {
                 GlobalVariables.plankUsed--;
@@ -274,6 +342,11 @@ public class PropPlacer : MonoBehaviour
         if(toolkitInstance.tag == "Spring")
         {
             GlobalVariables.springCounter--;
+            GlobalVariables.springCap += 1;
+            if (GlobalVariables.springCap > 0)
+            {
+                GameObject.Find("Spring").GetComponent<Button>().interactable = true;
+            }
             if(toolkitInstance.GetComponent<Spring>().hasCollided)
             {
                 GlobalVariables.springUsed--;
@@ -282,6 +355,11 @@ public class PropPlacer : MonoBehaviour
         if(toolkitInstance.tag == "TempChange")
         {
             GlobalVariables.heaterCounter--;
+            GlobalVariables.heaterCap += 1;
+            if (GlobalVariables.heaterCap > 0)
+            {
+                GameObject.Find("Element").GetComponent<Button>().interactable = true;
+            }
             if(toolkitInstance.GetComponent<ChangeTemperature>().hasCollided)
             {
                 GlobalVariables.heaterUsed--;

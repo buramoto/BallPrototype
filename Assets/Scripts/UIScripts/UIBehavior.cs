@@ -29,7 +29,10 @@ public class UIBehavior : MonoBehaviour
 
     //Buttons
     private Button[] toolKitButtons = null;
-    private Button[] operationButtons = null;
+    // private Button[] operationButtons = null;
+
+    //Health Slider
+    Slider _healthSlider;
 
     //Elements
     //IDictionary<string, GameObject> modeElements = new Dictionary<string, GameObject>();//All elements for each mode
@@ -41,6 +44,9 @@ public class UIBehavior : MonoBehaviour
     public GameObject operationPanel;
     public GameObject controlPanel;
     public GameObject mainMenuBtn;
+    public GameObject plankCount;
+    public GameObject springCount;
+    public GameObject heaterCount;
 
     //Tooltip
     private GameObject activeTooltip;
@@ -58,9 +64,16 @@ public class UIBehavior : MonoBehaviour
             DontDestroyOnLoad(gameObject);
             gameUI = this;
             toolKitButtons = toolKitPanel.GetComponentsInChildren<Button>();
-            operationButtons = operationPanel.GetComponentsInChildren<Button>();
+            plankCount = toolKitPanel.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "PlankCount").First().gameObject;
+            springCount = toolKitPanel.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "SpringCount").First().gameObject;
+            heaterCount = toolKitPanel.GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "HeaterCount").First().gameObject;
+            // plankCount = GameObject.FindGameObjectsWithTag("PlankCount")[0];
+            // springCount = GameObject.FindGameObjectsWithTag("SpringCount")[0];
+            // heaterCount = GameObject.FindGameObjectsWithTag("HeaterCount")[0];
+            // operationButtons = operationPanel.GetComponentsInChildren<Button>();
             mainMenuBtn = GameObject.FindGameObjectsWithTag("MenuBtn")[0];
             timer = GameObject.Find("Timer");
+            _healthSlider = GameObject.FindGameObjectsWithTag("HealthSlider")[0].GetComponent<Slider>();
             SceneManager.sceneLoaded += initalizeLevel;
             /*
             if (SceneManager.GetActiveScene().name != "MainMenu")
@@ -133,7 +146,7 @@ public class UIBehavior : MonoBehaviour
             mainMenuBtn.SetActive(true);
             mainMenuMode.SetActive(false);
             levelMode.SetActive(true);
-
+            setMaxHealth(DungeonMaster.dm._ballHealth.MaxHealth);
         }
     }
 
@@ -151,6 +164,15 @@ public class UIBehavior : MonoBehaviour
         }
     }
 
+    public void setMaxHealth(int maxHealth) {
+        _healthSlider.maxValue = maxHealth;
+        _healthSlider.value = maxHealth;
+    }
+
+    public void setHealth(int health) {
+        _healthSlider.value = health;
+    }
+
     public void setRedSplashScreen()
     {
         Debug.Log("Inside Red Splash Screen Func");
@@ -165,8 +187,8 @@ public class UIBehavior : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "MainMenu" || SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "Level2") {
             return;
         }
-        TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
-        tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        // TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
+        // tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     // Winscreen Func
@@ -260,7 +282,7 @@ class MyComparer : IComparer<string>
             foreach(string fileName in fileNames)
             {
                 GameObject button = Instantiate(buttonPrefab, levelSelectPanel.transform);
-                button.GetComponentInChildren<TMP_Text>().text = fileName;
+                button.GetComponentInChildren<TMP_Text>().text = fileName.Substring(5);
                 // Debug.Log("CHECK CONTAINMENT: " + DungeonMaster.levelsCompleted.Contains(fileName));
                 button.GetComponentInChildren<Button>().onClick.AddListener(delegate { DungeonMaster.dm.loadNextLevel(fileName); });
             }
@@ -284,7 +306,7 @@ class MyComparer : IComparer<string>
         {
             toolKitButtons[i].interactable = false;
         }
-        setOperationInactive();
+        // setOperationInactive();
         disableResetButton();
         UIBehavior.gameUI.changeButtonColor(true);
         // Debug.Log("UI Behavior -- HighlightedObject"+DungeonMaster.dm.highlightedObject);
@@ -294,36 +316,36 @@ class MyComparer : IComparer<string>
         //Debug.Log("UI stopping sim");
         for (int i = 0; i < toolKitButtons.Length; i++)
         {
-            toolKitButtons[i].interactable = true;
+            toolKitButtons[i].interactable = true; 
         }
         enableResetButton();
         UIBehavior.gameUI.changeButtonColor(false);
         //Future scope: create indication for stop type. E.g. arrow pointing to oob coords when type is oob
     }
 
-    public void setOperationInactive(){
-        for(int i=0; i < operationButtons.Length; i++)
-        {
-            operationButtons[i].interactable = false;
-        }
-    }
+    // public void setOperationInactive(){
+    //     for(int i=0; i < operationButtons.Length; i++)
+    //     {
+    //         operationButtons[i].interactable = false;
+    //     }
+    // }
     
-    public void setOperationActive(GameObject toolkitInstance){
-        for(int i=0; i < operationButtons.Length; i++)
-        {
-            if(toolkitInstance.CompareTag("TempChange")){ // if heater is selected then only DELETE BUTTON is INTERACTABLE
-                if(operationButtons[i].CompareTag("DeleteButton")){
-                    operationButtons[i].interactable = true;
-                }
-                else{
-                    operationButtons[i].interactable = false;
-                }
-            }
-            else{
-                operationButtons[i].interactable = true;
-            }
-        }
-    }
+    // public void setOperationActive(GameObject toolkitInstance){
+    //     for(int i=0; i < operationButtons.Length; i++)
+    //     {
+    //         if(toolkitInstance.CompareTag("TempChange")){ // if heater is selected then only DELETE BUTTON is INTERACTABLE
+    //             if(operationButtons[i].CompareTag("DeleteButton")){
+    //                 operationButtons[i].interactable = true;
+    //             }
+    //             else{
+    //                 operationButtons[i].interactable = false;
+    //             }
+    //         }
+    //         else{
+    //             operationButtons[i].interactable = true;
+    //         }
+    //     }
+    // }
 
     // used to disable RESET button when simulation mode is ON
     public void disableResetButton()

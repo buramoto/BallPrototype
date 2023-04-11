@@ -11,8 +11,10 @@ public class ChangeTemperature : MonoBehaviour
     public bool editable;
     public StateReference.temperature setting;
     public bool hasCollided = false;
-    private SpriteRenderer elementDisplay;
+    public SpriteRenderer elementDisplay;
     public int overLaps;
+    public Sprite unhighlightedHeater;
+    public Sprite outline;
     // Start is called before the first frame update
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,8 @@ public class ChangeTemperature : MonoBehaviour
                 elementDisplay.material.color = Color.green;
                 break;
             case StateReference.temperature.hot:
-                elementDisplay.material.color = Color.red;
+                // commented the below line because it was messing with the Outline for the Heater
+                elementDisplay.material.color = Color.white;
                 break;
             case StateReference.temperature.cold:
                 elementDisplay.material.color = Color.cyan;

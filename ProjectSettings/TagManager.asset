@@ -25,6 +25,18 @@ TagManager:
   - SwordHolder
   - MenuBtn
   - Tooltip
+  - BallTimer
+  - Firepoint
+  - CannonBase
+  - Cannon
+  - BarrelHolder
+  - HealthSlider
+  - Barrel
+  - Airflow
+  - WindParticles
+  - TimerPosition
+  - Undefined
+  - OperationForObject
   layers:
   - Default
   - TransparentFX
