@@ -140,6 +140,11 @@ public class PropPlacer : MonoBehaviour
                     
             }
             dragging = true;
+            if (clickedObject.tag == "Plank" || clickedObject.tag == "Spring")
+            {
+                clickedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                clickedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+            }
             selectedObject = clickedObject;
         }
         //We are still dragging, so update position based on mouse position
@@ -173,6 +178,9 @@ public class PropPlacer : MonoBehaviour
                         Debug.Log("No Object is colliding successful positioning");
                         dragging = false;
                     }
+                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+
                 }
                 else if(selectedObject.CompareTag("Spring"))
                 {
@@ -191,6 +199,9 @@ public class PropPlacer : MonoBehaviour
                         Debug.Log("No Object is colliding successful positioning");
                         dragging = false;
                     }
+
+                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
                 }
                 else if(selectedObject.CompareTag("TempChange"))
                 {
@@ -209,7 +220,9 @@ public class PropPlacer : MonoBehaviour
                         Debug.Log("No Object is colliding successful positioning");
                         dragging = false;
                     }
+                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
                 }
+
                //dragging = false;
             }
         }
