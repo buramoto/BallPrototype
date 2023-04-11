@@ -92,15 +92,15 @@ public class Level2 : MonoBehaviour
         {
             GameObject dtext = GameObject.Find("Level_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Click on Heater\n Drag it on the box below";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Drag heater into the box";
             GameObject dtext2 = GameObject.Find("Ice_Plank_Text");
-            dtext2.GetComponent<TMPro.TextMeshProUGUI>().text = "Remember: Heater heats the Ball & is one time use only"; 
-            dtext2.GetComponent<TMPro.TextMeshProUGUI>().color = Color.yellow;
+            dtext2.GetComponent<TMPro.TextMeshProUGUI>().text = "Heater heats the Ball only"; 
+            dtext2.GetComponent<TMPro.TextMeshProUGUI>().color = Color.black;
             var col = image.GetComponent<Image>().color;
-            col.a = 0.3f;
+            col.a = 1f;
             image.GetComponent<Image>().color = col;
             var col2 = highlightedArea.GetComponent<Image>().color;
-            col2.a = 0.3f;
+            col2.a = 1f;
             highlightedArea.GetComponent<Image>().color = col2;
         }
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
