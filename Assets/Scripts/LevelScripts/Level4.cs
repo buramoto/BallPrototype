@@ -7,6 +7,7 @@ public class Level4 : MonoBehaviour
 {
     // Start is called before the first frame update
     private int oobCount = 0;
+    public GameObject image;
     private void Awake()
     {
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
@@ -25,7 +26,10 @@ public class Level4 : MonoBehaviour
         // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
         // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
-        
+        image = GameObject.Find("Plank_Outline");
+        var col = image.GetComponent<Image>().color;
+        col.a = 0;
+        image.GetComponent<Image>().color = col;
         // Setting the spring and heater buttons of the ToolKit Panel to INACTIVE
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(false);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
@@ -56,6 +60,22 @@ public class Level4 : MonoBehaviour
         UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
     }
 
+    public IEnumerator Rotate(Vector3 angles, float duration )
+ {
+    //  rotating = true ;
+    Debug.Log("Inside Rotate");
+     Quaternion startRotation = image.transform.rotation ;
+     Quaternion endRotation = Quaternion.Euler(angles) * startRotation;
+     for( float t = 0 ; t < duration ; t+= Time.deltaTime )
+     {
+         image.transform.rotation = Quaternion.Lerp( startRotation, endRotation, t / duration );
+         yield return null;
+     }
+     image.transform.rotation = endRotation;
+    Debug.Log("Rotation Done");
+    //  rotating = false;
+ }
+
     public void OutOfBounds(string type)
     {
         // Increment the counter for out of bounds
@@ -67,8 +87,12 @@ public class Level4 : MonoBehaviour
              GameObject dtext = GameObject.Find("Level4_Text");
              Debug.Log(dtext);
             Debug.Log("Came inside if");
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Create & Rotate Planks to bridge the gap";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint!";
              dtext.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 23;
+             var col = image.GetComponent<Image>().color;
+        col.a = 1;
+        image.GetComponent<Image>().color = col;
+        StartCoroutine(Rotate(new Vector3(0,0,-20), 5f));
          }
          else if(type == "oob" && oobCount == 5 && UIBehavior.gameUI)
          {

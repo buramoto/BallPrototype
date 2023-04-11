@@ -92,15 +92,16 @@ public class Level2 : MonoBehaviour
         {
             GameObject dtext = GameObject.Find("Level_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Click on Heater\n Drag it on the box below";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Drag heater here";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().color = Color.yellow;
             GameObject dtext2 = GameObject.Find("Ice_Plank_Text");
-            dtext2.GetComponent<TMPro.TextMeshProUGUI>().text = "Remember: Heater heats the Ball & is one time use only"; 
-            dtext2.GetComponent<TMPro.TextMeshProUGUI>().color = Color.yellow;
+            dtext2.GetComponent<TMPro.TextMeshProUGUI>().text = "Heater heats the Ball only"; 
+            dtext2.GetComponent<TMPro.TextMeshProUGUI>().color = Color.green;
             var col = image.GetComponent<Image>().color;
-            col.a = 0.3f;
+            col.a = 1f;
             image.GetComponent<Image>().color = col;
             var col2 = highlightedArea.GetComponent<Image>().color;
-            col2.a = 0.3f;
+            col2.a = 1f;
             highlightedArea.GetComponent<Image>().color = col2;
         }
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
@@ -109,26 +110,26 @@ public class Level2 : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("We are getting collision");
+        // if (collision.gameObject.name == "Ball" && this.name == "Collider1" && GlobalVariables.attemptCounter==1)
+        // {
+        //     GameObject dtext = GameObject.Find("Level_Text");
+        //     Debug.Log(dtext);
+        //     dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Ice Sheets do not affect the ball";
+        // }
         if (collision.gameObject.name == "Ball" && this.name == "Collider1" && GlobalVariables.attemptCounter==1)
         {
             GameObject dtext = GameObject.Find("Level_Text");
-            Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Ice Sheets do not affect the ball";
-        }
-        else if (collision.gameObject.name == "Ball" && this.name == "Collider2" && GlobalVariables.attemptCounter==1)
-        {
-            GameObject dtext = GameObject.Find("Level_Text");
-            Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "But it may block path to Goal";
-        }
-        else if (collision.gameObject.name == "Ball" && this.name == "Collider3" && GlobalVariables.attemptCounter==1)
-        {
-            GameObject dtext = GameObject.Find("Ice_Plank_Text");
             Debug.Log(dtext);
             dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Stuck?\n Press stop";
             dtext.GetComponent<TMPro.TextMeshProUGUI>().color = Color.red;
             flag = true;
         }
+        // else if (collision.gameObject.name == "Ball" && this.name == "Collider3" && GlobalVariables.attemptCounter==1)
+        // {
+        //     GameObject dtext = GameObject.Find("Ice_Plank_Text");
+        //     Debug.Log(dtext);
+        //     dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Stuck?\n Press stop";
+        // }
         // else if (collision.gameObject.name == "Ball" && this.name == "Collider3" && flag == true)
         // {
         //     GameObject dtext = GameObject.Find("Level_Text");

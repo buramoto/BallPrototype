@@ -187,8 +187,8 @@ public class UIBehavior : MonoBehaviour
         if(SceneManager.GetActiveScene().name == "MainMenu" || SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "Level2") {
             return;
         }
-        TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
-        tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        // TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 
+        // tm.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     // Winscreen Func
@@ -282,7 +282,7 @@ class MyComparer : IComparer<string>
             foreach(string fileName in fileNames)
             {
                 GameObject button = Instantiate(buttonPrefab, levelSelectPanel.transform);
-                button.GetComponentInChildren<TMP_Text>().text = fileName;
+                button.GetComponentInChildren<TMP_Text>().text = fileName.Substring(5);
                 // Debug.Log("CHECK CONTAINMENT: " + DungeonMaster.levelsCompleted.Contains(fileName));
                 button.GetComponentInChildren<Button>().onClick.AddListener(delegate { DungeonMaster.dm.loadNextLevel(fileName); });
             }
