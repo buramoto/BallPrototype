@@ -282,7 +282,7 @@ class MyComparer : IComparer<string>
             foreach(string fileName in fileNames)
             {
                 GameObject button = Instantiate(buttonPrefab, levelSelectPanel.transform);
-                button.GetComponentInChildren<TMP_Text>().text = fileName;
+                button.GetComponentInChildren<TMP_Text>().text = fileName.Substring(5);
                 // Debug.Log("CHECK CONTAINMENT: " + DungeonMaster.levelsCompleted.Contains(fileName));
                 button.GetComponentInChildren<Button>().onClick.AddListener(delegate { DungeonMaster.dm.loadNextLevel(fileName); });
             }
