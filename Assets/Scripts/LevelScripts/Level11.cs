@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class Level11 : MonoBehaviour
 {
+    GameObject levelmode;
+    GameObject mainmenumode;
+    GameObject backgroundImage;
+    GameObject videoRenderer;
+    GameObject playText;
     private void Awake()
     {
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
@@ -36,6 +41,14 @@ public class Level11 : MonoBehaviour
 
         GlobalVariables.springCap = 2;
         GlobalVariables.heaterCap = 1;
+
+        //Assigning references for the canvas gameobjects
+        levelmode = UIBehavior.gameUI.gameObject.transform.Find("LevelMode").gameObject;
+        mainmenumode= UIBehavior.gameUI.gameObject.transform.Find("Main Menu").gameObject;
+        backgroundImage = GameObject.Find("Black_Background");
+        videoRenderer = GameObject.Find("Screen");
+        playText = GameObject.Find("Play_Text");
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -48,6 +61,9 @@ public class Level11 : MonoBehaviour
         }
         UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
+
+        levelmode.SetActive(false);
+        mainmenumode.SetActive(false);
     }
 
     // Update is called once per frame
@@ -57,8 +73,15 @@ public class Level11 : MonoBehaviour
         //Debug.Log(GlobalVariables.plankCounter);
         //Debug.Log(GlobalVariables.heaterCounter);
         //Debug.Log("-----------------------------");
-        UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
-        UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
+       
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            backgroundImage.SetActive(false);
+            videoRenderer.SetActive(false);
+            playText.SetActive(false);
+            levelmode.SetActive(true);
+            mainmenumode.SetActive(true);
+        }
     }
 
     /*

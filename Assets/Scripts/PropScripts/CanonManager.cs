@@ -84,6 +84,15 @@ public class CanonManager : MonoBehaviour
                     //Debug.Log("ANGLE VALUE: ++++++++" + angle);
                     angle *= -1;
 
+                    if(angle>45)
+                    {
+                        angle = 45;
+                    }
+                    else if(angle<-45)
+                    {
+                        angle = -45;
+                    }
+
                     // set rotation of Cannon Barrel to face mouse position
                     barrelHolder.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
@@ -119,6 +128,7 @@ public class CanonManager : MonoBehaviour
         // Changing Ball's Temp to Red Hot when fired
         cannonBallPrefab.GetComponent<BallScript>().tempState = StateReference.temperature.hot;
         cannonBallPrefab.GetComponent<SpriteRenderer>().material.color = Color.red;
+        cannonBallPrefab.GetComponent<SpriteRenderer>().enabled = true;
 
         // adding an impulse force to throw ball off the Canon
         rb.AddForce(_initialVelocity, ForceMode2D.Impulse);
@@ -160,6 +170,7 @@ public class CanonManager : MonoBehaviour
             this.isCanonBallPresent = true;
             
             other.transform.position = GameObject.FindWithTag("CannonBase").transform.position;
+            other.GetComponent<SpriteRenderer>().enabled = false;
 
             // disabling the gravity forces on the ball
             Rigidbody2D ballRigidBody = other.GetComponent<Rigidbody2D>();
@@ -189,6 +200,7 @@ public class CanonManager : MonoBehaviour
         // disabling the gravity forces on the ball
         Rigidbody2D ballRigidBody = ball.GetComponent<Rigidbody2D>();
         ballRigidBody.isKinematic = true;
+        ball.GetComponent<SpriteRenderer>().enabled = false;
 
         // Stopping the Ball's Rotation because the ball inside of the canon
         //ballRigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
