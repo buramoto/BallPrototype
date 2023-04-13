@@ -723,6 +723,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 168548708}
     - target: {fileID: 184224287, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+      propertyPath: springPrefab
+      value: 
+      objectReference: {fileID: 3725497670154412353, guid: c43c93b656741403f8425642d2be7c9f, type: 3}
+    - target: {fileID: 184224287, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
       propertyPath: operationsPanelPrefab
       value: 
       objectReference: {fileID: 3118138028504363944, guid: e659472df8c575b4ba5604056ac9baed, type: 3}
