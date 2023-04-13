@@ -27,6 +27,7 @@ public class PropPlacer : MonoBehaviour
     public Vector3 positionBeforeClicking;
     public Quaternion rotationBeforeClicking;
     public Collider2D collidingObj;
+    private bool isNew;
 
     //Settings
     public const float rotationSpeed=500; //Now turned into a constant field
@@ -161,7 +162,7 @@ public class PropPlacer : MonoBehaviour
             {
                 Debug.Log("Selected object is:-" + selectedObject);
                 Debug.Log("Position of the selected object" + selectedObject.transform.position);
-                if(selectedObject.CompareTag("Plank"))
+                if (selectedObject.CompareTag("Plank"))
                 {
                     Plank p1 = selectedObject.GetComponent<Plank>();
                     Debug.Log("Checking the object p1" + p1);
@@ -169,8 +170,17 @@ public class PropPlacer : MonoBehaviour
                     if (p1.isOverlapping() == true)
                     {
                         Debug.Log("Object is colliding");
-                        selectedObject.transform.position = positionBeforeClicking;
-                        selectedObject.transform.rotation = rotationBeforeClicking;
+                        if (isNew)
+                        {
+                            deleteToolkitInstance();
+                            selectedObject = null;
+                        }
+                        else
+                        {
+                            selectedObject.transform.position = positionBeforeClicking;
+                            selectedObject.transform.rotation = rotationBeforeClicking;
+                        }
+                        isNew = false;
                         dragging = false;
                     }
                     else
@@ -178,8 +188,11 @@ public class PropPlacer : MonoBehaviour
                         Debug.Log("No Object is colliding successful positioning");
                         dragging = false;
                     }
-                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    isNew = false;
+                    if (selectedObject != null) {
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    }
 
                 }
                 else if(selectedObject.CompareTag("Spring"))
@@ -190,18 +203,31 @@ public class PropPlacer : MonoBehaviour
                     if (p1.isOverlapping() == true)
                     {
                         Debug.Log("Object is colliding");
-                        selectedObject.transform.position = positionBeforeClicking;
-                        selectedObject.transform.rotation = rotationBeforeClicking;
+                        if(isNew)
+                        {
+                            deleteToolkitInstance();
+                            isNew = false;
+                            selectedObject = null;
+                        }
+                        else
+                        {
+                            selectedObject.transform.position = positionBeforeClicking;
+                            selectedObject.transform.rotation = rotationBeforeClicking;
+                        }
                         dragging = false;
                     }
                     else
                     {
                         Debug.Log("No Object is colliding successful positioning");
                         dragging = false;
+                        isNew = false;
                     }
 
-                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    if (selectedObject != null)
+                    {
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    }
                 }
                 else if(selectedObject.CompareTag("TempChange"))
                 {
@@ -211,16 +237,31 @@ public class PropPlacer : MonoBehaviour
                     if (p1.isOverlapping() == true)
                     {
                         Debug.Log("Object is colliding");
-                        selectedObject.transform.position = positionBeforeClicking;
-                        selectedObject.transform.rotation = rotationBeforeClicking;
+                        if (isNew)
+                        {
+                            deleteToolkitInstance();
+                            isNew = false;
+                            selectedObject = null;
+                        }
+                        else
+                        {
+                            selectedObject.transform.position = positionBeforeClicking;
+                            selectedObject.transform.rotation = rotationBeforeClicking;
+                        }
                         dragging = false;
                     }
                     else
                     {
                         Debug.Log("No Object is colliding successful positioning");
                         dragging = false;
+                        isNew = false;
                     }
-                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                    //selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                    if (selectedObject != null)
+                    {
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    }
                 }
 
                //dragging = false;
@@ -265,7 +306,7 @@ public class PropPlacer : MonoBehaviour
             plankScript.ChangeTemp(StateReference.temperature.neutral);
             plankScript.editable = true;
             plankScript.hasCollided = false;
-
+            isNew = true;
             GlobalVariables.plankCap -= 1;
             if (GlobalVariables.plankCap == 0)
             {
@@ -288,7 +329,7 @@ public class PropPlacer : MonoBehaviour
             springScript.editable = true;
             springScript.hasCollided = false;
             springScript.spriteRenderer = newSpring.GetComponent<SpriteRenderer>();
-
+            isNew = true;
             GlobalVariables.springCap -= 1;
             if (GlobalVariables.springCap == 0)
             {
@@ -311,7 +352,7 @@ public class PropPlacer : MonoBehaviour
             newTempElementScript.ChangeTemp(StateReference.temperature.hot);
             newTempElementScript.editable = true;
             newTempElementScript.hasCollided = false;
-
+            isNew = true;
             Debug.Log("GlobalVariables.heaterCap: " + GlobalVariables.heaterCap);
             
             GlobalVariables.heaterCap -= 1;

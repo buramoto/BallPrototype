@@ -15,6 +15,7 @@ public class ChangeTemperature : MonoBehaviour
     public int overLaps;
     public Sprite unhighlightedHeater;
     public Sprite outline;
+    //public SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
     // Start is called before the first frame update
     void Start()
@@ -61,6 +62,10 @@ public class ChangeTemperature : MonoBehaviour
             Debug.Log("This is the trigger enter stage in Heater");
             overLaps++;
             Debug.Log("Overlap value becomes" + overLaps);
+            if (!DungeonMaster.dm.simulationMode && editable)
+            {
+                elementDisplay.color = Color.magenta;
+            }
         }
     }
 
@@ -71,6 +76,7 @@ public class ChangeTemperature : MonoBehaviour
             Debug.Log("This is the trigger exit stage in Heater");
             overLaps--;
             Debug.Log("Overlap value becomes" + overLaps);
+            elementDisplay.color = Color.white;
         }
     }
 

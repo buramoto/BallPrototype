@@ -62,6 +62,10 @@ public class Spring : MonoBehaviour
             Debug.Log("This is the trigger enter stage Spring ");
             overLaps++;
             Debug.Log("Overlap value becomes" + overLaps);
+            if (!DungeonMaster.dm.simulationMode && editable)
+            {
+                spriteRenderer.color = Color.magenta;
+            }
         }
     }
 
@@ -72,6 +76,7 @@ public class Spring : MonoBehaviour
             Debug.Log("This is the trigger exit stage in Heater");
             overLaps--;
             Debug.Log("Overlap value becomes" + overLaps);
+            spriteRenderer.color = Color.white;
         }
     }
 
