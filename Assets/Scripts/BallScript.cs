@@ -176,7 +176,7 @@ public class BallScript : MonoBehaviour
             }
             else
             {
-                BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + ".0";
+                BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + " s";
             }
         }
     }
@@ -358,7 +358,7 @@ public class BallScript : MonoBehaviour
         time = 10;
         if (BallTimer != null)
         {
-            BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + ".0";
+            BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + " s";
             timedecrease = false;
             ballRenderer.enabled = true;
             ballTimerRenderer.enabled = true;
