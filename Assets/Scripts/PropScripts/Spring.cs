@@ -56,7 +56,8 @@ public class Spring : MonoBehaviour
                     //collision.GetContacts(contacts);
                     //ContactPoint2D contact = contacts[0];
                     //Vector2 surfaceNormal = contact.normal;
-                    //Vector2 bounceDirection = Vector2.Perpendicular(surfaceNormal).normalized;
+                    //Vector2 perpendicular = Vector2.Perpendicular(surfaceNormal);
+                    //Vector2 bounceDirection = Vector2.Reflect(ballPhys.velocity, perpendicular);
                     //ballPhys.AddForce(bounceDirection * springForce, ForceMode2D.Impulse);
 
                     //ballPhys.AddForce(new Vector2(-springForce * Mathf.Sin(transform.rotation.z), springForce * Mathf.Cos(transform.rotation.z)));
