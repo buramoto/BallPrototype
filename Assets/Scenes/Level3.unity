@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 237751883}
   - component: {fileID: 237751882}
   m_Layer: 5
-  m_Name: Level4_Text
+  m_Name: Level3_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 34.55
+  m_fontSize: 53.5
   m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -556,6 +556,10 @@ PrefabInstance:
     - target: {fileID: 1717778677363821182, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2475114265184880331, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.0536499
       objectReference: {fileID: 0}
     - target: {fileID: 5023556611887295729, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1169,10 +1173,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1190518557}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b26e653a90fe044e49f3bc3b3fe63253, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a7ad678b6823214f920d32af95d08ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
 --- !u!1001 &1544722809
 PrefabInstance:
   m_ObjectHideFlags: 0

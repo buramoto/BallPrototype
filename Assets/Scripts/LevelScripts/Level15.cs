@@ -3,21 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Level12 : MonoBehaviour
+public class Level15 : MonoBehaviour
 {
-    GameObject levelmode;
-    GameObject mainmenumode;
-    GameObject backgroundImage;
-    GameObject videoRenderer;
-    GameObject playText;
-    private void Awake()
+private void Awake()
     {
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
         Time.timeScale = 1;
         // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
         UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.SetActive(true);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
 
@@ -32,16 +26,9 @@ public class Level12 : MonoBehaviour
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
 
-        GlobalVariables.springCap = 2;
-        GlobalVariables.heaterCap = 1;
+        GlobalVariables.springCap = 4;
+        GlobalVariables.heaterCap = 2;
 
-        //Assigning references for the canvas gameobjects
-        levelmode = UIBehavior.gameUI.gameObject.transform.Find("LevelMode").gameObject;
-        mainmenumode= UIBehavior.gameUI.gameObject.transform.Find("Main Menu").gameObject;
-        backgroundImage = GameObject.Find("Black_Background");
-        videoRenderer = GameObject.Find("Screen");
-        playText = GameObject.Find("Play_Text");
-        
     }
     // Start is called before the first frame update
     void Start()
@@ -54,22 +41,11 @@ public class Level12 : MonoBehaviour
         }
         UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
-
-        levelmode.SetActive(false);
-        mainmenumode.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            backgroundImage.SetActive(false);
-            videoRenderer.SetActive(false);
-            playText.SetActive(false);
-            levelmode.SetActive(true);
-            mainmenumode.SetActive(true);
-        }
         UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }

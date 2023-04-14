@@ -20,10 +20,6 @@ public class Level10 : MonoBehaviour
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
 
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
-
         // Setting the Plank Btn in the ToolKit Panel to INACTIVE
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
 
@@ -31,11 +27,9 @@ public class Level10 : MonoBehaviour
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
 
-        // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
-        // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
 
-        GlobalVariables.springCap = 2;
-        GlobalVariables.heaterCap = 1;
+        GlobalVariables.springCap = 4;
+        GlobalVariables.heaterCap = 2;
 
     }
     // Start is called before the first frame update
@@ -54,9 +48,7 @@ public class Level10 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("--------------10---------------");
-        //Debug.Log(GlobalVariables.plankCounter);
-        //Debug.Log(GlobalVariables.heaterCounter);
-        //Debug.Log("-----------------------------");
+        UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
+        UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
 }

@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Level7 : MonoBehaviour
 {
-    private int oobCount = 0;
+    public static Level7 Level7Reference;
+
     private void Awake()
     {
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
@@ -20,23 +21,38 @@ public class Level7 : MonoBehaviour
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+        
+        // Set the tool kit panel, operation panel and reset buttons to inactive
+        UIBehavior.gameUI.toolKitPanel.SetActive(false);
+        // UIBehavior.gameUI.operationPanel.SetActive(false);
+        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>()[1].gameObject.SetActive(false);
 
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
+        if (Level7Reference == null)
+        {
+            Level7Reference = this;
+        }
+        else
+        {
 
-        // Setting the Heater Btn in the ToolKit Panel to INACTIVE
-        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
-
-        // To ensure that the buttons isn't stretched
-        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
-        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
-
-        // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
-        // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
-
-        GlobalVariables.plankCap = 3;
-        GlobalVariables.springCap = 2;
+        }
+        if (GlobalVariables.kbeCounter == 0)
+        {
+            GameObject dtext = GameObject.Find("Level7_Text");
+            Debug.Log(dtext);
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Right Click to Attack Enemies when the ball is moving";
+        }
+        if (GlobalVariables.kbeCounter > 0 && GlobalVariables.kbeCounter < 2)
+        {
+            GameObject dtext = GameObject.Find("Level7_Text");
+            Debug.Log(dtext);
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: A Sword always appears from right";
+        }
+        if (GlobalVariables.kbeCounter  == 2)
+        {
+            GameObject dtext = GameObject.Find("Level7_Text");
+            Debug.Log(dtext);
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Note: you only have 2 lives";
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -47,35 +63,13 @@ public class Level7 : MonoBehaviour
         {
             scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
         }
-        UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
-        UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
-        UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
+
     }
 
-    public void OutOfBounds(string type)
-    {
-        // Increment the counter for out of bounds
-        oobCount++;
-
-        // If the counter is 2, then display the text to assist the player
-        if (type == "oob" && oobCount == 2)
-        {
-            GameObject dtext = GameObject.Find("Level7_Text");
-            Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Try aligning Wood Planks & a Spring";
-        }
-        if (type == "oob" && oobCount == 5)
-        {
-            GameObject dtext = GameObject.Find("Level7_Text");
-            Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Try Rotating the Wood Planks/Spring";
-        }
-    }
 
 }
