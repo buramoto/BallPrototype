@@ -59,7 +59,6 @@ public class CanonManager : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
                 {
                     _pressingMouse = true;
-                    lineRenderer.enabled = true;
                 }
                 if (Input.GetMouseButtonUp(0))
                 {
@@ -99,8 +98,19 @@ public class CanonManager : MonoBehaviour
                     // The ball is within the barrel hence change the all position too
                     cannonBallPrefab.transform.position = GameObject.FindWithTag("CannonBase").transform.position;
 
-                    _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
-
+                    if (mousePos.y - firePoint.position.y < 0)
+                    {
+                        Debug.Log("In if");
+                        _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
+                        _initialVelocity.y = 0.707f * firePoint.position.y;
+                        lineRenderer.enabled = false;
+                    }
+                    else
+                    {
+                        Debug.Log("In else");
+                        _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
+                        lineRenderer.enabled = true;
+                    }
                     _UpdateLineRenderer();
                 }
             }

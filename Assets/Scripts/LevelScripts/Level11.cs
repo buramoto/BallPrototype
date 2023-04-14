@@ -74,7 +74,7 @@ public class Level11 : MonoBehaviour
         //Debug.Log(GlobalVariables.heaterCounter);
         //Debug.Log("-----------------------------");
        
-        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             backgroundImage.SetActive(false);
             videoRenderer.SetActive(false);
