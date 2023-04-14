@@ -4196,6 +4196,9 @@ MonoBehaviour:
   operationPanel: {fileID: 0}
   controlPanel: {fileID: 0}
   mainMenuBtn: {fileID: 0}
+  plankCount: {fileID: 0}
+  springCount: {fileID: 0}
+  heaterCount: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   oobCoords: {x: 0, y: 0, z: 0}
 --- !u!222 &1325511730
@@ -4259,6 +4262,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 619922534861654400, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.18869019
+      objectReference: {fileID: 0}
     - target: {fileID: 1512958688957212461, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.000022888184
@@ -4314,6 +4321,10 @@ PrefabInstance:
     - target: {fileID: 6171845427920735975, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171845427970819495, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.50006104
       objectReference: {fileID: 0}
     - target: {fileID: 6171845428107800258, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: timer
@@ -4809,7 +4820,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1456633331}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 046d7c6600c4d0f46be51ef04bfe7f7e, type: 3}
+  m_Script: {fileID: 11500000, guid: 08a2f61e2f851a44cad3284ab77406dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1461183604
