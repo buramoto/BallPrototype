@@ -30,12 +30,10 @@ public class Level7 : MonoBehaviour, EnemyLevel
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
         
         // Set the tool kit panel, operation panel and reset buttons to inactive
-        UIBehavior.gameUI.toolKitPanel.SetActive(true);
+        UIBehavior.gameUI.toolKitPanel.SetActive(false);
         // UIBehavior.gameUI.operationPanel.SetActive(false);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>()[1].gameObject.SetActive(false);
 
-        GlobalVariables.plankCap = 3;
-        GlobalVariables.heaterCap = 3;
 
         if (Level7Reference == null)
         {
@@ -87,21 +85,25 @@ public class Level7 : MonoBehaviour, EnemyLevel
         {
             string enemyName = pair.Value;
             GameObject enemy = GameObject.Find(enemyName).transform.GetChild(0).gameObject;
-            enemy.SendMessage("resetEnemy");
+            if(enemy.activeSelf) {
+                enemy.SendMessage("resetEnemy");
+            }
         }
     }
 
     public void dropEnemy(string plankName)
     {
-        GameObject enemy = GameObject.Find(enemyPlankMap[plankName]).transform.GetChild(0).gameObject;
-        if(enemy.activeSelf) {
-            Debug.Log("ENEMY NAME:" + enemy.name);
-            enemy.AddComponent<Rigidbody2D>();
-            enemy.GetComponent<Animation>().enabled = false;
-            enemy.GetComponent<Collider2D>().enabled = false;
+        if(enemyPlankMap.ContainsKey(plankName)) {
+            GameObject enemy = GameObject.Find(enemyPlankMap[plankName]).transform.GetChild(0).gameObject;
+            if(enemy.activeSelf) {
+                Debug.Log("ENEMY NAME:" + enemy.name);
+                enemy.AddComponent<Rigidbody2D>();
+                enemy.GetComponent<Animation>().enabled = false;
+                enemy.GetComponent<Collider2D>().enabled = false;
+            }
+            // rb.useGravity = true;
+            // enemy.GetComponent<Rigidbody>().useGravity = true;
         }
-        // rb.useGravity = true;
-        // enemy.GetComponent<Rigidbody>().useGravity = true;
     }
 
 }

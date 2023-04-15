@@ -73,20 +73,24 @@ public class Level8 : MonoBehaviour, EnemyLevel
         {
             string enemyName = pair.Value;
             GameObject enemy = GameObject.Find(enemyName).transform.GetChild(0).gameObject;
-            enemy.SendMessage("resetEnemy");
+            if(enemy.activeSelf) {
+                enemy.SendMessage("resetEnemy");
+            }
         }
     }
 
     public void dropEnemy(string plankName)
     {
-        GameObject enemy = GameObject.Find(enemyPlankMap[plankName]).transform.GetChild(0).gameObject;
-        if(enemy.activeSelf) {
-            Debug.Log("ENEMY NAME:" + enemy.name);
-            enemy.AddComponent<Rigidbody2D>();
-            enemy.GetComponent<Animation>().enabled = false;
-            enemy.GetComponent<Collider2D>().enabled = false;
+        if(enemyPlankMap.ContainsKey(plankName)) {
+            GameObject enemy = GameObject.Find(enemyPlankMap[plankName]).transform.GetChild(0).gameObject;
+            if(enemy.activeSelf) {
+                Debug.Log("ENEMY NAME:" + enemy.name);
+                enemy.AddComponent<Rigidbody2D>();
+                enemy.GetComponent<Animation>().enabled = false;
+                enemy.GetComponent<Collider2D>().enabled = false;
+            }
+            // rb.useGravity = true;
+            // enemy.GetComponent<Rigidbody>().useGravity = true;
         }
-        // rb.useGravity = true;
-        // enemy.GetComponent<Rigidbody>().useGravity = true;
     }
 }
