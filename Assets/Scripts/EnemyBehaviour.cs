@@ -70,6 +70,7 @@ public class EnemyBehaviour : MonoBehaviour
             //kill enemy when the ball is hot
             if(BallScript.enemyballflag==true){
                 gameObject.SetActive(false);
+                BallScript.enemyballflag=false;
             }
             else{
                 DungeonMaster.dm._ballHealth.DamageUnit(10);

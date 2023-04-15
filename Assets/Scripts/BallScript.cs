@@ -248,7 +248,6 @@ public class BallScript : MonoBehaviour
         switch (tempState)
         {
             case StateReference.temperature.hot:
-                enemyballflag=true;
                 switch (plankProperties.plankState)
                 {
                     case StateReference.temperature.cold://Hot -> cold
@@ -279,6 +278,7 @@ public class BallScript : MonoBehaviour
 
     private void elementCollision(GameObject element)
     {
+        enemyballflag=false;
         if(!DungeonMaster.dm.simulationMode) {
             // Debug.Log("Collision in simulation");
             return;         
@@ -290,6 +290,7 @@ public class BallScript : MonoBehaviour
             {
                 case StateReference.temperature.hot:
                     Debug.Log("Collided with heater");
+                    enemyballflag=true;
 
 
                     // Vector3 position = element.transform.position;
