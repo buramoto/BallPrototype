@@ -215,12 +215,7 @@ public class DungeonMaster : MonoBehaviour
 
     public void setCurrentSceneReference(EnemyLevel reference)
     {
-        Debug.Log("SETTING ENEMY SCRIPT REFERENCE");
-        Debug.Log(currentSceneName);
-        Debug.Log("REFERENCE NULL TEST"+reference==null);
-        Debug.Log("MAJOR TEST"+enemyLevelNames.Contains(currentSceneName));
         if(enemyLevelNames.Contains(currentSceneName)) {
-            Debug.Log("INSIDE IF"+currentSceneName);
             currentEnemySceneScriptReference = reference;
         }
     }
@@ -329,7 +324,7 @@ public class DungeonMaster : MonoBehaviour
             }
             Debug.Log("====> Count of Enemy_Elements: " + enemyElements.Length);
             // Debug.Log("====> Count of Hearts: " + hearts.Length);
-            if(enemyLevelNames.Contains(currentSceneName)) {
+            if(enemyLevelNames.Contains(currentSceneName) && currentEnemySceneScriptReference != null) {
                 currentEnemySceneScriptReference.resetEnemies();
             }
             for (int i = 0; i < enemyElements.Length; i++)
