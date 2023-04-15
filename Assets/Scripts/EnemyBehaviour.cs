@@ -66,11 +66,10 @@ public class EnemyBehaviour : MonoBehaviour
             // DungeonMaster.dm.lives -= 1;
             // Debug.Log("Player has lives left: "+ DungeonMaster.dm.lives);
             Debug.Log("Collided with Player");
-
             //kill enemy when the ball is hot
-            if(BallScript.enemyballflag==true){
+            BallScript bs = collision.gameObject.GetComponent<BallScript>();
+            if(bs.tempState==StateReference.temperature.hot){
                 gameObject.SetActive(false);
-                BallScript.enemyballflag=false;
             }
             else{
                 DungeonMaster.dm._ballHealth.DamageUnit(10);

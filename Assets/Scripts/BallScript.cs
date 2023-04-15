@@ -42,9 +42,6 @@ public class BallScript : MonoBehaviour
     private Renderer ballRenderer;
     private Renderer ballTimerRenderer;
 
-    //kill enemy when ball is hot flag
-    public static bool enemyballflag = false;
-
     // public bool hasCollided = false;
 
     // Start is called before the first frame update
@@ -278,7 +275,6 @@ public class BallScript : MonoBehaviour
 
     private void elementCollision(GameObject element)
     {
-        enemyballflag=false;
         if(!DungeonMaster.dm.simulationMode) {
             // Debug.Log("Collision in simulation");
             return;         
@@ -290,8 +286,6 @@ public class BallScript : MonoBehaviour
             {
                 case StateReference.temperature.hot:
                     Debug.Log("Collided with heater");
-                    enemyballflag=true;
-
 
                     // Vector3 position = element.transform.position;
                     // GlobalVariables.heaterCoordinates += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
