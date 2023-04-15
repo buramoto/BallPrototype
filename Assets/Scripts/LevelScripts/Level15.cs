@@ -10,8 +10,8 @@ public class Level15 : MonoBehaviour, EnemyLevel
 
 private void Awake()
     {
-         enemyPlankMap.Add("Plank (5)", "Enemy (2)");
-        enemyPlankMap.Add("Plank (2)", "Enemy (1)");
+         enemyPlankMap.Add("Plank (6)", "Enemy (3)");
+        enemyPlankMap.Add("Plank (2)", "Enemy");
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
         Time.timeScale = 1;
         // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
