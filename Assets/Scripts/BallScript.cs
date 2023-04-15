@@ -42,6 +42,9 @@ public class BallScript : MonoBehaviour
     private Renderer ballRenderer;
     private Renderer ballTimerRenderer;
 
+    //kill enemy when ball is hot flag
+    public static bool enemyballflag = false;
+
     // public bool hasCollided = false;
 
     // Start is called before the first frame update
@@ -245,6 +248,7 @@ public class BallScript : MonoBehaviour
         switch (tempState)
         {
             case StateReference.temperature.hot:
+                enemyballflag=true;
                 switch (plankProperties.plankState)
                 {
                     case StateReference.temperature.cold://Hot -> cold
