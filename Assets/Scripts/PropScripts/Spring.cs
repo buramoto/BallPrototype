@@ -61,6 +61,7 @@ public class Spring : MonoBehaviour
                     //ballPhys.AddForce(bounceDirection * springForce, ForceMode2D.Impulse);
 
                     //ballPhys.AddForce(new Vector2(-springForce * Mathf.Sin(transform.rotation.z), springForce * Mathf.Cos(transform.rotation.z)));
+                    ballPhys.velocity = Vector3.zero;
                     ballPhys.AddForce(new Vector2(-springForce * Mathf.Sin(transform.rotation.z), springForce * Mathf.Cos(transform.rotation.z)), ForceMode2D.Impulse);
                     Debug.Log("Printing the value of ANIM: " + anim);
                 }
