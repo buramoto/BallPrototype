@@ -7,6 +7,8 @@ public class EnemyBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
     //public GameObject RedSplashScreen;
+    public GameObject enemy;
+    public Vector2 startPosition;
     void Start()
     {
         //RedSplashScreen = GameObject.FindWithTag("HealthLoss");
@@ -27,6 +29,17 @@ public class EnemyBehaviour : MonoBehaviour
         //    }
 
         //}
+    }
+
+    public void resetEnemy()
+    {
+        // enemy.transform.position = startPosition;
+        enemy.SetActive(true);
+        if(enemy.GetComponent<Rigidbody2D>() != null) {
+            Destroy(enemy.GetComponent<Rigidbody2D>());
+        }
+        enemy.GetComponent<Animation>().enabled = true;
+        enemy.GetComponent<Collider2D>().enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

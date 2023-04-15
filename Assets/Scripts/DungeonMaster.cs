@@ -43,6 +43,7 @@ public class DungeonMaster : MonoBehaviour
     // Level7: Planks and Spring
     // Level8: Introduction to enemies
     // Level9: Main Level (Previously "UIDev")
+    public string[] enemyLevelNames = {"Level7","Level8","Level9","Level11","Level15"};
     private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8"};
     public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12","Level13","Level14", "Level15"};
     public static List<string> levelsCompleted = new List<string>();
@@ -68,6 +69,7 @@ public class DungeonMaster : MonoBehaviour
     
     public string nextSceneName; //This should be set in the local DM
     public string currentSceneName;
+    public EnemyLevel currentEnemySceneScriptReference;
     // private int checkpointcount_tutorial1 = 0;
 
     //Events
@@ -211,6 +213,18 @@ public class DungeonMaster : MonoBehaviour
 
     }
 
+    public void setCurrentSceneReference(EnemyLevel reference)
+    {
+        Debug.Log("SETTING ENEMY SCRIPT REFERENCE");
+        Debug.Log(currentSceneName);
+        Debug.Log("REFERENCE NULL TEST"+reference==null);
+        Debug.Log("MAJOR TEST"+enemyLevelNames.Contains(currentSceneName));
+        if(enemyLevelNames.Contains(currentSceneName)) {
+            Debug.Log("INSIDE IF"+currentSceneName);
+            currentEnemySceneScriptReference = reference;
+        }
+    }
+
     //Scene loads
     /// <summary>
     /// Loads the next scene
@@ -315,7 +329,9 @@ public class DungeonMaster : MonoBehaviour
             }
             Debug.Log("====> Count of Enemy_Elements: " + enemyElements.Length);
             // Debug.Log("====> Count of Hearts: " + hearts.Length);
-
+            if(enemyLevelNames.Contains(currentSceneName)) {
+                currentEnemySceneScriptReference.resetEnemies();
+            }
             for (int i = 0; i < enemyElements.Length; i++)
             {
                 enemyElements[i].SetActive(true);

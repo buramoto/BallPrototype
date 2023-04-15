@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -228,6 +229,14 @@ public class BallScript : MonoBehaviour
         
     }
 
+    private void checkEnemyPlank(GameObject plank) {
+        if(DungeonMaster.dm.enemyLevelNames.Contains(DungeonMaster.dm.currentSceneName)){
+            Debug.Log("Enemy level detected, checking if plank is enemy plank");
+            Debug.Log(DungeonMaster.dm.currentEnemySceneScriptReference==null);
+            DungeonMaster.dm.currentEnemySceneScriptReference.dropEnemy(plank.name);
+        }
+    }
+
     //Check the plank's state and the ball's state, then destroy/interact with plank
     //It is a matrix of interactions: hh, hn, hc, nh, nn, nc, ch, cn, cc
     private void plankCollision(GameObject plank)
@@ -242,6 +251,7 @@ public class BallScript : MonoBehaviour
                         tempState = StateReference.temperature.neutral;
                         ballDisplay.material.color = Color.gray;
                         plank.SetActive(false);
+                        checkEnemyPlank(plank);
                         break;
                     case StateReference.temperature.neutral://Hot -> neutral
                         break;
