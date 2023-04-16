@@ -37,6 +37,9 @@ TagManager:
   - TimerPosition
   - Undefined
   - OperationForObject
+  - WaterPref
+  - FallingObject
+  - SpringPref
   layers:
   - Default
   - TransparentFX
