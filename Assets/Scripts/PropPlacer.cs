@@ -30,7 +30,7 @@ public class PropPlacer : MonoBehaviour
     private bool isNew;
 
     //Settings
-    public const float rotationSpeed=500; //Now turned into a constant field
+    // public const float rotationSpeed = 500; //Now turned into a constant field
 
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
@@ -275,7 +275,10 @@ public class PropPlacer : MonoBehaviour
             Bounds propCorners = selectedObject.GetComponent<BoxCollider2D>().bounds;
             //Vector3 panelOffset = new Vector3(0, propCorners.center.y - propCorners.extents.y, 0);
             Vector3 panelOffset = new Vector3(0, propCorners.extents.y + 0.5f, 0);
-            panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position - panelOffset);
+            if(panel && panelOffset!=null)
+            {
+                panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position - panelOffset);
+            }
             //panel.anchorMax = mainCam.WorldToScreenPoint(selectedObject.transform.position);
         }
 
@@ -418,14 +421,14 @@ public class PropPlacer : MonoBehaviour
         operationsPanel = null;
     }
 
-    public void rotateLeft(){
+    public void rotateLeft(float rotationSpeed){
         GameObject toolkitInstance = DungeonMaster.dm.highlightedObject;
         if(toolkitInstance.tag != "TempChange"){
             toolkitInstance.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
         }
     }
 
-    public void rotateRight(){
+    public void rotateRight(float rotationSpeed){
         GameObject toolkitInstance = DungeonMaster.dm.highlightedObject;
         if(toolkitInstance.tag != "TempChange"){
             toolkitInstance.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);

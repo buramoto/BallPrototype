@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Level10 : MonoBehaviour
 {
-    public static Level10 Level10Reference;
-
     private void Awake()
     {
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
@@ -22,29 +20,17 @@ public class Level10 : MonoBehaviour
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
 
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
+        // Setting the Plank Btn in the ToolKit Panel to INACTIVE
+        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
 
-        
+        // To ensure that the buttons isn't stretched
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
-        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;    
-    
-        // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
-        // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
+        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
 
-        if (Level10Reference == null)
-        {
-            Level10Reference = this;
-        }
-        else
-        {
 
-        }
+        GlobalVariables.springCap = 4;
+        GlobalVariables.heaterCap = 2;
 
-        GlobalVariables.plankCap = 3;
-        GlobalVariables.springCap = 3;
-        GlobalVariables.heaterCap = 3;
     }
     // Start is called before the first frame update
     void Start()
@@ -55,7 +41,6 @@ public class Level10 : MonoBehaviour
         {
             scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
         }
-        UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
         UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
@@ -63,7 +48,6 @@ public class Level10 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
         UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }

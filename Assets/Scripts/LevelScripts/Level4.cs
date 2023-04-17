@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class Level4 : MonoBehaviour
 {
     // Start is called before the first frame update
-    private int oobCount = 0;
-    public GameObject image;
+    private bool first = true;
     private void Awake()
     {
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
@@ -23,84 +24,59 @@ public class Level4 : MonoBehaviour
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
 
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
-        image = GameObject.Find("Plank_Outline");
-        var col = image.GetComponent<Image>().color;
-        col.a = 0;
-        image.GetComponent<Image>().color = col;
-        // Setting the spring and heater buttons of the ToolKit Panel to INACTIVE
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(false);
-        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
-
-        // To ensure that the buttons aren't stretched
-        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 120;
-        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 120;
-
-        // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
-        // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
-
+        // To ensure that the buttons isn't stretched
+        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
+        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
+        
         GlobalVariables.plankCap = 3;
+        GlobalVariables.heaterCap = 3;
     }
+
     void Start()
     {
-        GlobalVariables.levelScore = 0;
-        GameObject scoreText = GameObject.Find("Score_Text");
-        if (scoreText != null)
-        {
-            scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
-        }
+        GameObject.Find("Level4_Text").GetComponent<TMPro.TextMeshProUGUI>().text = "";
+        // GlobalVariables.levelScore = 0;
+        // GameObject scoreText = GameObject.Find("Score_Text");
+        // if (scoreText != null)
+        // {
+        //     scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
+        // }
         UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
+        UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
+        GameObject button = GameObject.Find("StartButton");
+        TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+        Debug.Log("Value of attempt counter" + GlobalVariables.attemptCounter);
+        if (GlobalVariables.heaterCounter < 1 && buttonText.text == "Start" && GlobalVariables.attemptCounter >= 2)
+        {
+            GameObject dtext1 = GameObject.Find("Level4_Text");
+            Debug.Log(dtext1);
+            dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Place a Heater Right Below the Ball";
+        }
+
+        if (buttonText.text == "Start" && GlobalVariables.attemptCounter>=3 && GlobalVariables.plankCounter>0)
+        {
+            GameObject dtext1 = GameObject.Find("Level4_Text");
+            Debug.Log(dtext1);
+            dtext1.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Try rotating the plank";
+        }
         UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
+        UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
 
-    public IEnumerator Rotate(Vector3 angles, float duration )
- {
-    //  rotating = true ;
-    Debug.Log("Inside Rotate");
-     Quaternion startRotation = image.transform.rotation ;
-     Quaternion endRotation = Quaternion.Euler(angles) * startRotation;
-     for( float t = 0 ; t < duration ; t+= Time.deltaTime )
-     {
-         image.transform.rotation = Quaternion.Lerp( startRotation, endRotation, t / duration );
-         yield return null;
-     }
-     image.transform.rotation = endRotation;
-    Debug.Log("Rotation Done");
-    //  rotating = false;
- }
-
-    public void OutOfBounds(string type)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Increment the counter for out of bounds
-        oobCount++;
-        Debug.Log("Came inside the function");
-         // If the counter is 2, then display the text to assist the player
-         if (type == "oob" && oobCount == 2 && UIBehavior.gameUI)
-         {
-             GameObject dtext = GameObject.Find("Level4_Text");
-             Debug.Log(dtext);
-            Debug.Log("Came inside if");
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint!";
-             dtext.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 23;
-             var col = image.GetComponent<Image>().color;
-        col.a = 1;
-        image.GetComponent<Image>().color = col;
-        StartCoroutine(Rotate(new Vector3(0,0,-20), 5f));
-         }
-         else if(type == "oob" && oobCount == 5 && UIBehavior.gameUI)
-         {
+        if (first && collision.gameObject.name == "Ball" && this.name == "Collider1" && GlobalVariables.plankCounter<1)
+        {
             GameObject dtext = GameObject.Find("Level4_Text");
             Debug.Log(dtext);
-            Debug.Log("Came inside else if");
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Stuck? Remember you can rotate and delete created planks";
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 20;
-         }
-     }
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Align Planks to direct ball";
+            first = false;
+        }
+    }
 }

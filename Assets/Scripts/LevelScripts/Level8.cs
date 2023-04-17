@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Level8 : MonoBehaviour
+public class Level8 : MonoBehaviour, EnemyLevel
 {
     public static Level8 Level8Reference;
-    // private int kbeCount = 0;
+    public Dictionary<string, string> enemyPlankMap = new Dictionary<string, string>();
 
     private void Awake()
     {
+        enemyPlankMap.Add("Plank", "Enemy (1)");
+        enemyPlankMap.Add("Plank (5)", "Enemy");
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
         Time.timeScale = 1;
         // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
@@ -22,66 +24,73 @@ public class Level8 : MonoBehaviour
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         
-        // Set the tool kit panel, operation panel and reset buttons to inactive
-        UIBehavior.gameUI.toolKitPanel.SetActive(false);
-        // UIBehavior.gameUI.operationPanel.SetActive(false);
-        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>()[1].gameObject.SetActive(false);
+        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
+        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
+        
 
+        GlobalVariables.plankCap = 5;
+        GlobalVariables.springCap = 2;
+        GlobalVariables.heaterCap = 2;
+        
         if (Level8Reference == null)
         {
             Level8Reference = this;
         }
         else
         {
+        }
 
-        }
-        if (GlobalVariables.kbeCounter == 0)
-        {
-            GameObject dtext = GameObject.Find("Level8_Text");
-            Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Right Click to Attack Enemies when the ball is moving";
-        }
-        if (GlobalVariables.kbeCounter > 0 && GlobalVariables.kbeCounter < 2)
-        {
-            GameObject dtext = GameObject.Find("Level8_Text");
-            Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: A Sword always appears from right";
-        }
-        if (GlobalVariables.kbeCounter  == 2)
-        {
-            GameObject dtext = GameObject.Find("Level8_Text");
-            Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Note: you only have 2 lives";
-        }
+        
     }
     // Start is called before the first frame update
     void Start()
     {
+        DungeonMaster.dm.setCurrentSceneReference(Level8Reference);
         GlobalVariables.levelScore = 0;
         GameObject scoreText = GameObject.Find("Score_Text");
         if (scoreText != null)
         {
             scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
         }
+
+        UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
+        UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
+        UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
+        UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
+        UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();   
     }
 
-    public void KillByEnemy(string type)
+    public void resetEnemies()
     {
-        // Increment the counter for kill by enemy
-        // kbeCount++;
+        foreach (KeyValuePair<string, string> pair in enemyPlankMap)
+        {
+            string enemyName = pair.Value;
+            GameObject enemy = GameObject.Find(enemyName).transform.GetChild(0).gameObject;
+            if(enemy.activeSelf) {
+                enemy.SendMessage("resetEnemy");
+            }
+        }
+    }
 
-        // If the counter is 2, then display the text to assist the player
-       
+    public void dropEnemy(string plankName)
+    {
+        if(enemyPlankMap.ContainsKey(plankName)) {
+            GameObject enemy = GameObject.Find(enemyPlankMap[plankName]).transform.GetChild(0).gameObject;
+            if(enemy.activeSelf) {
+                Debug.Log("ENEMY NAME:" + enemy.name);
+                enemy.AddComponent<Rigidbody2D>();
+                enemy.GetComponent<Animation>().enabled = false;
+                enemy.GetComponent<Collider2D>().enabled = false;
+            }
+            // rb.useGravity = true;
+            // enemy.GetComponent<Rigidbody>().useGravity = true;
+        }
     }
 }

@@ -268,9 +268,9 @@ class MyComparer : IComparer<string>
             var buttons = levelSelectPanel.GetComponentsInChildren<Button>(true);
             for(var i=0;i<buttons.Length;i++) {
                 var buttonText = buttons[i].GetComponentInChildren<TMP_Text>().text;
-                if(DungeonMaster.levelsCompleted.Contains(buttonText)) {
+                if(DungeonMaster.completedLevelNumbers.Contains(buttonText)) {
                     buttons[i].GetComponentInChildren<Image>().color = new Color32(52,195,52,255);
-                } else if (DungeonMaster.levelsAttempted.Contains(buttonText)) {
+                } else if (DungeonMaster.attemptedLevelNumbers.Contains(buttonText)) {
                     buttons[i].GetComponentInChildren<Image>().color = new Color32(231,64,64,255);
                 }
             }

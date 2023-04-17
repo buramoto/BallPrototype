@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -110,13 +111,13 @@ public class BallScript : MonoBehaviour
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
             
             if(DungeonMaster.dm.currentSceneName == "Level3"){
-                GameObject.FindObjectOfType<Level4>().SendMessage("OutOfBounds", "oob");
+                GameObject.FindObjectOfType<Level3>().SendMessage("OutOfBounds", "oob");
             }
             if(DungeonMaster.dm.currentSceneName == "Level5"){
                 GameObject.FindObjectOfType<Level5>().SendMessage("OutOfBounds", "oob");
             }
-            if(DungeonMaster.dm.currentSceneName == "Level7"){
-                GameObject.FindObjectOfType<Level7>().SendMessage("OutOfBounds", "oob");
+            if(DungeonMaster.dm.currentSceneName == "Level6"){
+                GameObject.FindObjectOfType<Level6>().SendMessage("OutOfBounds", "oob");
             }
             UIBehavior.gameUI.oobCoords = transform.position;
             //DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
@@ -171,7 +172,7 @@ public class BallScript : MonoBehaviour
             }
             else
             {
-                BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + ".0";
+                BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + " s";
             }
         }
     }
@@ -223,6 +224,14 @@ public class BallScript : MonoBehaviour
         
     }
 
+    private void checkEnemyPlank(GameObject plank) {
+        if(DungeonMaster.dm.enemyLevelNames.Contains(DungeonMaster.dm.currentSceneName)){
+            Debug.Log("Enemy level detected, checking if plank is enemy plank");
+            Debug.Log(DungeonMaster.dm.currentEnemySceneScriptReference==null);
+            DungeonMaster.dm.currentEnemySceneScriptReference.dropEnemy(plank.name);
+        }
+    }
+
     //Check the plank's state and the ball's state, then destroy/interact with plank
     //It is a matrix of interactions: hh, hn, hc, nh, nn, nc, ch, cn, cc
     private void plankCollision(GameObject plank)
@@ -237,6 +246,7 @@ public class BallScript : MonoBehaviour
                         tempState = StateReference.temperature.neutral;
                         ballDisplay.material.color = Color.gray;
                         plank.SetActive(false);
+                        checkEnemyPlank(plank);
                         break;
                     case StateReference.temperature.neutral://Hot -> neutral
                         break;
@@ -271,7 +281,6 @@ public class BallScript : MonoBehaviour
             {
                 case StateReference.temperature.hot:
                     Debug.Log("Collided with heater");
-
 
                     // Vector3 position = element.transform.position;
                     // GlobalVariables.heaterCoordinates += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
@@ -333,6 +342,7 @@ public class BallScript : MonoBehaviour
     public void startSim()
     {
         //Debug.Log("Ball: simulation Started");
+        ball.GetComponent<SpriteRenderer>().enabled = true;
         ballPhysics.constraints = RigidbodyConstraints2D.None;
         ballPhysics.isKinematic = false;
         //ballPhysics.transform.position = startPosition;
@@ -343,6 +353,7 @@ public class BallScript : MonoBehaviour
     public void stopSim()
     {
         //Debug.Log("Ball: simulaton stopped");
+        ball.GetComponent<SpriteRenderer>().enabled = true;
         ballPhysics.constraints = RigidbodyConstraints2D.FreezePosition;
         ballPhysics.constraints = RigidbodyConstraints2D.FreezeRotation;
         ballPhysics.isKinematic = true;
@@ -353,7 +364,7 @@ public class BallScript : MonoBehaviour
         time = 10;
         if (BallTimer != null)
         {
-            BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + ".0";
+            BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + " s";
             timedecrease = false;
             ballRenderer.enabled = true;
             ballTimerRenderer.enabled = true;

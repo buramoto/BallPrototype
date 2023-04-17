@@ -7,6 +7,8 @@ public class EnemyBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
     //public GameObject RedSplashScreen;
+    public GameObject enemy;
+    public Vector2 startPosition;
     void Start()
     {
         //RedSplashScreen = GameObject.FindWithTag("HealthLoss");
@@ -27,6 +29,17 @@ public class EnemyBehaviour : MonoBehaviour
         //    }
 
         //}
+    }
+
+    public void resetEnemy()
+    {
+        // enemy.transform.position = startPosition;
+        enemy.SetActive(true);
+        if(enemy.GetComponent<Rigidbody2D>() != null) {
+            Destroy(enemy.GetComponent<Rigidbody2D>());
+        }
+        enemy.GetComponent<Animation>().enabled = true;
+        enemy.GetComponent<Collider2D>().enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -53,21 +66,32 @@ public class EnemyBehaviour : MonoBehaviour
             // DungeonMaster.dm.lives -= 1;
             // Debug.Log("Player has lives left: "+ DungeonMaster.dm.lives);
             Debug.Log("Collided with Player");
-            DungeonMaster.dm._ballHealth.DamageUnit(10);
+            //kill enemy when the ball is hot
+            BallScript bs = collision.gameObject.GetComponent<BallScript>();
+            if(bs.tempState==StateReference.temperature.hot){
+                gameObject.SetActive(false);
+            }
+            else{
+                DungeonMaster.dm._ballHealth.DamageUnit(10);
+                if (DungeonMaster.dm._ballHealth.Health >= 0)
+                {
+                    UIBehavior.gameUI.setRedSplashScreen();
+                }
+            }
             UIBehavior.gameUI.setHealth(DungeonMaster.dm._ballHealth.Health);
             Debug.Log("Player Health: " + DungeonMaster.dm._ballHealth.Health);
             //var color = RedSplashScreen.GetComponent<Image>().color;
             //color.a = 0.9f;
             //RedSplashScreen.GetComponent<Image>().color = color;
-            if (DungeonMaster.dm._ballHealth.Health >= 0)
-            {
-                // Debug.Log("Current Lives: " + DungeonMaster.dm.lives);
-                UIBehavior.gameUI.setRedSplashScreen();
+            // if (DungeonMaster.dm._ballHealth.Health >= 0)
+            // {
+            //     // Debug.Log("Current Lives: " + DungeonMaster.dm.lives);
+            //     UIBehavior.gameUI.setRedSplashScreen();
 
-                //var color = UIBehavior.gameUI.RedSplashScreen.GetComponent<Image>().color;
-                //color.a = 0.9f;
-                //UIBehavior.gameUI.RedSplashScreen.GetComponent<Image>().color = color;
-            }
+            //     //var color = UIBehavior.gameUI.RedSplashScreen.GetComponent<Image>().color;
+            //     //color.a = 0.9f;
+            //     //UIBehavior.gameUI.RedSplashScreen.GetComponent<Image>().color = color;
+            // }
             if(DungeonMaster.dm._ballHealth.Health <= 0) {
                 SendToGoogle.sendToGoogle.resetGlobalVariables("KBE");
                 Time.timeScale = 0;
