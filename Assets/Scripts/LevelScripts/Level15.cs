@@ -7,8 +7,13 @@ public class Level15 : MonoBehaviour, EnemyLevel
 {
     public static Level15 Level15Reference;
     public Dictionary<string, string> enemyPlankMap = new Dictionary<string, string>();
+    GameObject levelmode;
+    GameObject mainmenumode;
+    GameObject backgroundImage;
+    GameObject videoRenderer;
+    GameObject playText;
 
-private void Awake()
+    private void Awake()
     {
          enemyPlankMap.Add("Plank (6)", "Enemy (3)");
         enemyPlankMap.Add("Plank (2)", "Enemy");
@@ -34,6 +39,13 @@ private void Awake()
         GlobalVariables.springCap = 4;
         GlobalVariables.heaterCap = 2;
 
+        //Assigning references for the canvas gameobjects
+        levelmode = UIBehavior.gameUI.gameObject.transform.Find("LevelMode").gameObject;
+        mainmenumode = UIBehavior.gameUI.gameObject.transform.Find("Main Menu").gameObject;
+        backgroundImage = GameObject.Find("Black_Background");
+        videoRenderer = GameObject.Find("Screen");
+        playText = GameObject.Find("Play_Text");
+
         if (Level15Reference == null)
         {
             Level15Reference = this;
@@ -55,11 +67,22 @@ private void Awake()
         }
         UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
+
+        levelmode.SetActive(false);
+        mainmenumode.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            backgroundImage.SetActive(false);
+            videoRenderer.SetActive(false);
+            playText.SetActive(false);
+            levelmode.SetActive(true);
+            mainmenumode.SetActive(true);
+        }
         UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
