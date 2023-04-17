@@ -37,7 +37,7 @@ public class Spring : MonoBehaviour
 
             // Check if the "compressSpring" trigger is already set
             AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(layerIndex);
-            if (stateInfo.IsName("springDown") && stateInfo.normalizedTime < 1.0f)
+            if (stateInfo.IsName("springDown") && stateInfo.normalizedTime < 0.3f)
             {
                 Debug.Log("Spring is compressed right now so ball can't jump at this instant!");
                 // The "beginSpringCompression" trigger is already set, so don't set it again
@@ -49,7 +49,19 @@ public class Spring : MonoBehaviour
 
 
                     anim.SetTrigger("beginSpringCompression");
+
                     Rigidbody2D ballPhys = collision.gameObject.GetComponent<Rigidbody2D>();
+
+                    //ContactPoint2D[] contacts = new ContactPoint2D[1];
+                    //collision.GetContacts(contacts);
+                    //ContactPoint2D contact = contacts[0];
+                    //Vector2 surfaceNormal = contact.normal;
+                    //Vector2 perpendicular = Vector2.Perpendicular(surfaceNormal);
+                    //Vector2 bounceDirection = Vector2.Reflect(ballPhys.velocity, perpendicular);
+                    //ballPhys.AddForce(bounceDirection * springForce, ForceMode2D.Impulse);
+
+                    //ballPhys.AddForce(new Vector2(-springForce * Mathf.Sin(transform.rotation.z), springForce * Mathf.Cos(transform.rotation.z)));
+                    ballPhys.velocity = Vector3.zero;
                     ballPhys.AddForce(new Vector2(-springForce * Mathf.Sin(transform.rotation.z), springForce * Mathf.Cos(transform.rotation.z)), ForceMode2D.Impulse);
                     Debug.Log("Printing the value of ANIM: " + anim);
                 }
@@ -62,6 +74,10 @@ public class Spring : MonoBehaviour
             Debug.Log("This is the trigger enter stage Spring ");
             overLaps++;
             Debug.Log("Overlap value becomes" + overLaps);
+            if (!DungeonMaster.dm.simulationMode && editable)
+            {
+                spriteRenderer.color = Color.magenta;
+            }
         }
     }
 
@@ -72,6 +88,7 @@ public class Spring : MonoBehaviour
             Debug.Log("This is the trigger exit stage in Heater");
             overLaps--;
             Debug.Log("Overlap value becomes" + overLaps);
+            spriteRenderer.color = Color.white;
         }
     }
 

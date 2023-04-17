@@ -59,7 +59,6 @@ public class CanonManager : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
                 {
                     _pressingMouse = true;
-                    lineRenderer.enabled = true;
                 }
                 if (Input.GetMouseButtonUp(0))
                 {
@@ -84,14 +83,34 @@ public class CanonManager : MonoBehaviour
                     //Debug.Log("ANGLE VALUE: ++++++++" + angle);
                     angle *= -1;
 
+                    if(angle>45)
+                    {
+                        angle = 45;
+                    }
+                    else if(angle<-45)
+                    {
+                        angle = -45;
+                    }
+
                     // set rotation of Cannon Barrel to face mouse position
                     barrelHolder.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
                     // The ball is within the barrel hence change the all position too
                     cannonBallPrefab.transform.position = GameObject.FindWithTag("CannonBase").transform.position;
 
-                    _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
-
+                    if (mousePos.y - firePoint.position.y < 0)
+                    {
+                        Debug.Log("In if");
+                        _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
+                        _initialVelocity.y = 0.707f * firePoint.position.y;
+                        lineRenderer.enabled = false;
+                    }
+                    else
+                    {
+                        Debug.Log("In else");
+                        _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
+                        lineRenderer.enabled = true;
+                    }
                     _UpdateLineRenderer();
                 }
             }
@@ -119,6 +138,7 @@ public class CanonManager : MonoBehaviour
         // Changing Ball's Temp to Red Hot when fired
         cannonBallPrefab.GetComponent<BallScript>().tempState = StateReference.temperature.hot;
         cannonBallPrefab.GetComponent<SpriteRenderer>().material.color = Color.red;
+        cannonBallPrefab.GetComponent<SpriteRenderer>().enabled = true;
 
         // adding an impulse force to throw ball off the Canon
         rb.AddForce(_initialVelocity, ForceMode2D.Impulse);
@@ -160,6 +180,7 @@ public class CanonManager : MonoBehaviour
             this.isCanonBallPresent = true;
             
             other.transform.position = GameObject.FindWithTag("CannonBase").transform.position;
+            other.GetComponent<SpriteRenderer>().enabled = false;
 
             // disabling the gravity forces on the ball
             Rigidbody2D ballRigidBody = other.GetComponent<Rigidbody2D>();
@@ -189,6 +210,7 @@ public class CanonManager : MonoBehaviour
         // disabling the gravity forces on the ball
         Rigidbody2D ballRigidBody = ball.GetComponent<Rigidbody2D>();
         ballRigidBody.isKinematic = true;
+        ball.GetComponent<SpriteRenderer>().enabled = false;
 
         // Stopping the Ball's Rotation because the ball inside of the canon
         //ballRigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;

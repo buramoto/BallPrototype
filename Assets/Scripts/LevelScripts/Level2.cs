@@ -17,21 +17,12 @@ public class Level2 : MonoBehaviour
         // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
         UIBehavior.gameUI.timer.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.SetActive(true);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
 
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
-        
-        // below we are making the Rotate Left & Rotate Right buttons InActive
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
-        // UIBehavior.gameUI.operationPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
 
         // below we are setting RESET Btn & UNDO Btn as InActive
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(false);
@@ -44,10 +35,6 @@ public class Level2 : MonoBehaviour
         // Setting Layout for the TOOLKIT-PANEL
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 120;
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 120;
-
-        // Setting Layout for the OPERATION-PANEL
-        // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 120;
-        // UIBehavior.gameUI.operationPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 120;
 
         // Find the arrow and make it transparent
         image = GameObject.Find("Arrow");
@@ -72,14 +59,6 @@ public class Level2 : MonoBehaviour
         {
             scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
         }
-        /*
-        UIBehavior.gameUI.toolKitPanel.SetActive(true);
-        UIBehavior.gameUI.operationPanel.SetActive(true);
-        UIBehavior.gameUI.controlPanel.SetActive(true);
-        UIBehavior.gameUI.toolKitPanel.SetActive(false);
-        UIBehavior.gameUI.operationPanel.SetActive(false);
-        UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>()[1].gameObject.SetActive(false);
-        */
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
 
@@ -110,12 +89,6 @@ public class Level2 : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("We are getting collision");
-        // if (collision.gameObject.name == "Ball" && this.name == "Collider1" && GlobalVariables.attemptCounter==1)
-        // {
-        //     GameObject dtext = GameObject.Find("Level_Text");
-        //     Debug.Log(dtext);
-        //     dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Ice Sheets do not affect the ball";
-        // }
         if (collision.gameObject.name == "Ball" && this.name == "Collider1" && GlobalVariables.attemptCounter==1)
         {
             GameObject dtext = GameObject.Find("Level_Text");
@@ -124,19 +97,5 @@ public class Level2 : MonoBehaviour
             dtext.GetComponent<TMPro.TextMeshProUGUI>().color = Color.red;
             flag = true;
         }
-        // else if (collision.gameObject.name == "Ball" && this.name == "Collider3" && GlobalVariables.attemptCounter==1)
-        // {
-        //     GameObject dtext = GameObject.Find("Ice_Plank_Text");
-        //     Debug.Log(dtext);
-        //     dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Stuck?\n Press stop";
-        // }
-        // else if (collision.gameObject.name == "Ball" && this.name == "Collider3" && flag == true)
-        // {
-        //     GameObject dtext = GameObject.Find("Level_Text");
-        //     Debug.Log(dtext);
-        //     dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Click on Heater\n Drag it between Ball & Ice Sheet";
-        //     GameObject dtext2 = GameObject.Find("Ice_Plank_Text");
-        //     dtext2.GetComponent<TMPro.TextMeshProUGUI>().text = "Remember: Heater heats the Ball & is one time use only"; 
-        // }
     }
 }

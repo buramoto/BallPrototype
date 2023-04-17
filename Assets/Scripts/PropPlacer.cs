@@ -27,9 +27,10 @@ public class PropPlacer : MonoBehaviour
     public Vector3 positionBeforeClicking;
     public Quaternion rotationBeforeClicking;
     public Collider2D collidingObj;
+    private bool isNew;
 
     //Settings
-    public const float rotationSpeed=500; //Now turned into a constant field
+    // public const float rotationSpeed = 500; //Now turned into a constant field
 
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
@@ -43,6 +44,7 @@ public class PropPlacer : MonoBehaviour
         dragging = false;
         propPlacer = this;
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        DungeonMaster.dm.StartSim += transitionToSimMode;
     }
 
     // Update is called once per frame
@@ -108,6 +110,38 @@ public class PropPlacer : MonoBehaviour
                 {
                     operationsPanel = Instantiate(operationsPanelPrefab);
                     panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
+                    if(clickedObject.CompareTag("TempChange"))
+                    {
+                        panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
+                        panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 30;
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 30;
+                    }
+                    else
+                    {
+                        panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
+                        panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
+                    }
+                }
+                else
+                {
+                    panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
+                    if (clickedObject.CompareTag("TempChange"))
+                    {
+                        panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
+                        panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 30;
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 30;
+                    }
+                    else
+                    {
+                        panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
+                        panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
+                    }
                 }
                 // below function set operation buttons to active mode when a correct object is clicked/highlighted
 
@@ -161,7 +195,7 @@ public class PropPlacer : MonoBehaviour
             {
                 Debug.Log("Selected object is:-" + selectedObject);
                 Debug.Log("Position of the selected object" + selectedObject.transform.position);
-                if(selectedObject.CompareTag("Plank"))
+                if (selectedObject.CompareTag("Plank"))
                 {
                     Plank p1 = selectedObject.GetComponent<Plank>();
                     Debug.Log("Checking the object p1" + p1);
@@ -169,8 +203,17 @@ public class PropPlacer : MonoBehaviour
                     if (p1.isOverlapping() == true)
                     {
                         Debug.Log("Object is colliding");
-                        selectedObject.transform.position = positionBeforeClicking;
-                        selectedObject.transform.rotation = rotationBeforeClicking;
+                        if (isNew)
+                        {
+                            deleteToolkitInstance();
+                            selectedObject = null;
+                        }
+                        else
+                        {
+                            selectedObject.transform.position = positionBeforeClicking;
+                            selectedObject.transform.rotation = rotationBeforeClicking;
+                        }
+                        isNew = false;
                         dragging = false;
                     }
                     else
@@ -178,8 +221,11 @@ public class PropPlacer : MonoBehaviour
                         Debug.Log("No Object is colliding successful positioning");
                         dragging = false;
                     }
-                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    isNew = false;
+                    if (selectedObject != null) {
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    }
 
                 }
                 else if(selectedObject.CompareTag("Spring"))
@@ -190,18 +236,31 @@ public class PropPlacer : MonoBehaviour
                     if (p1.isOverlapping() == true)
                     {
                         Debug.Log("Object is colliding");
-                        selectedObject.transform.position = positionBeforeClicking;
-                        selectedObject.transform.rotation = rotationBeforeClicking;
+                        if(isNew)
+                        {
+                            deleteToolkitInstance();
+                            isNew = false;
+                            selectedObject = null;
+                        }
+                        else
+                        {
+                            selectedObject.transform.position = positionBeforeClicking;
+                            selectedObject.transform.rotation = rotationBeforeClicking;
+                        }
                         dragging = false;
                     }
                     else
                     {
                         Debug.Log("No Object is colliding successful positioning");
                         dragging = false;
+                        isNew = false;
                     }
 
-                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    if (selectedObject != null)
+                    {
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    }
                 }
                 else if(selectedObject.CompareTag("TempChange"))
                 {
@@ -211,16 +270,31 @@ public class PropPlacer : MonoBehaviour
                     if (p1.isOverlapping() == true)
                     {
                         Debug.Log("Object is colliding");
-                        selectedObject.transform.position = positionBeforeClicking;
-                        selectedObject.transform.rotation = rotationBeforeClicking;
+                        if (isNew)
+                        {
+                            deleteToolkitInstance();
+                            isNew = false;
+                            selectedObject = null;
+                        }
+                        else
+                        {
+                            selectedObject.transform.position = positionBeforeClicking;
+                            selectedObject.transform.rotation = rotationBeforeClicking;
+                        }
                         dragging = false;
                     }
                     else
                     {
                         Debug.Log("No Object is colliding successful positioning");
                         dragging = false;
+                        isNew = false;
                     }
-                    selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                    //selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                    if (selectedObject != null)
+                    {
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    }
                 }
 
                //dragging = false;
@@ -233,7 +307,10 @@ public class PropPlacer : MonoBehaviour
             Bounds propCorners = selectedObject.GetComponent<BoxCollider2D>().bounds;
             //Vector3 panelOffset = new Vector3(0, propCorners.center.y - propCorners.extents.y, 0);
             Vector3 panelOffset = new Vector3(0, propCorners.extents.y + 0.5f, 0);
-            panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position - panelOffset);
+            if(panel && panelOffset!=null)
+            {
+                panel.transform.position = mainCam.WorldToScreenPoint(selectedObject.transform.position - panelOffset);
+            }
             //panel.anchorMax = mainCam.WorldToScreenPoint(selectedObject.transform.position);
         }
 
@@ -253,6 +330,11 @@ public class PropPlacer : MonoBehaviour
         // }
     }
 
+    public void transitionToSimMode()
+    {
+        selectedObject = null;
+    }
+
     public void createPlank()
     {
         DungeonMaster.dm.RemoveHighlightFromObject();
@@ -265,7 +347,7 @@ public class PropPlacer : MonoBehaviour
             plankScript.ChangeTemp(StateReference.temperature.neutral);
             plankScript.editable = true;
             plankScript.hasCollided = false;
-
+            isNew = true;
             GlobalVariables.plankCap -= 1;
             if (GlobalVariables.plankCap == 0)
             {
@@ -288,7 +370,7 @@ public class PropPlacer : MonoBehaviour
             springScript.editable = true;
             springScript.hasCollided = false;
             springScript.spriteRenderer = newSpring.GetComponent<SpriteRenderer>();
-
+            isNew = true;
             GlobalVariables.springCap -= 1;
             if (GlobalVariables.springCap == 0)
             {
@@ -311,7 +393,7 @@ public class PropPlacer : MonoBehaviour
             newTempElementScript.ChangeTemp(StateReference.temperature.hot);
             newTempElementScript.editable = true;
             newTempElementScript.hasCollided = false;
-
+            isNew = true;
             Debug.Log("GlobalVariables.heaterCap: " + GlobalVariables.heaterCap);
             
             GlobalVariables.heaterCap -= 1;
@@ -371,18 +453,22 @@ public class PropPlacer : MonoBehaviour
         operationsPanel = null;
     }
 
-    public void rotateLeft(){
+    public void rotateLeft(float rotationSpeed){
         GameObject toolkitInstance = DungeonMaster.dm.highlightedObject;
         if(toolkitInstance.tag != "TempChange"){
             toolkitInstance.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
         }
     }
 
-    public void rotateRight(){
+    public void rotateRight(float rotationSpeed){
         GameObject toolkitInstance = DungeonMaster.dm.highlightedObject;
         if(toolkitInstance.tag != "TempChange"){
             toolkitInstance.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
         }
     }
 
+    public Vector3 worldToScreenPoint(Vector3 worldPosition)
+    {
+        return mainCam.WorldToScreenPoint(worldPosition);
+    }
 }

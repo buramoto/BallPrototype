@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -16,6 +17,10 @@ public class BallScript : MonoBehaviour
     public GameObject ball;
     public StateReference.temperature tempState;
     public Vector2 startPosition;
+    public StateReference.ballMaterial ballMaterialState;
+    public PhysicsMaterial2D normalMaterial;
+    public PhysicsMaterial2D steelMaterial;
+    public PhysicsMaterial2D rubberMaterial;
 
     //Private variables
     private SpriteRenderer ballDisplay;
@@ -41,14 +46,9 @@ public class BallScript : MonoBehaviour
     private Renderer ballRenderer;
     private Renderer ballTimerRenderer;
 
-    // public bool hasCollided = false;
-
     // Start is called before the first frame update
     void Start()
     {
-        //if (gameObject.transform.GetChild(0).gameObject;) {
-
-        //}
         swordHolder = gameObject.transform.GetChild(0).gameObject;
         BallTimer = GameObject.FindGameObjectWithTag("BallTimer");
         Debug.Log("Object is set" + BallTimer);
@@ -86,9 +86,8 @@ public class BallScript : MonoBehaviour
         // Calculate the height and width of the screen
         screenHeight = 2f * cam.orthographicSize;
         screenWidth = screenHeight * cam.aspect;
-        //anim = gameObject.GetComponentInChildren<Animator>();
-        //Debug.Log("Found the following animator");
-        //Debug.Log(anim);
+        ballMaterialState = StateReference.ballMaterial.normal;
+        ballPhysics.mass = 1;
         stopSim();
     }
 
@@ -107,21 +106,18 @@ public class BallScript : MonoBehaviour
         if (ballX < -screenWidth / 2 || ballX > screenWidth / 2 || ballY < -screenHeight / 2 || ballY > screenHeight / 2)
         {
             // If the ball is outside the bounds, call the changeMode() function
-            // GlobalVariables.oobCounter++;
-
-            // DungeonMaster.dm.resetValues();
             SendToGoogle.sendToGoogle.resetGlobalVariables("OOB");
             
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
             
             if(DungeonMaster.dm.currentSceneName == "Level3"){
-                GameObject.FindObjectOfType<Level4>().SendMessage("OutOfBounds", "oob");
+                GameObject.FindObjectOfType<Level3>().SendMessage("OutOfBounds", "oob");
             }
             if(DungeonMaster.dm.currentSceneName == "Level5"){
                 GameObject.FindObjectOfType<Level5>().SendMessage("OutOfBounds", "oob");
             }
-            if(DungeonMaster.dm.currentSceneName == "Level7"){
-                GameObject.FindObjectOfType<Level7>().SendMessage("OutOfBounds", "oob");
+            if(DungeonMaster.dm.currentSceneName == "Level6"){
+                GameObject.FindObjectOfType<Level6>().SendMessage("OutOfBounds", "oob");
             }
             UIBehavior.gameUI.oobCoords = transform.position;
             //DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
@@ -176,7 +172,7 @@ public class BallScript : MonoBehaviour
             }
             else
             {
-                BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + ".0";
+                BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + " s";
             }
         }
     }
@@ -228,6 +224,14 @@ public class BallScript : MonoBehaviour
         
     }
 
+    private void checkEnemyPlank(GameObject plank) {
+        if(DungeonMaster.dm.enemyLevelNames.Contains(DungeonMaster.dm.currentSceneName)){
+            Debug.Log("Enemy level detected, checking if plank is enemy plank");
+            Debug.Log(DungeonMaster.dm.currentEnemySceneScriptReference==null);
+            DungeonMaster.dm.currentEnemySceneScriptReference.dropEnemy(plank.name);
+        }
+    }
+
     //Check the plank's state and the ball's state, then destroy/interact with plank
     //It is a matrix of interactions: hh, hn, hc, nh, nn, nc, ch, cn, cc
     private void plankCollision(GameObject plank)
@@ -242,6 +246,7 @@ public class BallScript : MonoBehaviour
                         tempState = StateReference.temperature.neutral;
                         ballDisplay.material.color = Color.gray;
                         plank.SetActive(false);
+                        checkEnemyPlank(plank);
                         break;
                     case StateReference.temperature.neutral://Hot -> neutral
                         break;
@@ -276,7 +281,6 @@ public class BallScript : MonoBehaviour
             {
                 case StateReference.temperature.hot:
                     Debug.Log("Collided with heater");
-
 
                     // Vector3 position = element.transform.position;
                     // GlobalVariables.heaterCoordinates += System.Math.Round(position.x,3) + "," + System.Math.Round(position.y,3) + ";";
@@ -325,7 +329,10 @@ public class BallScript : MonoBehaviour
             }
             if(goal.goalColor != StateReference.goalColor.green) {
                 Debug.Log("points :"+DungeonMaster.dm.awardPoints);
-                Instantiate(DungeonMaster.dm.awardPoints, new Vector3(checkpoint.gameObject.transform.position.x, checkpoint.gameObject.transform.position.y, checkpoint.gameObject.transform.position.z), Quaternion.identity);
+                if(DungeonMaster.dm.currentSceneName == "Level13" || DungeonMaster.dm.currentSceneName == "Level14")
+                {
+                    Instantiate(DungeonMaster.dm.awardPoints, new Vector3(checkpoint.gameObject.transform.position.x, checkpoint.gameObject.transform.position.y, checkpoint.gameObject.transform.position.z), Quaternion.identity);
+                }
                 checkpoint.SetActive(false);
                 time = time + 2;
             }
@@ -338,6 +345,7 @@ public class BallScript : MonoBehaviour
     public void startSim()
     {
         //Debug.Log("Ball: simulation Started");
+        ball.GetComponent<SpriteRenderer>().enabled = true;
         ballPhysics.constraints = RigidbodyConstraints2D.None;
         ballPhysics.isKinematic = false;
         //ballPhysics.transform.position = startPosition;
@@ -348,6 +356,7 @@ public class BallScript : MonoBehaviour
     public void stopSim()
     {
         //Debug.Log("Ball: simulaton stopped");
+        ball.GetComponent<SpriteRenderer>().enabled = true;
         ballPhysics.constraints = RigidbodyConstraints2D.FreezePosition;
         ballPhysics.constraints = RigidbodyConstraints2D.FreezeRotation;
         ballPhysics.isKinematic = true;
@@ -358,7 +367,7 @@ public class BallScript : MonoBehaviour
         time = 10;
         if (BallTimer != null)
         {
-            BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + ".0";
+            BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + " s";
             timedecrease = false;
             ballRenderer.enabled = true;
             ballTimerRenderer.enabled = true;
@@ -386,5 +395,45 @@ public class BallScript : MonoBehaviour
         swordHolder.transform.GetChild(0).gameObject.SetActive(false);
         //sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
         //sword.enabled = false;
+    }
+
+    private void OnMouseDown()
+    {
+        if (DungeonMaster.dm.simulationMode)
+        {
+            return;
+        }
+        UIBehavior.gameUI.BallMaterialMenu(this);
+    }
+
+    public void setBallMaterial(StateReference.ballMaterial material)
+    {
+        if (DungeonMaster.dm.simulationMode)
+        {
+            return;//We are in simulation mode. Do nothing.
+        }
+        switch (material)
+        {
+            case StateReference.ballMaterial.steel:
+                ballPhysics.mass = 5f;
+                ballPhysics.sharedMaterial = steelMaterial;
+                ballDisplay.color = Color.black;
+                break;
+            case StateReference.ballMaterial.normal:
+                ballPhysics.mass = 1f;
+                ballPhysics.sharedMaterial = normalMaterial;
+                ballDisplay.color = Color.white;
+                break;
+            case StateReference.ballMaterial.wood:
+                ballPhysics.mass = 0.5f;
+                ballPhysics.sharedMaterial = normalMaterial;
+                ballDisplay.color = Color.yellow;
+                break;
+            case StateReference.ballMaterial.rubber:
+                ballPhysics.mass = 1.75f;
+                ballPhysics.sharedMaterial = rubberMaterial;
+                ballDisplay.color = Color.green;
+                break;
+        }
     }
 }

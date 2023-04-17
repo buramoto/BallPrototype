@@ -113,6 +113,14 @@ public class Plank : MonoBehaviour
         }
 
         --------------------------------------------------------*/
+        if(overLaps > 0 && editable == true && !DungeonMaster.dm.simulationMode)
+        {
+            plankDisplay.color = Color.magenta;
+        }
+        else
+        {
+            plankDisplay.color = Color.white;
+        }
 
     }
 

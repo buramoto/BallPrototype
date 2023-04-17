@@ -43,10 +43,13 @@ public class DungeonMaster : MonoBehaviour
     // Level7: Planks and Spring
     // Level8: Introduction to enemies
     // Level9: Main Level (Previously "UIDev")
+    public string[] enemyLevelNames = {"Level7","Level8","Level9","Level11","Level15"};
     private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8"};
-    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12","Level13","Level14", "Level15"};
+    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12","Level13","Level14", "Level15", "Level16"};
     public static List<string> levelsCompleted = new List<string>();
     public static List<string> levelsAttempted = new List<string>();
+    public static List<string> completedLevelNumbers = new List<string>();
+    public static List<string> attemptedLevelNumbers = new List<string>();
     public GameObject[] enemyElements;
     // public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;
@@ -66,6 +69,7 @@ public class DungeonMaster : MonoBehaviour
     
     public string nextSceneName; //This should be set in the local DM
     public string currentSceneName;
+    public EnemyLevel currentEnemySceneScriptReference;
     // private int checkpointcount_tutorial1 = 0;
 
     //Events
@@ -153,6 +157,7 @@ public class DungeonMaster : MonoBehaviour
         }
         if(!levelsCompleted.Contains(currentSceneName)) {
             levelsAttempted.Add(currentSceneName);
+            attemptedLevelNumbers.Add(currentSceneName.ToString().Substring(5));
         }
         isLevelOn = true;
         _ballHealth = new UnitHealth(100, 100);
@@ -206,6 +211,13 @@ public class DungeonMaster : MonoBehaviour
             }
         }
 
+    }
+
+    public void setCurrentSceneReference(EnemyLevel reference)
+    {
+        if(enemyLevelNames.Contains(currentSceneName)) {
+            currentEnemySceneScriptReference = reference;
+        }
     }
 
     //Scene loads
@@ -312,7 +324,9 @@ public class DungeonMaster : MonoBehaviour
             }
             Debug.Log("====> Count of Enemy_Elements: " + enemyElements.Length);
             // Debug.Log("====> Count of Hearts: " + hearts.Length);
-
+            if(enemyLevelNames.Contains(currentSceneName) && currentEnemySceneScriptReference != null) {
+                currentEnemySceneScriptReference.resetEnemies();
+            }
             for (int i = 0; i < enemyElements.Length; i++)
             {
                 enemyElements[i].SetActive(true);
@@ -363,7 +377,9 @@ public class DungeonMaster : MonoBehaviour
             timeTaken = timeValue;
             isLevelOn = false;
             levelsCompleted.Add(currentSceneName);
+            completedLevelNumbers.Add(currentSceneName.ToString().Substring(5));
             levelsAttempted.Remove(currentSceneName);
+            attemptedLevelNumbers.Remove(currentSceneName.ToString().Substring(5));
             GlobalVariables.levelScore += 100;
             Debug.Log("Checking"+GlobalVariables.levelScore);
             GameObject scoreText = GameObject.Find("Score_Text");

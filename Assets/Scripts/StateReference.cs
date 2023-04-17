@@ -40,5 +40,11 @@ public class StateReference
         start //For scripts starting simulation. No message is needed, so this is the "none" type
     }
 
-    
+    public enum ballMaterial
+    {
+        normal,
+        wood,
+        steel,
+        rubber
+    }
 }

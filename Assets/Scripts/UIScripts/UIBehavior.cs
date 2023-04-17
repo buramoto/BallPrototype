@@ -48,6 +48,10 @@ public class UIBehavior : MonoBehaviour
     public GameObject springCount;
     public GameObject heaterCount;
 
+    public GameObject ballMaterialsMenu;
+    public GameObject activeMaterialMenu;
+    public BallScript selectedBall;
+
     //Tooltip
     private GameObject activeTooltip;
     public Vector3 offset;
@@ -264,9 +268,9 @@ class MyComparer : IComparer<string>
             var buttons = levelSelectPanel.GetComponentsInChildren<Button>(true);
             for(var i=0;i<buttons.Length;i++) {
                 var buttonText = buttons[i].GetComponentInChildren<TMP_Text>().text;
-                if(DungeonMaster.levelsCompleted.Contains(buttonText)) {
+                if(DungeonMaster.completedLevelNumbers.Contains(buttonText)) {
                     buttons[i].GetComponentInChildren<Image>().color = new Color32(52,195,52,255);
-                } else if (DungeonMaster.levelsAttempted.Contains(buttonText)) {
+                } else if (DungeonMaster.attemptedLevelNumbers.Contains(buttonText)) {
                     buttons[i].GetComponentInChildren<Image>().color = new Color32(231,64,64,255);
                 }
             }
@@ -406,5 +410,25 @@ class MyComparer : IComparer<string>
                 }
             }
         }
+    }
+    public void BallMaterialMenu(BallScript ball)
+    {
+        if (activeMaterialMenu != null)
+        {
+            return;
+        }
+        GameObject ballGameObject = ball.gameObject;
+        selectedBall = ball;
+        //activeMaterialMenu = Instantiate(ballMaterialsMenu, PropPlacer.propPlacer.worldToScreenPoint(ballGameObject.transform.position), Quaternion.identity);
+        activeMaterialMenu = Instantiate(ballMaterialsMenu, gameObject.transform);
+        activeMaterialMenu.transform.position = PropPlacer.propPlacer.worldToScreenPoint(ballGameObject.transform.position);
+    }
+
+    public void SetBallMaterial(StateReference.ballMaterial material)
+    {
+        selectedBall.setBallMaterial(material);
+        Destroy(activeMaterialMenu);
+        selectedBall = null;
+        activeMaterialMenu = null;
     }
 }
