@@ -16,6 +16,10 @@ public class BallScript : MonoBehaviour
     public GameObject ball;
     public StateReference.temperature tempState;
     public Vector2 startPosition;
+    public StateReference.ballMaterial ballMaterialState;
+    public PhysicsMaterial2D normalMaterial;
+    public PhysicsMaterial2D steelMaterial;
+    public PhysicsMaterial2D rubberMaterial;
 
     //Private variables
     private SpriteRenderer ballDisplay;
@@ -41,14 +45,9 @@ public class BallScript : MonoBehaviour
     private Renderer ballRenderer;
     private Renderer ballTimerRenderer;
 
-    // public bool hasCollided = false;
-
     // Start is called before the first frame update
     void Start()
     {
-        //if (gameObject.transform.GetChild(0).gameObject;) {
-
-        //}
         swordHolder = gameObject.transform.GetChild(0).gameObject;
         BallTimer = GameObject.FindGameObjectWithTag("BallTimer");
         Debug.Log("Object is set" + BallTimer);
@@ -86,9 +85,8 @@ public class BallScript : MonoBehaviour
         // Calculate the height and width of the screen
         screenHeight = 2f * cam.orthographicSize;
         screenWidth = screenHeight * cam.aspect;
-        //anim = gameObject.GetComponentInChildren<Animator>();
-        //Debug.Log("Found the following animator");
-        //Debug.Log(anim);
+        ballMaterialState = StateReference.ballMaterial.normal;
+        ballPhysics.mass = 1;
         stopSim();
     }
 
@@ -107,9 +105,6 @@ public class BallScript : MonoBehaviour
         if (ballX < -screenWidth / 2 || ballX > screenWidth / 2 || ballY < -screenHeight / 2 || ballY > screenHeight / 2)
         {
             // If the ball is outside the bounds, call the changeMode() function
-            // GlobalVariables.oobCounter++;
-
-            // DungeonMaster.dm.resetValues();
             SendToGoogle.sendToGoogle.resetGlobalVariables("OOB");
             
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
@@ -386,5 +381,36 @@ public class BallScript : MonoBehaviour
         swordHolder.transform.GetChild(0).gameObject.SetActive(false);
         //sword = gameObject.GetComponentInChildren<CapsuleCollider2D>();
         //sword.enabled = false;
+    }
+
+    public void setBallMaterial(StateReference.ballMaterial material)
+    {
+        if (DungeonMaster.dm.simulationMode)
+        {
+            return;//We are in simulation mode. Do nothing.
+        }
+        switch (material)
+        {
+            case StateReference.ballMaterial.steel:
+                ballPhysics.mass = 5f;
+                ballPhysics.sharedMaterial = steelMaterial;
+                ballDisplay.color = Color.black;
+                break;
+            case StateReference.ballMaterial.normal:
+                ballPhysics.mass = 1f;
+                ballPhysics.sharedMaterial = normalMaterial;
+                ballDisplay.color = Color.grey;
+                break;
+            case StateReference.ballMaterial.wood:
+                ballPhysics.mass = 0.5f;
+                ballPhysics.sharedMaterial = normalMaterial;
+                ballDisplay.color = Color.yellow;
+                break;
+            case StateReference.ballMaterial.rubber:
+                ballPhysics.mass = 1.75f;
+                ballPhysics.sharedMaterial = rubberMaterial;
+                ballDisplay.color = Color.green;
+                break;
+        }
     }
 }
