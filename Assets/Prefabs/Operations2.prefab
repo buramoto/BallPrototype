@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.95
+  m_fontSize: 9.65
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -264,7 +264,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2715465343147370216}
         m_TargetAssemblyTypeName: OperationsBehavior, Assembly-CSharp
-        m_MethodName: rotateLeft
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -313,29 +313,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates:
-  - eventID: 0
+  - eventID: 2
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
-          m_MethodName: displayToolTip
-          m_Mode: 2
+        - m_Target: {fileID: 2715465343147370216}
+          m_TargetAssemblyTypeName: OperationsBehavior, Assembly-CSharp
+          m_MethodName: RotateLeft
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 919367037092627424}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 1
+  - eventID: 3
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
-          m_MethodName: removeToolTip
+        - m_Target: {fileID: 2715465343147370216}
+          m_TargetAssemblyTypeName: OperationsBehavior, Assembly-CSharp
+          m_MethodName: EndRotation
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -357,6 +357,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 765b5f05354ca444ab6248f10fb764a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 30
+  longPressDuration: 0.5
+  longPressRotationSpeedMultiplier: 2
 --- !u!1 &1619581520308448464
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,7 +1082,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.4
+  m_fontSize: 9.35
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1214,7 +1217,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.95
+  m_fontSize: 9.65
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1478,6 +1481,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 765b5f05354ca444ab6248f10fb764a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 30
+  longPressDuration: 0.5
+  longPressRotationSpeedMultiplier: 2
 --- !u!1 &7392531550787873619
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,7 +1748,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 393483566371753932}
         m_TargetAssemblyTypeName: OperationsBehavior, Assembly-CSharp
-        m_MethodName: rotateRight
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1791,29 +1797,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates:
-  - eventID: 0
+  - eventID: 2
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
-          m_MethodName: displayToolTip
-          m_Mode: 2
+        - m_Target: {fileID: 393483566371753932}
+          m_TargetAssemblyTypeName: OperationsBehavior, Assembly-CSharp
+          m_MethodName: RotateRight
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 7496156809632497905}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - eventID: 1
+  - eventID: 3
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UIBehavior, Assembly-CSharp
-          m_MethodName: removeToolTip
+        - m_Target: {fileID: 393483566371753932}
+          m_TargetAssemblyTypeName: OperationsBehavior, Assembly-CSharp
+          m_MethodName: EndRotation
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1835,6 +1841,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 765b5f05354ca444ab6248f10fb764a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 30
+  longPressDuration: 0.5
+  longPressRotationSpeedMultiplier: 2
 --- !u!1 &8906740501944306944
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ public class PropPlacer : MonoBehaviour
     private bool isNew;
 
     //Settings
-    public const float rotationSpeed=500; //Now turned into a constant field
+    // public const float rotationSpeed = 500; //Now turned into a constant field
 
     private void initalizeLevel(Scene scene, LoadSceneMode mode)
     {
@@ -415,14 +415,14 @@ public class PropPlacer : MonoBehaviour
         operationsPanel = null;
     }
 
-    public void rotateLeft(){
+    public void rotateLeft(float rotationSpeed){
         GameObject toolkitInstance = DungeonMaster.dm.highlightedObject;
         if(toolkitInstance.tag != "TempChange"){
             toolkitInstance.transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
         }
     }
 
-    public void rotateRight(){
+    public void rotateRight(float rotationSpeed){
         GameObject toolkitInstance = DungeonMaster.dm.highlightedObject;
         if(toolkitInstance.tag != "TempChange"){
             toolkitInstance.transform.Rotate(0f, 0f, -rotationSpeed * Time.deltaTime);
