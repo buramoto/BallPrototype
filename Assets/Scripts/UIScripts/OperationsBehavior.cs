@@ -62,12 +62,12 @@ public class OperationsBehavior : MonoBehaviour
             if (Time.time - pressStartTime > longPressDuration)
             {
                 Debug.Log("Long Press");
-                rotationSpeed = 1000;
+                rotationSpeed = 600;
             }
             else
             {
                 Debug.Log("Short Press");
-                rotationSpeed = 500;
+                rotationSpeed = 150;
             }
             if(direction == "left")
             {
