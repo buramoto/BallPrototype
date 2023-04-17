@@ -44,6 +44,7 @@ public class PropPlacer : MonoBehaviour
         dragging = false;
         propPlacer = this;
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        DungeonMaster.dm.StartSim += transitionToSimMode;
     }
 
     // Update is called once per frame
@@ -294,6 +295,11 @@ public class PropPlacer : MonoBehaviour
         // }
     }
 
+    public void transitionToSimMode()
+    {
+        selectedObject = null;
+    }
+
     public void createPlank()
     {
         DungeonMaster.dm.RemoveHighlightFromObject();
@@ -426,4 +432,8 @@ public class PropPlacer : MonoBehaviour
         }
     }
 
+    public Vector3 worldToScreenPoint(Vector3 worldPosition)
+    {
+        return mainCam.WorldToScreenPoint(worldPosition);
+    }
 }

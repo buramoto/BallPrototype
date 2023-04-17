@@ -383,6 +383,15 @@ public class BallScript : MonoBehaviour
         //sword.enabled = false;
     }
 
+    private void OnMouseDown()
+    {
+        if (DungeonMaster.dm.simulationMode)
+        {
+            return;
+        }
+        UIBehavior.gameUI.BallMaterialMenu(this);
+    }
+
     public void setBallMaterial(StateReference.ballMaterial material)
     {
         if (DungeonMaster.dm.simulationMode)
@@ -399,7 +408,7 @@ public class BallScript : MonoBehaviour
             case StateReference.ballMaterial.normal:
                 ballPhysics.mass = 1f;
                 ballPhysics.sharedMaterial = normalMaterial;
-                ballDisplay.color = Color.grey;
+                ballDisplay.color = Color.white;
                 break;
             case StateReference.ballMaterial.wood:
                 ballPhysics.mass = 0.5f;

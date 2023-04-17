@@ -1075,6 +1075,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 39290290a6b967b4bad399a260bbeff2, type: 3}
+    - target: {fileID: 2331968046058967466, guid: a1716d843a9630c4caaa602228177de9, type: 3}
+      propertyPath: ballMaterialsMenu
+      value: 
+      objectReference: {fileID: 6010646616660011693, guid: 6f3e099d7c1dcff4897930ec232b535e, type: 3}
     - target: {fileID: 2331968046058967467, guid: a1716d843a9630c4caaa602228177de9, type: 3}
       propertyPath: m_Pivot.y
       value: 0
@@ -1218,6 +1222,10 @@ PrefabInstance:
     - target: {fileID: 2331968046140649871, guid: a1716d843a9630c4caaa602228177de9, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331968046190705359, guid: a1716d843a9630c4caaa602228177de9, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.50006104
       objectReference: {fileID: 0}
     - target: {fileID: 2331968046270024578, guid: a1716d843a9630c4caaa602228177de9, type: 3}
       propertyPath: m_RootOrder
@@ -1537,7 +1545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4833754395706755646, guid: a1716d843a9630c4caaa602228177de9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000016212463
+      value: -0.000017166138
       objectReference: {fileID: 0}
     - target: {fileID: 4971524959793973827, guid: a1716d843a9630c4caaa602228177de9, type: 3}
       propertyPath: m_Color.b
