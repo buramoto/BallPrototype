@@ -41,6 +41,7 @@ TagManager:
   - FallingObject
   - SpringPref
   - MaterialChange
+  - WaterBody
   layers:
   - Default
   - TransparentFX
