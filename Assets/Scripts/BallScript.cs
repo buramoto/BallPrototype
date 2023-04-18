@@ -46,6 +46,9 @@ public class BallScript : MonoBehaviour
     private Renderer ballRenderer;
     private Renderer ballTimerRenderer;
 
+    // variable for Ball Projectile from Cannon
+    public int plankCountToDestroy = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,6 +96,16 @@ public class BallScript : MonoBehaviour
 
     private void Update()
     {
+
+        if (plankCountToDestroy > 0)
+        {
+            this.GetComponent<CircleCollider2D>().isTrigger = true;
+        }
+        else
+        {
+            this.GetComponent<CircleCollider2D>().isTrigger = false;
+        }
+
         if (BallTimer != null) 
         {
             BallTimer.transform.position = GameObject.FindGameObjectWithTag("TimerPosition").transform.position;
@@ -207,6 +220,26 @@ public class BallScript : MonoBehaviour
         Debug.LogWarning("Ball entered trigger " + other.gameObject.name);
         switch (other.gameObject.tag)
         {
+            
+            case "Plank":
+                // this IF Block was for ICE PLANKS TO BE DESTROYED
+                if (plankCountToDestroy > 0)
+                {
+                   /* if (other.gameObject.GetComponent<Plank>().plankState == StateReference.temperature.cold)
+                    {*/
+                       plankCountToDestroy--;
+                       if (plankCountToDestroy == 0)
+                       {
+                            this.tempState = StateReference.temperature.neutral;
+                            ballDisplay.material.color = Color.gray;
+                            this.GetComponent<CircleCollider2D>().isTrigger = false;
+                       }
+                        other.gameObject.SetActive(false);
+                   // }
+                    
+                    //plankCollision(collision.gameObject);
+                }
+                break;
             case "Checkpoint":
                 checkpointCollision(other.gameObject);
                 break;
@@ -220,6 +253,13 @@ public class BallScript : MonoBehaviour
                     Debug.Log("Heater used "+GlobalVariables.heaterUsed);
                 }
                 break;
+            case "MaterialChange":
+                materialCollision(other.gameObject);
+                GlobalVariables.convertercount++;
+                GlobalVariables.usedConverterObjects.Add(other.gameObject);
+                    //other.GetComponent<ChangeTemperature>().hasCollided = true;
+                Debug.Log("Converter used " + GlobalVariables.convertercount);
+                break;
         }
         
     }
@@ -230,6 +270,13 @@ public class BallScript : MonoBehaviour
             Debug.Log(DungeonMaster.dm.currentEnemySceneScriptReference==null);
             DungeonMaster.dm.currentEnemySceneScriptReference.dropEnemy(plank.name);
         }
+    }
+    private void materialCollision(GameObject materialChange)
+    {
+        MaterialChange state = materialChange.GetComponent<MaterialChange>();
+        Debug.Log("Changing material to "+state.material);
+        setBallMaterial(state.material);
+        materialChange.SetActive(false);
     }
 
     //Check the plank's state and the ball's state, then destroy/interact with plank
@@ -356,6 +403,7 @@ public class BallScript : MonoBehaviour
     public void stopSim()
     {
         //Debug.Log("Ball: simulaton stopped");
+        plankCountToDestroy = 0;
         ball.GetComponent<SpriteRenderer>().enabled = true;
         ballPhysics.constraints = RigidbodyConstraints2D.FreezePosition;
         ballPhysics.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -387,6 +435,8 @@ public class BallScript : MonoBehaviour
                 BallTimer.transform.position = GameObject.FindGameObjectWithTag("TimerPosition").transform.position;
             }
         }
+        setBallMaterial(StateReference.ballMaterial.normal);
+
     }
 
     public void setSwordInActive()
@@ -397,20 +447,11 @@ public class BallScript : MonoBehaviour
         //sword.enabled = false;
     }
 
-    private void OnMouseDown()
-    {
-        if (DungeonMaster.dm.simulationMode)
-        {
-            return;
-        }
-        UIBehavior.gameUI.BallMaterialMenu(this);
-    }
-
     public void setBallMaterial(StateReference.ballMaterial material)
     {
         if (DungeonMaster.dm.simulationMode)
         {
-            return;//We are in simulation mode. Do nothing.
+            //return;//We are in simulation mode. Do nothing.
         }
         switch (material)
         {

@@ -82,7 +82,7 @@ public class CanonManager : MonoBehaviour
                     float angle = Mathf.Atan2(mousePos.x - transform.position.x, mousePos.y - transform.position.y) * Mathf.Rad2Deg;
                     //Debug.Log("ANGLE VALUE: ++++++++" + angle);
                     angle *= -1;
-
+                    /*
                     if(angle>45)
                     {
                         angle = 45;
@@ -91,27 +91,35 @@ public class CanonManager : MonoBehaviour
                     {
                         angle = -45;
                     }
-
+                    */
                     // set rotation of Cannon Barrel to face mouse position
                     barrelHolder.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
                     // The ball is within the barrel hence change the all position too
                     cannonBallPrefab.transform.position = GameObject.FindWithTag("CannonBase").transform.position;
-
-                    if (mousePos.y - firePoint.position.y < 0)
-                    {
-                        Debug.Log("In if");
-                        _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
-                        _initialVelocity.y = 0.707f * firePoint.position.y;
-                        lineRenderer.enabled = false;
-                    }
-                    else
-                    {
-                        Debug.Log("In else");
-                        _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
-                        lineRenderer.enabled = true;
-                    }
-                    _UpdateLineRenderer();
+                    //if (((mousePos - firePoint.position) * velocityMultiplier).magnitude <= 30.0)
+                    //{
+                       // if (mousePos.y - firePoint.position.y < 0)
+                        {
+                            Debug.Log("In if");
+                            _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
+                            _initialVelocity.y = 0.707f * firePoint.position.y;
+                            lineRenderer.enabled = false;
+                        }
+                        //else
+                        {
+                            Debug.Log("In else");
+                            _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
+                            lineRenderer.enabled = true;
+                        }
+                    Debug.LogWarning("MousePos " + (mousePos ));
+                    Debug.LogWarning("FirePoint: " +  firePoint.position);
+                    Debug.LogWarning("MousePos - FirePoint: " + (mousePos - firePoint.position));
+                        //Debug.LogWarning("Velocity " + _initialVelocity);
+                        //Debug.LogWarning("Velocity Magnitude" + _initialVelocity.magnitude);
+                        
+                    //}
+                        _UpdateLineRenderer();
                 }
             }
        
@@ -141,20 +149,23 @@ public class CanonManager : MonoBehaviour
         cannonBallPrefab.GetComponent<SpriteRenderer>().enabled = true;
 
         // adding an impulse force to throw ball off the Canon
-        rb.AddForce(_initialVelocity, ForceMode2D.Impulse);
+        Debug.LogWarning("AddedForce to Ball"+(_initialVelocity / _initialVelocity.magnitude) * 25);
+        Debug.LogWarning("Magnitude to Ball" + ((_initialVelocity / _initialVelocity.magnitude) * 25).magnitude);
+        rb.AddForce((_initialVelocity/_initialVelocity.magnitude)*25, ForceMode2D.Impulse);
 
         // setting Bool to False to denote that the ball is fired hence canon holds no ball within
         isCanonBallPresent = false;
         //cannonBallPrefab = null;
 
         // below code is to auto rotate the canon after firing the ball
-        gameObject.transform.rotation = Quaternion.identity;
+        //gameObject.transform.rotation = Quaternion.identity;
         //gameObject.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * canonAutoRotateSpeed);
     }
 
     private void _UpdateLineRenderer()
     {
         float g = Physics.gravity.magnitude;
+        _initialVelocity = (_initialVelocity / _initialVelocity.magnitude) * 25;
         float velocity = _initialVelocity.magnitude;
         float angle = Mathf.Atan2(_initialVelocity.y, _initialVelocity.x);
 
@@ -177,6 +188,7 @@ public class CanonManager : MonoBehaviour
         // check if Ball has Collided with Canon
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<BallScript>().plankCountToDestroy = 2;
             this.isCanonBallPresent = true;
             
             other.transform.position = GameObject.FindWithTag("CannonBase").transform.position;

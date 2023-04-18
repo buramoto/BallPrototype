@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Level5 : MonoBehaviour
 {
     private int oobCount = 0;
+    public GameObject image;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -26,12 +27,16 @@ public class Level5 : MonoBehaviour
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
 
-
         // To ensure that the buttons aren't stretched
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 120;
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 120;
 
         GlobalVariables.springCap = 3;
+
+        image = GameObject.Find("Spring_Outline");
+        var col = image.GetComponent<Image>().color;
+        col.a = 0;
+        image.GetComponent<Image>().color = col;
     }
     void Start()
     {
@@ -60,8 +65,12 @@ public class Level5 : MonoBehaviour
         {
             GameObject dtext = GameObject.Find("Spring_Text");
             Debug.Log(dtext);
-            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Stuck?\nPlace spring at the end of second plank facing the ball";
+            dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint! Place the spring inside this box";
             dtext.GetComponent<TMPro.TextMeshProUGUI>().fontSize = 23;
+            image = GameObject.Find("Spring_Outline");
+            var col = image.GetComponent<Image>().color;
+            col.a = 1;
+            image.GetComponent<Image>().color = col;
         }
     }
 }
