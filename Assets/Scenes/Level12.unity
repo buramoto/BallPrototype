@@ -6656,7 +6656,7 @@ VideoPlayer:
   - {fileID: 0}
   m_DirectAudioVolumes:
   - 1
-  m_Url: file://C:/Users/Rushit Jain/Desktop/BallPrototype/Assets/Tutorial/canon_tutorial.mp4
+  m_Url: https://youtu.be/q8WgsfkofOM
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
