@@ -220,6 +220,10 @@ public class BallScript : MonoBehaviour
                     Debug.Log("Heater used "+GlobalVariables.heaterUsed);
                 }
                 break;
+            case "MaterialChange":
+                materialCollision(other.gameObject);
+                
+                break;
         }
         
     }
@@ -230,6 +234,12 @@ public class BallScript : MonoBehaviour
             Debug.Log(DungeonMaster.dm.currentEnemySceneScriptReference==null);
             DungeonMaster.dm.currentEnemySceneScriptReference.dropEnemy(plank.name);
         }
+    private void materialCollision(GameObject materialChange)
+    {
+        MaterialChange state = materialChange.GetComponent<MaterialChange>();
+        Debug.Log("Changing material to "+state.material);
+        setBallMaterial(state.material);
+        Destroy(materialChange);
     }
 
     //Check the plank's state and the ball's state, then destroy/interact with plank
@@ -397,20 +407,11 @@ public class BallScript : MonoBehaviour
         //sword.enabled = false;
     }
 
-    private void OnMouseDown()
-    {
-        if (DungeonMaster.dm.simulationMode)
-        {
-            return;
-        }
-        UIBehavior.gameUI.BallMaterialMenu(this);
-    }
-
     public void setBallMaterial(StateReference.ballMaterial material)
     {
         if (DungeonMaster.dm.simulationMode)
         {
-            return;//We are in simulation mode. Do nothing.
+            //return;//We are in simulation mode. Do nothing.
         }
         switch (material)
         {
