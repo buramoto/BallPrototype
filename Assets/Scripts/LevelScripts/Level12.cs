@@ -36,11 +36,12 @@ public class Level12 : MonoBehaviour
         GlobalVariables.heaterCap = 1;
 
         //Assigning references for the canvas gameobjects
+        /*
         levelmode = UIBehavior.gameUI.gameObject.transform.Find("LevelMode").gameObject;
         mainmenumode= UIBehavior.gameUI.gameObject.transform.Find("Main Menu").gameObject;
         backgroundImage = GameObject.Find("Black_Background");
         videoRenderer = GameObject.Find("Screen");
-        playText = GameObject.Find("Play_Text");
+        playText = GameObject.Find("Play_Text");*/
         
     }
     // Start is called before the first frame update
@@ -55,13 +56,14 @@ public class Level12 : MonoBehaviour
         UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
 
-        levelmode.SetActive(false);
-        mainmenumode.SetActive(false);
+       /* levelmode.SetActive(false);
+        mainmenumode.SetActive(false);*/
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.S))
         {
             backgroundImage.SetActive(false);
@@ -69,7 +71,7 @@ public class Level12 : MonoBehaviour
             playText.SetActive(false);
             levelmode.SetActive(true);
             mainmenumode.SetActive(true);
-        }
+        }*/
         UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
