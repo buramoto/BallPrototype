@@ -191,8 +191,8 @@ public class DungeonMaster : MonoBehaviour
             Debug.Log(goals[i].gameObject);
             goals[i].gameObject.SetActive(true);
         }
-
-        for(int i=0; i<enemyElements.Length; i++)
+        
+        for (int i=0; i<enemyElements.Length; i++)
         {
             enemyElements[i].SetActive(true);
         }
@@ -304,6 +304,7 @@ public class DungeonMaster : MonoBehaviour
             {
                 goals[i].gameObject.SetActive(true);
             }
+            //UIBehavior.gameUI.resetAirflow();
             for (int i = 0; i < balls.Length; i++)
             {
                 balls[i].stopSim();

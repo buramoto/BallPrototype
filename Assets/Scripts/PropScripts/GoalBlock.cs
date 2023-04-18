@@ -59,14 +59,16 @@ public class GoalBlock : MonoBehaviour
             speed = new ParticleSystem.MinMaxCurve(newSpeed);
             velocityModule.speedModifier = speed;
 
-            int currentCount = Mathf.RoundToInt(particleSystem.emission.GetBurst(0).count.Evaluate(Time.time));
+
+            // below code was for burst mode of the particle but it is no longer used
+            //int currentCount = Mathf.RoundToInt(particleSystem.emission.GetBurst(0).count.Evaluate(Time.time));
             // Reduce the count by 1
-            currentCount--;
+            //currentCount--;
             // Create a new burst with the modified count
-            ParticleSystem.Burst newBurst = new ParticleSystem.Burst(0.0f, currentCount, 0, 1.0f);
+            //ParticleSystem.Burst newBurst = new ParticleSystem.Burst(0.0f, currentCount, 0, 1.0f);
             // Set the modified burst to the Particle System
-            ParticleSystem.Burst[] bursts = { newBurst };
-            particleSystem.emission.SetBursts(bursts);
+            //ParticleSystem.Burst[] bursts = { newBurst };
+            //particleSystem.emission.SetBursts(bursts);
         }
 
 
