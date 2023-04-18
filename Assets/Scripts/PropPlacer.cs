@@ -15,6 +15,8 @@ public class PropPlacer : MonoBehaviour
     public GameObject plankPrefab;
     public GameObject springPrefab;
     public GameObject tempElementPrefab;
+    public GameObject converttoSteelPrefab;
+    public GameObject converttoWoodPrefab;
     public Camera mainCam;
     public GameObject operationsPanelPrefab;
     private GameObject operationsPanel = null;
@@ -296,6 +298,18 @@ public class PropPlacer : MonoBehaviour
                         selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
                     }
                 }
+                else
+                {
+                    dragging = false;
+                }/*
+                else if (selectedObject.CompareTag("TempChange"))
+                {
+                    dragging = false;
+                }
+                else if (selectedObject.CompareTag("TempChange"))
+                {
+                    dragging = false;
+                }  */  
 
                //dragging = false;
             }
@@ -402,6 +416,57 @@ public class PropPlacer : MonoBehaviour
                 GameObject.Find("Element").GetComponent<Button>().interactable = false;
                 return;
             }
+        }
+    }
+
+    public void converttoSteel()
+    {
+        DungeonMaster.dm.RemoveHighlightFromObject();
+        if (!DungeonMaster.dm.simulationMode )
+        {
+            // Increment the heater counter
+            GameObject newTempElement = Instantiate(converttoSteelPrefab, mousePosition, Quaternion.identity);
+            Debug.Log("Creating convert to steel at: " + mousePosition);
+            MaterialChange newmaterialChangeScript = newTempElement.GetComponent<MaterialChange>();
+            newmaterialChangeScript.ChangeTemp(StateReference.temperature.hot);
+            newmaterialChangeScript.editable = true;
+            newmaterialChangeScript.hasCollided = false;
+            isNew = true;
+            //Debug.Log("GlobalVariables.heaterCap: " + GlobalVariables.heaterCap);
+            /*
+            GlobalVariables.heaterCap -= 1;
+            if (GlobalVariables.heaterCap == 0)
+            {
+                GameObject.Find("Element").GetComponent<Button>().interactable = false;
+                return;
+            }*/
+        }
+    }
+
+    public void converttoWood()
+    {
+        DungeonMaster.dm.RemoveHighlightFromObject();
+        if (!DungeonMaster.dm.simulationMode)
+        {
+            // Increment the heater counter
+            GameObject newTempElement = Instantiate(converttoWoodPrefab, mousePosition, Quaternion.identity);
+            Debug.Log("Creating convert to Wood at: " + mousePosition);
+
+            MaterialChange newmaterialChangeScript = newTempElement.GetComponent<MaterialChange>();
+            newmaterialChangeScript.ChangeTemp(StateReference.temperature.hot);
+            newmaterialChangeScript.editable = true;
+            newmaterialChangeScript.hasCollided = false;
+            isNew = true;
+            /*
+            Debug.Log("GlobalVariables.heaterCap: " + GlobalVariables.heaterCap);
+
+            GlobalVariables.heaterCap -= 1;
+            if (GlobalVariables.heaterCap == 0)
+            {
+                GameObject.Find("Element").GetComponent<Button>().interactable = false;
+                return;
+            }
+            */
         }
     }
 
