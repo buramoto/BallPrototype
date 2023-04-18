@@ -1016,6 +1016,8 @@ MonoBehaviour:
   plankPrefab: {fileID: 951476148478341739, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
   springPrefab: {fileID: 3725497670154412353, guid: b2b0276e6968a9d468102d2dc19ca26a, type: 3}
   tempElementPrefab: {fileID: 3316150428761557205, guid: dffaa62acf076e646810530f9028a5b7, type: 3}
+  converttoSteelPrefab: {fileID: 0}
+  converttoWoodPrefab: {fileID: 0}
   mainCam: {fileID: 0}
   operationsPanelPrefab: {fileID: 0}
   selectedObject: {fileID: 0}
@@ -3735,7 +3737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1143593039
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3751,10 +3753,10 @@ RectTransform:
   m_Father: {fileID: 1456633336}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.2056, y: 0.23367658}
-  m_AnchorMax: {x: 0.76400006, y: 0.34100002}
-  m_AnchoredPosition: {x: 0, y: 1.5}
-  m_SizeDelta: {x: 1.050003, y: 4}
+  m_AnchorMin: {x: 0.037323948, y: 0.149}
+  m_AnchorMax: {x: 0.40136617, y: 0.41300002}
+  m_AnchoredPosition: {x: 39.53, y: 2.75}
+  m_SizeDelta: {x: -75.66, y: -69.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1143593040
 MonoBehaviour:
@@ -3776,7 +3778,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: Cannon helps to break any two planks at a time.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3785,8 +3787,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2717908736
-  m_fontColor: {r: 0, g: 1, b: 1, a: 0.6313726}
+    rgba: 4161465075
+  m_fontColor: {r: 0.9528302, g: 0.916589, b: 0.0395514, a: 0.972549}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3803,8 +3805,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23
-  m_fontSizeBase: 23
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3839,7 +3841,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -76.50123, y: -32.165314, z: 0, w: -34.773323}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4629,9 +4631,6 @@ MonoBehaviour:
   plankCount: {fileID: 0}
   springCount: {fileID: 0}
   heaterCount: {fileID: 0}
-  ballMaterialsMenu: {fileID: 0}
-  activeMaterialMenu: {fileID: 0}
-  selectedBall: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   oobCoords: {x: 0, y: 0, z: 0}
 --- !u!222 &1325511730
