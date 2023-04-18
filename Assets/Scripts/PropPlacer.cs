@@ -300,6 +300,11 @@ public class PropPlacer : MonoBehaviour
                 }
                 else
                 {
+                    if (selectedObject != null)
+                    {
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+                        selectedObject.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+                    }
                     dragging = false;
                 }/*
                 else if (selectedObject.CompareTag("TempChange"))
