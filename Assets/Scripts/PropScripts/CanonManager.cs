@@ -82,7 +82,7 @@ public class CanonManager : MonoBehaviour
                     float angle = Mathf.Atan2(mousePos.x - transform.position.x, mousePos.y - transform.position.y) * Mathf.Rad2Deg;
                     //Debug.Log("ANGLE VALUE: ++++++++" + angle);
                     angle *= -1;
-
+                    /*
                     if(angle>45)
                     {
                         angle = 45;
@@ -91,7 +91,7 @@ public class CanonManager : MonoBehaviour
                     {
                         angle = -45;
                     }
-
+                    */
                     // set rotation of Cannon Barrel to face mouse position
                     barrelHolder.transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
@@ -99,14 +99,14 @@ public class CanonManager : MonoBehaviour
                     cannonBallPrefab.transform.position = GameObject.FindWithTag("CannonBase").transform.position;
                     //if (((mousePos - firePoint.position) * velocityMultiplier).magnitude <= 30.0)
                     //{
-                        if (mousePos.y - firePoint.position.y < 0)
+                       // if (mousePos.y - firePoint.position.y < 0)
                         {
                             Debug.Log("In if");
                             _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
                             _initialVelocity.y = 0.707f * firePoint.position.y;
                             lineRenderer.enabled = false;
                         }
-                        else
+                        //else
                         {
                             Debug.Log("In else");
                             _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
