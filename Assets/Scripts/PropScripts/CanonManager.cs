@@ -97,21 +97,27 @@ public class CanonManager : MonoBehaviour
 
                     // The ball is within the barrel hence change the all position too
                     cannonBallPrefab.transform.position = GameObject.FindWithTag("CannonBase").transform.position;
-
-                    if (mousePos.y - firePoint.position.y < 0)
-                    {
-                        Debug.Log("In if");
-                        _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
-                        _initialVelocity.y = 0.707f * firePoint.position.y;
-                        lineRenderer.enabled = false;
-                    }
-                    else
-                    {
-                        Debug.Log("In else");
-                        _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
-                        lineRenderer.enabled = true;
-                    }
-                    _UpdateLineRenderer();
+                    //if (((mousePos - firePoint.position) * velocityMultiplier).magnitude <= 30.0)
+                    //{
+                        if (mousePos.y - firePoint.position.y < 0)
+                        {
+                            Debug.Log("In if");
+                            _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
+                            _initialVelocity.y = 0.707f * firePoint.position.y;
+                            lineRenderer.enabled = false;
+                        }
+                        else
+                        {
+                            Debug.Log("In else");
+                            _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
+                            lineRenderer.enabled = true;
+                        }
+                        //Debug.LogWarning("MousePos - FirePoint: " + (mousePos - firePoint.position));
+                        //Debug.LogWarning("Velocity " + _initialVelocity);
+                        //Debug.LogWarning("Velocity Magnitude" + _initialVelocity.magnitude);
+                        
+                    //}
+                        _UpdateLineRenderer();
                 }
             }
        
@@ -141,7 +147,9 @@ public class CanonManager : MonoBehaviour
         cannonBallPrefab.GetComponent<SpriteRenderer>().enabled = true;
 
         // adding an impulse force to throw ball off the Canon
-        rb.AddForce(_initialVelocity, ForceMode2D.Impulse);
+        Debug.LogWarning("AddedForce to Ball"+(_initialVelocity / _initialVelocity.magnitude) * 25);
+        Debug.LogWarning("Magnitude to Ball" + ((_initialVelocity / _initialVelocity.magnitude) * 25).magnitude);
+        rb.AddForce((_initialVelocity/_initialVelocity.magnitude)*25, ForceMode2D.Impulse);
 
         // setting Bool to False to denote that the ball is fired hence canon holds no ball within
         isCanonBallPresent = false;

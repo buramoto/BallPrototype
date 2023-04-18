@@ -389,6 +389,7 @@ public class BallScript : MonoBehaviour
     public void stopSim()
     {
         //Debug.Log("Ball: simulaton stopped");
+        plankCountToDestroy = 0;
         ball.GetComponent<SpriteRenderer>().enabled = true;
         ballPhysics.constraints = RigidbodyConstraints2D.FreezePosition;
         ballPhysics.constraints = RigidbodyConstraints2D.FreezeRotation;
