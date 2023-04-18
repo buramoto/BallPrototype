@@ -425,6 +425,7 @@ public class PropPlacer : MonoBehaviour
         if (!DungeonMaster.dm.simulationMode )
         {
             // Increment the heater counter
+            GlobalVariables.convertercount++;
             GameObject newTempElement = Instantiate(converttoSteelPrefab, mousePosition, Quaternion.identity);
             Debug.Log("Creating convert to steel at: " + mousePosition);
             MaterialChange newmaterialChangeScript = newTempElement.GetComponent<MaterialChange>();

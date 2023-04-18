@@ -206,6 +206,10 @@ public class SendToGoogle : MonoBehaviour
         {
             obj.SetActive(true);
         }
+        foreach (GameObject obj in GlobalVariables.usedConverterObjects)
+        {
+            obj.SetActive(true);
+        }
         GlobalVariables.plankUsed = 0;
         GlobalVariables.springUsed = 0;
         GlobalVariables.heaterUsed = 0;
@@ -215,6 +219,8 @@ public class SendToGoogle : MonoBehaviour
         GlobalVariables.usedHeaterObjects.Clear();
         GlobalVariables.usedPlankObjects.Clear();
         GlobalVariables.usedSpringObjects.Clear();
+        GlobalVariables.convertercount = 0;
+        GlobalVariables.usedConverterObjects.Clear();
         GlobalVariables.starsCounter = 0;
     }
 

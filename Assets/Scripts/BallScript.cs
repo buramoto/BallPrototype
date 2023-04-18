@@ -255,7 +255,10 @@ public class BallScript : MonoBehaviour
                 break;
             case "MaterialChange":
                 materialCollision(other.gameObject);
-                
+                GlobalVariables.convertercount++;
+                GlobalVariables.usedConverterObjects.Add(other.gameObject);
+                    //other.GetComponent<ChangeTemperature>().hasCollided = true;
+                Debug.Log("Converter used " + GlobalVariables.convertercount);
                 break;
         }
         
@@ -273,7 +276,7 @@ public class BallScript : MonoBehaviour
         MaterialChange state = materialChange.GetComponent<MaterialChange>();
         Debug.Log("Changing material to "+state.material);
         setBallMaterial(state.material);
-        Destroy(materialChange);
+        materialChange.SetActive(false);
     }
 
     //Check the plank's state and the ball's state, then destroy/interact with plank

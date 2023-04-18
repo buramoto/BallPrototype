@@ -314,6 +314,13 @@ public class DungeonMaster : MonoBehaviour
                     obj.SetActive(true);
                 }
             }
+            if(GlobalVariables.convertercount>0)
+            {
+                foreach(GameObject obj in GlobalVariables.usedConverterObjects)
+                {
+                    obj.SetActive(true);
+                }
+            }
             GlobalVariables.levelScore = 0;
             Debug.Log("IN stop sim reset to 0");
             GlobalVariables.levelScore = 0;

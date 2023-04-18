@@ -22,6 +22,9 @@ public class GlobalVariables : MonoBehaviour
     public static int plankCap = 0;
     public static int springCap = 0;
 
+    //Total converters used;
+    public static int convertercount = 0;
+
     public static int attemptCounter = 1;
     public static int kbeCounter = 0;
     public static int oobCounter = 0;
@@ -31,6 +34,7 @@ public class GlobalVariables : MonoBehaviour
     public static List<GameObject> usedHeaterObjects = new List<GameObject>();
     public static List<GameObject> usedPlankObjects = new List<GameObject>();
     public static List<GameObject> usedSpringObjects = new List<GameObject>();
+    public static List<GameObject> usedConverterObjects = new List<GameObject>();
 
     public static int levelScore = 0;
 
