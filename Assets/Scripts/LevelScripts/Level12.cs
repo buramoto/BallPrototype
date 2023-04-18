@@ -9,7 +9,7 @@ public class Level12 : MonoBehaviour
     GameObject mainmenumode;
     GameObject backgroundImage;
     GameObject videoRenderer;
-    GameObject playText;
+    GameObject playText, playText1;
     private void Awake()
     {
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
