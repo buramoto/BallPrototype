@@ -314,6 +314,7 @@ class MyComparer : IComparer<string>
     private void stopSim(StateReference.resetType type)
     {
         //Debug.Log("UI stopping sim");
+        resetAirflow();
         for (int i = 0; i < toolKitButtons.Length; i++)
         {
             toolKitButtons[i].interactable = true; 
@@ -407,4 +408,22 @@ class MyComparer : IComparer<string>
             }
         }
     }
+
+
+    public void resetAirflow()
+    {
+        if (GameObject.FindWithTag("Airflow") != null)
+        {
+            GameObject.FindWithTag("Airflow").GetComponent<AreaEffector2D>().forceMagnitude = 15.0f;
+
+            ParticleSystem particleSystem = GameObject.FindWithTag("WindParticles").GetComponent<ParticleSystem>();
+            ParticleSystem.VelocityOverLifetimeModule velocityModule = particleSystem.velocityOverLifetime;
+            ParticleSystem.MinMaxCurve speed = velocityModule.speedModifier;
+            float newSpeed = 0.4f;
+            speed = new ParticleSystem.MinMaxCurve(newSpeed);
+            velocityModule.speedModifier = speed;
+        }
+    }
+
+
 }

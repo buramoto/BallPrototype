@@ -254,11 +254,14 @@ public class BallScript : MonoBehaviour
                 }
                 break;
             case "MaterialChange":
-                materialCollision(other.gameObject);
-                GlobalVariables.convertercount++;
-                GlobalVariables.usedConverterObjects.Add(other.gameObject);
-                    //other.GetComponent<ChangeTemperature>().hasCollided = true;
-                Debug.Log("Converter used " + GlobalVariables.convertercount);
+                if (DungeonMaster.dm.simulationMode)
+                {
+                    materialCollision(other.gameObject);
+                    GlobalVariables.convertercount++;
+                    GlobalVariables.usedConverterObjects.Add(other.gameObject);
+                        //other.GetComponent<ChangeTemperature>().hasCollided = true;
+                    Debug.Log("Converter used " + GlobalVariables.convertercount);
+                }
                 break;
         }
         

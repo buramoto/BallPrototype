@@ -116,8 +116,8 @@ public class PropPlacer : MonoBehaviour
                     {
                         panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
                         panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
-                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 30;
-                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 30;
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 35;
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 35;
                     }
                     else
                     {
@@ -323,7 +323,7 @@ public class PropPlacer : MonoBehaviour
         //Positioning of operations panel
         if(selectedObject != null)
         {
-            Bounds propCorners = selectedObject.GetComponent<BoxCollider2D>().bounds;
+            Bounds propCorners = selectedObject.GetComponent<Collider2D>().bounds;
             //Vector3 panelOffset = new Vector3(0, propCorners.center.y - propCorners.extents.y, 0);
             Vector3 panelOffset = new Vector3(0, propCorners.extents.y + 0.5f, 0);
             if(panel && panelOffset!=null)

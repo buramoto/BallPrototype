@@ -28,16 +28,21 @@ public class Level15 : MonoBehaviour, EnemyLevel
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[3].gameObject.SetActive(true);
+        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[4].gameObject.SetActive(true);
 
-        // Setting the Plank Btn in the ToolKit Panel to INACTIVE
-        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
+
+        // Setting the Spring Btn, WOOD Material in the ToolKit Panel to INACTIVE
+        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(false);
+        //UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[4].gameObject.SetActive(false);
 
         // To ensure that the buttons isn't stretched
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
 
-        GlobalVariables.springCap = 4;
+        GlobalVariables.plankCap = 4;
         GlobalVariables.heaterCap = 2;
+        GlobalVariables.springCap = 0;
 
         //Assigning references for the canvas gameobjects
         levelmode = UIBehavior.gameUI.gameObject.transform.Find("LevelMode").gameObject;
@@ -83,7 +88,7 @@ public class Level15 : MonoBehaviour, EnemyLevel
             levelmode.SetActive(true);
             mainmenumode.SetActive(true);
         }
-        UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
+        UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
 
