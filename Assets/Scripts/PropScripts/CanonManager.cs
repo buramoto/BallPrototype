@@ -156,7 +156,7 @@ public class CanonManager : MonoBehaviour
         //cannonBallPrefab = null;
 
         // below code is to auto rotate the canon after firing the ball
-        gameObject.transform.rotation = Quaternion.identity;
+        //gameObject.transform.rotation = Quaternion.identity;
         //gameObject.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * canonAutoRotateSpeed);
     }
 
