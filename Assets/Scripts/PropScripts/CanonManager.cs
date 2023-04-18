@@ -112,7 +112,9 @@ public class CanonManager : MonoBehaviour
                             _initialVelocity = (mousePos - firePoint.position) * velocityMultiplier;
                             lineRenderer.enabled = true;
                         }
-                        //Debug.LogWarning("MousePos - FirePoint: " + (mousePos - firePoint.position));
+                    Debug.LogWarning("MousePos " + (mousePos ));
+                    Debug.LogWarning("FirePoint: " +  firePoint.position);
+                    Debug.LogWarning("MousePos - FirePoint: " + (mousePos - firePoint.position));
                         //Debug.LogWarning("Velocity " + _initialVelocity);
                         //Debug.LogWarning("Velocity Magnitude" + _initialVelocity.magnitude);
                         
@@ -163,6 +165,7 @@ public class CanonManager : MonoBehaviour
     private void _UpdateLineRenderer()
     {
         float g = Physics.gravity.magnitude;
+        _initialVelocity = (_initialVelocity / _initialVelocity.magnitude) * 25;
         float velocity = _initialVelocity.magnitude;
         float angle = Mathf.Atan2(_initialVelocity.y, _initialVelocity.x);
 
