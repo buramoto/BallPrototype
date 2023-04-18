@@ -116,8 +116,8 @@ public class PropPlacer : MonoBehaviour
                     {
                         panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
                         panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
-                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 30;
-                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 30;
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 35;
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 35;
                     }
                     else
                     {
