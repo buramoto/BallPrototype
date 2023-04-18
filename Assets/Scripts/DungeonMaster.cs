@@ -478,6 +478,10 @@ public class DungeonMaster : MonoBehaviour
 
     public void HighlightObject(GameObject currentInstance){
         // Debug.Log("---- DM:" +currentInstance);
+        if (currentInstance.CompareTag("MaterialChange")) {
+            highlightedObject = currentInstance;
+        }
+
         if(currentInstance.CompareTag("Plank") || currentInstance.CompareTag("Spring") || currentInstance.CompareTag("TempChange")){
             // UIBehavior.gameUI.setOperationActive(currentInstance);
 

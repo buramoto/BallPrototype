@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 41125998}
   m_Layer: 5
   m_Name: Steel_Converter
-  m_TagString: HeaterButton
+  m_TagString: MaterialChange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1052,7 +1052,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 9.5
+  m_fontSize: 8.8
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1341,7 +1341,7 @@ GameObject:
   - component: {fileID: 777850283}
   m_Layer: 5
   m_Name: Wood_Converter
-  m_TagString: HeaterButton
+  m_TagString: MaterialChange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2499,7 +2499,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 9
+  m_fontSize: 8.3
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1

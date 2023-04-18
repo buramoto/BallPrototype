@@ -98,7 +98,7 @@ public class PropPlacer : MonoBehaviour
                 selectedObject = null;
                 return;
             }
-            if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" ){
+            if( (clickedObject.tag=="Plank" && clickedObject.GetComponent<Plank>().editable) || clickedObject.tag == "Spring" || clickedObject.tag == "TempChange" || clickedObject.tag=="MaterialChange"){
                 DungeonMaster.dm.HighlightObject(clickedObject);
                 offset = (Vector2)clickedObject.transform.position - mousePosition;
                 positionBeforeClicking = clickedObject.transform.position;
@@ -112,7 +112,7 @@ public class PropPlacer : MonoBehaviour
                 {
                     operationsPanel = Instantiate(operationsPanelPrefab);
                     panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
-                    if(clickedObject.CompareTag("TempChange"))
+                    if(clickedObject.CompareTag("TempChange") || (clickedObject.tag == "MaterialChange"))
                     {
                         panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
                         panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
@@ -130,7 +130,7 @@ public class PropPlacer : MonoBehaviour
                 else
                 {
                     panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
-                    if (clickedObject.CompareTag("TempChange"))
+                    if (clickedObject.CompareTag("TempChange") || (clickedObject.tag == "MaterialChange"))
                     {
                         panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
                         panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
@@ -512,6 +512,10 @@ public class PropPlacer : MonoBehaviour
                 GlobalVariables.heaterUsed--;
             }
         }
+        //if (toolkitInstance.tag == "MaterialChange")
+        //{
+
+        //}
         Destroy(toolkitInstance);
         DungeonMaster.dm.RemoveHighlightFromObject();
         Destroy(operationsPanel);

@@ -432,6 +432,8 @@ public class BallScript : MonoBehaviour
                 BallTimer.transform.position = GameObject.FindGameObjectWithTag("TimerPosition").transform.position;
             }
         }
+        setBallMaterial(StateReference.ballMaterial.normal);
+
     }
 
     public void setSwordInActive()
