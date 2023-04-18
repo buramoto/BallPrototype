@@ -225,12 +225,18 @@ public class BallScript : MonoBehaviour
                 // this IF Block was for ICE PLANKS TO BE DESTROYED
                 if (plankCountToDestroy > 0)
                 {
-
-                    other.gameObject.SetActive(false);
-                    //if (other.gameObject.GetComponent<Plank>().plankState == StateReference.temperature.cold)
-                    //{
+                   /* if (other.gameObject.GetComponent<Plank>().plankState == StateReference.temperature.cold)
+                    {*/
                        plankCountToDestroy--;
-                    //}
+                       if (plankCountToDestroy == 0)
+                       {
+                            this.tempState = StateReference.temperature.neutral;
+                            ballDisplay.material.color = Color.gray;
+                            this.GetComponent<CircleCollider2D>().isTrigger = false;
+                       }
+                        other.gameObject.SetActive(false);
+                   // }
+                    
                     //plankCollision(collision.gameObject);
                 }
                 break;
