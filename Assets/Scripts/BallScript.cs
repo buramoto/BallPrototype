@@ -234,6 +234,7 @@ public class BallScript : MonoBehaviour
             Debug.Log(DungeonMaster.dm.currentEnemySceneScriptReference==null);
             DungeonMaster.dm.currentEnemySceneScriptReference.dropEnemy(plank.name);
         }
+    }
     private void materialCollision(GameObject materialChange)
     {
         MaterialChange state = materialChange.GetComponent<MaterialChange>();
