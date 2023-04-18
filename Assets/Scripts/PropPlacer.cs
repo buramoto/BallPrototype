@@ -110,6 +110,38 @@ public class PropPlacer : MonoBehaviour
                 {
                     operationsPanel = Instantiate(operationsPanelPrefab);
                     panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
+                    if(clickedObject.CompareTag("TempChange"))
+                    {
+                        panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
+                        panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 30;
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 30;
+                    }
+                    else
+                    {
+                        panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
+                        panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
+                    }
+                }
+                else
+                {
+                    panel = operationsPanel.transform.Find("Operations").gameObject.GetComponent<RectTransform>();
+                    if (clickedObject.CompareTag("TempChange"))
+                    {
+                        panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
+                        panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 30;
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 30;
+                    }
+                    else
+                    {
+                        panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
+                        panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
+                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
+                    }
                 }
                 // below function set operation buttons to active mode when a correct object is clicked/highlighted
 

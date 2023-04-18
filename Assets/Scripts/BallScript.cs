@@ -329,7 +329,10 @@ public class BallScript : MonoBehaviour
             }
             if(goal.goalColor != StateReference.goalColor.green) {
                 Debug.Log("points :"+DungeonMaster.dm.awardPoints);
-                Instantiate(DungeonMaster.dm.awardPoints, new Vector3(checkpoint.gameObject.transform.position.x, checkpoint.gameObject.transform.position.y, checkpoint.gameObject.transform.position.z), Quaternion.identity);
+                if(DungeonMaster.dm.currentSceneName == "Level13" || DungeonMaster.dm.currentSceneName == "Level14")
+                {
+                    Instantiate(DungeonMaster.dm.awardPoints, new Vector3(checkpoint.gameObject.transform.position.x, checkpoint.gameObject.transform.position.y, checkpoint.gameObject.transform.position.z), Quaternion.identity);
+                }
                 checkpoint.SetActive(false);
                 time = time + 2;
             }
