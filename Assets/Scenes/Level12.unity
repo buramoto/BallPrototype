@@ -5991,7 +5991,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1584836991}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 05a0d849a2d5b5445bf6914e923d97b1, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -6008,7 +6008,7 @@ VideoPlayer:
   - {fileID: 0}
   m_DirectAudioVolumes:
   - 1
-  m_Url: file://C:/Users/Rushit Jain/Desktop/BallPrototype/Assets/Tutorial/canon_tutorial.mp4
+  m_Url: https://buramoto.github.io/BallPrototype/canon_tutorial.mp4
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
