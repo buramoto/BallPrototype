@@ -478,6 +478,8 @@ public class DungeonMaster : MonoBehaviour
             else
             {
                 highlightedObject.GetComponentInChildren<Outline>().enabled = false;
+                Debug.LogWarning(highlightedObject.name + " OUTLINE obj: " + highlightedObject.GetComponentInChildren<Outline>());
+                Debug.LogWarning(highlightedObject.name + " OUTLINE: " + highlightedObject.GetComponentInChildren<Outline>().enabled);
             }
             highlightedObject = null;
             // UIBehavior.gameUI.setOperationInactive();
@@ -486,11 +488,14 @@ public class DungeonMaster : MonoBehaviour
 
     public void HighlightObject(GameObject currentInstance){
         // Debug.Log("---- DM:" +currentInstance);
-        if (currentInstance.CompareTag("MaterialChange")) {
-            highlightedObject = currentInstance;
-        }
+        //if (currentInstance.CompareTag("MaterialChange")) {
+        //    currentInstance.GetComponentInChildren<Outline>().enabled = true;
+        //    highlightedObject = currentInstance;
+        //    Debug.LogWarning(highlightedObject.name + " OUTLINE obj: " + highlightedObject.GetComponentInChildren<Outline>());
+        //    Debug.LogWarning(currentInstance.name+" OUTLINE: "+ currentInstance.GetComponentInChildren<Outline>().enabled);
+        //}
 
-        if(currentInstance.CompareTag("Plank") || currentInstance.CompareTag("Spring") || currentInstance.CompareTag("TempChange")){
+        if(currentInstance.CompareTag("Plank") || currentInstance.CompareTag("MaterialChange") || currentInstance.CompareTag("Spring") || currentInstance.CompareTag("TempChange")){
             // UIBehavior.gameUI.setOperationActive(currentInstance);
 
             if( highlightedObject!=null && currentInstance != highlightedObject){

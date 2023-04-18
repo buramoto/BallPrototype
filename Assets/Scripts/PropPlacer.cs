@@ -323,7 +323,7 @@ public class PropPlacer : MonoBehaviour
         //Positioning of operations panel
         if(selectedObject != null)
         {
-            Bounds propCorners = selectedObject.GetComponent<BoxCollider2D>().bounds;
+            Bounds propCorners = selectedObject.GetComponent<Collider2D>().bounds;
             //Vector3 panelOffset = new Vector3(0, propCorners.center.y - propCorners.extents.y, 0);
             Vector3 panelOffset = new Vector3(0, propCorners.extents.y + 0.5f, 0);
             if(panel && panelOffset!=null)

@@ -36,10 +36,10 @@ public class MaterialChange : MonoBehaviour
             Debug.Log("This is the trigger enter stage in Heater");
             overLaps++;
             Debug.Log("Overlap value becomes" + overLaps);
-            if (!DungeonMaster.dm.simulationMode && editable)
-            {
-                elementDisplay.color = Color.magenta;
-            }
+            //if (!DungeonMaster.dm.simulationMode && editable )
+            //{
+            //    elementDisplay.color = Color.magenta;
+            //}
         }
     }
 
@@ -50,7 +50,7 @@ public class MaterialChange : MonoBehaviour
             Debug.Log("This is the trigger exit stage in Heater");
             overLaps--;
             Debug.Log("Overlap value becomes" + overLaps);
-            elementDisplay.color = Color.white;
+            //elementDisplay.color = Color.white;
         }
     }
 
