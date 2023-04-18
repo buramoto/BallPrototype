@@ -56,8 +56,8 @@ public class EnemyBehaviour : MonoBehaviour
             }
             // Instead of destroying we will SET setActive(FALSE)
             //Destroy(gameObject);
-            Instantiate(DungeonMaster.dm.awardPoints, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
-            Debug.Log("+50 Text Instantiated!!");
+           // Instantiate(DungeonMaster.dm.awardPoints, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
+           // Debug.Log("+50 Text Instantiated!!");
             gameObject.SetActive(false);
         }
         else if(collision.gameObject.CompareTag("Player"))
