@@ -37,6 +37,7 @@ TagManager:
   - TimerPosition
   - Undefined
   - OperationForObject
+  - MaterialChange
   layers:
   - Default
   - TransparentFX
