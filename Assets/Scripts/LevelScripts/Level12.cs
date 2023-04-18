@@ -41,6 +41,7 @@ public class Level12 : MonoBehaviour
         backgroundImage = GameObject.Find("Black_Background");
         videoRenderer = GameObject.Find("Screen");
         playText = GameObject.Find("Play_Text");
+        playText1 = GameObject.Find("Play_Text (1)");
         
     }
     // Start is called before the first frame update
@@ -67,6 +68,7 @@ public class Level12 : MonoBehaviour
             backgroundImage.SetActive(false);
             videoRenderer.SetActive(false);
             playText.SetActive(false);
+            playText1.SetActive(false);
             levelmode.SetActive(true);
             mainmenumode.SetActive(true);
         }
