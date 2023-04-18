@@ -177,6 +177,7 @@ public class CanonManager : MonoBehaviour
         // check if Ball has Collided with Canon
         if (other.CompareTag("Player"))
         {
+            other.GetComponent<BallScript>().plankCountToDestroy = 1;
             this.isCanonBallPresent = true;
             
             other.transform.position = GameObject.FindWithTag("CannonBase").transform.position;

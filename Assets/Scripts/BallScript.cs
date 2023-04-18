@@ -46,6 +46,9 @@ public class BallScript : MonoBehaviour
     private Renderer ballRenderer;
     private Renderer ballTimerRenderer;
 
+    // variable for Ball Projectile from Cannon
+    public int plankCountToDestroy = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,6 +96,16 @@ public class BallScript : MonoBehaviour
 
     private void Update()
     {
+
+        if (plankCountToDestroy > 0)
+        {
+            this.GetComponent<CircleCollider2D>().isTrigger = true;
+        }
+        else
+        {
+            this.GetComponent<CircleCollider2D>().isTrigger = false;
+        }
+
         if (BallTimer != null) 
         {
             BallTimer.transform.position = GameObject.FindGameObjectWithTag("TimerPosition").transform.position;
@@ -207,6 +220,20 @@ public class BallScript : MonoBehaviour
         Debug.LogWarning("Ball entered trigger " + other.gameObject.name);
         switch (other.gameObject.tag)
         {
+            
+            case "Plank":
+                // this IF Block was for ICE PLANKS TO BE DESTROYED
+                if (plankCountToDestroy > 0)
+                {
+
+                    other.gameObject.SetActive(false);
+                    //if (other.gameObject.GetComponent<Plank>().plankState == StateReference.temperature.cold)
+                    //{
+                       plankCountToDestroy--;
+                    //}
+                    //plankCollision(collision.gameObject);
+                }
+                break;
             case "Checkpoint":
                 checkpointCollision(other.gameObject);
                 break;
