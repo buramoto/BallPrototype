@@ -40,8 +40,9 @@ public class Level15 : MonoBehaviour, EnemyLevel
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
         UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
 
-        GlobalVariables.springCap = 4;
+        GlobalVariables.plankCap = 4;
         GlobalVariables.heaterCap = 2;
+        GlobalVariables.springCap = 0;
 
         //Assigning references for the canvas gameobjects
         levelmode = UIBehavior.gameUI.gameObject.transform.Find("LevelMode").gameObject;
@@ -87,7 +88,7 @@ public class Level15 : MonoBehaviour, EnemyLevel
             levelmode.SetActive(true);
             mainmenumode.SetActive(true);
         }
-        UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
+        UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
     }
 
