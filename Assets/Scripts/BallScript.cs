@@ -200,13 +200,14 @@ public class BallScript : MonoBehaviour
                 plankCollision(collision.gameObject);
                 break;
             case "Spring":
-                if(collision.gameObject.GetComponent<Spring>().hasCollided == false)
-                {
-                    GlobalVariables.springUsed++;
-                    GlobalVariables.usedSpringObjects.Add(collision.gameObject);
-                    collision.gameObject.GetComponent<Spring>().hasCollided = true;
-                    Debug.Log("Spring used "+GlobalVariables.springUsed);
-                }
+                Debug.Log("Spring Reference!");
+                // if(collision.gameObject.GetComponent<Spring>().hasCollided == false)
+                // {
+                //     GlobalVariables.springUsed++;
+                //     GlobalVariables.usedSpringObjects.Add(collision.gameObject);
+                //     collision.gameObject.GetComponent<Spring>().hasCollided = true;
+                //     Debug.Log("Spring used "+GlobalVariables.springUsed);
+                // }
                 break;
             case "Static_Plank":
                 Debug.LogError("Static Plank Reference!");
@@ -261,6 +262,16 @@ public class BallScript : MonoBehaviour
                     GlobalVariables.usedConverterObjects.Add(other.gameObject);
                         //other.GetComponent<ChangeTemperature>().hasCollided = true;
                     Debug.Log("Converter used " + GlobalVariables.convertercount);
+                }
+                break;
+            case "Spring":
+                Debug.Log("Spring Reformed Collider Reference!");
+                if(other.gameObject.GetComponent<Spring>().hasCollided == false)
+                {
+                    GlobalVariables.springUsed++;
+                    GlobalVariables.usedSpringObjects.Add(other.gameObject);
+                    other.gameObject.GetComponent<Spring>().hasCollided = true;
+                    Debug.Log("Spring used "+GlobalVariables.springUsed);
                 }
                 break;
         }
