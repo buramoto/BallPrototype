@@ -397,7 +397,7 @@ public class DungeonMaster : MonoBehaviour
                 scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
             }
             // Storing the number of player's lives left
-            // GlobalVariables.livesLeft = lives;
+            GlobalVariables.livesLeft = _ballHealth._currentHealth;
 
             Debug.Log("Heaters used: " + GlobalVariables.heaterUsed);
             //Display a Win screen
