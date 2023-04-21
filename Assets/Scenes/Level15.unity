@@ -2652,6 +2652,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Airflow
       objectReference: {fileID: 0}
+    - target: {fileID: 4725613492802081440, guid: c469d212e86402342bc6a7658522fc9a, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4725613492802081443, guid: c469d212e86402342bc6a7658522fc9a, type: 3}
       propertyPath: m_RootOrder
       value: 21
@@ -2695,6 +2699,10 @@ PrefabInstance:
     - target: {fileID: 4725613492802081443, guid: c469d212e86402342bc6a7658522fc9a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4725613493325055397, guid: c469d212e86402342bc6a7658522fc9a, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c469d212e86402342bc6a7658522fc9a, type: 3}
