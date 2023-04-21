@@ -93,7 +93,7 @@ public class PropPlacer : MonoBehaviour
                 operationsPanel = null;
                 return;
             }
-            if (clickedObject.tag == "Cannon" || clickedObject.tag == "Barrel" || clickedObject.tag == "Airflow" || clickedObject.tag == "WaterBody") {
+            if (clickedObject.tag == "Cannon" || clickedObject.tag == "Barrel" || clickedObject.tag == "Airflow" || clickedObject.tag == "WaterBody" || clickedObject.tag == "SpringPref" || clickedObject.tag == "WaterPref"  ) {
                 DungeonMaster.dm.RemoveHighlightFromObject();
                 selectedObject = null;
                 return;
