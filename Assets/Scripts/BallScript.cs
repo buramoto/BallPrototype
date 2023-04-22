@@ -197,7 +197,16 @@ public class BallScript : MonoBehaviour
         if (isStateChanged)
         {
             Color blinkColor = ballDisplay.color;
-            if (Time.time - blinkTime >= 0.5)
+            float timeScaleTimer;
+            if(stateChangeTimeSetting - (Time.time - stateChangeTime)  >= 1)
+            {
+                timeScaleTimer = 0.5f;
+            }
+            else
+            {
+                timeScaleTimer = 0.1f;
+            }
+            if (Time.time - blinkTime >= timeScaleTimer)
             {
                 if(ballDisplay.color.a == 1)
                 {
