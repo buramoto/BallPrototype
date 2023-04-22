@@ -27,6 +27,12 @@ public class BallScript : MonoBehaviour
     private Rigidbody2D ballPhysics;
     private Camera cam; // Reference to the main camera in the scene
     private CapsuleCollider2D sword; // variable for sword
+    private bool isStateChanged;
+    private float stateChangeTime;
+    private float stateChangeTimeSetting;
+    public float steelChangeTime;
+    public float woodChangeTime;
+    private float blinkTime;
 
     // Variables to store the height and width of the screen
     private float screenHeight;
@@ -186,6 +192,38 @@ public class BallScript : MonoBehaviour
             else
             {
                 BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + " s";
+            }
+        }
+        if (isStateChanged)
+        {
+            Color blinkColor = ballDisplay.color;
+            float timeScaleTimer;
+            if(stateChangeTimeSetting - (Time.time - stateChangeTime)  >= 1)
+            {
+                timeScaleTimer = 0.5f;
+            }
+            else
+            {
+                timeScaleTimer = 0.1f;
+            }
+            if (Time.time - blinkTime >= timeScaleTimer)
+            {
+                if(ballDisplay.color.a == 1)
+                {
+                    blinkColor.a = 0.75f;
+                }
+                else
+                {
+                    blinkColor.a = 1f;
+                }
+                ballDisplay.color = blinkColor;
+                blinkTime = Time.time;
+            }
+            if(Time.time - stateChangeTime >= stateChangeTimeSetting)
+            {
+                blinkColor.a = 1f;
+                ballDisplay.color = blinkColor;
+                setBallMaterial(StateReference.ballMaterial.normal);
             }
         }
     }
@@ -463,26 +501,26 @@ public class BallScript : MonoBehaviour
 
     public void setBallMaterial(StateReference.ballMaterial material)
     {
-        if (DungeonMaster.dm.simulationMode)
-        {
-            //return;//We are in simulation mode. Do nothing.
-        }
+        isStateChanged = true;
         switch (material)
         {
             case StateReference.ballMaterial.steel:
                 ballPhysics.mass = 5f;
                 ballPhysics.sharedMaterial = steelMaterial;
                 ballDisplay.color = Color.black;
+                stateChangeTimeSetting = steelChangeTime;
                 break;
             case StateReference.ballMaterial.normal:
                 ballPhysics.mass = 1f;
                 ballPhysics.sharedMaterial = normalMaterial;
                 ballDisplay.color = Color.white;
+                isStateChanged = false;
                 break;
             case StateReference.ballMaterial.wood:
                 ballPhysics.mass = 0.5f;
                 ballPhysics.sharedMaterial = normalMaterial;
                 ballDisplay.color = Color.yellow;
+                stateChangeTimeSetting = woodChangeTime;
                 break;
             case StateReference.ballMaterial.rubber:
                 ballPhysics.mass = 1.75f;
@@ -490,5 +528,6 @@ public class BallScript : MonoBehaviour
                 ballDisplay.color = Color.green;
                 break;
         }
+        stateChangeTime = Time.time;
     }
 }

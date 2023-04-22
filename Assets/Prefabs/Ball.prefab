@@ -102,16 +102,19 @@ MonoBehaviour:
   ball: {fileID: 7237235675206451526}
   tempState: 0
   startPosition: {x: 0, y: 0}
-  ballMaterialState: 1
+  ballMaterialState: 0
   normalMaterial: {fileID: 6200000, guid: 7c5bc72bcec199042ab8a6c1ce06552c, type: 2}
   steelMaterial: {fileID: 6200000, guid: 407c73d0daffd6c4f8770d5db1c4c1a0, type: 2}
   rubberMaterial: {fileID: 6200000, guid: 656c8f3bd441b4845866df7fcaa74d93, type: 2}
+  steelChangeTime: 3
+  woodChangeTime: 5
   editable: 0
   anim: {fileID: 0}
   swordHolder: {fileID: 0}
   BallTimer: {fileID: 0}
   levelBombTime: 0
   smoke: {fileID: 0}
+  plankCountToDestroy: 0
 --- !u!50 &7237235675206451524
 Rigidbody2D:
   serializedVersion: 4
