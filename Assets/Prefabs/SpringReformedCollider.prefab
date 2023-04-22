@@ -1162,6 +1162,10 @@ PrefabInstance:
       value: Plank
       objectReference: {fileID: 0}
     - target: {fileID: 951476148478341739, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 951476148478341739, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -1180,6 +1184,14 @@ PrefabInstance:
     - target: {fileID: 4931938800048324232, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049282867788942879, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8153374637022318959, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8153374637022318959, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: m_IsActive
@@ -1360,6 +1372,10 @@ PrefabInstance:
       value: Plank (1)
       objectReference: {fileID: 0}
     - target: {fileID: 951476148478341739, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 951476148478341739, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -1378,6 +1394,14 @@ PrefabInstance:
     - target: {fileID: 4931938800048324232, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5049282867788942879, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8153374637022318959, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8153374637022318959, guid: 7cd3384454212674fbe0319d2a1791ca, type: 3}
       propertyPath: m_IsActive
