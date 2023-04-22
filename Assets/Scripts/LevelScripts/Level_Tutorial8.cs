@@ -6,7 +6,7 @@ using TMPro;
 
 public class Level_Tutorial8 : MonoBehaviour
 {
-    public float timeLeft = 3.0f;
+    float timeLeft = 2.0f;
     public GameObject starttxt;
     GameObject levelmode;
     GameObject mainmenumode;
@@ -150,6 +150,7 @@ public class Level_Tutorial8 : MonoBehaviour
                 {
                     objectToDisable.SetActive(false);
                 }
+                waterBody.SetActive(false);
             }
         }
     }
