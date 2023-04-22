@@ -19,6 +19,7 @@ public class Level_Tutorial8 : MonoBehaviour
     GameObject normalBall;
     GameObject steelBall;
     GameObject woodBall;
+    GameObject waterBody;
     bool videoover = false;
     // Start is called before the first frame update
 
@@ -41,10 +42,12 @@ public class Level_Tutorial8 : MonoBehaviour
         var col2 = highlightedArea.GetComponent<Image>().color;
         col2.a = 0;
         highlightedArea.GetComponent<Image>().color = col2;
-
+        backgroundImage = GameObject.Find("Black_Background");
         normalBall = GameObject.Find("Normal");
         steelBall = GameObject.Find("Steel");
         woodBall = GameObject.Find("Wood");
+        waterBody = GameObject.FindGameObjectWithTag("WaterBody");
+        waterBody.SetActive(false);
         steelBall.SetActive(false);
         woodBall.SetActive(false);
         normalBall.SetActive(false);
@@ -77,13 +80,14 @@ public class Level_Tutorial8 : MonoBehaviour
 
 
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>()[1].gameObject.SetActive(false);
-        initialtext = GameObject.Find("Initial_Text");
-        initialtext.SetActive(false);
+        //initialtext = GameObject.Find("Initial_Text");
+        //initialtext.SetActive(false);
         levelmode.SetActive(false);
         mainmenumode.SetActive(false);
         steelBall.SetActive(false);
         woodBall.SetActive(false);
         normalBall.SetActive(false);
+        waterBody.SetActive(false);
     }
 
     // Update is called once per frame
@@ -104,6 +108,7 @@ public class Level_Tutorial8 : MonoBehaviour
             mainmenumode.SetActive(true);
             // starttext.SetActive(true);
             videoover = true;
+            waterBody.SetActive(true);
         }
         if (!DungeonMaster.dm.simulationMode && videoover)
         {
@@ -139,7 +144,7 @@ public class Level_Tutorial8 : MonoBehaviour
             timeLeft -= Time.deltaTime;
             if (timeLeft < 0.0f)
             {
-                //Debug.Log("next level is "+DungeonMaster.dm.nextSceneName);
+                Debug.Log("next level is "+DungeonMaster.dm.nextSceneName);
                 GameObject[] objectsToDisable = GameObject.FindGameObjectsWithTag("Plank");
                 foreach (GameObject objectToDisable in objectsToDisable)
                 {
