@@ -471,7 +471,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
+  m_fontSize: 10.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -604,7 +604,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 80755952}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: level5
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &80755952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1237,7 +1249,7 @@ GameObject:
   - component: {fileID: 176440781}
   - component: {fileID: 176440780}
   m_Layer: 5
-  m_Name: Tutorial5
+  m_Name: MainLevel5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1307,7 +1319,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 176440781}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainLevel5
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &176440781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1430,7 +1454,7 @@ GameObject:
   - component: {fileID: 253941200}
   - component: {fileID: 253941199}
   m_Layer: 5
-  m_Name: Tutorial7
+  m_Name: MainLevel7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1500,7 +1524,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 253941200}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainLevel7
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &253941200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1709,7 +1745,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.41085657, y: 0.41249487}
   m_AnchorMax: {x: 0.5882516, y: 0.47000003}
-  m_AnchoredPosition: {x: 0.14465332, y: 0.29999924}
+  m_AnchoredPosition: {x: 0.14465332, y: 0.30000305}
   m_SizeDelta: {x: 0.2545166, y: -0.51869965}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &350286512
@@ -1892,7 +1928,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 389389699}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Tutorial_8
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &389389699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2079,7 +2127,7 @@ GameObject:
   - component: {fileID: 426167565}
   - component: {fileID: 426167564}
   m_Layer: 5
-  m_Name: Tutorial1
+  m_Name: MainLevel1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2149,7 +2197,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 426167565}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Level4
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &426167565
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2492,7 +2552,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 514360203}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Level1
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &514360203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2616,7 +2688,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
+  m_fontSize: 10.5
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3011,7 +3083,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 762829906}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: level7
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &762829906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3133,7 +3217,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 769307056}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Level3
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &769307056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4518,7 +4614,7 @@ GameObject:
   - component: {fileID: 1143855489}
   - component: {fileID: 1143855488}
   m_Layer: 5
-  m_Name: Tutorial6
+  m_Name: MainLevel6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4588,7 +4684,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1143855489}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MainLevel6
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1143855489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4852,7 +4960,7 @@ GameObject:
   - component: {fileID: 1230043916}
   - component: {fileID: 1230043915}
   m_Layer: 5
-  m_Name: Tutorial3
+  m_Name: MainLevel3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4922,7 +5030,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1230043916}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Level8
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1230043916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5109,7 +5229,7 @@ GameObject:
   - component: {fileID: 1283586453}
   - component: {fileID: 1283586452}
   m_Layer: 5
-  m_Name: Tutorial1
+  m_Name: BombLevel1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5179,7 +5299,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1283586453}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Level13
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1283586453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5301,7 +5433,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1324539064}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: level12
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1324539064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5488,7 +5632,7 @@ GameObject:
   - component: {fileID: 1418135316}
   - component: {fileID: 1418135315}
   m_Layer: 5
-  m_Name: Tutorial2
+  m_Name: BombLevel2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5558,7 +5702,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1418135316}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Level14
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1418135316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5610,7 +5766,7 @@ GameObject:
   - component: {fileID: 1439162597}
   - component: {fileID: 1439162596}
   m_Layer: 5
-  m_Name: Tutorial3
+  m_Name: BombLevel3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5680,7 +5836,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1439162597}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BombLevel3
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1439162597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5980,7 +6148,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.031384617, y: 0.13900001}
   m_AnchorMax: {x: 0.98, y: 0.21259509}
-  m_AnchoredPosition: {x: 1.4002686, y: -0.3000183}
+  m_AnchoredPosition: {x: 1.4002686, y: -0.30004883}
   m_SizeDelta: {x: 0.79944, y: 0.79100037}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1551895539
@@ -5996,8 +6164,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
-    m_Right: 0
+    m_Left: 200
+    m_Right: 200
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
@@ -6585,7 +6753,7 @@ GameObject:
   - component: {fileID: 1785425237}
   - component: {fileID: 1785425236}
   m_Layer: 5
-  m_Name: Tutorial4
+  m_Name: MainLevel4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6655,7 +6823,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1785425237}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Level16
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1785425237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6826,7 +7006,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1827128951}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Level2
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1827128951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7525,7 +7717,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1999641636}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Tutorial_7
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1999641636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7849,7 +8053,7 @@ GameObject:
   - component: {fileID: 2030911855}
   - component: {fileID: 2030911854}
   m_Layer: 5
-  m_Name: Tutorial2
+  m_Name: MainLevel2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7919,7 +8123,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2030911855}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
+        m_TargetAssemblyTypeName: DungeonMaster, Assembly-CSharp
+        m_MethodName: loadNextLevel
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Level6
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2030911855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9126,7 +9342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7587783210357674895, guid: a1716d843a9630c4caaa602228177de9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.269001
+      value: -1.2689972
       objectReference: {fileID: 0}
     - target: {fileID: 7663250844611639940, guid: a1716d843a9630c4caaa602228177de9, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -9178,7 +9394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8501138181713476492, guid: a1716d843a9630c4caaa602228177de9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -2.7570953
+      value: -2.7571106
       objectReference: {fileID: 0}
     - target: {fileID: 8501138181762099857, guid: a1716d843a9630c4caaa602228177de9, type: 3}
       propertyPath: m_Delegates.Array.size
