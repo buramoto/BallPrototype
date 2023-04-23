@@ -134,12 +134,12 @@ public class UIBehavior : MonoBehaviour
             Destroy(activeScreen);
         }
         //if/else statement below sets the UI elements to either level or main menu mode
-        if (scene.name == "MainMenu")
+        if (scene.name == "MainMenu" || scene.name == "New_MainMenu")
         {
             mainMenuBtn.SetActive(false);
             levelMode.SetActive(false);
             mainMenuMode.SetActive(true);
-            initMainMenu();
+            // initMainMenu();
         }
         else
         {
@@ -184,7 +184,7 @@ public class UIBehavior : MonoBehaviour
     }
 
     public void updateTimer(float minutes, float seconds) {
-        if(SceneManager.GetActiveScene().name == "MainMenu" || SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "Level2") {
+        if(SceneManager.GetActiveScene().name == "New_MainMenu" || SceneManager.GetActiveScene().name == "MainMenu" || SceneManager.GetActiveScene().name == "Level1" || SceneManager.GetActiveScene().name == "Level2") {
             return;
         }
         // TextMeshProUGUI tm =  timer.GetComponent<TextMeshProUGUI>(); 

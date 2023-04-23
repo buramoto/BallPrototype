@@ -151,7 +151,7 @@ public class DungeonMaster : MonoBehaviour
         currentSceneName = scene.name;
         //sequence = sequences[currentSceneName];
         Debug.Log("Initalizing level "+currentSceneName);
-        if(currentSceneName == "MainMenu")
+        if(currentSceneName == "MainMenu" || currentSceneName == "New_MainMenu")
         {
             return;
         }
@@ -201,7 +201,7 @@ public class DungeonMaster : MonoBehaviour
         if(levelNumber!=null)
         {
             Debug.Log("Scene text"+currentSceneName);
-            if(currentSceneName=="MainMenu")
+            if(currentSceneName=="MainMenu" || currentSceneName=="New_MainMenu")
             {
                 levelNumber.text="";
             }
@@ -247,7 +247,8 @@ public class DungeonMaster : MonoBehaviour
             scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
         }
         UIBehavior.gameUI.changeButtonStateToStart();
-        SceneManager.LoadScene("MainMenu");
+        // SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("New_MainMenu");
         // GameObject levelName = GameObject.Find("Level_Name");
         TextMeshPro levelNumber = GameObject.Find("Background").GetComponentInChildren<TextMeshPro>();
         if(levelNumber!=null)
