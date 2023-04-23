@@ -114,6 +114,9 @@ MonoBehaviour:
   BallTimer: {fileID: 0}
   levelBombTime: 0
   smoke: {fileID: 0}
+  steelMaterialSprite: {fileID: 21300000, guid: 5066fba93d8ce4de1ad91a0c0cb02ac1, type: 3}
+  normalMaterialSprite: {fileID: 21300000, guid: 0c0e8d777a2d0405a947c53c81c3e5f5, type: 3}
+  woodMaterialSprite: {fileID: 21300000, guid: a9a26fffeb44c4e0498166e7e4974291, type: 3}
   plankCountToDestroy: 0
 --- !u!50 &7237235675206451524
 Rigidbody2D:

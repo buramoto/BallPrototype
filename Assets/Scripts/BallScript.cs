@@ -52,6 +52,11 @@ public class BallScript : MonoBehaviour
     private Renderer ballRenderer;
     private Renderer ballTimerRenderer;
 
+    // variables for ball material sprites
+    public Sprite steelMaterialSprite;
+    public Sprite normalMaterialSprite;
+    public Sprite woodMaterialSprite;
+
     // variable for Ball Projectile from Cannon
     public int plankCountToDestroy = 0;
 
@@ -86,7 +91,7 @@ public class BallScript : MonoBehaviour
         tempState = StateReference.temperature.neutral;
         ball.SetActive(true);
         ballDisplay = GetComponent<SpriteRenderer>();
-        ballDisplay.material.color = Color.gray;
+        ballDisplay.material.color = Color.white;
         ballPhysics = GetComponent<Rigidbody2D>();
         ballRenderer = ball.GetComponent<SpriteRenderer>();
         // Get the reference to the main camera
@@ -270,7 +275,7 @@ public class BallScript : MonoBehaviour
                        if (plankCountToDestroy == 0)
                        {
                             this.tempState = StateReference.temperature.neutral;
-                            ballDisplay.material.color = Color.gray;
+                            ballDisplay.material.color = Color.white;
                             this.GetComponent<CircleCollider2D>().isTrigger = false;
                        }
                         other.gameObject.SetActive(false);
@@ -343,7 +348,7 @@ public class BallScript : MonoBehaviour
                 {
                     case StateReference.temperature.cold://Hot -> cold
                         tempState = StateReference.temperature.neutral;
-                        ballDisplay.material.color = Color.gray;
+                        ballDisplay.material.color = Color.white;
                         plank.SetActive(false);
                         checkEnemyPlank(plank);
                         break;
@@ -463,7 +468,7 @@ public class BallScript : MonoBehaviour
         transform.position = startPosition;
         transform.rotation = Quaternion.identity;
         tempState = StateReference.temperature.neutral;
-        ballDisplay.material.color = Color.gray;
+        ballDisplay.material.color = Color.white;
         time = 10;
         if (BallTimer != null)
         {
@@ -507,19 +512,22 @@ public class BallScript : MonoBehaviour
             case StateReference.ballMaterial.steel:
                 ballPhysics.mass = 5f;
                 ballPhysics.sharedMaterial = steelMaterial;
-                ballDisplay.color = Color.black;
+                //ballDisplay.color = Color.black;
+                ballDisplay.sprite = steelMaterialSprite;
                 stateChangeTimeSetting = steelChangeTime;
                 break;
             case StateReference.ballMaterial.normal:
                 ballPhysics.mass = 1f;
                 ballPhysics.sharedMaterial = normalMaterial;
                 ballDisplay.color = Color.white;
+                ballDisplay.sprite = normalMaterialSprite;
                 isStateChanged = false;
                 break;
             case StateReference.ballMaterial.wood:
                 ballPhysics.mass = 0.5f;
                 ballPhysics.sharedMaterial = normalMaterial;
-                ballDisplay.color = Color.yellow;
+                //ballDisplay.color = Color.yellow;
+                ballDisplay.sprite = woodMaterialSprite;
                 stateChangeTimeSetting = woodChangeTime;
                 break;
             case StateReference.ballMaterial.rubber:

@@ -185,9 +185,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.68}
+  m_Offset: {x: 0, y: 0.72}
   serializedVersion: 2
-  m_Radius: 0.55
+  m_Radius: 0.57
 --- !u!1 &5484365217739602070
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +324,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &4703380899350591638
 MonoBehaviour:
@@ -402,8 +402,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.18134}
-  m_SizeDelta: {x: 0.019584147, y: 0.022732422}
+  m_AnchoredPosition: {x: 0, y: 0.1765}
+  m_SizeDelta: {x: 0.0196, y: 0.0131}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9063237710669924327
 CanvasRenderer:
