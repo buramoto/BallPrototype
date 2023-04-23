@@ -57,6 +57,9 @@ public class BallScript : MonoBehaviour
     public Sprite normalMaterialSprite;
     public Sprite woodMaterialSprite;
 
+    // bomb sprite
+    public Sprite bombSprite;
+
     // variable for Ball Projectile from Cannon
     public int plankCountToDestroy = 0;
 
@@ -535,6 +538,11 @@ public class BallScript : MonoBehaviour
                 ballPhysics.sharedMaterial = rubberMaterial;
                 ballDisplay.color = Color.green;
                 break;
+
+        }
+        if (BallTimer!= null) {
+            ballDisplay.sprite = bombSprite;
+            ballDisplay.size = new Vector2(0.28f, 0.37f);
         }
         stateChangeTime = Time.time;
     }
