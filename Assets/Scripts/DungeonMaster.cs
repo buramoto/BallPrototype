@@ -44,8 +44,8 @@ public class DungeonMaster : MonoBehaviour
     // Level8: Introduction to enemies
     // Level9: Main Level (Previously "UIDev")
     public string[] enemyLevelNames = {"Level7","Level8","Level9","Level11","Level15"};
-    private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8"};
-    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12","Level13","Level14", "Level15", "Level16"};
+    private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Tutorial_7", "Tutorial_8" };
+    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12","Level13","Level14", "BombLevel3","Level15", "Tutorial_7", "Tutorial_8", "Level16", "MainLevel5","MainLevel6","MainLevel7"};
     public static List<string> levelsCompleted = new List<string>();
     public static List<string> levelsAttempted = new List<string>();
     public static List<string> completedLevelNumbers = new List<string>();
@@ -398,7 +398,7 @@ public class DungeonMaster : MonoBehaviour
                 scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
             }
             // Storing the number of player's lives left
-            // GlobalVariables.livesLeft = lives;
+            GlobalVariables.livesLeft = _ballHealth._currentHealth;
 
             Debug.Log("Heaters used: " + GlobalVariables.heaterUsed);
             //Display a Win screen

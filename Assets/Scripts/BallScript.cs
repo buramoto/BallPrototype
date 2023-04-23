@@ -27,6 +27,12 @@ public class BallScript : MonoBehaviour
     private Rigidbody2D ballPhysics;
     private Camera cam; // Reference to the main camera in the scene
     private CapsuleCollider2D sword; // variable for sword
+    private bool isStateChanged;
+    private float stateChangeTime;
+    private float stateChangeTimeSetting;
+    public float steelChangeTime;
+    public float woodChangeTime;
+    private float blinkTime;
 
     // Variables to store the height and width of the screen
     private float screenHeight;
@@ -45,6 +51,14 @@ public class BallScript : MonoBehaviour
     public GameObject smoke;
     private Renderer ballRenderer;
     private Renderer ballTimerRenderer;
+
+    // variables for ball material sprites
+    public Sprite steelMaterialSprite;
+    public Sprite normalMaterialSprite;
+    public Sprite woodMaterialSprite;
+
+    // bomb sprite
+    public Sprite bombSprite;
 
     // variable for Ball Projectile from Cannon
     public int plankCountToDestroy = 0;
@@ -80,7 +94,7 @@ public class BallScript : MonoBehaviour
         tempState = StateReference.temperature.neutral;
         ball.SetActive(true);
         ballDisplay = GetComponent<SpriteRenderer>();
-        ballDisplay.material.color = Color.gray;
+        ballDisplay.material.color = Color.white;
         ballPhysics = GetComponent<Rigidbody2D>();
         ballRenderer = ball.GetComponent<SpriteRenderer>();
         // Get the reference to the main camera
@@ -188,6 +202,38 @@ public class BallScript : MonoBehaviour
                 BallTimer.GetComponent<TextMeshPro>().text = Mathf.RoundToInt(time).ToString() + " s";
             }
         }
+        if (isStateChanged)
+        {
+            Color blinkColor = ballDisplay.color;
+            float timeScaleTimer;
+            if(stateChangeTimeSetting - (Time.time - stateChangeTime)  >= 1)
+            {
+                timeScaleTimer = 0.5f;
+            }
+            else
+            {
+                timeScaleTimer = 0.1f;
+            }
+            if (Time.time - blinkTime >= timeScaleTimer)
+            {
+                if(ballDisplay.color.a == 1)
+                {
+                    blinkColor.a = 0.75f;
+                }
+                else
+                {
+                    blinkColor.a = 1f;
+                }
+                ballDisplay.color = blinkColor;
+                blinkTime = Time.time;
+            }
+            if(Time.time - stateChangeTime >= stateChangeTimeSetting)
+            {
+                blinkColor.a = 1f;
+                ballDisplay.color = blinkColor;
+                setBallMaterial(StateReference.ballMaterial.normal);
+            }
+        }
     }
 
     //When colliding with an object, invoke appropriate function
@@ -200,13 +246,14 @@ public class BallScript : MonoBehaviour
                 plankCollision(collision.gameObject);
                 break;
             case "Spring":
-                if(collision.gameObject.GetComponent<Spring>().hasCollided == false)
-                {
-                    GlobalVariables.springUsed++;
-                    GlobalVariables.usedSpringObjects.Add(collision.gameObject);
-                    collision.gameObject.GetComponent<Spring>().hasCollided = true;
-                    Debug.Log("Spring used "+GlobalVariables.springUsed);
-                }
+                Debug.Log("Spring Reference!");
+                // if(collision.gameObject.GetComponent<Spring>().hasCollided == false)
+                // {
+                //     GlobalVariables.springUsed++;
+                //     GlobalVariables.usedSpringObjects.Add(collision.gameObject);
+                //     collision.gameObject.GetComponent<Spring>().hasCollided = true;
+                //     Debug.Log("Spring used "+GlobalVariables.springUsed);
+                // }
                 break;
             case "Static_Plank":
                 Debug.LogError("Static Plank Reference!");
@@ -231,7 +278,7 @@ public class BallScript : MonoBehaviour
                        if (plankCountToDestroy == 0)
                        {
                             this.tempState = StateReference.temperature.neutral;
-                            ballDisplay.material.color = Color.gray;
+                            ballDisplay.material.color = Color.white;
                             this.GetComponent<CircleCollider2D>().isTrigger = false;
                        }
                         other.gameObject.SetActive(false);
@@ -261,6 +308,16 @@ public class BallScript : MonoBehaviour
                     GlobalVariables.usedConverterObjects.Add(other.gameObject);
                         //other.GetComponent<ChangeTemperature>().hasCollided = true;
                     Debug.Log("Converter used " + GlobalVariables.convertercount);
+                }
+                break;
+            case "Spring":
+                Debug.Log("Spring Reformed Collider Reference!");
+                if(other.gameObject.GetComponent<Spring>().hasCollided == false)
+                {
+                    GlobalVariables.springUsed++;
+                    GlobalVariables.usedSpringObjects.Add(other.gameObject);
+                    other.gameObject.GetComponent<Spring>().hasCollided = true;
+                    Debug.Log("Spring used "+GlobalVariables.springUsed);
                 }
                 break;
         }
@@ -294,7 +351,7 @@ public class BallScript : MonoBehaviour
                 {
                     case StateReference.temperature.cold://Hot -> cold
                         tempState = StateReference.temperature.neutral;
-                        ballDisplay.material.color = Color.gray;
+                        ballDisplay.material.color = Color.white;
                         plank.SetActive(false);
                         checkEnemyPlank(plank);
                         break;
@@ -414,7 +471,7 @@ public class BallScript : MonoBehaviour
         transform.position = startPosition;
         transform.rotation = Quaternion.identity;
         tempState = StateReference.temperature.neutral;
-        ballDisplay.material.color = Color.gray;
+        ballDisplay.material.color = Color.white;
         time = 10;
         if (BallTimer != null)
         {
@@ -452,32 +509,41 @@ public class BallScript : MonoBehaviour
 
     public void setBallMaterial(StateReference.ballMaterial material)
     {
-        if (DungeonMaster.dm.simulationMode)
-        {
-            //return;//We are in simulation mode. Do nothing.
-        }
+        isStateChanged = true;
         switch (material)
         {
             case StateReference.ballMaterial.steel:
                 ballPhysics.mass = 5f;
                 ballPhysics.sharedMaterial = steelMaterial;
-                ballDisplay.color = Color.black;
+                //ballDisplay.color = Color.black;
+                ballDisplay.sprite = steelMaterialSprite;
+                stateChangeTimeSetting = steelChangeTime;
                 break;
             case StateReference.ballMaterial.normal:
                 ballPhysics.mass = 1f;
                 ballPhysics.sharedMaterial = normalMaterial;
                 ballDisplay.color = Color.white;
+                ballDisplay.sprite = normalMaterialSprite;
+                isStateChanged = false;
                 break;
             case StateReference.ballMaterial.wood:
                 ballPhysics.mass = 0.5f;
                 ballPhysics.sharedMaterial = normalMaterial;
-                ballDisplay.color = Color.yellow;
+                //ballDisplay.color = Color.yellow;
+                ballDisplay.sprite = woodMaterialSprite;
+                stateChangeTimeSetting = woodChangeTime;
                 break;
             case StateReference.ballMaterial.rubber:
                 ballPhysics.mass = 1.75f;
                 ballPhysics.sharedMaterial = rubberMaterial;
                 ballDisplay.color = Color.green;
                 break;
+
         }
+        if (BallTimer!= null) {
+            ballDisplay.sprite = bombSprite;
+            ballDisplay.size = new Vector2(0.28f, 0.37f);
+        }
+        stateChangeTime = Time.time;
     }
 }

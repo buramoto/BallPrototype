@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4725613492802081443}
   - component: {fileID: 4725613492802081442}
   - component: {fileID: 4725613492802081441}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Airflow
   m_TagString: Airflow
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 4725613493325055398}
   - component: {fileID: 4725613493325055392}
   - component: {fileID: 4725613493325055399}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ParticleEffectGenerator
   m_TagString: WindParticles
   m_Icon: {fileID: 0}
