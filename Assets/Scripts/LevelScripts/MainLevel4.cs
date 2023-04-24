@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainLevel4 : MonoBehaviour
+public class MainLevel4 : MonoBehaviour, EnemyLevel
 {
+    public static MainLevel4 MainLevel4Reference;
+    public Dictionary<string, string> enemyPlankMap = new Dictionary<string, string>();
 private void Awake()
     {
+        enemyPlankMap.Add("Plank (4)", "Enemy (2)");
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
         Time.timeScale = 1;
         // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
@@ -32,10 +35,19 @@ private void Awake()
         GlobalVariables.springCap = 4;
         GlobalVariables.heaterCap = 2;
 
+        if (MainLevel4Reference == null)
+        {
+            MainLevel4Reference = this;
+        }
+        else
+        {
+        }
+
     }
     // Start is called before the first frame update
     void Start()
     {
+        DungeonMaster.dm.setCurrentSceneReference(MainLevel4Reference);
         GlobalVariables.levelScore = 0;
         GameObject scoreText = GameObject.Find("Score_Text");
         if (scoreText != null)
@@ -53,5 +65,32 @@ private void Awake()
         UIBehavior.gameUI.plankCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.plankCap.ToString();
         UIBehavior.gameUI.springCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.springCap.ToString();
         UIBehavior.gameUI.heaterCount.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.heaterCap.ToString();
+    }
+
+    public void resetEnemies()
+    {
+        foreach (KeyValuePair<string, string> pair in enemyPlankMap)
+        {
+            string enemyName = pair.Value;
+            GameObject enemy = GameObject.Find(enemyName).transform.GetChild(0).gameObject;
+            if(enemy.activeSelf) {
+                enemy.SendMessage("resetEnemy");
+            }
+        }
+    }
+
+    public void dropEnemy(string plankName)
+    {
+        if(enemyPlankMap.ContainsKey(plankName)) {
+            GameObject enemy = GameObject.Find(enemyPlankMap[plankName]).transform.GetChild(0).gameObject;
+            if(enemy.activeSelf) {
+                Debug.Log("ENEMY NAME:" + enemy.name);
+                enemy.AddComponent<Rigidbody2D>();
+                enemy.GetComponent<Animation>().enabled = false;
+                enemy.GetComponent<Collider2D>().enabled = false;
+            }
+            // rb.useGravity = true;
+            // enemy.GetComponent<Rigidbody>().useGravity = true;
+        }
     }
 }

@@ -327,6 +327,11 @@ public class BallScript : MonoBehaviour
     }
 
     private void checkEnemyPlank(GameObject plank) {
+        Debug.Log("IN CHECK ENEMY PLANK"+DungeonMaster.dm.currentSceneName);
+        Debug.Log(DungeonMaster.dm.currentSceneName==DungeonMaster.dm.enemyLevelNames[0]);
+        Debug.Log(DungeonMaster.dm.enemyLevelNames.Contains(DungeonMaster.dm.currentSceneName));
+        Debug.Log(DungeonMaster.dm.enemyLevelNames[0] + DungeonMaster.dm.currentSceneName);
+        Debug.Log(string.Join(", ", DungeonMaster.dm.enemyLevelNames));
         if(DungeonMaster.dm.enemyLevelNames.Contains(DungeonMaster.dm.currentSceneName)){
             Debug.Log("Enemy level detected, checking if plank is enemy plank");
             Debug.Log(DungeonMaster.dm.currentEnemySceneScriptReference==null);

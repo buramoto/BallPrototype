@@ -43,7 +43,7 @@ public class DungeonMaster : MonoBehaviour
     // Level7: Planks and Spring
     // Level8: Introduction to enemies
     // Level9: Main Level (Previously "UIDev")
-    public string[] enemyLevelNames = {"Level7","Level8","Level9","Level11","Level15"};
+    public string[] enemyLevelNames = {"MainLevel2", "MainLevel3", "MainLevel4"};
     private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Tutorial_7", "Tutorial_8" };
     public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12","Level13","Level14", "BombLevel3","Level15", "Tutorial_7", "Tutorial_8", "Level16", "MainLevel5","MainLevel6","MainLevel7"};
     public static List<string> levelsCompleted = new List<string>();

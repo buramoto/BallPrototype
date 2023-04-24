@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainLevel2 : MonoBehaviour
+public class MainLevel2 : MonoBehaviour, EnemyLevel
 {
+    public static MainLevel2 MainLevel2Reference;
+    public Dictionary<string, string> enemyPlankMap = new Dictionary<string, string>();
     private int oobCount = 0;
     private void Awake()
     {
+        enemyPlankMap.Add("Plank (6)", "Enemy (1)");
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
         Time.timeScale = 1;
         // Setting all ToolKit & Operation & Control PANEL Btns to ACTIVE
@@ -34,10 +37,19 @@ public class MainLevel2 : MonoBehaviour
 
         GlobalVariables.plankCap = 3;
         GlobalVariables.springCap = 2;
+
+        if (MainLevel2Reference == null)
+        {
+            MainLevel2Reference = this;
+        }
+        else
+        {
+        }
     }
     // Start is called before the first frame update
     void Start()
     {
+        DungeonMaster.dm.setCurrentSceneReference(MainLevel2Reference);
         // GlobalVariables.levelScore = 0;
         // GameObject scoreText = GameObject.Find("Score_Text");
         // if (scoreText != null)
@@ -72,6 +84,33 @@ public class MainLevel2 : MonoBehaviour
             GameObject dtext = GameObject.Find("Level6_Text");
             Debug.Log(dtext);
             dtext.GetComponent<TMPro.TextMeshProUGUI>().text = "Hint: Try Rotating the Wood Planks/Spring";
+        }
+    }
+
+    public void resetEnemies()
+    {
+        foreach (KeyValuePair<string, string> pair in enemyPlankMap)
+        {
+            string enemyName = pair.Value;
+            GameObject enemy = GameObject.Find(enemyName).transform.GetChild(0).gameObject;
+            if(enemy.activeSelf) {
+                enemy.SendMessage("resetEnemy");
+            }
+        }
+    }
+
+    public void dropEnemy(string plankName)
+    {
+        if(enemyPlankMap.ContainsKey(plankName)) {
+            GameObject enemy = GameObject.Find(enemyPlankMap[plankName]).transform.GetChild(0).gameObject;
+            if(enemy.activeSelf) {
+                Debug.Log("ENEMY NAME:" + enemy.name);
+                enemy.AddComponent<Rigidbody2D>();
+                enemy.GetComponent<Animation>().enabled = false;
+                enemy.GetComponent<Collider2D>().enabled = false;
+            }
+            // rb.useGravity = true;
+            // enemy.GetComponent<Rigidbody>().useGravity = true;
         }
     }
 }
