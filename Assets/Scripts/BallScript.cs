@@ -137,14 +137,14 @@ public class BallScript : MonoBehaviour
             
             DungeonMaster.dm.simMode(false, StateReference.resetType.oob);
             
-            if(DungeonMaster.dm.currentSceneName == "Level3"){
-                GameObject.FindObjectOfType<Level3>().SendMessage("OutOfBounds", "oob");
+            if(DungeonMaster.dm.currentSceneName == "Tutorial_3"){
+                GameObject.FindObjectOfType<Level_Tutorial3>().SendMessage("OutOfBounds", "oob");
             }
-            if(DungeonMaster.dm.currentSceneName == "Level5"){
-                GameObject.FindObjectOfType<Level5>().SendMessage("OutOfBounds", "oob");
+            if(DungeonMaster.dm.currentSceneName == "Tutorial_4"){
+                GameObject.FindObjectOfType<Level_Tutorial4>().SendMessage("OutOfBounds", "oob");
             }
-            if(DungeonMaster.dm.currentSceneName == "Level6"){
-                GameObject.FindObjectOfType<Level6>().SendMessage("OutOfBounds", "oob");
+            if(DungeonMaster.dm.currentSceneName == "MainLevel6"){
+                GameObject.FindObjectOfType<MainLevel6>().SendMessage("OutOfBounds", "oob");
             }
             UIBehavior.gameUI.oobCoords = transform.position;
             //DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";

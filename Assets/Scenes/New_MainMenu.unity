@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2667466, y: 0.3512954}
   m_AnchorMax: {x: 0.7332534, y: 0.9574093}
-  m_AnchoredPosition: {x: 0.00004196167, y: 0.0000059009}
+  m_AnchoredPosition: {x: 0.00004196167, y: 0.000005722046}
   m_SizeDelta: {x: -0.0001, y: -0.000011444}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &28854144
@@ -614,7 +614,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: level5
+          m_StringArgument: Tutorial_4
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &80755952
@@ -2207,7 +2207,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level4
+          m_StringArgument: MainLevel1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &426167565
@@ -2562,7 +2562,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level1
+          m_StringArgument: Tutorial_1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &514360203
@@ -3093,7 +3093,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: level7
+          m_StringArgument: Tutorial_5
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &762829906
@@ -3227,7 +3227,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level3
+          m_StringArgument: Tutorial_3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &769307056
@@ -5040,7 +5040,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level8
+          m_StringArgument: MainLevel3
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1230043916
@@ -5309,7 +5309,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level13
+          m_StringArgument: BombLevel1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1283586453
@@ -5443,7 +5443,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: level12
+          m_StringArgument: Tutorial_6
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1324539064
@@ -5712,7 +5712,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level14
+          m_StringArgument: BombLevel2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1418135316
@@ -6833,7 +6833,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level16
+          m_StringArgument: MainLevel4
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1785425237
@@ -7016,7 +7016,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level2
+          m_StringArgument: Tutorial_2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1827128951
@@ -8133,7 +8133,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Level6
+          m_StringArgument: MainLevel2
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2030911855
