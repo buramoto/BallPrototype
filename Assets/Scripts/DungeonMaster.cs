@@ -169,6 +169,13 @@ public class DungeonMaster : MonoBehaviour
             levelsAttempted.Add(currentSceneName);
             attemptedLevelNumbers.Add(currentSceneName.ToString().Substring(5));
         }
+        if(tutorialSceneNames.Contains(currentSceneName)) {
+            attemptedTutorialScenes[Array.IndexOf(tutorialSceneNames,currentSceneName)] = true;
+        } else if(mainSceneNames.Contains(currentSceneName)) {
+            attemptedMainScenes[Array.IndexOf(mainSceneNames,currentSceneName)] = true;
+        } else if(bombSceneNames.Contains(currentSceneName)) {
+            attemptedBombScenes[Array.IndexOf(bombSceneNames,currentSceneName)] = true;
+        }
         isLevelOn = true;
         _ballHealth = new UnitHealth(100, 100);
         // lives = maxLives;
@@ -396,6 +403,13 @@ public class DungeonMaster : MonoBehaviour
             //timeArray[counter]=timeValue;
             timeTaken = timeValue;
             isLevelOn = false;
+            if(tutorialSceneNames.Contains(currentSceneName)) {
+                completedTutorialScenes[Array.IndexOf(tutorialSceneNames,currentSceneName)] = true;
+            } else if(mainSceneNames.Contains(currentSceneName)) {
+                completedMainScenes[Array.IndexOf(mainSceneNames,currentSceneName)] = true;
+            } else if(bombSceneNames.Contains(currentSceneName)) {
+                completedBombScenes[Array.IndexOf(bombSceneNames,currentSceneName)] = true;
+            }
             levelsCompleted.Add(currentSceneName);
             completedLevelNumbers.Add(currentSceneName.ToString().Substring(5));
             levelsAttempted.Remove(currentSceneName);

@@ -47,6 +47,9 @@ public class UIBehavior : MonoBehaviour
     public GameObject plankCount;
     public GameObject springCount;
     public GameObject heaterCount;
+    public GameObject mainLevelButtons;
+    public GameObject bombLevelButtons;
+    public GameObject tutorialLevelButtons;
 
     //Tooltip
     private GameObject activeTooltip;
@@ -139,7 +142,7 @@ public class UIBehavior : MonoBehaviour
             mainMenuBtn.SetActive(false);
             levelMode.SetActive(false);
             mainMenuMode.SetActive(true);
-            // initMainMenu();
+            initMainMenu();
         }
         else
         {
@@ -260,33 +263,59 @@ class MyComparer : IComparer<string>
     private void initMainMenu()
     {
         Debug.LogWarning("Initalizing main menu");
-        if(levelSelectPanel.GetComponentsInChildren<Button>(true).Length > 1) {
-            var buttons = levelSelectPanel.GetComponentsInChildren<Button>(true);
-            for(var i=0;i<buttons.Length;i++) {
-                var buttonText = buttons[i].GetComponentInChildren<TMP_Text>().text;
-                if(DungeonMaster.completedLevelNumbers.Contains(buttonText)) {
-                    buttons[i].GetComponentInChildren<Image>().color = new Color32(52,195,52,255);
-                } else if (DungeonMaster.attemptedLevelNumbers.Contains(buttonText)) {
-                    buttons[i].GetComponentInChildren<Image>().color = new Color32(231,64,64,255);
-                }
-            }
-        } else {
-            // string[] fileNames = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes"), "*.unity");
-            // for(var i=0;i<fileNames.Length;i++)
-            // {
-            //     fileNames[i] = Path.GetFileNameWithoutExtension(fileNames[i]);
-            // }
-            // fileNames = fileNames.Where(fileName => fileName != "MainMenu").ToArray();
-            // Array.Sort(fileNames, new MyComparer());
-            string[] fileNames = DungeonMaster.scenes;
-            foreach(string fileName in fileNames)
-            {
-                GameObject button = Instantiate(buttonPrefab, levelSelectPanel.transform);
-                button.GetComponentInChildren<TMP_Text>().text = fileName.Substring(5);
-                // Debug.Log("CHECK CONTAINMENT: " + DungeonMaster.levelsCompleted.Contains(fileName));
-                button.GetComponentInChildren<Button>().onClick.AddListener(delegate { DungeonMaster.dm.loadNextLevel(fileName); });
+        var tutorialLevelBtns = tutorialLevelButtons.GetComponentsInChildren<Button>(true);
+        var mainLevelBtns = mainLevelButtons.GetComponentsInChildren<Button>(true);
+        var bombLevelBtns = bombLevelButtons.GetComponentsInChildren<Button>(true);
+        for(int i=0;i<tutorialLevelBtns.Length;i++) {
+            if(DungeonMaster.completedTutorialScenes[i]) {
+                tutorialLevelBtns[i].GetComponentInChildren<Image>().color = new Color32(52,195,52,255);
+            } else if (DungeonMaster.attemptedTutorialScenes[i]) {
+                tutorialLevelBtns[i].GetComponentInChildren<Image>().color = new Color32(231,64,64,255);
             }
         }
+        for(int i=0;i<mainLevelBtns.Length;i++) {
+            if(DungeonMaster.completedMainScenes[i]) {
+                mainLevelBtns[i].GetComponentInChildren<Image>().color = new Color32(52,195,52,255);
+            } else if (DungeonMaster.attemptedMainScenes[i]) {
+                mainLevelBtns[i].GetComponentInChildren<Image>().color = new Color32(231,64,64,255);
+            }
+        }
+        for(int i=0;i<bombLevelBtns.Length;i++) {
+            if(DungeonMaster.completedBombScenes[i]) {
+                bombLevelBtns[i].GetComponentInChildren<Image>().color = new Color32(52,195,52,255);
+            } else if (DungeonMaster.attemptedBombScenes[i]) {
+                bombLevelBtns[i].GetComponentInChildren<Image>().color = new Color32(231,64,64,255);
+            }
+        }
+
+
+        // if(levelSelectPanel.GetComponentsInChildren<Button>(true).Length > 1) {
+        //     var buttons = levelSelectPanel.GetComponentsInChildren<Button>(true);
+        //     for(var i=0;i<buttons.Length;i++) {
+        //         var buttonText = buttons[i].GetComponentInChildren<TMP_Text>().text;
+        //         if(DungeonMaster.completedLevelNumbers.Contains(buttonText)) {
+        //             buttons[i].GetComponentInChildren<Image>().color = new Color32(52,195,52,255);
+        //         } else if (DungeonMaster.attemptedLevelNumbers.Contains(buttonText)) {
+        //             buttons[i].GetComponentInChildren<Image>().color = new Color32(231,64,64,255);
+        //         }
+        //     }
+        // } else {
+        //     // string[] fileNames = Directory.GetFiles(Path.Combine(Directory.GetCurrentDirectory(), "Assets", "Scenes"), "*.unity");
+        //     // for(var i=0;i<fileNames.Length;i++)
+        //     // {
+        //     //     fileNames[i] = Path.GetFileNameWithoutExtension(fileNames[i]);
+        //     // }
+        //     // fileNames = fileNames.Where(fileName => fileName != "MainMenu").ToArray();
+        //     // Array.Sort(fileNames, new MyComparer());
+        //     string[] fileNames = DungeonMaster.scenes;
+        //     foreach(string fileName in fileNames)
+        //     {
+        //         GameObject button = Instantiate(buttonPrefab, levelSelectPanel.transform);
+        //         button.GetComponentInChildren<TMP_Text>().text = fileName.Substring(5);
+        //         // Debug.Log("CHECK CONTAINMENT: " + DungeonMaster.levelsCompleted.Contains(fileName));
+        //         button.GetComponentInChildren<Button>().onClick.AddListener(delegate { DungeonMaster.dm.loadNextLevel(fileName); });
+        //     }
+        // }
     }
 
     private void levelSelect(string levelName)
