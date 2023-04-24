@@ -50,6 +50,16 @@ public class DungeonMaster : MonoBehaviour
     public static List<string> levelsAttempted = new List<string>();
     public static List<string> completedLevelNumbers = new List<string>();
     public static List<string> attemptedLevelNumbers = new List<string>();
+    public static string[] tutorialSceneNames = {"Tutorial_1", "Tutorial_2", "Tutorial_3", "Tutorial_4", "Tutorial_5", "Tutorial_6", "Tutorial_7", "Tutorial_8"};
+    public static bool[] attemptedTutorialScenes = {false, false, false, false, false, false, false, false};
+    public static bool[] completedTutorialScenes = {false, false, false, false, false, false, false, false};
+    public static string[] mainSceneNames = {"MainLevel1", "MainLevel2", "MainLevel3", "MainLevel4","MainLevel5", "MainLevel6", "MainLevel7"};
+    public static bool[] attemptedMainScenes = {false, false, false, false, false, false, false};
+    public static bool[] completedMainScenes = {false, false, false, false, false, false, false};
+    public static string[] bombSceneNames = {"BombLevel1", "BombLevel2", "BombLevel3"};
+    public static bool[] attemptedBombScenes = {false, false, false};
+    public static bool[] completedBombScenes = {false, false, false};
+
     public GameObject[] enemyElements;
     // public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;
@@ -207,7 +217,7 @@ public class DungeonMaster : MonoBehaviour
             }
             else
             {
-                levelNumber.text = currentSceneName.ToString().Substring(5);
+                levelNumber.text = currentSceneName.ToString().Substring(9);
             }
         }
 
