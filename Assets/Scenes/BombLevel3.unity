@@ -3367,7 +3367,7 @@ PrefabInstance:
       objectReference: {fileID: 3677057235638134532, guid: 30a59ffceb659482cb9c39ab62a6ee3d, type: 3}
     - target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
       propertyPath: nextSceneName
-      value: Level15
+      value: BombLevel3
       objectReference: {fileID: 0}
     - target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
       propertyPath: currentSceneName
@@ -3595,6 +3595,10 @@ PrefabInstance:
     - target: {fileID: 8774257970786963806, guid: 98f25ab1268228647a7c94cea6bc613e, type: 3}
       propertyPath: levelBombTime
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8774257970786963807, guid: 98f25ab1268228647a7c94cea6bc613e, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98f25ab1268228647a7c94cea6bc613e, type: 3}

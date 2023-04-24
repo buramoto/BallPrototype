@@ -59,6 +59,7 @@ public class BallScript : MonoBehaviour
 
     // bomb sprite
     public Sprite bombSprite;
+    public ParticleSystem bombParticleSystem;
 
     // variable for Ball Projectile from Cannon
     public int plankCountToDestroy = 0;
@@ -195,6 +196,7 @@ public class BallScript : MonoBehaviour
                 ballTimerRenderer.enabled = false;
                 BallTimer = null;
                 Instantiate(smoke, ball.transform.position, Quaternion.identity);
+                bombParticleSystem.gameObject.SetActive(false);
                 Debug.Log("Ka Booooom !!!!");
             }
             else
@@ -458,11 +460,20 @@ public class BallScript : MonoBehaviour
         //ballPhysics.transform.position = startPosition;
         time = levelBombTime;
         timedecrease = true;
+        if (BallTimer != null)
+        {
+            bombParticleSystem.gameObject.SetActive(true);
+        }
     }
 
     public void stopSim()
     {
         //Debug.Log("Ball: simulaton stopped");
+        if (BallTimer!=null)
+        {
+            bombParticleSystem.gameObject.SetActive(false);
+        }
+
         plankCountToDestroy = 0;
         ball.GetComponent<SpriteRenderer>().enabled = true;
         ballPhysics.constraints = RigidbodyConstraints2D.FreezePosition;

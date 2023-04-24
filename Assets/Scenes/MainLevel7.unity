@@ -2073,6 +2073,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7074162826104110618, guid: 71697847fbb5e4b5f950bb062727b9e5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71697847fbb5e4b5f950bb062727b9e5, type: 3}
 --- !u!1 &1738399287 stripped
@@ -2740,11 +2744,11 @@ PrefabInstance:
       objectReference: {fileID: 3677057235638134532, guid: 30a59ffceb659482cb9c39ab62a6ee3d, type: 3}
     - target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
       propertyPath: nextSceneName
-      value: Level15
+      value: BombLevel1
       objectReference: {fileID: 0}
     - target: {fileID: 3756637869312585074, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
       propertyPath: currentSceneName
-      value: BombLevel3
+      value: MainLevel7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbf394591c685184e850b2612b74b0bc, type: 3}
