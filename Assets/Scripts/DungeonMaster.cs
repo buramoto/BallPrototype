@@ -339,6 +339,7 @@ public class DungeonMaster : MonoBehaviour
             for (int i = 0; i < enemyElements.Length; i++)
             {
                 enemyElements[i].SetActive(true);
+                enemyElements[i].GetComponent<EnemyBehaviour>().setEnemyParticleSystemToInActive();
             }
 
             // for (int i = 0; i < hearts.Length; i++)
