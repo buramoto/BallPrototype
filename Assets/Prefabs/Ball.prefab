@@ -106,7 +106,7 @@ MonoBehaviour:
   normalMaterial: {fileID: 6200000, guid: 7c5bc72bcec199042ab8a6c1ce06552c, type: 2}
   steelMaterial: {fileID: 6200000, guid: 407c73d0daffd6c4f8770d5db1c4c1a0, type: 2}
   rubberMaterial: {fileID: 6200000, guid: 656c8f3bd441b4845866df7fcaa74d93, type: 2}
-  steelChangeTime: 3
+  steelChangeTime: 5
   woodChangeTime: 5
   editable: 0
   anim: {fileID: 0}

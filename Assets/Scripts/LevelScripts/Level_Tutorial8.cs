@@ -6,13 +6,10 @@ using TMPro;
 
 public class Level_Tutorial8 : MonoBehaviour
 {
-    float timeLeft = 2.0f;
+    float timeLeft = 3.0f;
     public GameObject starttxt;
     GameObject levelmode;
     GameObject mainmenumode;
-    GameObject backgroundImage;
-    GameObject videoRenderer;
-    GameObject playText;
     GameObject initialtext;
     GameObject highlightedArea;
     GameObject highlightedArea1;
@@ -20,44 +17,9 @@ public class Level_Tutorial8 : MonoBehaviour
     GameObject steelBall;
     GameObject woodBall;
     GameObject waterBody;
-    bool videoover = false;
-    // Start is called before the first frame update
 
     void Awake()
     {
-        //Assigning references for the canvas gameobjects
-        levelmode = UIBehavior.gameUI.gameObject.transform.Find("LevelMode").gameObject;
-        mainmenumode = UIBehavior.gameUI.gameObject.transform.Find("Main Menu").gameObject;
-        // backgroundImage = GameObject.Find("Black_Background");
-        videoRenderer = GameObject.Find("Screen");
-        playText = GameObject.Find("Play_Text");
-        initialtext = GameObject.Find("Initial_Text");
-        initialtext.SetActive(false);
-        highlightedArea = GameObject.Find("Highlighted area");
-        var col = highlightedArea.GetComponent<Image>().color;
-        col.a = 0;
-        highlightedArea.GetComponent<Image>().color = col;
-
-        highlightedArea = GameObject.Find("Highlighted area (1)");
-        var col2 = highlightedArea.GetComponent<Image>().color;
-        col2.a = 0;
-        highlightedArea.GetComponent<Image>().color = col2;
-        backgroundImage = GameObject.Find("Black_Background");
-        normalBall = GameObject.Find("Normal");
-        steelBall = GameObject.Find("Steel");
-        woodBall = GameObject.Find("Wood");
-        waterBody = GameObject.FindGameObjectWithTag("WaterBody");
-        waterBody.SetActive(false);
-        steelBall.SetActive(false);
-        woodBall.SetActive(false);
-        normalBall.SetActive(false);
-        videoover = false;
-        levelmode.SetActive(false);
-        mainmenumode.SetActive(false);
-    }
-    void Start()
-    {
-        GlobalVariables.levelScore = 0;
         GameObject.FindGameObjectsWithTag("MenuBtn")[0].SetActive(true);
         UIBehavior.gameUI.timer.SetActive(true);
         Time.timeScale = 1;
@@ -70,24 +32,34 @@ public class Level_Tutorial8 : MonoBehaviour
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
+        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[3].gameObject.SetActive(true);
+        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[4].gameObject.SetActive(true);
 
-        UIBehavior.gameUI.timer.SetActive(false);
-        // UIBehavior.gameUI.toolKitPanel.SetActive(false);
-        // Setting Plank, Spring & Heater Tools InActive
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[1].gameObject.SetActive(false);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
 
+        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
+        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
 
         UIBehavior.gameUI.controlPanel.GetComponentsInChildren<Button>()[1].gameObject.SetActive(false);
-        //initialtext = GameObject.Find("Initial_Text");
-        //initialtext.SetActive(false);
-        levelmode.SetActive(false);
-        mainmenumode.SetActive(false);
-        steelBall.SetActive(false);
-        woodBall.SetActive(false);
-        normalBall.SetActive(false);
-        waterBody.SetActive(false);
+
+        // backgroundImage = GameObject.Find("Black_Background");
+        initialtext = GameObject.Find("Initial_Text");
+        normalBall = GameObject.Find("Normal");
+        steelBall = GameObject.Find("Steel");
+        woodBall = GameObject.Find("Wood");
+        waterBody = GameObject.FindGameObjectWithTag("WaterBody");
+        highlightedArea = GameObject.Find("Highlighted area");
+        highlightedArea1 = GameObject.Find("Highlighted area (1)");
+        waterBody.SetActive(true);
+        steelBall.SetActive(true);
+        woodBall.SetActive(true);
+        normalBall.SetActive(true);
+    }
+    void Start()
+    {
+        GlobalVariables.levelScore = 0;
     }
 
     // Update is called once per frame
@@ -99,49 +71,46 @@ public class Level_Tutorial8 : MonoBehaviour
         {
             buttonText = button.GetComponentInChildren<TMP_Text>();
         }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            backgroundImage.SetActive(false);
-            videoRenderer.SetActive(false);
-            playText.SetActive(false);
-            levelmode.SetActive(true);
-            mainmenumode.SetActive(true);
-            // starttext.SetActive(true);
-            videoover = true;
-            waterBody.SetActive(true);
-        }
-        if (!DungeonMaster.dm.simulationMode && videoover)
+        if (!DungeonMaster.dm.simulationMode)
         {
             initialtext.SetActive(true);
             steelBall.SetActive(true);
             woodBall.SetActive(true);
             normalBall.SetActive(true);
-            highlightedArea = GameObject.Find("Highlighted area");
+            
             var col = highlightedArea.GetComponent<Image>().color;
             col.a = 1f;
             highlightedArea.GetComponent<Image>().color = col;
 
-            highlightedArea = GameObject.Find("Highlighted area (1)");
-            var col2 = highlightedArea.GetComponent<Image>().color;
+            var col2 = highlightedArea1.GetComponent<Image>().color;
             col2.a = 1f;
-            highlightedArea.GetComponent<Image>().color = col2;
+            highlightedArea1.GetComponent<Image>().color = col2;
         }
-        else if(videoover)
+        else
         {
             steelBall.SetActive(false);
             woodBall.SetActive(false);
             normalBall.SetActive(false);
-            highlightedArea = GameObject.Find("Highlighted area");
+            initialtext.SetActive(false);
             var col = highlightedArea.GetComponent<Image>().color;
             col.a = 0;
             highlightedArea.GetComponent<Image>().color = col;
 
-            highlightedArea = GameObject.Find("Highlighted area (1)");
-            var col2 = highlightedArea.GetComponent<Image>().color;
+            var col2 = highlightedArea1.GetComponent<Image>().color;
             col2.a = 0;
-            highlightedArea.GetComponent<Image>().color = col2;
-            initialtext.SetActive(false);
+            highlightedArea1.GetComponent<Image>().color = col2;
+            
             timeLeft -= Time.deltaTime;
+            GameObject[] ball = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject b in ball)
+            {
+                // check the material of the ball .. if it is steel then change the mass to 15f
+                // Debug.Log("ball name"+ b.name);
+                if (b.GetComponent<Rigidbody2D>().mass == 5f)
+                {
+                    b.GetComponent<Rigidbody2D>().mass = 10f;
+                }
+            }
             if (timeLeft < 0.0f)
             {
                 Debug.Log("next level is "+DungeonMaster.dm.nextSceneName);
