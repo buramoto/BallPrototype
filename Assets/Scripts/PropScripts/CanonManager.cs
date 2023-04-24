@@ -189,6 +189,7 @@ public class CanonManager : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<BallScript>().plankCountToDestroy = 2;
+            other.GetComponent<BallScript>().setBallMaterial(StateReference.ballMaterial.normal);
             this.isCanonBallPresent = true;
             
             other.transform.position = GameObject.FindWithTag("CannonBase").transform.position;
