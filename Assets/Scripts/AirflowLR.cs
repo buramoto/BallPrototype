@@ -16,6 +16,6 @@ public class AirflowLR : MonoBehaviour
     void Update()
     {
         areaEffector = GetComponent<AreaEffector2D>();
-        areaEffector.forceMagnitude = 5f;
+        areaEffector.forceMagnitude = 3f;
     }
 }
