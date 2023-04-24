@@ -434,6 +434,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 161039588, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.000015258789
+      objectReference: {fileID: 0}
     - target: {fileID: 1512958688957212461, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.000022888184
@@ -493,6 +497,10 @@ PrefabInstance:
     - target: {fileID: 6171845427970819488, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171845427970819495, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.50006104
       objectReference: {fileID: 0}
     - target: {fileID: 6171845428107800258, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: timer
@@ -676,7 +684,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6171845429117462048, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 205.87502
+      value: 205.87503
       objectReference: {fileID: 0}
     - target: {fileID: 6171845429117462048, guid: d01470217d875054a98ea192585a9129, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -806,6 +814,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8215938006104068739, guid: d01470217d875054a98ea192585a9129, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d01470217d875054a98ea192585a9129, type: 3}
 --- !u!1 &919187375 stripped
@@ -898,7 +910,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
+  m_fontSize: 61
   m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6392,7 +6404,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2138012052074849122, guid: 98f25ab1268228647a7c94cea6bc613e, type: 3}
       propertyPath: m_text
-      value: 10.0
+      value: 10 s
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138012052074849122, guid: 98f25ab1268228647a7c94cea6bc613e, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2138012052074849123, guid: 98f25ab1268228647a7c94cea6bc613e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -6.54
       objectReference: {fileID: 0}
     - target: {fileID: 2138012052218006514, guid: 98f25ab1268228647a7c94cea6bc613e, type: 3}
       propertyPath: m_RootOrder
