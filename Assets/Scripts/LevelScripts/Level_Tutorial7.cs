@@ -99,6 +99,7 @@ public class Level_Tutorial7 : MonoBehaviour
             steelBall.SetActive(false);
             woodBall.SetActive(false);
             normalBall.SetActive(false);
+            timeLeft = 3.0f;
         }
         else
         {

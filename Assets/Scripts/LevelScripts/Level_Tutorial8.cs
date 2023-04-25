@@ -101,16 +101,16 @@ public class Level_Tutorial8 : MonoBehaviour
             highlightedArea1.GetComponent<Image>().color = col2;
             
             timeLeft -= Time.deltaTime;
-            GameObject[] ball = GameObject.FindGameObjectsWithTag("Player");
-            foreach (GameObject b in ball)
-            {
-                // check the material of the ball .. if it is steel then change the mass to 15f
-                // Debug.Log("ball name"+ b.name);
-                if (b.GetComponent<Rigidbody2D>().mass == 5f)
-                {
-                    b.GetComponent<Rigidbody2D>().mass = 10f;
-                }
-            }
+            // GameObject[] ball = GameObject.FindGameObjectsWithTag("Player");
+            // foreach (GameObject b in ball)
+            // {
+            //     // check the material of the ball .. if it is steel then change the mass to 15f
+            //     // Debug.Log("ball name"+ b.name);
+            //     if (b.GetComponent<Rigidbody2D>().mass == 5f)
+            //     {
+            //         b.GetComponent<Rigidbody2D>().mass = 10f;
+            //     }
+            // }
             if (timeLeft < 0.0f)
             {
                 Debug.Log("next level is "+DungeonMaster.dm.nextSceneName);

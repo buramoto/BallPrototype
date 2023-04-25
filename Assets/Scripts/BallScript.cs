@@ -529,7 +529,7 @@ public class BallScript : MonoBehaviour
         switch (material)
         {
             case StateReference.ballMaterial.steel:
-                ballPhysics.mass = 5f;
+                ballPhysics.mass = 10f;
                 ballPhysics.sharedMaterial = steelMaterial;
                 //ballDisplay.color = Color.black;
                 ballDisplay.sprite = steelMaterialSprite;
