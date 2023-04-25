@@ -9,8 +9,17 @@ public class EnemyBehaviour : MonoBehaviour
     //public GameObject RedSplashScreen;
     public GameObject enemy;
     public Vector2 startPosition;
+    public ParticleSystem enemyKilledParticleSystem;
+
+
+    private void Awake()
+    {
+        enemyKilledParticleSystem.gameObject.SetActive(false);
+    }
+
     void Start()
     {
+        //enemyKilledParticleSystem.gameObject.SetActive(false);
         //RedSplashScreen = GameObject.FindWithTag("HealthLoss");
         //if (UIBehavior.gameUI.RedSplashScreen == null) {
             //UIBehavior.gameUI.RedSplashScreen = GameObject.FindWithTag("HealthLoss"); 
@@ -40,6 +49,9 @@ public class EnemyBehaviour : MonoBehaviour
         }
         enemy.GetComponent<Animation>().enabled = true;
         enemy.GetComponent<Collider2D>().enabled = true;
+        Debug.LogWarning("About to set particle system of enemy to FALSE");
+        enemyKilledParticleSystem.gameObject.SetActive(false);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -56,8 +68,9 @@ public class EnemyBehaviour : MonoBehaviour
             }
             // Instead of destroying we will SET setActive(FALSE)
             //Destroy(gameObject);
-           // Instantiate(DungeonMaster.dm.awardPoints, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
-           // Debug.Log("+50 Text Instantiated!!");
+            // Instantiate(DungeonMaster.dm.awardPoints, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
+            // Debug.Log("+50 Text Instantiated!!");
+            enemyKilledParticleSystem.gameObject.SetActive(true);
             gameObject.SetActive(false);
         }
         else if(collision.gameObject.CompareTag("Player"))
@@ -128,5 +141,10 @@ public class EnemyBehaviour : MonoBehaviour
             //Need to call the reset function currently or reduce health later
 
         }
+    }
+
+    public void setEnemyParticleSystemToInActive()
+    {
+        enemyKilledParticleSystem.gameObject.SetActive(false);
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class UnitHealth
 {
     //Fields
-    int _currentHealth;
+    public int _currentHealth;
     int _currentMaxHealth;
 
     //Properties

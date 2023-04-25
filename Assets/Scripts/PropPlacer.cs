@@ -93,7 +93,7 @@ public class PropPlacer : MonoBehaviour
                 operationsPanel = null;
                 return;
             }
-            if (clickedObject.tag == "Cannon" || clickedObject.tag == "Barrel" || clickedObject.tag == "Airflow" || clickedObject.tag == "WaterBody") {
+            if (clickedObject.tag == "Cannon" || clickedObject.tag == "Barrel" || clickedObject.tag == "Airflow" || clickedObject.tag == "WaterBody" || clickedObject.tag == "SpringPref" || clickedObject.tag == "WaterPref"  ) {
                 DungeonMaster.dm.RemoveHighlightFromObject();
                 selectedObject = null;
                 return;
@@ -116,15 +116,15 @@ public class PropPlacer : MonoBehaviour
                     {
                         panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
                         panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
-                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 35;
-                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 35;
+                        //panel.GetComponent<HorizontalLayoutGroup>().padding.left = 35;
+                        //panel.GetComponent<HorizontalLayoutGroup>().padding.right = 35;
                     }
                     else
                     {
                         panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
                         panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
-                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
+                        //panel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
+                        //panel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
                     }
                 }
                 else
@@ -134,15 +134,15 @@ public class PropPlacer : MonoBehaviour
                     {
                         panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
                         panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
-                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 30;
-                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 30;
+                        //panel.GetComponent<HorizontalLayoutGroup>().padding.left = 30;
+                        //panel.GetComponent<HorizontalLayoutGroup>().padding.right = 30;
                     }
                     else
                     {
                         panel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(true);
                         panel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(true);
-                        panel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
-                        panel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
+                        //panel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
+                        //panel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
                     }
                 }
                 // below function set operation buttons to active mode when a correct object is clicked/highlighted
@@ -320,8 +320,8 @@ public class PropPlacer : MonoBehaviour
             }
         }
 
-        //Positioning of operations panel
-        if(selectedObject != null)
+        //Positioning of operations panel -0.008792338 -0.1803662 -0.01079181 0.1576338 || -0.008792326 -0.1920291 -0.01079233 0.1699709
+        if (selectedObject != null)
         {
             Bounds propCorners = selectedObject.GetComponent<Collider2D>().bounds;
             //Vector3 panelOffset = new Vector3(0, propCorners.center.y - propCorners.extents.y, 0);

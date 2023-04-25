@@ -43,13 +43,23 @@ public class DungeonMaster : MonoBehaviour
     // Level7: Planks and Spring
     // Level8: Introduction to enemies
     // Level9: Main Level (Previously "UIDev")
-    public string[] enemyLevelNames = {"Level7","Level8","Level9","Level11","Level15"};
-    private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8"};
-    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12","Level13","Level14", "Level15", "Level16"};
+    public string[] enemyLevelNames = {"MainLevel2", "MainLevel3", "MainLevel4"};
+    private string[] tutorialScenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Tutorial_7", "Tutorial_8" };
+    public static string[] scenes = {"Level1", "Level2", "Level3", "Level4", "Level5", "Level6", "Level7", "Level8", "Level9", "Level10", "Level11","Level12","Level13","Level14", "BombLevel3","Level15", "Tutorial_7", "Tutorial_8", "Level16", "MainLevel5","MainLevel6","MainLevel7"};
     public static List<string> levelsCompleted = new List<string>();
     public static List<string> levelsAttempted = new List<string>();
     public static List<string> completedLevelNumbers = new List<string>();
     public static List<string> attemptedLevelNumbers = new List<string>();
+    public static string[] tutorialSceneNames = {"Tutorial_1", "Tutorial_2", "Tutorial_3", "Tutorial_4", "Tutorial_5", "Tutorial_6", "Tutorial_7", "Tutorial_8"};
+    public static bool[] attemptedTutorialScenes = {false, false, false, false, false, false, false, false};
+    public static bool[] completedTutorialScenes = {false, false, false, false, false, false, false, false};
+    public static string[] mainSceneNames = {"MainLevel1", "MainLevel2", "MainLevel3", "MainLevel4","MainLevel5", "MainLevel6", "MainLevel7"};
+    public static bool[] attemptedMainScenes = {false, false, false, false, false, false, false};
+    public static bool[] completedMainScenes = {false, false, false, false, false, false, false};
+    public static string[] bombSceneNames = {"BombLevel1", "BombLevel2", "BombLevel3"};
+    public static bool[] attemptedBombScenes = {false, false, false};
+    public static bool[] completedBombScenes = {false, false, false};
+
     public GameObject[] enemyElements;
     // public HeartBehavior[] hearts;
     public TMPro.TextMeshProUGUI instructions;
@@ -151,13 +161,20 @@ public class DungeonMaster : MonoBehaviour
         currentSceneName = scene.name;
         //sequence = sequences[currentSceneName];
         Debug.Log("Initalizing level "+currentSceneName);
-        if(currentSceneName == "MainMenu")
+        if(currentSceneName == "MainMenu" || currentSceneName == "New_MainMenu")
         {
             return;
         }
         if(!levelsCompleted.Contains(currentSceneName)) {
             levelsAttempted.Add(currentSceneName);
             attemptedLevelNumbers.Add(currentSceneName.ToString().Substring(5));
+        }
+        if(tutorialSceneNames.Contains(currentSceneName)) {
+            attemptedTutorialScenes[Array.IndexOf(tutorialSceneNames,currentSceneName)] = true;
+        } else if(mainSceneNames.Contains(currentSceneName)) {
+            attemptedMainScenes[Array.IndexOf(mainSceneNames,currentSceneName)] = true;
+        } else if(bombSceneNames.Contains(currentSceneName)) {
+            attemptedBombScenes[Array.IndexOf(bombSceneNames,currentSceneName)] = true;
         }
         isLevelOn = true;
         _ballHealth = new UnitHealth(100, 100);
@@ -201,13 +218,13 @@ public class DungeonMaster : MonoBehaviour
         if(levelNumber!=null)
         {
             Debug.Log("Scene text"+currentSceneName);
-            if(currentSceneName=="MainMenu")
+            if(currentSceneName=="MainMenu" || currentSceneName=="New_MainMenu")
             {
                 levelNumber.text="";
             }
             else
             {
-                levelNumber.text = currentSceneName.ToString().Substring(5);
+                levelNumber.text = currentSceneName.ToString().Substring(9);
             }
         }
 
@@ -247,7 +264,8 @@ public class DungeonMaster : MonoBehaviour
             scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
         }
         UIBehavior.gameUI.changeButtonStateToStart();
-        SceneManager.LoadScene("MainMenu");
+        // SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("New_MainMenu");
         // GameObject levelName = GameObject.Find("Level_Name");
         TextMeshPro levelNumber = GameObject.Find("Background").GetComponentInChildren<TextMeshPro>();
         if(levelNumber!=null)
@@ -338,6 +356,7 @@ public class DungeonMaster : MonoBehaviour
             for (int i = 0; i < enemyElements.Length; i++)
             {
                 enemyElements[i].SetActive(true);
+                enemyElements[i].GetComponent<EnemyBehaviour>().setEnemyParticleSystemToInActive();
             }
 
             // for (int i = 0; i < hearts.Length; i++)
@@ -384,6 +403,13 @@ public class DungeonMaster : MonoBehaviour
             //timeArray[counter]=timeValue;
             timeTaken = timeValue;
             isLevelOn = false;
+            if(tutorialSceneNames.Contains(currentSceneName)) {
+                completedTutorialScenes[Array.IndexOf(tutorialSceneNames,currentSceneName)] = true;
+            } else if(mainSceneNames.Contains(currentSceneName)) {
+                completedMainScenes[Array.IndexOf(mainSceneNames,currentSceneName)] = true;
+            } else if(bombSceneNames.Contains(currentSceneName)) {
+                completedBombScenes[Array.IndexOf(bombSceneNames,currentSceneName)] = true;
+            }
             levelsCompleted.Add(currentSceneName);
             completedLevelNumbers.Add(currentSceneName.ToString().Substring(5));
             levelsAttempted.Remove(currentSceneName);
@@ -397,7 +423,7 @@ public class DungeonMaster : MonoBehaviour
                 scoreText.GetComponent<TMPro.TextMeshProUGUI>().text = GlobalVariables.levelScore.ToString();
             }
             // Storing the number of player's lives left
-            // GlobalVariables.livesLeft = lives;
+            GlobalVariables.livesLeft = _ballHealth._currentHealth;
 
             Debug.Log("Heaters used: " + GlobalVariables.heaterUsed);
             //Display a Win screen

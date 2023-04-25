@@ -189,10 +189,13 @@ public class CanonManager : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<BallScript>().plankCountToDestroy = 2;
+            other.GetComponent<BallScript>().setBallMaterial(StateReference.ballMaterial.normal);
             this.isCanonBallPresent = true;
             
             other.transform.position = GameObject.FindWithTag("CannonBase").transform.position;
             other.GetComponent<SpriteRenderer>().enabled = false;
+            other.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+            Debug.Log("Inside Cannon ball" + other.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled);
 
             // disabling the gravity forces on the ball
             Rigidbody2D ballRigidBody = other.GetComponent<Rigidbody2D>();

@@ -102,12 +102,24 @@ MonoBehaviour:
   ball: {fileID: 7237235675206451526}
   tempState: 0
   startPosition: {x: 0, y: 0}
+  ballMaterialState: 0
+  normalMaterial: {fileID: 0}
+  steelMaterial: {fileID: 0}
+  rubberMaterial: {fileID: 0}
+  steelChangeTime: 0
+  woodChangeTime: 0
   editable: 0
   anim: {fileID: 0}
   swordHolder: {fileID: 0}
   BallTimer: {fileID: 0}
   levelBombTime: 0
   smoke: {fileID: 0}
+  steelMaterialSprite: {fileID: 21300000, guid: 5066fba93d8ce4de1ad91a0c0cb02ac1, type: 3}
+  normalMaterialSprite: {fileID: 21300000, guid: 0c0e8d777a2d0405a947c53c81c3e5f5, type: 3}
+  woodMaterialSprite: {fileID: 21300000, guid: a9a26fffeb44c4e0498166e7e4974291, type: 3}
+  bombSprite: {fileID: 21300000, guid: 16597bab42cd343e894f4b179d3e3ea4, type: 3}
+  bombParticleSystem: {fileID: 0}
+  plankCountToDestroy: 0
 --- !u!50 &7237235675206451524
 Rigidbody2D:
   serializedVersion: 4
@@ -142,6 +154,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.009320428, y: -0.047134507}
+  m_Offset: {x: -0.0058421753, y: -0.0492887}
   serializedVersion: 2
-  m_Radius: 0.12113506
+  m_Radius: 0.12113508

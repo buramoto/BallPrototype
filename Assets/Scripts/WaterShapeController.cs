@@ -49,6 +49,7 @@ public class WaterShapeController : MonoBehaviour
     IEnumerator Destroy(GameObject go) {
         yield return null;
         DestroyImmediate(go);
+        //go.SetActive(false);
     }
     private void SetWaves() { 
         Spline waterSpline = spriteShapeController.spline;
