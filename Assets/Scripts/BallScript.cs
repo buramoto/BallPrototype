@@ -144,9 +144,9 @@ public class BallScript : MonoBehaviour
             if(DungeonMaster.dm.currentSceneName == "Tutorial_4"){
                 GameObject.FindObjectOfType<Level_Tutorial4>().SendMessage("OutOfBounds", "oob");
             }
-            if(DungeonMaster.dm.currentSceneName == "MainLevel6"){
+           /* if(DungeonMaster.dm.currentSceneName == "MainLevel6"){
                 GameObject.FindObjectOfType<MainLevel6>().SendMessage("OutOfBounds", "oob");
-            }
+            }*/
             UIBehavior.gameUI.oobCoords = transform.position;
             //DungeonMaster.dm.instructions.text = "Use The Tools To The Right To Direct The Ball &\nThen Click Start To Begin Ball's Motion";
             DungeonMaster.dm._ballHealth.DamageUnit(10);
