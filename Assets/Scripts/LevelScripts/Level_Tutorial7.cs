@@ -17,6 +17,9 @@ public class Level_Tutorial7 : MonoBehaviour
     GameObject normalBall;
     GameObject steelBall;
     GameObject woodBall;
+
+    // below variable is for airflow
+    public GameObject[] objectsToDisable;
     // bool videoover = false;
     // Start is called before the first frame update
 
@@ -72,6 +75,11 @@ public class Level_Tutorial7 : MonoBehaviour
         steelBall.SetActive(false);
         woodBall.SetActive(false);
         normalBall.SetActive(false);
+        //GameObject[] objectsToDisable = GameObject.FindGameObjectsWithTag("Airflow");
+        foreach (GameObject objectToDisable in objectsToDisable)
+        {
+            objectToDisable.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -100,6 +108,12 @@ public class Level_Tutorial7 : MonoBehaviour
             woodBall.SetActive(false);
             normalBall.SetActive(false);
             timeLeft = 3.0f;
+
+            foreach (GameObject objectToDisable in objectsToDisable)
+            {
+                if(!objectToDisable.activeSelf)
+                    objectToDisable.SetActive(true);
+            }
         }
         else
         {
@@ -111,7 +125,6 @@ public class Level_Tutorial7 : MonoBehaviour
             if (timeLeft < 0.0f)
             {
                 //Debug.Log("next level is "+DungeonMaster.dm.nextSceneName);
-                GameObject[] objectsToDisable = GameObject.FindGameObjectsWithTag("Airflow");
                 foreach (GameObject objectToDisable in objectsToDisable)
                 {
                     objectToDisable.SetActive(false);

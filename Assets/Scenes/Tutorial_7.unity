@@ -940,6 +940,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeLeft: 3
   starttxt: {fileID: 0}
+  objectsToDisable:
+  - {fileID: 890365642}
+  - {fileID: 1685827999}
+  - {fileID: 1651858494}
 --- !u!1 &777716792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1220,6 +1224,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c469d212e86402342bc6a7658522fc9a, type: 3}
+--- !u!1 &890365642 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4725613492802081440, guid: c469d212e86402342bc6a7658522fc9a, type: 3}
+  m_PrefabInstance: {fileID: 890365641}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1045117028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2542,7 +2551,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.95
+  m_fontSize: 19.2
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2774,7 +2783,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.3
+  m_fontSize: 19.25
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2889,6 +2898,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c469d212e86402342bc6a7658522fc9a, type: 3}
+--- !u!1 &1651858494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4725613492802081440, guid: c469d212e86402342bc6a7658522fc9a, type: 3}
+  m_PrefabInstance: {fileID: 1651858493}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1655749639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3015,6 +3029,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c469d212e86402342bc6a7658522fc9a, type: 3}
+--- !u!1 &1685827999 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4725613492802081440, guid: c469d212e86402342bc6a7658522fc9a, type: 3}
+  m_PrefabInstance: {fileID: 1685827998}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1784551728
 GameObject:
   m_ObjectHideFlags: 0
@@ -3100,7 +3119,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.6
+  m_fontSize: 36
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3240,7 +3259,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.55
+  m_fontSize: 19.1
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
