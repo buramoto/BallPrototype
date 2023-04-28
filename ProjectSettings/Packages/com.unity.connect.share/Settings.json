@@ -21,7 +21,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"C:/Users/Rushit Jain/Desktop/BallPrototype/Build/localBuild;C:/Users/Rushit Jain/Desktop/BallPrototype/week14/v2;C:/Users/Rushit Jain/Desktop/BallPrototype/week14/v1;/Users/parthrasujangid/GameDEV/BallPrototype/week13/v2;C:/Users/Rushit Jain/Desktop/BallPrototype/week11/v2;C:/Users/Rushit Jain/Desktop/BallPrototype/week11;/Users/parth/Documents/My stuff/CSCI 526 Game Dev/BallPrototype/Build/test;/Users/parth/Documents/My stuff/CSCI 526 Game Dev/BallPrototype/Build/build/test;/Users/parthrasujangid/BallPrototype/WebGL Builds;/Users/parth/Documents/My stuff/CSCI 526 Game Dev/BallPrototype/WebGL Builds\"}"
+                "value": "{\"m_Value\":\"/Users/parth/Documents/My stuff/CSCI 526 Game Dev/BallPrototype/week15;C:/Users/Rushit Jain/Desktop/BallPrototype/Build/localBuild;C:/Users/Rushit Jain/Desktop/BallPrototype/week14/v2;C:/Users/Rushit Jain/Desktop/BallPrototype/week14/v1;/Users/parthrasujangid/GameDEV/BallPrototype/week13/v2;C:/Users/Rushit Jain/Desktop/BallPrototype/week11/v2;C:/Users/Rushit Jain/Desktop/BallPrototype/week11;/Users/parth/Documents/My stuff/CSCI 526 Game Dev/BallPrototype/Build/test;/Users/parth/Documents/My stuff/CSCI 526 Game Dev/BallPrototype/Build/build/test;/Users/parthrasujangid/BallPrototype/WebGL Builds\"}"
             }
         ]
     }
