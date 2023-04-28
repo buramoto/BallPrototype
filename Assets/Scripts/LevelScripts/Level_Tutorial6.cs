@@ -28,17 +28,18 @@ public class Level_Tutorial6 : MonoBehaviour
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[3].gameObject.SetActive(true);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[4].gameObject.SetActive(true);
 
-        // Setting the Plank, STEEL & WOOD Material in the ToolKit Panel to INACTIVE
+        // Setting the Plank, STEEL, Heater & WOOD Material in the ToolKit Panel to INACTIVE
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[0].gameObject.SetActive(false);
+        UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[2].gameObject.SetActive(false);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[3].gameObject.SetActive(false);
         UIBehavior.gameUI.toolKitPanel.GetComponentsInChildren<Button>(true)[4].gameObject.SetActive(false);
 
         // To ensure that the buttons isn't stretched
-        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 5;
-        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 5;
+        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.left = 120;
+        UIBehavior.gameUI.toolKitPanel.GetComponent<HorizontalLayoutGroup>().padding.right = 120;
 
         GlobalVariables.springCap = 2;
-        GlobalVariables.heaterCap = 1;
+       // GlobalVariables.heaterCap = 1;
 
         //Assigning references for the canvas gameobjects
         levelmode = UIBehavior.gameUI.gameObject.transform.Find("LevelMode").gameObject;
